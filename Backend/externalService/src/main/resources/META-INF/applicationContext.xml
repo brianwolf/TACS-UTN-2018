@@ -13,8 +13,8 @@
 
 	<context:component-scan base-package="ar.utn.tacs*" />
 
-	<bean id="userService" class="ar.utn.tacs.userService.serviceImpl.UserServiceImpl" />
+	<bean id="externalService" class="ar.utn.tacs.externalService.serviceImpl.ExternalServiceImpl" />
 	
-	<bean id="userDao" class="ar.utn.tacs.userService.dao.UserDao" />
+	<bean id="externalDao" class="ar.utn.tacs.externalService.dao.ExternalDao" />
 
 </beans>

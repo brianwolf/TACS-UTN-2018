@@ -25,11 +25,4 @@
 <!-- 	<import resource="classpath*:META-INF/applicationContext.xml" /> -->
 <!-- 	<import resource="classpath*:META-INF/configDataSource.xml" /> -->
 
-	<bean id="asd" class="java.lang.String">
-		<constructor-arg value="hola viteh!" />
-	</bean>
-	
-<!-- 	<bean id="asd" class="java.lang.String"> -->
-<!-- 		<constructor-arg value="hola viteh!" /> -->
-<!-- 	</bean> -->
 </beans>
