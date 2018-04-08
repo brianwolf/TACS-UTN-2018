@@ -8,10 +8,8 @@ import ar.utn.tacs.user.User;
 
 public interface UserRest extends GenericRest{
 	
-	public static final String base= "/userService"; 
-	
-	public static final String getUserById= "/getUserById/{userId}";
-	public static final String validateNickAndPass= "/validateNickAndPass/{nick}/{pass}";
+	public static final String BASE= "/usuarios"; 
+	public static final String VALIDATE= "/validate";
 	
 	/**
 	 * Retorna un usuario por su id
@@ -29,7 +27,7 @@ public interface UserRest extends GenericRest{
 	 * @param pass
 	 * @return {@link User}
 	 */
-	public Response ValidateNickAndPass(String nick, String pass);
+	public Response validateNickAndPass(String nick, String pass);
 	
 	/**
 	 * Crea un nuevo usuario con nick y pass
