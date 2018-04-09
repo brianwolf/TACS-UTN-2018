@@ -1,42 +1,48 @@
 package ar.utn.tacs.walletService.rest;
 
+import java.math.BigDecimal;
+
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 import ar.utn.tacs.rest.GenericRest;
-import ar.utn.tacs.user.User;
 
+public interface WalletRest extends GenericRest {
 
-public interface WalletRest extends GenericRest{
+	public static final String base = "/walletService";
 	
-	public static final String base= "/walletService"; 
-	
-	public static final String getUserById= "/getUserById/{userId}";
-	public static final String validateNickAndPass= "/validateNickAndPass/{nick}/{pass}";
-	
+	public static final String buy = "/buy";
+	public static final String sale = "/sale";
+	public static final String buyHistory = "/buyHistory/{idUser}";
+	public static final String transactionHistory = "/userTransactionHistory/{idUser}/{idCoin}";
+
 	/**
-	 * Retorna un usuario por su id
-	 * 
-	 * @param idUsuario
-	 * @return {@link User}
+	 * @param idUser
+	 * @param idCoin
+	 * @param amount
+	 * @return {@link JsonValue}
 	 */
-	public Response getUserById(int userId);
-	
-	
+	Response buy(long idUser, long idCoin, BigDecimal amount);
+
 	/**
-	 * Valida la existencia de un usuario con ese nick y esa password
-	 * 
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @param idUser
+	 * @param idCoin
+	 * @param amount
+	 * @return {@link JsonValue}
 	 */
-	public Response ValidateNickAndPass(String nick, String pass);
-	
+	Response sale(long idUser, long idCoin, BigDecimal amount);
+
 	/**
-	 * Crea un nuevo usuario con nick y pass
-	 * 
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @param idUser
+	 * @return {@link JsonValue}
 	 */
-	public Response newUser(String nick, String pass);
+	Response buyHistory(long idUser);
+
+	/**
+	 * @param idUser
+	 * @param idCoin
+	 * @return {@link JsonValue}
+	 */
+	Response userTransactionHistory(long idUser, long idCoin);
 }

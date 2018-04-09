@@ -1,22 +1,43 @@
 package ar.utn.tacs.adminService.service;
 
-import ar.utn.tacs.service.GenericService;
-import ar.utn.tacs.user.User;
+import java.util.List;
 
-public interface AdminService extends GenericService{
-	
-	
+import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.service.GenericService;
+
+public interface AdminService extends GenericService {
+
+
 	/**
-	 * @param userId
+	 * @param idUserA
+	 * @param idUserB
 	 * @return {@link User}
 	 */
-	public User getUserById(int userId);
-	
-	
+	User compareBalance(long idUserA, long idUserB);
+
 	/**
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @return {@link List}{@link Transaction}
 	 */
-	public User validateNickAndPass(String nick, String pass);
+	List<Transaction> statesToday();
+
+	/**
+	 * @return {@link List}{@link Transaction}
+	 */
+	List<Transaction> statesThreeDays();
+
+	/**
+	 * @return {@link List}{@link Transaction}
+	 */
+	List<Transaction> statesLastWeek();
+
+	/**
+	 * @return {@link List}{@link Transaction}
+	 */
+	List<Transaction> statesLastMonth();
+
+	/**
+	 * @return {@link List}{@link Transaction}
+	 */
+	List<Transaction> statesStartTimes();
 }

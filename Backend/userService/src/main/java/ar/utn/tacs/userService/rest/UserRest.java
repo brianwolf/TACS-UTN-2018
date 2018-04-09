@@ -2,39 +2,42 @@ package ar.utn.tacs.userService.rest;
 
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
+import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.GenericRest;
-import ar.utn.tacs.user.User;
 
 
 public interface UserRest extends GenericRest{
 	
-	public static final String BASE= "/usuarios"; 
-	public static final String VALIDATE= "/validate";
+	public static final String BASE= "/userService"; 
+	
+	public static final String NEW_USER= "/newUser";
+	public static final String GET_USER_BY_LOGIN= "/getUserByLogin/{nick}/{pass}";
+	public static final String GET_USER_BY_ID= "/getUserById/{id}";
+	public static final String GET_ALL_USERS_IDS= "/getAllUserIds";
 	
 	/**
-	 * Retorna un usuario por su id
-	 * 
-	 * @param idUsuario
-	 * @return {@link User}
+	 * @param user
+	 * @return {@link JsonValue}
 	 */
-	public Response getUserById(int userId);
-	
+	Response newUser(User user);
 	
 	/**
-	 * Valida la existencia de un usuario con ese nick y esa password
-	 * 
 	 * @param nick
 	 * @param pass
-	 * @return {@link User}
+	 * @return {@link JsonValue}
 	 */
-	public Response validateNickAndPass(String nick, String pass);
+	Response getUserByLogin(String nick, String pass);
 	
 	/**
-	 * Crea un nuevo usuario con nick y pass
-	 * 
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @param id
+	 * @return {@link JsonValue}
 	 */
-	public Response newUser(String nick, String pass);
+	Response getUserById(long id);
+	
+	/**
+	 * @return {@link JsonValue}
+	 */
+	Response getAllUserIds();
 }

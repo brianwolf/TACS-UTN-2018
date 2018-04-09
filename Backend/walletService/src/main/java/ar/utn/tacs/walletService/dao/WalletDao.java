@@ -1,7 +1,7 @@
 package ar.utn.tacs.walletService.dao;
 
 import ar.utn.tacs.dao.GenericAbstractDao;
-import ar.utn.tacs.user.User;
+import ar.utn.tacs.model.user.User;
 
 public class WalletDao extends GenericAbstractDao<User> {
 

@@ -2,41 +2,50 @@ package ar.utn.tacs.adminService.rest;
 
 import javax.ws.rs.core.Response;
 
-import ar.utn.tacs.rest.GenericRest;
-import ar.utn.tacs.user.User;
+import org.codehaus.jackson.annotate.JsonValue;
 
+import ar.utn.tacs.service.GenericService;
 
-public interface AdminRest extends GenericRest{
+public interface AdminRest extends GenericService{
 	
-	public static final String base= "/adminService"; 
+	public static final String BASE = "/adminService";
 	
-	public static final String getUserById= "/getUserById/{userId}";
-	public static final String validateNickAndPass= "/validateNickAndPass/{nick}/{pass}";
+	public static final String COMPARE_BALANCE = "/compareBalance/{idUserA}/{idUserB}";
+	public static final String STATES_TODAY = "/statesToday";
+	public static final String STATES_THREE_DAYS = "/statesThreeDays";
+	public static final String STATES_LAST_WEEK = "/statesLastWeek";
+	public static final String STATES_LAST_MOTH = "/statesLastMonth";
+	public static final String STATES_START_TIMES = "/statesStartTimes";
+
+	/**
+	 * @param idUserA
+	 * @param idUserB
+	 * @return {@link JsonValue}
+	 */
+	Response compareBalance(long idUserA, long idUserB);
 	
 	/**
-	 * Retorna un usuario por su id
-	 * 
-	 * @param idUsuario
-	 * @return {@link User}
+	 * @return {@link JsonValue}
 	 */
-	public Response getUserById(int userId);
-	
+	Response statesToday();
 	
 	/**
-	 * Valida la existencia de un usuario con ese nick y esa password
-	 * 
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @return {@link JsonValue}
 	 */
-	public Response ValidateNickAndPass(String nick, String pass);
+	Response statesThreeDays();
 	
 	/**
-	 * Crea un nuevo usuario con nick y pass
-	 * 
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @return {@link JsonValue}
 	 */
-	public Response newUser(String nick, String pass);
+	Response statesLastWeek();
+	
+	/**
+	 * @return {@link JsonValue}
+	 */
+	Response statesLastMonth();
+	
+	/**
+	 * @return {@link JsonValue}
+	 */
+	Response statesStartTimes();
 }
