@@ -1,6 +1,6 @@
 package ar.utn.tacs.walletService.service;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonValue;
@@ -10,7 +10,7 @@ import ar.utn.tacs.service.GenericService;
 
 public interface WalletService extends GenericService{
 	
-	Transaction buy(long idUser, long idCoin, BigDecimal amount);
+	Transaction buy(HashMap<String, String> resultMap);
 
 	/**
 	 * @param idUser
@@ -18,7 +18,7 @@ public interface WalletService extends GenericService{
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Transaction sale(long idUser, long idCoin, BigDecimal amount);
+	Transaction sale(HashMap<String, String> resultMap);
 
 	/**
 	 * @param idUser

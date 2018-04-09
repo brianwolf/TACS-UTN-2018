@@ -1,6 +1,6 @@
 package ar.utn.tacs.walletService.rest;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -10,12 +10,12 @@ import ar.utn.tacs.rest.GenericRest;
 
 public interface WalletRest extends GenericRest {
 
-	public static final String base = "/walletService";
+	public static final String BASE = "/walletService";
 	
-	public static final String buy = "/buy";
-	public static final String sale = "/sale";
-	public static final String buyHistory = "/buyHistory/{idUser}";
-	public static final String transactionHistory = "/userTransactionHistory/{idUser}/{idCoin}";
+	public static final String BUY = "/buy";
+	public static final String SALE = "/sale";
+	public static final String BUY_HISTORY = "/buyHistory/{idUser}";
+	public static final String USER_TRANSACTION_HISTORY = "/userTransactionHistory/{idUser}/{idCoin}";
 
 	/**
 	 * @param idUser
@@ -23,7 +23,7 @@ public interface WalletRest extends GenericRest {
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Response buy(long idUser, long idCoin, BigDecimal amount);
+	Response buy(HashMap<String, String> resultMap);
 
 	/**
 	 * @param idUser
@@ -31,7 +31,7 @@ public interface WalletRest extends GenericRest {
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Response sale(long idUser, long idCoin, BigDecimal amount);
+	Response sale(HashMap<String, String> resultMap);
 
 	/**
 	 * @param idUser

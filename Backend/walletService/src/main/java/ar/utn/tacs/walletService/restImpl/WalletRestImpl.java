@@ -1,8 +1,13 @@
 package ar.utn.tacs.walletService.restImpl;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,33 +15,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ar.utn.tacs.walletService.rest.WalletRest;
 import ar.utn.tacs.walletService.service.WalletService;
 
-@Path(WalletRestImpl.base)
+@Path(WalletRest.BASE)
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class WalletRestImpl implements WalletRest{
 	
 	@Autowired
 	private WalletService externalService;
 	
+	@POST
+	@Path(WalletRest.BUY)
 	@Override
-	public Response buy(long idUser, long idCoin, BigDecimal amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response buy(HashMap<String, String> resultMap) {
+		//@PathParam("idUser") long idUser,@PathParam("idCoin") long idCoin, @PathParam("amount") BigDecimal amount
+		try {
+			return Response.status(Response.Status.OK).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
-
+	@GET
+	@Path(WalletRest.SALE)
 	@Override
-	public Response sale(long idUser, long idCoin, BigDecimal amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response sale(HashMap<String, String> resultMap) {
+		try {
+			return Response.status(Response.Status.OK).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
-
+	@GET
+	@Path(WalletRest.BUY_HISTORY)
 	@Override
 	public Response buyHistory(long idUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
+	@GET
+	@Path(WalletRestImpl.USER_TRANSACTION_HISTORY)
 	@Override
 	public Response userTransactionHistory(long idUser, long idCoin) {
 		// TODO Auto-generated method stub
