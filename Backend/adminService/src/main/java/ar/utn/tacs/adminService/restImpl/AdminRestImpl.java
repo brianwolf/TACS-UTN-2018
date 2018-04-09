@@ -29,7 +29,7 @@ public class AdminRestImpl implements AdminRest {
 	@POST
 	@Path(AdminRest.COMPARE_BALANCE)
 	@Override
-	public Response compareBalance(@PathParam("idUserA") long idUserA, @PathParam("idUserB") long idUserB) {
+	public Response compareBalance(@PathParam("idUserA") Long idUserA, @PathParam("idUserB") Long idUserB) {
 		try {
 			List<Role> roles = new ArrayList<Role>();
 				roles.add(new AdminRole());

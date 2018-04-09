@@ -14,13 +14,13 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 
 	@Override
-	public ar.utn.tacs.model.user.User getUserByLogin(String nick, String pass) {
+	public User getUserByLogin(String nick, String pass) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ar.utn.tacs.model.user.User getUserById(long id) {
+	public User getUserById(long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

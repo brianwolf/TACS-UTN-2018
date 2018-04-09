@@ -25,7 +25,6 @@ import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.userService.rest.UserRest;
 import ar.utn.tacs.userService.service.UserService;
 
-@Component
 @Path(UserRestImpl.BASE)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -89,7 +88,7 @@ public class UserRestImpl implements UserRest {
 
 			User userEncontrado = null;
 			for (User user : listaUsuariosHard) {
-				if (user.getNick() == nick && user.getPass() == pass) {
+				if (String.valueOf(user.getNick()).equals(nick) && String.valueOf(user.getPass()).equals(pass)) {
 					userEncontrado = user;
 				}
 			}

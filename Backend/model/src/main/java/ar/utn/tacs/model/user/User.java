@@ -2,20 +2,42 @@ package ar.utn.tacs.model.user;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.wallet.Wallet;
 
+//ESTO ES SOLO PARA PROBAR HACER UN SELECT
+@NamedNativeQueries({
+		@NamedNativeQuery(name = "findUsers", query = "select * from usuario", resultClass = User.class) })
+@Entity
+@Table(name = "USUARIO")
 public class User {
 
-	private long id;
+	@Id
+	@Column(name = "id")
+	private Long id;
 	private String nick;
 	private String pass;
-	private int intentosLogin;
-	private boolean activo;
+	
+	@Column(name = "intentos_login")
+	private Integer intentosLogin;
+	private Boolean activo;
+	
+	//DEJO PROPERTIES CON ESTE TAG PARA QUE HIBERNATE NO LAS MAPEE
+	@Transient
 	private List<Role> roles = null;
+	
+	@Transient
 	private Wallet wallet = null;
 
-	public User(long id, String nick, String pass, int intentosLogin, boolean activo, Wallet wallet, List<Role> listRoles) {
+	public User(Long id, String nick, String pass, Integer intentosLogin, Boolean activo, Wallet wallet, List<Role> listRoles) {
 		this.id = id;
 		this.nick = nick;
 		this.pass = pass;
@@ -29,11 +51,11 @@ public class User {
 
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -53,19 +75,19 @@ public class User {
 		this.pass = pass;
 	}
 
-	public int getIntentosLogin() {
+	public Integer getIntentosLogin() {
 		return intentosLogin;
 	}
 
-	public void setIntentosLogin(int intentosLogin) {
+	public void setIntentosLogin(Integer intentosLogin) {
 		this.intentosLogin = intentosLogin;
 	}
 
-	public boolean isActivo() {
+	public Boolean isActivo() {
 		return activo;
 	}
 
-	public void setActivo(boolean activo) {
+	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
 

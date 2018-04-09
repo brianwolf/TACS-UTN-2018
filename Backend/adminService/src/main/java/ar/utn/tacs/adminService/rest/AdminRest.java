@@ -8,21 +8,21 @@ import ar.utn.tacs.service.GenericService;
 
 public interface AdminRest extends GenericService{
 	
-	public static final String BASE = "/adminService";
+	public static final String BASE = "/admin";
 	
-	public static final String COMPARE_BALANCE = "/compareBalance/{idUserA}/{idUserB}";
-	public static final String STATES_TODAY = "/statesToday";
-	public static final String STATES_THREE_DAYS = "/statesThreeDays";
-	public static final String STATES_LAST_WEEK = "/statesLastWeek";
-	public static final String STATES_LAST_MOTH = "/statesLastMonth";
-	public static final String STATES_START_TIMES = "/statesStartTimes";
+	public static final String COMPARE_BALANCE = "/comparador/{idUserA}/{idUserB}";
+	public static final String STATES_TODAY = "/estados";
+	public static final String STATES_THREE_DAYS = "/estados/threeDays";
+	public static final String STATES_LAST_WEEK = "/estados/lastWeek";
+	public static final String STATES_LAST_MOTH = "/estados/lastMonth";
+	public static final String STATES_START_TIMES = "/estados/startTimes";
 
 	/**
 	 * @param idUserA
 	 * @param idUserB
 	 * @return {@link JsonValue}
 	 */
-	Response compareBalance(long idUserA, long idUserB);
+	Response compareBalance(Long idUserA, Long idUserB);
 	
 	/**
 	 * @return {@link JsonValue}

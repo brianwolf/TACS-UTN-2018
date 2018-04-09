@@ -10,12 +10,12 @@ import ar.utn.tacs.rest.GenericRest;
 
 public interface UserRest extends GenericRest{
 	
-	public static final String BASE= "/userService"; 
+	public static final String BASE= "/usuarios"; 
 	
-	public static final String NEW_USER= "/newUser";
-	public static final String GET_USER_BY_LOGIN= "/getUserByLogin/{nick}/{pass}";
-	public static final String GET_USER_BY_ID= "/getUserById/{id}";
-	public static final String GET_ALL_USERS_IDS= "/getAllUserIds";
+	public static final String NEW_USER= "";
+	public static final String GET_USER_BY_LOGIN= "/{nick}/{pass}";
+	public static final String GET_USER_BY_ID= "/{id}";
+	public static final String GET_ALL_USERS_IDS= "/ids";
 	
 	/**
 	 * @param user

@@ -1,6 +1,6 @@
 package ar.utn.tacs.walletService.restImpl;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -26,7 +26,7 @@ public class WalletRestImpl implements WalletRest{
 	@POST
 	@Path(WalletRest.BUY)
 	@Override
-	public Response buy(HashMap<String, String> resultMap) {
+	public Response buy(Map<String, String> resultMap) {
 		//@PathParam("idUser") long idUser,@PathParam("idCoin") long idCoin, @PathParam("amount") BigDecimal amount
 		try {
 			return Response.status(Response.Status.OK).build();
@@ -39,7 +39,7 @@ public class WalletRestImpl implements WalletRest{
 	@GET
 	@Path(WalletRest.SALE)
 	@Override
-	public Response sale(HashMap<String, String> resultMap) {
+	public Response sale(Map<String, String> resultMap) {
 		try {
 			return Response.status(Response.Status.OK).build();
 
@@ -51,7 +51,7 @@ public class WalletRestImpl implements WalletRest{
 	@GET
 	@Path(WalletRest.BUY_HISTORY)
 	@Override
-	public Response buyHistory(long idUser) {
+	public Response buyHistory(Long idUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -59,7 +59,7 @@ public class WalletRestImpl implements WalletRest{
 	@GET
 	@Path(WalletRestImpl.USER_TRANSACTION_HISTORY)
 	@Override
-	public Response userTransactionHistory(long idUser, long idCoin) {
+	public Response userTransactionHistory(Long idUser, Long idCoin) {
 		// TODO Auto-generated method stub
 		return null;
 	}

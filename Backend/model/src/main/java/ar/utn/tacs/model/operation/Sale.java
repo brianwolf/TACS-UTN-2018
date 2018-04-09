@@ -1,6 +1,4 @@
-package ar.utn.tacs.model.transaction;
-
-import ar.utn.tacs.model.operation.Operation;
+package ar.utn.tacs.model.operation;
 
 public class Sale implements Operation {
 

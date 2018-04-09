@@ -2,8 +2,6 @@ package ar.utn.tacs.userService.dao;
 
 import java.util.List;
 
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
@@ -18,11 +16,11 @@ public class UserDao extends GenericAbstractDao<User> {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public User getUserById(Integer userId) {
+	public User getUserById(Long userId) {
 		User user = new User();
 		user.setId(userId);
-		user.setApellido("Tagrande");
-		user.setNombre("Juancho");
+//		user.setApellido("Tagrande");
+//		user.setNombre("Juancho");
 		user.setNick("juancito");
 		return user;
 	}
@@ -32,6 +30,7 @@ public class UserDao extends GenericAbstractDao<User> {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
 		Session session = this.sessionFactory.openSession();
 //		StoredProcedureQuery query = session.createStoredProcedureQuery("sp_traer_users");

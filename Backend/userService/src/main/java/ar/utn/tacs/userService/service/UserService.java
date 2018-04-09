@@ -29,4 +29,9 @@ public interface UserService extends GenericService{
 	 * @return {@link List} {@link Long}
 	 */
 	List<Long> getAllUserIds();
+
+	/**
+	 * @return {@link List}
+	 */
+	List<User> getUsers();
 }
