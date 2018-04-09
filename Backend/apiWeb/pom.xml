@@ -40,23 +40,23 @@
 			<version>${project.version}</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>ar.utn.tacs</groupId>
-			<artifactId>adminService</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>ar.utn.tacs</groupId> -->
+<!-- 			<artifactId>adminService</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 		</dependency> -->
 		
-		<dependency>
-			<groupId>ar.utn.tacs</groupId>
-			<artifactId>walletService</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>ar.utn.tacs</groupId> -->
+<!-- 			<artifactId>walletService</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 		</dependency> -->
 		
-		<dependency>
-			<groupId>ar.utn.tacs</groupId>
-			<artifactId>externalService</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>ar.utn.tacs</groupId> -->
+<!-- 			<artifactId>externalService</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 		</dependency> -->
 		
 	</dependencies>
 </project>

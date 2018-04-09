@@ -2,33 +2,53 @@ package ar.utn.tacs.user;
 
 import java.util.Date;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Table(appliesTo="Usuario")
+//ESTO ES SOLO PARA PROBAR HACER UN SELECT
+@NamedNativeQueries({
+		@NamedNativeQuery(name = "findUsers", query = "select * from usuario", resultClass = User.class) })
+@Entity
+@Table(name = "USUARIO")
 public class User {
 
-	@ColumnDefault(value="id")
-	private int id;
-	
+	@Id
+	@Column(name = "id")
+	private Integer id;
+
 	private String nick;
 	private String pass;
-	private int intentosLogin;
-	private boolean activo;
+
+	@Column(name = "intentos_login")
+	private Integer intentosLogin;
+	private Boolean activo;
 	private String nombre;
 	private String apellido;
+
+	@Transient
 	private TipoDocumento tipoDocumento;
+
+	//DEJO PROPERTIES CON ESTE TAG PARA QUE HIBERNATE NO LAS MAPEE
+	@Transient
 	private Date fechaNacimiento;
+	
 	private String direccion;
 	private String telefono;
 	private String email;
+
+	@Transient
 	private char sexo;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -48,19 +68,43 @@ public class User {
 		this.pass = pass;
 	}
 
-	public int getIntentosLogin() {
+	public TipoDocumento getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
+	public Integer getIntentosLogin() {
 		return intentosLogin;
 	}
 
-	public void setIntentosLogin(int intentosLogin) {
+	public void setIntentosLogin(Integer intentosLogin) {
 		this.intentosLogin = intentosLogin;
 	}
 
-	public boolean isActivo() {
+	public Boolean getActivo() {
 		return activo;
 	}
 
-	public void setActivo(boolean activo) {
+	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
 
@@ -78,22 +122,6 @@ public class User {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public TipoDocumento getTipoDocumento() {
-		return tipoDocumento;
-	}
-
-	public void setTipoDocumento(TipoDocumento tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
-
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getDireccion() {
@@ -120,11 +148,4 @@ public class User {
 		this.email = email;
 	}
 
-	public char getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(char sexo) {
-		this.sexo = sexo;
-	}
 }

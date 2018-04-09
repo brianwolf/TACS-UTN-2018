@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
    http://www.springframework.org/schema/beans     
    http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -11,8 +12,9 @@
    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:annotation-driven />
-	
-	<bean id="appProperties"			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+	<bean id="appProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<array>
 				<value>app.properties</value>
@@ -20,33 +22,38 @@
 		</property>
 	</bean>
 
-	<bean id="hibernateTemplate" 		class="org.springframework.orm.hibernate5.HibernateTemplate">
-		<property name="sessionFactory" 		ref="sessionFactory"></property>
-		<property name="checkWriteOperations" 	value="false"></property>
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="checkWriteOperations" value="false"></property>
 	</bean>
 
-	<bean id="sessionFactory" 			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" 			ref="dataSource"></property>
-		<property name="annotatedClasses">
-			<array>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan">
+			<list>
 				<value>ar.utn.tacs</value>
-			</array>
+			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">		${orm.dialect}</prop>
-				<prop key="hibernate.hbm2ddl.auto">	${hbm2ddlAuto}</prop>
-				<prop key="hibernate.show_sql">		${orm.showSql}</prop>
-				<prop key="hibernate.format_sql">	${orm.formatSql}</prop>
+				<prop key="hibernate.dialect"> ${orm.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto"> ${orm.hbm2ddlAuto}</prop>
+				<prop key="hibernate.show_sql"> ${orm.showSql}</prop>
+				<prop key="hibernate.format_sql"> ${orm.formatSql}</prop>
 			</props>
 		</property>
 	</bean>
-		
-	<bean id="dataSource" 				class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" 	value="${db.driver}"></property>
-		<property name="url" 				value="${db.prefix}://${db.host}:${db.port}/${db.schema}"></property>
-		<property name="username" 			value="${db.user}"></property>
-		<property name="password" 			value="${db.pass}"></property>
+	
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${db.driver}"></property>
+		<property name="url"
+			value="${db.prefix}://${db.host}:${db.port}/${db.schema}"></property>
+		<property name="username" value="${db.user}"></property>
+		<property name="password" value="${db.pass}"></property>
 	</bean>
 
 </beans>

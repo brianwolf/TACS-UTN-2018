@@ -17,7 +17,7 @@ public interface UserRest extends GenericRest{
 	 * @param idUsuario
 	 * @return {@link User}
 	 */
-	public Response getUserById(int userId);
+	public Response getUserById(Integer userId);
 	
 	
 	/**

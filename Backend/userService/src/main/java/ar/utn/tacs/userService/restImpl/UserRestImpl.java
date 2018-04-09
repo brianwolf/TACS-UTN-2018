@@ -1,6 +1,7 @@
 package ar.utn.tacs.userService.restImpl;
 
-import java.util.Map;
+
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,11 +13,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import ar.utn.tacs.user.User;
 import ar.utn.tacs.userService.rest.UserRest;
 import ar.utn.tacs.userService.service.UserService;
 
+@Component
 @Path(UserRestImpl.BASE)
 public class UserRestImpl implements UserRest{
 	
@@ -29,13 +32,12 @@ public class UserRestImpl implements UserRest{
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getPrueba() {
 		
-		try {
-			User user = new User();
-				user.setApellido("Tagrande");
-				user.setNombre("Juancho");
-				user.setNick("juancito");
+		List<User> users = null;
 		
-			return Response.status(Response.Status.OK).entity(user).build();
+		try {
+			
+			users = this.userService.getUsers();
+			return Response.status(Response.Status.OK).entity(users).build();
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -49,7 +51,6 @@ public class UserRestImpl implements UserRest{
 	public Response postPrueba(User user) {
 		
 		try {
-			
 			return Response.status(Response.Status.OK).entity("Tu nombre es "+user.getNombre()).build();
 			
 		} catch (Exception e) {
@@ -58,12 +59,11 @@ public class UserRestImpl implements UserRest{
 	}
 	
 	
-	
 	@GET
 	@Path("/{userId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Override
-	public Response getUserById(@PathParam(value = "userId") int userId) {
+	public Response getUserById(@PathParam(value = "userId") Integer userId) {
 		
 		try {
 			User user = this.userService.getUserById(userId);
@@ -74,6 +74,7 @@ public class UserRestImpl implements UserRest{
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
 	
 	@POST
 	@Path(UserRestImpl.VALIDATE+"/{nick}/{pass}")

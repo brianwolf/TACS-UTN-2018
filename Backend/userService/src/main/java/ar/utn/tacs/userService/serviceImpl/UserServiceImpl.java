@@ -1,5 +1,7 @@
 package ar.utn.tacs.userService.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.user.User;
@@ -21,6 +23,11 @@ public class UserServiceImpl implements UserService{
 	public User validateNickAndPass(String nick, String pass) {
 		User user = userDao.validateNickAndPass(nick, pass);
 		return user;
+	}
+
+	@Override
+	public List<User> getUsers() {
+		 return userDao.getUsers();
 	}
 
 }
