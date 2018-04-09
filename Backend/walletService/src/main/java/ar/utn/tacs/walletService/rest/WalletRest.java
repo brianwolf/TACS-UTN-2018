@@ -1,42 +1,48 @@
 package ar.utn.tacs.walletService.rest;
 
+import java.util.HashMap;
+
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 import ar.utn.tacs.rest.GenericRest;
-import ar.utn.tacs.user.User;
 
+public interface WalletRest extends GenericRest {
 
-public interface WalletRest extends GenericRest{
+	public static final String BASE = "/walletService";
 	
-	public static final String base= "/walletService"; 
-	
-	public static final String getUserById= "/getUserById/{userId}";
-	public static final String validateNickAndPass= "/validateNickAndPass/{nick}/{pass}";
-	
+	public static final String BUY = "/buy";
+	public static final String SALE = "/sale";
+	public static final String BUY_HISTORY = "/buyHistory/{idUser}";
+	public static final String USER_TRANSACTION_HISTORY = "/userTransactionHistory/{idUser}/{idCoin}";
+
 	/**
-	 * Retorna un usuario por su id
-	 * 
-	 * @param idUsuario
-	 * @return {@link User}
+	 * @param idUser
+	 * @param idCoin
+	 * @param amount
+	 * @return {@link JsonValue}
 	 */
-	public Response getUserById(int userId);
-	
-	
+	Response buy(HashMap<String, String> resultMap);
+
 	/**
-	 * Valida la existencia de un usuario con ese nick y esa password
-	 * 
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @param idUser
+	 * @param idCoin
+	 * @param amount
+	 * @return {@link JsonValue}
 	 */
-	public Response ValidateNickAndPass(String nick, String pass);
-	
+	Response sale(HashMap<String, String> resultMap);
+
 	/**
-	 * Crea un nuevo usuario con nick y pass
-	 * 
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @param idUser
+	 * @return {@link JsonValue}
 	 */
-	public Response newUser(String nick, String pass);
+	Response buyHistory(long idUser);
+
+	/**
+	 * @param idUser
+	 * @param idCoin
+	 * @return {@link JsonValue}
+	 */
+	Response userTransactionHistory(long idUser, long idCoin);
 }

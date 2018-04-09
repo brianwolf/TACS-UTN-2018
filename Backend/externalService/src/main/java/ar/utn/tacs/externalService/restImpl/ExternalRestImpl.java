@@ -1,91 +1,54 @@
 package ar.utn.tacs.externalService.restImpl;
 
+import java.util.HashMap;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.externalService.rest.ExternalRest;
 import ar.utn.tacs.externalService.service.ExternalService;
-import ar.utn.tacs.user.User;
 
-@Path(ExternalRestImpl.base)
+@Path(ExternalRest.BASE)
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ExternalRestImpl implements ExternalRest{
 	
 	@Autowired
 	private ExternalService externalService;
-	
-	ObjectMapper mapper = new ObjectMapper();
-	
+
 	@GET
-	@Path("/getPrueba")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getPrueba() {
-		
+	@Path(ExternalRest.COIN_MARKET_CAP)
+	@Override
+	public Response coinMarketCap() {
 		try {
-			User user = new User();
-				user.setApellido("Tagrande");
-				user.setNombre("Juancho");
-				user.setNick("juancito");
-		
-			String json = mapper.writeValueAsString(user);
-			
-			return Response.ok(json, MediaType.APPLICATION_JSON).build();
-			
+			HashMap<String, String> mapResult = new HashMap<String, String>();
+				mapResult.put("id", "bitcoin");
+				mapResult.put("name", "Bitcoin");
+				mapResult.put("symbol", "BTC");
+				mapResult.put("rank", "1");
+				mapResult.put("price_usd", "573.137");
+				mapResult.put("price_btc", "1.0");
+				mapResult.put("24h_volume_usd", "72855700.0");
+				mapResult.put("market_cap_usd", "9080883500.0");
+				mapResult.put("available_supply", "15844176.0");
+				mapResult.put("total_supply", "15844176.0");
+				mapResult.put("percent_change_1h", "0.04");
+				mapResult.put("percent_change_24h", "-0.3");
+				mapResult.put("percent_change_7d", "-0.57");
+				mapResult.put("last_updated", "1472762067");
+				
+
+			return Response.status(Response.Status.OK).entity(mapResult).build();
+
 		} catch (Exception e) {
-			return Response.serverError().build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 	
-	
-	@GET
-	@Path(ExternalRestImpl.getUserById)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Override
-	public Response getUserById(@PathParam(value = "userId") int userId) {
-		
-		try {
-			User user = this.externalService.getUserById(userId);
-			String json = mapper.writeValueAsString(user);
-			
-			return Response.ok(json, MediaType.APPLICATION_JSON).build();
-			
-		} catch (Exception e) {
-			return Response.serverError().build();
-		}
-	}
-	
-	@POST
-	@Path(ExternalRestImpl.validateNickAndPass)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Override
-	public Response ValidateNickAndPass(@PathParam(value = "nick") String nick, @PathParam(value = "pass") String pass) {
-		
-		try {
-			User user = this.externalService.validateNickAndPass(nick, pass);
-			String json = mapper.writeValueAsString(user);
-
-			return Response.ok(json, MediaType.APPLICATION_JSON).build();
-			
-		} catch (Exception e) {
-			return Response.serverError().build();
-		}
-	}
-
-	@Override
-	public Response newUser(String nick, String pass) {
-		try {
-
-			return Response.ok(null, MediaType.APPLICATION_JSON).build();
-			
-		} catch (Exception e) {
-			return Response.serverError().build();
-		}
-	}
 }

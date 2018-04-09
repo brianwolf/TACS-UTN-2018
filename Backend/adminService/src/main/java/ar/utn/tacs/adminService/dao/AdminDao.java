@@ -1,7 +1,7 @@
 package ar.utn.tacs.adminService.dao;
 
 import ar.utn.tacs.dao.GenericAbstractDao;
-import ar.utn.tacs.user.User;
+import ar.utn.tacs.model.user.User;
 
 public class AdminDao extends GenericAbstractDao<User> {
 

@@ -1,22 +1,13 @@
 package ar.utn.tacs.externalService.service;
 
-import ar.utn.tacs.service.GenericService;
-import ar.utn.tacs.user.User;
+import java.util.Map;
 
-public interface ExternalService extends GenericService{
-	
-	
+import ar.utn.tacs.service.GenericService;
+
+public interface ExternalService extends GenericService {
+
 	/**
-	 * @param userId
-	 * @return {@link User}
+	 * @return {@link Map}
 	 */
-	public User getUserById(int userId);
-	
-	
-	/**
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
-	 */
-	public User validateNickAndPass(String nick, String pass);
+	Map<String, Object> coinMarketCap();
 }

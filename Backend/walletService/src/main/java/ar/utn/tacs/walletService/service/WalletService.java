@@ -1,22 +1,35 @@
 package ar.utn.tacs.walletService.service;
 
+import java.util.HashMap;
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonValue;
+
+import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.service.GenericService;
-import ar.utn.tacs.user.User;
 
 public interface WalletService extends GenericService{
 	
-	
+	Transaction buy(HashMap<String, String> resultMap);
+
 	/**
-	 * @param userId
-	 * @return {@link User}
+	 * @param idUser
+	 * @param idCoin
+	 * @param amount
+	 * @return {@link JsonValue}
 	 */
-	public User getUserById(int userId);
-	
-	
+	Transaction sale(HashMap<String, String> resultMap);
+
 	/**
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
+	 * @param idUser
+	 * @return {@link JsonValue}
 	 */
-	public User validateNickAndPass(String nick, String pass);
+	List<Transaction> buyHistory(long idUser);
+
+	/**
+	 * @param idUser
+	 * @param idCoin
+	 * @return {@link JsonValue}
+	 */
+	List<Transaction> userTransactionHistory(long idUser, long idCoin);
 }

@@ -11,7 +11,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.GenericAbstractDao;
-import ar.utn.tacs.user.User;
+import ar.utn.tacs.model.user.User;
 
 public class UserDao extends GenericAbstractDao<User> {
 	

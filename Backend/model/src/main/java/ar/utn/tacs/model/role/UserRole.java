@@ -1,4 +1,4 @@
-package ar.utn.tacs.role;
+package ar.utn.tacs.model.role;
 
 public class UserRole extends Role{
 

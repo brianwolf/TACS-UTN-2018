@@ -1,91 +1,146 @@
 package ar.utn.tacs.adminService.restImpl;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.adminService.rest.AdminRest;
 import ar.utn.tacs.adminService.service.AdminService;
-import ar.utn.tacs.user.User;
+import ar.utn.tacs.model.role.AdminRole;
+import ar.utn.tacs.model.role.Role;
+import ar.utn.tacs.model.role.UserRole;
+import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.model.wallet.Wallet;
 
-@Path(AdminRestImpl.base)
-public class AdminRestImpl implements AdminRest{
-	
+@Path(AdminRest.BASE)
+public class AdminRestImpl implements AdminRest {
+
 	@Autowired
 	private AdminService adminService;
-	
-	ObjectMapper mapper = new ObjectMapper();
-	
-	@GET
-	@Path("/getPrueba")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getPrueba() {
-		
-		try {
-			User user = new User();
-				user.setApellido("Tagrande");
-				user.setNombre("Juancho");
-				user.setNick("juancito");
-		
-			String json = mapper.writeValueAsString(user);
-			
-			return Response.ok(json, MediaType.APPLICATION_JSON).build();
-			
-		} catch (Exception e) {
-			return Response.serverError().build();
-		}
-	}
-	
-	
-	@GET
-	@Path(AdminRestImpl.getUserById)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Override
-	public Response getUserById(@PathParam(value = "userId") int userId) {
-		
-		try {
-			User user = this.adminService.getUserById(userId);
-			String json = mapper.writeValueAsString(user);
-			
-			return Response.ok(json, MediaType.APPLICATION_JSON).build();
-			
-		} catch (Exception e) {
-			return Response.serverError().build();
-		}
-	}
-	
+
 	@POST
-	@Path(AdminRestImpl.validateNickAndPass)
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Path(AdminRest.COMPARE_BALANCE)
 	@Override
-	public Response ValidateNickAndPass(@PathParam(value = "nick") String nick, @PathParam(value = "pass") String pass) {
-		
+	public Response compareBalance(@PathParam("idUserA") long idUserA, @PathParam("idUserB") long idUserB) {
 		try {
-			User user = this.adminService.validateNickAndPass(nick, pass);
-			String json = mapper.writeValueAsString(user);
-
-			return Response.ok(json, MediaType.APPLICATION_JSON).build();
+			List<Role> roles = new ArrayList<Role>();
+				roles.add(new AdminRole());
+				roles.add(new UserRole());
+				
+			User user = new User(1l, "juan", "1234", 1, true, new Wallet(), roles);
 			
+			
+			return Response.status(Response.Status.OK).entity(user).build();
+
 		} catch (Exception e) {
-			return Response.serverError().build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
+	@POST
+	@Path(AdminRest.STATES_TODAY)
 	@Override
-	public Response newUser(String nick, String pass) {
+	public Response statesToday() {
 		try {
+			Transaction transaccion = new Transaction();
+				transaccion.setId(1l);
+				transaccion.setAmount(new BigDecimal("0.21"));
+				transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
+				transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
+				transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
 
-			return Response.ok(null, MediaType.APPLICATION_JSON).build();
-			
+			return Response.status(Response.Status.OK).entity(transaccion).build();
+
 		} catch (Exception e) {
-			return Response.serverError().build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@POST
+	@Path(AdminRest.STATES_THREE_DAYS)
+	@Override
+	public Response statesThreeDays() {
+		try {
+			Transaction transaccion = new Transaction();
+			transaccion.setId(1l);
+			transaccion.setAmount(new BigDecimal("0.21"));
+			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
+			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
+			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
+
+
+			return Response.status(Response.Status.OK).entity(transaccion).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@POST
+	@Path(AdminRest.STATES_LAST_WEEK)
+	@Override
+	public Response statesLastWeek() {
+		try {
+			Transaction transaccion = new Transaction();
+			transaccion.setId(1l);
+			transaccion.setAmount(new BigDecimal("0.21"));
+			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
+			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
+			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
+
+
+			return Response.status(Response.Status.OK).entity(transaccion).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@POST
+	@Path(AdminRest.STATES_LAST_MOTH)
+	@Override
+	public Response statesLastMonth() {
+		try {
+			Transaction transaccion = new Transaction();
+			transaccion.setId(1l);
+			transaccion.setAmount(new BigDecimal("0.21"));
+			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
+			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
+			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
+
+
+			return Response.status(Response.Status.OK).entity(transaccion).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@POST
+	@Path(AdminRest.STATES_START_TIMES)
+	@Override
+	public Response statesStartTimes() {
+		try {
+			Transaction transaccion = new Transaction();
+				transaccion.setId(1l);
+				transaccion.setAmount(new BigDecimal("0.21"));
+				transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
+				transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
+				transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
+
+
+			return Response.status(Response.Status.OK).entity(transaccion).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 }
