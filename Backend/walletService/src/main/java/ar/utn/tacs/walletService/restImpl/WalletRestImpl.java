@@ -6,12 +6,15 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import ar.utn.tacs.userService.service.UserService;
 import ar.utn.tacs.walletService.rest.WalletRest;
 import ar.utn.tacs.walletService.service.WalletService;
 
@@ -22,6 +25,9 @@ public class WalletRestImpl implements WalletRest{
 	
 	@Autowired
 	private WalletService externalService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@POST
 	@Path(WalletRest.BUY)
@@ -51,16 +57,24 @@ public class WalletRestImpl implements WalletRest{
 	@GET
 	@Path(WalletRest.BUY_HISTORY)
 	@Override
-	public Response buyHistory(Long idUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response buyHistory(@PathParam("idUser") Long idUser) {
+		try {
+			return Response.status(Response.Status.OK).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@GET
 	@Path(WalletRestImpl.USER_TRANSACTION_HISTORY)
 	@Override
 	public Response userTransactionHistory(Long idUser, Long idCoin) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return Response.status(Response.Status.OK).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 }
