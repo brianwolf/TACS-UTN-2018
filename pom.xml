@@ -14,12 +14,12 @@
 	</properties>
 
 	<modules>
-		<module>Backend/core</module>
-		<module>Backend/model</module>
-		<module>Backend/adminService</module>
-		<module>Backend/externalService</module>
-		<module>Backend/userService</module>
-		<module>Backend/walletService</module>
 		<module>Backend/apiWeb</module>
+		<module>Backend/core</module>
+		<module>Backend/dao</module>
+		<module>Backend/model</module>
+		<module>Backend/rest</module>
+		<module>Backend/service</module>
+
 	</modules>
 </project>
