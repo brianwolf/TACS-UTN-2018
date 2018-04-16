@@ -41,7 +41,6 @@
 		<dependency>
 			<groupId>ar.utn.tacs</groupId>
 			<artifactId>rest</artifactId>
-			<scope>${rest.version}</scope>
 		</dependency>
 
 	</dependencies>
