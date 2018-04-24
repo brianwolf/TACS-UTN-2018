@@ -15,39 +15,33 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao adminDao;
 
 	@Override
-	public User compareBalance(long idUserA, long idUserB) {
-		// TODO Auto-generated method stub
+	public User compareBalance(String nickA, String nickB) {
 		return null;
 	}
 
 	@Override
 	public List<Transaction> statesToday() {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.statesToday();
 	}
 
 	@Override
 	public List<Transaction> statesThreeDays() {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.statesThreeDays();
 	}
 
 	@Override
 	public List<Transaction> statesLastWeek() {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.statesLastWeek();
 	}
 
 	@Override
 	public List<Transaction> statesLastMonth() {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.statesLastMonth();
 	}
 
 	@Override
 	public List<Transaction> statesStartTimes() {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.statesStartTimes();
 	}
 
 }
