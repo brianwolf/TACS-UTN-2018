@@ -22,10 +22,9 @@ public class RestFilter implements ContainerRequestFilter {
 //		headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");			
 //		headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia");
 		
-		if(!headers.containsKey("jiji")){
+		if(!headers.containsKey("token")){
 	        ResponseBuilder builder = null;
-	        String response = "Custom message";
-	        builder = Response.status(Response.Status.UNAUTHORIZED).entity(response);
+	        builder = Response.status(Response.Status.UNAUTHORIZED);
 	        throw new WebApplicationException(builder.build());
 
 	    }

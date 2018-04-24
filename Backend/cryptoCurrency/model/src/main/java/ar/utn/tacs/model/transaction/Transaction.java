@@ -1,29 +1,39 @@
 package ar.utn.tacs.model.transaction;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.operation.Operation;
 import ar.utn.tacs.model.user.User;
 
 public class Transaction {
 
-	Long id;
+	private Long id;
 	private User user;
-	private Coin coin;
-	private Operation operation;
-	BigDecimal amount;
-	BigDecimal quoteTimeSold;
-	BigDecimal quoteTimeNow;
-	BigDecimal quoteDifference;
-
-	public Operation getOperation() {
-		return operation;
+	private List<Operation> operations = new ArrayList<Operation>();
+	private BigDecimal quoteTimeSold;
+	private BigDecimal quoteTimeNow;
+	private BigDecimal quoteDifference;
+	private Date date;
+	
+	public List<Operation> getOperations() {
+		return operations;
 	}
 
-	public void setOperation(Operation operation) {
-		this.operation = operation;
+	public void addOperation(Operation operation) {
+		this.operations.add(operation);
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -31,14 +41,6 @@ public class Transaction {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
 	}
 
 	public BigDecimal getQuoteTimeSold() {
@@ -71,14 +73,6 @@ public class Transaction {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Coin getCoin() {
-		return coin;
-	}
-
-	public void setCoin(Coin coin) {
-		this.coin = coin;
 	}
 
 }

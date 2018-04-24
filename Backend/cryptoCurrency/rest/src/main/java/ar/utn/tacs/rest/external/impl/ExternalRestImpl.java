@@ -1,6 +1,6 @@
 package ar.utn.tacs.rest.external.impl;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.rest.external.ExternalRest;
 import ar.utn.tacs.service.external.ExternalService;
 
@@ -29,7 +30,7 @@ public class ExternalRestImpl implements ExternalRest{
 	public Response coinMarketCap() {
 		try {
 			
-			Map<String,Object> mapResult = externalService.coinMarketCap();
+			List<Coin> mapResult = externalService.coinMarketCap();
 
 			return Response.status(Response.Status.OK).entity(mapResult).build();
 

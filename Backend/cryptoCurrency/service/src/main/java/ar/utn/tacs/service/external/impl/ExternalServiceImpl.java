@@ -3,6 +3,7 @@ package ar.utn.tacs.service.external.impl;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
 
 import ar.utn.tacs.dao.external.ExternalDao;
+import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.service.external.ExternalService;
 
 
@@ -26,20 +28,15 @@ public class ExternalServiceImpl implements ExternalService{
 	
 	Gson gson = new Gson();
 	
-	private static String COIN_MARKET_CAP_URL = "https://api.coinmarketcap.com/v1/ticker/";
+	protected static String COIN_MARKET_CAP_URL = "https://api.coinmarketcap.com/v1/ticker/";
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> coinMarketCap() {
+	public List<Coin> coinMarketCap() {
 		
-		String response = makeRequest("GET",null,COIN_MARKET_CAP_URL);
-		
-		Map<String, Object> mapResult = gson.fromJson(response, Map.class);
-		
-		return mapResult;
+		return null;
 	}
 	
-	private String makeRequest(String method,Object objeto,String url ) {
+	protected String makeRequest(String method,Object objeto,String url ) {
 		
 		try {
 			String urlMail = url;

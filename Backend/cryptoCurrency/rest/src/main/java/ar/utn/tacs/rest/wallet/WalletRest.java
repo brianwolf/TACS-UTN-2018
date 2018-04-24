@@ -23,7 +23,7 @@ public interface WalletRest extends GenericRest {
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Response buy(Map<String, String> resultMap);
+	Response buy(Map<String, Object> resultMap);
 
 	/**
 	 * @param idUser
@@ -39,4 +39,5 @@ public interface WalletRest extends GenericRest {
 	 * @return {@link JsonValue}
 	 */
 	Response userTransactionHistory(String token, String coinSymbol);
+
 }

@@ -1,7 +1,7 @@
 package ar.utn.tacs.service.wallet;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
@@ -14,7 +14,7 @@ public interface WalletService extends GenericService{
 	 * @param resultMap
 	 * @return
 	 */
-	Transaction buy(HashMap<String, String> resultMap);
+	Boolean buy(Map<String, Object> map);
 
 	/**
 	 * @param idUser
@@ -22,7 +22,7 @@ public interface WalletService extends GenericService{
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Transaction sale(HashMap<String, String> resultMap);
+	Transaction sale(Map<String, Object> resultMap);
 
 	/**
 	 * @param idUser

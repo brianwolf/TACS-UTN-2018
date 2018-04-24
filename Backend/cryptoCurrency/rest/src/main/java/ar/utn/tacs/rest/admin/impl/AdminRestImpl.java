@@ -52,7 +52,7 @@ public class AdminRestImpl implements AdminRest {
 		try {
 			Transaction transaccion = new Transaction();
 				transaccion.setId(1l);
-				transaccion.setAmount(new BigDecimal("0.21"));
+//				transaccion.setAmount(new BigDecimal("0.21"));
 				transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
 				transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
 				transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
@@ -71,7 +71,7 @@ public class AdminRestImpl implements AdminRest {
 		try {
 			Transaction transaccion = new Transaction();
 			transaccion.setId(1l);
-			transaccion.setAmount(new BigDecimal("0.21"));
+//			transaccion.setAmount(new BigDecimal("0.21"));
 			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
 			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
 			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
@@ -91,7 +91,7 @@ public class AdminRestImpl implements AdminRest {
 		try {
 			Transaction transaccion = new Transaction();
 			transaccion.setId(1l);
-			transaccion.setAmount(new BigDecimal("0.21"));
+//			transaccion.setAmount(new BigDecimal("0.21"));
 			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
 			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
 			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
@@ -111,7 +111,7 @@ public class AdminRestImpl implements AdminRest {
 		try {
 			Transaction transaccion = new Transaction();
 			transaccion.setId(1l);
-			transaccion.setAmount(new BigDecimal("0.21"));
+//			transaccion.setAmount(new BigDecimal("0.21"));
 			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
 			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
 			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
@@ -131,7 +131,7 @@ public class AdminRestImpl implements AdminRest {
 		try {
 			Transaction transaccion = new Transaction();
 				transaccion.setId(1l);
-				transaccion.setAmount(new BigDecimal("0.21"));
+//				transaccion.setAmount(new BigDecimal("0.21"));
 				transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
 				transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
 				transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));

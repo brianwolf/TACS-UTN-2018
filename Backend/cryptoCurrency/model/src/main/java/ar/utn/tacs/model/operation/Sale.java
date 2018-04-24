@@ -1,18 +1,27 @@
 package ar.utn.tacs.model.operation;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
+import ar.utn.tacs.model.coin.Coin;
+
 public class Sale extends Operation {
-	
+
 	private static final Long ID = 1l;
 	private static final String DESCRIPTION = "Venta";
-	
-	protected Sale() {
+
+	public Sale() {
 		super(ID, DESCRIPTION);
 		// TODO Auto-generated constructor stub
 	}
 
+	//ACA SE DEBERIAN HACER VALIDACIONES
 	@Override
 	public void doOperation() {
-		// TODO Auto-generated method stub
+
+		Map<Coin, BigDecimal> coinMap = this.user.getWallet().getCoinsMap();
+
+		coinMap.get(this.coin).subtract(this.amount);
 
 	}
 

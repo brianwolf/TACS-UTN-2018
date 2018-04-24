@@ -29,9 +29,10 @@ public class WalletRestImpl implements WalletRest{
 	@POST
 	@Path(WalletRest.BUY)
 	@Override
-	public Response buy(Map<String, String> resultMap) {
+	public Response buy(Map<String, Object> resultMap) {
 		//@PathParam("idUser") long idUser,@PathParam("idCoin") long idCoin, @PathParam("amount") BigDecimal amount
 		try {
+			walletService.buy(resultMap);
 			return Response.status(Response.Status.OK).build();
 
 		} catch (Exception e) {

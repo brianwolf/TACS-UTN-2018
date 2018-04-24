@@ -1,7 +1,7 @@
 package ar.utn.tacs.dao.wallet;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
@@ -14,7 +14,7 @@ public interface WalletDao extends GenericDao {
 	 * @param resultMap
 	 * @return
 	 */
-	Transaction buy(HashMap<String, String> resultMap);
+	Boolean buy(String token,Transaction transaction);
 
 	/**
 	 * @param idUser
@@ -22,7 +22,7 @@ public interface WalletDao extends GenericDao {
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Transaction sale(HashMap<String, String> resultMap);
+	Boolean sale(String token,Transaction transaction);
 
 	/**
 	 * @param idUser

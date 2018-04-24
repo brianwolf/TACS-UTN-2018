@@ -1,6 +1,5 @@
 package ar.utn.tacs.dao.wallet.impl;
 
-import java.util.HashMap;
 import java.util.List;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
@@ -11,15 +10,13 @@ import ar.utn.tacs.model.wallet.Wallet;
 public class WalletDaoImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao{
 
 	@Override
-	public Transaction buy(HashMap<String, String> resultMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean buy(String token,Transaction transaction) {
+		return true;
 	}
 
 	@Override
-	public Transaction sale(HashMap<String, String> resultMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean sale(String token,Transaction transaction) {
+		return true;
 	}
 
 	@Override

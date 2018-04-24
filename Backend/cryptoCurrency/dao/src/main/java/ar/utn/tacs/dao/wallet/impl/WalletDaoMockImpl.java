@@ -1,5 +1,6 @@
 package ar.utn.tacs.dao.wallet.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,21 +18,30 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 	}
 
 	@Override
-	public Transaction buy(HashMap<String, String> resultMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean buy(String token,Transaction transaction) {
+		
+		if(!history.containsKey(token)) {
+			history.put(token,new ArrayList<Transaction>());
+		}
+		
+		history.get(token).add(transaction);
+		return true;
 	}
 
 	@Override
-	public Transaction sale(HashMap<String, String> resultMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean sale(String token,Transaction transaction) {
+		if(!history.containsKey(token)) {
+			history.put(token,new ArrayList<Transaction>());
+		}
+		
+		history.get(token).add(transaction);
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transaction> userTransactionHistory(String token, String coinSymbol) {
 		List<Transaction> transactionsResult = history.get(token);
-		return (List<Transaction>) transactionsResult.stream().filter(transaction -> transaction.getCoin().getTicker().equals(coinSymbol));
+		return (List<Transaction>) transactionsResult.stream().filter(transaction -> transaction.getOperations().get(0).getCoin().getTicker().equals(coinSymbol));
 	}
 }
