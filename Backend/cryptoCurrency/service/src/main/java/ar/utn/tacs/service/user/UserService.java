@@ -17,13 +17,7 @@ public interface UserService extends GenericService{
 	 * @param pass
 	 * @return {@link User}
 	 */
-	User getUserByLogin(String nick, String pass);
-	
-	/**
-	 * @param id
-	 * @return {@link User}
-	 */
-	User getUserById(long id);
+	String getTokenByLogin(String nick, String pass);
 	
 	/**
 	 * @return {@link List} {@link Long}
@@ -34,4 +28,10 @@ public interface UserService extends GenericService{
 	 * @return {@link List}
 	 */
 	List<User> getUsers();
+	
+	
+	/**
+	 * @param token
+	 */
+	void logOutUserByToken(String token);
 }

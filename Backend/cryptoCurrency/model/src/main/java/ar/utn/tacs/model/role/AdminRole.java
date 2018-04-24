@@ -6,4 +6,11 @@ import org.codehaus.jackson.annotate.JsonIgnoreType;
 @JsonIgnoreType 
 public class AdminRole extends Role{
 
+	private static final Long ID_ROLE = 1l;
+	private static final String DESCRIPTION = "Administrador";
+	
+	public AdminRole() {
+		super(ID_ROLE, DESCRIPTION);
+	}
+	
 }
