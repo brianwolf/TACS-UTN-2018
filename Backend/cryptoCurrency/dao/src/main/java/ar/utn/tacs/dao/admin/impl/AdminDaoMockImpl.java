@@ -29,10 +29,10 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 	
 	public AdminDaoMockImpl() {
 		transactions = new ArrayList<Transaction>();
-		((WalletDaoMockImpl)walletDao).history.values().forEach(transaction -> this.transactions.add((Transaction) transaction));
+		((WalletDaoMockImpl)walletDao).getHistory().values().forEach(transaction -> this.transactions.add((Transaction) transaction));
 		
 		this.users = new ArrayList<User>();
-		this.users = ((UserDaoMockImpl) userDao).users;
+		this.users = ((UserDaoMockImpl)userDao).getUsers();
 	}
 	
 	@Override
