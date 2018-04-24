@@ -70,4 +70,10 @@ public class ExternalServiceImpl implements ExternalService{
 		return HttpMethod.resolve(method);
 	}
 
+	@Override
+	public Coin getCoinByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

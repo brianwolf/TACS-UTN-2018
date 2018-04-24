@@ -3,6 +3,7 @@ package ar.utn.tacs.dao.wallet.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.wallet.WalletDao;
@@ -38,7 +39,7 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 	@Override
 	public List<Transaction> userTransactionHistory(String token, String coinSymbol) {
 		List<Transaction> transactionsResult = getHistory().get(token);
-		return (List<Transaction>) transactionsResult.stream().filter(transaction -> transaction.getOperations().get(0).getCoin().getTicker().equals(coinSymbol));
+		return (List<Transaction>) transactionsResult.stream().filter(transaction -> transaction.getOperations().get(0).getCoin().getTicker().equals(coinSymbol)).collect(Collectors.toList());
 	}
 
 	public HashMap<String, List<Transaction>> getHistory() {

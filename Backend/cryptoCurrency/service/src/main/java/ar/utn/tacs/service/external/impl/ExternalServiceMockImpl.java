@@ -28,5 +28,12 @@ public class ExternalServiceMockImpl extends ExternalServiceImpl{
 	public List<Coin> coinMarketCap() {
 		return this.coinList;
 	}
+	
+	@Override
+	public Coin getCoinByName(String name) {
+		return coinList.stream().filter(coin -> coin.getName().equals(name))
+		.findFirst()
+		.get();
+	}
 
 }

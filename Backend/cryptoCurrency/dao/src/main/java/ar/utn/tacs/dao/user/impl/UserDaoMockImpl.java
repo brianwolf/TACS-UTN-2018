@@ -3,6 +3,7 @@ package ar.utn.tacs.dao.user.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
@@ -18,10 +19,10 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 	private HashMap<String, User> sessions = new HashMap<String,User>();
  	
 	private List<User> users = new ArrayList<User>();
+	private List<Role> roles = new ArrayList<Role>();
 	
 	public UserDaoMockImpl() {
 		
-		List<Role> roles = new ArrayList<Role>();
 			roles.add(new AdminRole());
 			roles.add(new UserRole());
 			
@@ -45,6 +46,10 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 				.filter(user -> user.getNick().equals(nick) && user.getPass().equals(pass))
 				.findFirst()
 				.get(); 
+		
+		//ELIMINA SESION
+		Optional<String> key = sessions.keySet().stream().filter(k->sessions.get(k).getId().equals(usuarioEncontrado.getId())).findFirst();
+		logOutUserByToken(key.hashCode()==0 ? null : key.get());
 		
 		String token = "";
 		if (usuarioEncontrado != null) {
@@ -76,6 +81,32 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 
 	public void logOutUserByToken(String token) {
 		this.sessions.remove(token);
+	}
+
+	@Override
+	public User getUserByToken(String token) {
+		return sessions.get(token);
+	}
+	
+	private Boolean existsUser(String nick) {
+		return this.users.stream().anyMatch(u->u.getNick().equals(nick));
+	}
+
+	@Override
+	public void createUser(User user) {
+		
+		if(existsUser(user.getNick())) {
+			throw new RuntimeException();
+		}
+		
+		user.setActivo(true);
+		user.setIntentosLogin(0);
+		user.setWallet(new Wallet());
+		user.setRoles(roles);
+		user.setId(Long.valueOf(this.users.size()+1));
+		
+		this.users.add(user);
+		
 	}
 }
 

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -57,14 +58,15 @@ public class UserRestImpl implements UserRest {
 	@POST
 	@Path(UserRest.NEW_USER)
 	@Override
-	public Response newUser(User user) {
+	public Response newUser(Map<String,Object> map) {
 
-		String token = "";
 		try {
-			userService.newUser(user);
-			token = userService.getTokenByLogin(user.getNick(), user.getPass());
+			String nick = (String) map.get("nick");
+			String pass = (String) map.get("pass");
 			
-			return Response.status(Response.Status.OK).entity(token).build();
+			userService.newUser(nick,pass);
+			
+			return Response.status(Response.Status.OK).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -92,7 +94,7 @@ public class UserRestImpl implements UserRest {
 	@PUT
 	@Path(UserRest.LOGOUT_USER_BY_TOKEN)
 	@Override
-	public Response logOutUserByToken(String token) {
+	public Response logOutUserByToken(@HeaderParam(value = "token")String token) {
 		try {
 			userService.logOutUserByToken(token);
 			return Response.status(Response.Status.OK).build();

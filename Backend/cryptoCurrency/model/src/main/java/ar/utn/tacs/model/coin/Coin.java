@@ -1,10 +1,13 @@
 package ar.utn.tacs.model.coin;
 
+import java.math.BigDecimal;
+
 public class Coin {
 
 	private Long id;
 	private String name;
 	private String ticker;
+	private BigDecimal valueInDollars;
 
 	public Coin() {
 	}
@@ -37,6 +40,14 @@ public class Coin {
 
 	public void setTicker(String ticker) {
 		this.ticker = ticker;
+	}
+
+	public BigDecimal getValueInDollars() {
+		return valueInDollars;
+	}
+
+	public void setValueInDollars(BigDecimal valueUsd) {
+		this.valueInDollars = valueUsd;
 	}
 
 

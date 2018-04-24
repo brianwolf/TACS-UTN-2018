@@ -12,4 +12,6 @@ public interface ExternalService extends GenericService {
 	 * @return {@link Map}
 	 */
 	List<Coin> coinMarketCap();
+
+	Coin getCoinByName(String name);
 }

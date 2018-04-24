@@ -34,4 +34,8 @@ public interface UserService extends GenericService{
 	 * @param token
 	 */
 	void logOutUserByToken(String token);
+
+	User getUserByToken(String token);
+
+	void newUser(String nick, String pass);
 }

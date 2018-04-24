@@ -14,8 +14,8 @@ public interface WalletRest extends GenericRest {
 	
 	public static final String BUY = "/buy";
 	public static final String SALE = "/sale";
-	public static final String BUY_HISTORY = "/history/purchases/{token}";
-	public static final String USER_TRANSACTION_HISTORY = "/history/transactions/{idUser}/{4}";
+	public static final String BUY_HISTORY = "/history/purchases";
+	public static final String USER_TRANSACTION_HISTORY = "/history/transactions/{ticker}";
 
 	/**
 	 * @param idUser
@@ -23,7 +23,7 @@ public interface WalletRest extends GenericRest {
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Response buy(Map<String, Object> resultMap);
+	Response buy(String token,Map<String, Object> resultMap);
 
 	/**
 	 * @param idUser
@@ -31,7 +31,7 @@ public interface WalletRest extends GenericRest {
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Response sale(Map<String, String> resultMap);
+	Response sale(String token,Map<String, Object> resultMap);
 
 	/**
 	 * @param idUser

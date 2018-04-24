@@ -30,13 +30,26 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void newUser(User user) {
-		// TODO Auto-generated method stub
+	public void newUser(String nick,String pass) {
+		User user = new User();
+		user.setNick(nick);
+		user.setPass(pass);
 		
+		userDao.createUser(user);
 	}
 
 	@Override
 	public void logOutUserByToken(String token) {
-		
+		userDao.logOutUserByToken(token);
+	}
+
+	@Override
+	public User getUserByToken(String token) {
+		return this.userDao.getUserByToken(token);
+	}
+
+	@Override
+	public void newUser(User user) {
+		//jiji vieja
 	}
 }

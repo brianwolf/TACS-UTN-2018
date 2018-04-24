@@ -29,4 +29,8 @@ public interface UserDao extends GenericDao {
 	 * @param token
 	 */
 	public void logOutUserByToken(String token);
+
+	public User getUserByToken(String token);
+
+	public void createUser(User user);
 }

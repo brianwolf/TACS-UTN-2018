@@ -8,9 +8,9 @@ import ar.utn.tacs.rest.GenericRest;
 
 public interface ExternalRest extends GenericRest {
 
-	public static final String BASE = "/servicios/externos";
+	public static final String BASE = "/services/external";
 
-	public static final String COIN_MARKET_CAP = "/coinMarketCap";
+	public static final String COIN_MARKET_CAP = "/coins";
 
 	/**
 	 * @return {@link JsonValue}

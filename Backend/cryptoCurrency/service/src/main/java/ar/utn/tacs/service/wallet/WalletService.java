@@ -22,7 +22,7 @@ public interface WalletService extends GenericService{
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Transaction sale(Map<String, Object> resultMap);
+	Boolean sale(Map<String, Object> resultMap);
 
 	/**
 	 * @param idUser
