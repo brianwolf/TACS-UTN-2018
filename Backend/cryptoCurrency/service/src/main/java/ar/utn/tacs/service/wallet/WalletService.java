@@ -10,6 +10,10 @@ import ar.utn.tacs.service.GenericService;
 
 public interface WalletService extends GenericService{
 	
+	/**
+	 * @param resultMap
+	 * @return
+	 */
 	Transaction buy(HashMap<String, String> resultMap);
 
 	/**
@@ -22,14 +26,8 @@ public interface WalletService extends GenericService{
 
 	/**
 	 * @param idUser
-	 * @return {@link JsonValue}
-	 */
-	List<Transaction> buyHistory(long idUser);
-
-	/**
-	 * @param idUser
 	 * @param idCoin
 	 * @return {@link JsonValue}
 	 */
-	List<Transaction> userTransactionHistory(long idUser, long idCoin);
+	List<Transaction> userTransactionHistory(String token, String coinSymbol);
 }
