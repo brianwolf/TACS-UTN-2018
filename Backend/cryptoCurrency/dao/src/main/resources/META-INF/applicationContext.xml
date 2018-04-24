@@ -20,6 +20,6 @@
 <!-- 	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoImpl" /> -->
 	
 	<!-- MOCKS -->
-	<bean id="userDao" 			class="ar.utn.tacs.dao.user.impl.UserDaoMockImpl" init-method="UserDaoMockImpl"/>
-	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl" init-method="WalletDaoMockImpl"/>
+	<bean id="userDao" 			class="ar.utn.tacs.dao.user.impl.UserDaoMockImpl" />
+	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl"/>
 </beans>
