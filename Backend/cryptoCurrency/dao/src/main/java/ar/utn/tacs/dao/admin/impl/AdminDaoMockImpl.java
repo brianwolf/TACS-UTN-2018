@@ -24,15 +24,15 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 	@Autowired
 	private UserDao userDao;
 	
-	public List<Transaction> transactions;
-	public List<User> users;
+	public List<Transaction> transactions=new ArrayList<Transaction>();
+	public List<User> users = new ArrayList<User>();
 	
+	//ESTO LO COMENTO PORQUE TIRA ERROR
 	public AdminDaoMockImpl() {
-		transactions = new ArrayList<Transaction>();
-		((WalletDaoMockImpl)walletDao).getHistory().values().forEach(transaction -> this.transactions.add((Transaction) transaction));
 		
-		this.users = new ArrayList<User>();
-		this.users = ((UserDaoMockImpl)userDao).getUsers();
+//		((WalletDaoMockImpl)walletDao).getHistory().values().forEach(transaction -> this.transactions.add((Transaction) transaction));
+		
+//		this.users = ((UserDaoMockImpl)userDao).getUsers();
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<Transaction> statesToday() {
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDate().getDay() == new Date().getDate());
+		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDate().getDay() == new Date().getDay());
 	}
 
 	@SuppressWarnings("unchecked")
