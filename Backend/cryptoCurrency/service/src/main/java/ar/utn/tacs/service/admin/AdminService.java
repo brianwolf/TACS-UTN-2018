@@ -8,13 +8,12 @@ import ar.utn.tacs.service.GenericService;
 
 public interface AdminService extends GenericService {
 
-
 	/**
 	 * @param idUserA
 	 * @param idUserB
 	 * @return {@link User}
 	 */
-	User compareBalance(long idUserA, long idUserB);
+	User compareBalance(String nickA, String nickB);
 
 	/**
 	 * @return {@link List}{@link Transaction}

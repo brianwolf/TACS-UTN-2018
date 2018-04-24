@@ -22,7 +22,7 @@ public interface AdminRest extends GenericService{
 	 * @param idUserB
 	 * @return {@link JsonValue}
 	 */
-	Response compareBalance(Long idUserA, Long idUserB);
+	Response compareBalance(String nickA, String nickB);
 	
 	/**
 	 * @return {@link JsonValue}

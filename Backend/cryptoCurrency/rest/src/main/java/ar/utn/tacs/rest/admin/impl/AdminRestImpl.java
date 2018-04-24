@@ -1,6 +1,5 @@
 package ar.utn.tacs.rest.admin.impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +10,8 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ar.utn.tacs.model.role.AdminRole;
-import ar.utn.tacs.model.role.Role;
-import ar.utn.tacs.model.role.UserRole;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
-import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.rest.admin.AdminRest;
 import ar.utn.tacs.service.admin.AdminService;
 
@@ -29,16 +24,12 @@ public class AdminRestImpl implements AdminRest {
 	@POST
 	@Path(AdminRest.COMPARE_BALANCE)
 	@Override
-	public Response compareBalance(@PathParam("idUserA") Long idUserA, @PathParam("idUserB") Long idUserB) {
+	public Response compareBalance(@PathParam("nickA") String nickA, @PathParam("nickB") String nickB) {
+		User userResul;
+		
 		try {
-			List<Role> roles = new ArrayList<Role>();
-				roles.add(new AdminRole());
-				roles.add(new UserRole());
-				
-			User user = new User(1l, "juan", "1234", 1, true, new Wallet(), roles);
-			
-			
-			return Response.status(Response.Status.OK).entity(user).build();
+			userResul = adminService.compareBalance(nickA, nickB);
+			return Response.status(Response.Status.OK).entity(userResul).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -49,15 +40,11 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_TODAY)
 	@Override
 	public Response statesToday() {
+		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+		
 		try {
-			Transaction transaccion = new Transaction();
-				transaccion.setId(1l);
-				transaccion.setAmount(new BigDecimal("0.21"));
-				transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
-				transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
-				transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
-
-			return Response.status(Response.Status.OK).entity(transaccion).build();
+			transaccionResult = adminService.statesToday();
+			return Response.status(Response.Status.OK).entity(transaccionResult).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -68,16 +55,11 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_THREE_DAYS)
 	@Override
 	public Response statesThreeDays() {
+		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+		
 		try {
-			Transaction transaccion = new Transaction();
-			transaccion.setId(1l);
-			transaccion.setAmount(new BigDecimal("0.21"));
-			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
-			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
-			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
-
-
-			return Response.status(Response.Status.OK).entity(transaccion).build();
+			transaccionResult = adminService.statesThreeDays();
+			return Response.status(Response.Status.OK).entity(transaccionResult).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -88,16 +70,11 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_LAST_WEEK)
 	@Override
 	public Response statesLastWeek() {
+		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+		
 		try {
-			Transaction transaccion = new Transaction();
-			transaccion.setId(1l);
-			transaccion.setAmount(new BigDecimal("0.21"));
-			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
-			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
-			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
-
-
-			return Response.status(Response.Status.OK).entity(transaccion).build();
+			transaccionResult = adminService.statesLastWeek();
+			return Response.status(Response.Status.OK).entity(transaccionResult).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -108,16 +85,11 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_LAST_MOTH)
 	@Override
 	public Response statesLastMonth() {
+		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+		
 		try {
-			Transaction transaccion = new Transaction();
-			transaccion.setId(1l);
-			transaccion.setAmount(new BigDecimal("0.21"));
-			transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
-			transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
-			transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
-
-
-			return Response.status(Response.Status.OK).entity(transaccion).build();
+			transaccionResult = adminService.statesLastMonth();
+			return Response.status(Response.Status.OK).entity(transaccionResult).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -128,16 +100,12 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_START_TIMES)
 	@Override
 	public Response statesStartTimes() {
+		
+		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+		
 		try {
-			Transaction transaccion = new Transaction();
-				transaccion.setId(1l);
-				transaccion.setAmount(new BigDecimal("0.21"));
-				transaccion.setQuoteTimeNow(new BigDecimal("0.21"));
-				transaccion.setQuoteTimeSold(new BigDecimal("0.22"));
-				transaccion.setQuoteDifference(transaccion.getQuoteTimeNow().subtract(transaccion.getQuoteTimeSold()));
-
-
-			return Response.status(Response.Status.OK).entity(transaccion).build();
+			transaccionResult = adminService.statesStartTimes();
+			return Response.status(Response.Status.OK).entity(transaccionResult).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

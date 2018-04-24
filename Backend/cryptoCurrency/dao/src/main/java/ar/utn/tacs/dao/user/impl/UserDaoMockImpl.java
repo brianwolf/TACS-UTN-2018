@@ -15,9 +15,9 @@ import ar.utn.tacs.model.wallet.Wallet;
 
 public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements UserDao{
 	
-	private HashMap<String, User> sessions;
+	public HashMap<String, User> sessions;
  	
-	private List<User> users;
+	public List<User> users;
 	
 	public UserDaoMockImpl() {
 		

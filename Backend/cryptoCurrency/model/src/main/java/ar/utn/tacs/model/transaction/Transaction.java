@@ -1,6 +1,7 @@
 package ar.utn.tacs.model.transaction;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.operation.Operation;
@@ -16,6 +17,15 @@ public class Transaction {
 	BigDecimal quoteTimeSold;
 	BigDecimal quoteTimeNow;
 	BigDecimal quoteDifference;
+	Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public Operation getOperation() {
 		return operation;
