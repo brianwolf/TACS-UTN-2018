@@ -14,15 +14,8 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 
 	@Override
-	public User getUserByLogin(String nick, String pass) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User getUserById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getTokenByLogin(String nick, String pass) {
+		return userDao.getTokenByLogin(nick, pass);
 	}
 
 	@Override
@@ -39,6 +32,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void newUser(User user) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void logOutUserByToken(String token) {
 		
 	}
 }

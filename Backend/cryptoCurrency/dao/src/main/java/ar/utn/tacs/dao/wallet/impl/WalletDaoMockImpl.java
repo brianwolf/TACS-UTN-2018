@@ -8,7 +8,13 @@ import ar.utn.tacs.dao.wallet.WalletDao;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.Wallet;
 
-public class WalletDaoImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao{
+public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao {
+
+	private HashMap<String, List<Transaction>> history;
+
+	public WalletDaoMockImpl() {
+		this.history = new HashMap<String, List<Transaction>>();
+	}
 
 	@Override
 	public Transaction buy(HashMap<String, String> resultMap) {
@@ -22,9 +28,10 @@ public class WalletDaoImpl extends GenericAbstractDaoImpl<Wallet> implements Wal
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transaction> userTransactionHistory(String token, String coinSymbol) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Transaction> transactionsResult = history.get(token);
+		return (List<Transaction>) transactionsResult.stream().filter(transaction -> transaction.getCoin().getTicker().equals(coinSymbol));
 	}
 }

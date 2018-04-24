@@ -1,20 +1,21 @@
 package ar.utn.tacs.rest.wallet.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.rest.wallet.WalletRest;
-import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.service.wallet.WalletService;
 
 @Path(WalletRest.BASE)
@@ -23,10 +24,7 @@ import ar.utn.tacs.service.wallet.WalletService;
 public class WalletRestImpl implements WalletRest{
 	
 	@Autowired
-	private WalletService externalService;
-	
-	@Autowired
-	private UserService userService;
+	private WalletService walletService;
 	
 	@POST
 	@Path(WalletRest.BUY)
@@ -54,23 +52,15 @@ public class WalletRestImpl implements WalletRest{
 	}
 
 	@GET
-	@Path(WalletRest.BUY_HISTORY)
-	@Override
-	public Response buyHistory(@PathParam("idUser") Long idUser) {
-		try {
-			return Response.status(Response.Status.OK).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
-	@GET
 	@Path(WalletRestImpl.USER_TRANSACTION_HISTORY)
 	@Override
-	public Response userTransactionHistory(Long idUser, Long idCoin) {
+	public Response userTransactionHistory(String token, String coinSymbol) {
+		
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		
 		try {
-			return Response.status(Response.Status.OK).build();
+			transactions = walletService.userTransactionHistory(token, coinSymbol);
+			return Response.status(Response.Status.OK).entity(transactions).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

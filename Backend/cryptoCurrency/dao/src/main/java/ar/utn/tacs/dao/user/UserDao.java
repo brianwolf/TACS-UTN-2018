@@ -7,9 +7,26 @@ import ar.utn.tacs.model.user.User;
 
 public interface UserDao extends GenericDao {
 	
+	/**
+	 * @param userId
+	 * @return {@link User}
+	 */
 	public User getUserById(Long userId);
 
-	public User validateNickAndPass(String nick, String pass);
+	/**
+	 * @param nick
+	 * @param pass
+	 * @return {@link String}
+	 */
+	public String getTokenByLogin(String nick, String pass);
 	
+	/**
+	 * @return {@link List}{@link User}
+	 */
 	public List<User> getUsers();
+	
+	/**
+	 * @param token
+	 */
+	public void logOutUserByToken(String token);
 }

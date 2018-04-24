@@ -1,21 +1,29 @@
 package ar.utn.tacs.model.transaction;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.operation.Operation;
 import ar.utn.tacs.model.user.User;
 
 public class Transaction {
 
 	Long id;
-	private List<User> user;
-	private List<Operation> operations;
+	private User user;
+	private Coin coin;
+	private Operation operation;
 	BigDecimal amount;
 	BigDecimal quoteTimeSold;
 	BigDecimal quoteTimeNow;
 	BigDecimal quoteDifference;
 
+	public Operation getOperation() {
+		return operation;
+	}
+
+	public void setOperation(Operation operation) {
+		this.operation = operation;
+	}
 
 	public Long getId() {
 		return id;
@@ -57,20 +65,20 @@ public class Transaction {
 		this.quoteDifference = quoteDifference;
 	}
 
-	public List<User> getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(List<User> user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public List<Operation> getOperations() {
-		return operations;
+	public Coin getCoin() {
+		return coin;
 	}
 
-	public void setOperations(List<Operation> operations) {
-		this.operations = operations;
+	public void setCoin(Coin coin) {
+		this.coin = coin;
 	}
 
 }

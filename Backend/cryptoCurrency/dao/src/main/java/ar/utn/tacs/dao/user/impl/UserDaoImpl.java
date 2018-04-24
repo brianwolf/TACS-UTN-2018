@@ -21,7 +21,7 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		return user;
 	}
 
-	public User validateNickAndPass(String nick, String pass) {
+	public String getTokenByLogin(String nick, String pass) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -35,5 +35,11 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		userList = query.getResultList();
 		session.close();
 		return userList;
+	}
+
+	@Override
+	public void logOutUserByToken(String token) {
+		// TODO Auto-generated method stub
+		
 	}
 }

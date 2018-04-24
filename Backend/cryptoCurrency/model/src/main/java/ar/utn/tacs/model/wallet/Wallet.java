@@ -11,20 +11,21 @@ import ar.utn.tacs.model.coin.Coin;
 @JsonIgnoreType
 public class Wallet {
 
-//	private HashMap<Coin, BigDecimal> coinsMap;
-//
-//	public HashMap<Coin, BigDecimal> getCoinsMap() {
-//		return coinsMap;
-//	}
-//
-//	public void setCoinsMap(HashMap<Coin, BigDecimal> coinsMap) {
-//		this.coinsMap = coinsMap;
-//	}
-//
-//	public Wallet() {
-//	}
-//
-//	public Wallet(HashMap<Coin, BigDecimal> coinsMap) {
-//		this.coinsMap = coinsMap;
-//	}
+	private HashMap<Coin, BigDecimal> coinsMap;
+	
+	public Wallet() {
+		this.coinsMap = new HashMap<Coin, BigDecimal>();
+	}
+
+	public Wallet(HashMap<Coin, BigDecimal> coinsMap) {
+		this.coinsMap = coinsMap;
+	}
+
+	public HashMap<Coin, BigDecimal> getCoinsMap() {
+		return coinsMap;
+	}
+
+	public void setCoinsMap(HashMap<Coin, BigDecimal> coinsMap) {
+		this.coinsMap = coinsMap;
+	}
 }

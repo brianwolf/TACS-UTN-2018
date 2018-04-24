@@ -12,18 +12,11 @@ import ar.utn.tacs.service.wallet.WalletService;
 public class WalletServiceImpl implements WalletService {
 
 	@Autowired
-	private WalletDao externalDao;
-
+	private WalletDao walletDao;
+	
 	@Override
-	public List<Transaction> buyHistory(long idUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Transaction> userTransactionHistory(long idUser, long idCoin) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Transaction> userTransactionHistory(String token, String coinSymbol) {
+		return walletDao.userTransactionHistory(token, coinSymbol);
 	}
 
 	@Override
