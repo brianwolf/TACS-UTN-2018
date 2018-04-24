@@ -10,7 +10,7 @@ import ar.utn.tacs.model.wallet.Wallet;
 
 public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao {
 
-	public HashMap<String, List<Transaction>> history;
+	private HashMap<String, List<Transaction>> history = new HashMap<String,List<Transaction>>();
 
 	public WalletDaoMockImpl() {
 		this.history = new HashMap<String, List<Transaction>>();

@@ -16,7 +16,7 @@ public interface AdminRest extends GenericService{
 	public static final String STATES_LAST_WEEK = "/estados/lastWeek";
 	public static final String STATES_LAST_MOTH = "/estados/lastMonth";
 	public static final String STATES_START_TIMES = "/estados/startTimes";
-
+	
 	/**
 	 * @param idUserA
 	 * @param idUserB

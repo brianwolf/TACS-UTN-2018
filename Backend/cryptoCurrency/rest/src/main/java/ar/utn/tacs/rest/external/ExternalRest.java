@@ -10,7 +10,7 @@ public interface ExternalRest extends GenericRest {
 
 	public static final String BASE = "/servicios/externos";
 
-	public static final String COIN_MARKET_CAP = "/CoinMarketCap";
+	public static final String COIN_MARKET_CAP = "/coinMarketCap";
 
 	/**
 	 * @return {@link JsonValue}
