@@ -1,5 +1,7 @@
 package ar.utn.tacs.telegram;
 
+import ar.utn.tacs.telegram.action.*;
+
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
 
@@ -11,8 +13,6 @@ import static org.telegram.abilitybots.api.objects.Privacy.PUBLIC;
 import org.springframework.web.client.RestTemplate;
 
 public class TACSCryptoBot extends AbilityBot  {
-
-	public static final String HOST = "http://localhost:8080/";
 	
 	public static final String BOT_TOKEN = "528360666:AAE215nVkyXqXnOOYt9MJlaMm8o8JxWnyL0";
 	public static final String BOT_USERNAME = "TACSCryptoBot";
@@ -44,72 +44,61 @@ public class TACSCryptoBot extends AbilityBot  {
 				.builder()
 				.name("login")
 				.info("Autenticación con <user> <pass>")
+				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send("Ingreso correcto al sistema", ctx.chatId()))
+				.action(ctx -> silent.send(Login.exec(ctx), ctx.chatId()))
 				.build();
 	}
 	
 	/* Como usuario quiero poder registrar una transacción (moneda, cantidad comprada / vendida) usando Telegram */
-	private String buyAction(String coin, String q) {		
-		return "Se registro la transacción de compra de " + q + coin;
-	}
-	
 	public Ability buy() {
 		return Ability
 				.builder()
 				.name("buy")
-				.info("Compra <coin-ticker> <quantity>")
+				.info("Compra <coin-id> <quantity>")
+				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(buyAction(ctx.firstArg(), ctx.secondArg()), ctx.chatId()))
+				.action(ctx -> silent.send(Buy.exec(ctx), ctx.chatId()))
 				.build();
 	}
-	
-	private String sellAction(String coin, String q) {		
-		return "Se registro la transacción de venta de " + q + coin;
-	}
-	
+
 	public Ability sell() {
 		return Ability
 				.builder()
 				.name("sell")
-				.info("Vende <coin-ticker> <quantity>")
+				.info("Vende <coin-id> <quantity>")
+				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(sellAction(ctx.firstArg(), ctx.secondArg()), ctx.chatId()))
+				.action(ctx -> silent.send(Sell.exec(ctx), ctx.chatId()))
 				.build();
 	}
 	
 	/* Como usuario quiero ver la cantidad de una criptomoneda que poseo a través de Telegram. */
-	private String coinAction(String coin) {		
-		return "Usted posee XXX de la cryptomoneda " + coin + ".";
-	}
-	
 	public Ability coin() {
 		return Ability
 				.builder()
 				.name("coin")
-				.info("Cantidad de <coin-ticker>")
+				.info("Cantidad de <coin-id>")
+				.input(1)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(coinAction(ctx.firstArg()), ctx.chatId()))
+				.action(ctx -> silent.send(Amount.exec(ctx), ctx.chatId()))
 				.build();
 	}
 	
 	/* Como usuario quiero saber la cotización actual de una critpomoneda desde Telegram. */
-	private String quoteAction(String coin) {		
-		return "La cotización actual de " + coin + "XXX.";
-	}
-	
 	public Ability quote() {
 		return Ability
 				.builder()
 				.name("quote")
-				.info("Cotización de <coin-ticker>")
+				.info("Cotización de <coin-id>")
+				.input(1)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(quoteAction(ctx.firstArg()), ctx.chatId()))
+				.action(ctx -> silent.send(ActualQuote.exec(ctx), ctx.chatId()))
 				.build();
 	}
 
