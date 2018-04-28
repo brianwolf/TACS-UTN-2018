@@ -1,9 +1,17 @@
 package ar.utn.tacs.model.role;
 
+import java.util.List;
+
+import javax.persistence.Id;
+
 public abstract class Role {
 	
+	@Id
 	private Long id;
+	
 	private String description;
+	
+	private List<Funcionality> funcionalities;  
 	
 	public Role(Long id, String description) {
 		this.id = id;
@@ -24,6 +32,14 @@ public abstract class Role {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Funcionality> getFuncionalities() {
+		return funcionalities;
+	}
+
+	public void setFuncionalities(List<Funcionality> funcionalities) {
+		this.funcionalities = funcionalities;
 	}
 
 }

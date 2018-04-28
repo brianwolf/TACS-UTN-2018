@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
-import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
 import ar.utn.tacs.dao.wallet.WalletDao;
-import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 
@@ -46,7 +44,7 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<Transaction> statesToday() {
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDate().getDay() == new Date().getDay());
+		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().getDay() == new Date().getDay());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -56,7 +54,7 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 		threeDays.setTime(new Date());
 		threeDays.add(Calendar.DAY_OF_MONTH, -3);
 		
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDate().after(threeDays.getTime()));
+		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().after(threeDays.getTime()));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,7 +64,7 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 		lastWeek.setTime(new Date());
 		lastWeek.add(Calendar.DAY_OF_MONTH, -7);
 		
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDate().after(lastWeek.getTime()));
+		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().after(lastWeek.getTime()));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -76,7 +74,7 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 		lastWeek.setTime(new Date());
 		lastWeek.add(Calendar.DAY_OF_MONTH, -30);
 		
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDate().after(lastWeek.getTime()));
+		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().after(lastWeek.getTime()));
 	}
 
 	@Override

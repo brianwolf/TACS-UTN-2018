@@ -19,7 +19,7 @@ public class TransactionBuilder {
 		operation.setAmount(amount);
 		
 		Transaction transaction = new Transaction();
-		transaction.setDate(new Date());
+		transaction.setDateStart(new Date());
 		transaction.addOperation(operation);
 		
 		return transaction;
