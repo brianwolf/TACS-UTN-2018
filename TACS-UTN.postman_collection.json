@@ -1,0 +1,205 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TACS-UTN",
+		"_postman_id": "6f3010f8-8392-48a9-b760-d98b498880e6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData =  pm.response.json();//JSON.parse(responseBody);",
+							"pm.globals.set(\"cryptoCurrencyToken\", jsonData.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/apiWeb/users/login/negro/987",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "token",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "registerUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData =  pm.response.json();//JSON.parse(responseBody);",
+							"pm.globals.set(\"cryptoCurrencyToken\", jsonData.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/apiWeb/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "token",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nick\":\"negro\",\n  \"pass\":\"987\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getCoins",
+			"request": {
+				"url": "http://localhost:8080/apiWeb/services/external/coins",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "token",
+						"value": "{{cryptoCurrencyToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "getWalletHistory",
+			"request": {
+				"url": "http://localhost:8080/apiWeb/wallet/history/transactions/BTC",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "token",
+						"value": "{{cryptoCurrencyToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "buyCoin",
+			"request": {
+				"url": "http://localhost:8080/apiWeb/wallet/buy",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "token",
+						"value": "{{cryptoCurrencyToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"coin\":{\n    \"name\":\"Bitcoin\"\n  },\n  \"amount\":2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "saleCoin",
+			"request": {
+				"url": "http://localhost:8080/apiWeb/wallet/sale",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "{{cryptoCurrencyToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"coin\":{\n    \"name\":\"Bitcoin\"\n  },\n  \"amount\":2\n}"
+				}
+			},
+			"response": []
+		}
+	]
+}
