@@ -10,12 +10,12 @@ public interface AdminRest extends GenericService{
 	
 	public static final String BASE = "/admin";
 	
-	public static final String COMPARE_BALANCE = "/comparador/{idUserA}/{idUserB}";
-	public static final String STATES_TODAY = "/estados";
-	public static final String STATES_THREE_DAYS = "/estados/threeDays";
-	public static final String STATES_LAST_WEEK = "/estados/lastWeek";
-	public static final String STATES_LAST_MOTH = "/estados/lastMonth";
-	public static final String STATES_START_TIMES = "/estados/startTimes";
+	public static final String COMPARE_BALANCE = "/buyer/{idUserA}/{idUserB}";
+	public static final String STATES_TODAY = "/states";
+	public static final String STATES_THREE_DAYS = "/states/threeDays";
+	public static final String STATES_LAST_WEEK = "/states/lastWeek";
+	public static final String STATES_LAST_MOTH = "/states/lastMonth";
+	public static final String STATES_START_TIMES = "/states/startTimes";
 	
 	/**
 	 * @param idUserA
