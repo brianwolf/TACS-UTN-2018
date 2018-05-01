@@ -1,9 +1,9 @@
 package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
-import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.wallet.CoinAmaunt;
+import ar.utn.tacs.model.wallet.Wallet;
 
 public class Sale extends Operation {
 
@@ -18,11 +18,26 @@ public class Sale extends Operation {
 	//ACA SE DEBERIAN HACER VALIDACIONES
 	@Override
 	public void doOperation() {
-
-		Map<Coin, BigDecimal> coinMap = super.getUser().getWallet().getCoinsMap();
-
-		coinMap.get(this.getCoin()).subtract(this.amount);
-
+		
+		Wallet userWallet = super.user.getWallet();
+		
+		CoinAmaunt virtualCoin = userWallet.getCoinAmountByCoin(super.coin);
+		if (virtualCoin == null) {
+			//noTenesLaMonedaException()
+			return; 
+		}
+		
+		if (!userWallet.haveEnoughCoins(super.coin, super.amount)) {
+			//new SosUnPobreException()
+			return;
+		}
+		
+		BigDecimal finalPrice = super.amount.multiply(super.coin.getValueInDollars());
+		
+		CoinAmaunt dolar = userWallet.getCoinAmountByTicker("USD");
+		dolar.getAmount().add(finalPrice);
+		
+		virtualCoin.getAmount().subtract(super.amount);
 	}
 
 }

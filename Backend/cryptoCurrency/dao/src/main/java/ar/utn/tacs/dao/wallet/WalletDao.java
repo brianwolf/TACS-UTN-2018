@@ -1,7 +1,6 @@
 package ar.utn.tacs.dao.wallet;
 
 import java.util.List;
-import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
