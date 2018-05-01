@@ -1,0 +1,26 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Comprar'" [icon]="'fa-edit'"></app-page-header>
+  <div class="row">
+      <div class="col-md-4 center-block">
+        <form role="form">
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-btc"></i>
+              </span>
+            </div>
+            <input class="form-control" type="number" placeholder="Ingrese la criptomoneda a comprar">
+          </div>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Q</span>
+            </div>
+            <input class="form-control" type="number" placeholder="Ingrese la cantidad">
+          </div>
+
+          <button class="btn btn-success" type="submit">Comprar</button>
+          <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']" type="submit">Cancelar</button>
+        </form>
+      </div>
+    </div>
+</div>

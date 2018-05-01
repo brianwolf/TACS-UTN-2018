@@ -1,0 +1,31 @@
+<div [@routerTransition]>
+  <!-- <h2 class="text-muted">{{ 'Welcome' | translate }}</h2> -->
+  <!-- <small>{{ 'WelcomeMessage' | translate }}</small> -->
+  <div class="row">
+    <div class="col-md-12">
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let slider of sliders">
+          <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="70%">
+          <div class="carousel-caption">
+            <h3>{{slider.label}}</h3>
+            <p>{{slider.text}}</p>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col">
+      <div class="card card-default">
+        <div class="card-header">
+          <i class="fa fa-clock-o fa-fw"></i> Quienes somos?
+        </div>
+        <!-- /.card-header -->
+        <app-timeline></app-timeline>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
