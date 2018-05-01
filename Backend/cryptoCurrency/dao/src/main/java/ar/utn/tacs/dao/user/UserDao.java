@@ -1,36 +1,37 @@
 package ar.utn.tacs.dao.user;
 
-import java.util.List;
-
 import ar.utn.tacs.dao.GenericDao;
+import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 
 public interface UserDao extends GenericDao {
 	
 	/**
-	 * @param userId
-	 * @return {@link User}
+	 * @param user
 	 */
-	public User getUserById(Long userId);
-
+	public void newUser(User user);
+	
 	/**
 	 * @param nick
 	 * @param pass
-	 * @return {@link String}
+	 * @return {@link User}
 	 */
-	public String getTokenByLogin(String nick, String pass);
-	
-	/**
-	 * @return {@link List}{@link User}
-	 */
-	public List<User> getUsers();
+	public String getTokenByLogin(Login login);
 	
 	/**
 	 * @param token
 	 */
 	public void logOutUserByToken(String token);
 
+	/**
+	 * @param token
+	 * @return {@link User}
+	 */
 	public User getUserByToken(String token);
-
-	public void createUser(User user);
+	
+	/**
+	 * @param userId
+	 * @return {@link User}
+	 */
+	public User getUserById(Long userId);
 }

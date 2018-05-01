@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
+import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 
 public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao{
@@ -17,11 +18,11 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		user.setId(userId);
 //		user.setApellido("Tagrande");
 //		user.setNombre("Juancho");
-		user.setNick("juancito");
+//		user.setNick("juancito");
 		return user;
 	}
 
-	public String getTokenByLogin(String nick, String pass) {
+	public String getTokenByLogin(Login login) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -50,7 +51,7 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 	}
 
 	@Override
-	public void createUser(User user) {
+	public void newUser(User user) {
 		// TODO Auto-generated method stub
 		
 	}

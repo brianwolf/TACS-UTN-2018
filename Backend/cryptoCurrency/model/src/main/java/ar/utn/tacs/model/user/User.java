@@ -2,53 +2,49 @@ package ar.utn.tacs.model.user;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.wallet.Wallet;
 
 //ESTO ES SOLO PARA PROBAR HACER UN SELECT
-@NamedNativeQueries({
-		@NamedNativeQuery(name = "findUsers", query = "select * from usuario", resultClass = User.class) })
-@Entity
-@Table(name = "USUARIO")
+//@NamedNativeQueries({
+//		@NamedNativeQuery(name = "findUsers", query = "select * from usuario", resultClass = User.class) })
+//@Entity
+//@Table(name = "USUARIO")
 public class User {
 
-	@Id
-	@Column(name = "id")
+//	@Id
+//	@Column(name = "id")
 	private Long id;
-	private String nick;
-	private String pass;
 	
-	@Column(name = "intentos_login")
-	private Integer intentosLogin;
-	private Boolean activo;
+	private Login login;
 	
-	//DEJO PROPERTIES CON ESTE TAG PARA QUE HIBERNATE NO LAS MAPEE
-	@Transient
+	private Person person;
+
+//	@Transient
 	private List<Role> roles = null;
 	
-	@Transient
+//	@Transient
 	private Wallet wallet = null;
-
-	public User(Long id, String nick, String pass, Integer intentosLogin, Boolean activo, Wallet wallet, List<Role> listRoles) {
+	
+	public User(Long id, Login login, Person person, List<Role> roles, Wallet wallet) {
 		this.id = id;
-		this.nick = nick;
-		this.pass = pass;
-		this.intentosLogin = intentosLogin;
-		this.activo = activo;
+		this.login = login;
+		this.person = person;
+		this.roles = roles;
 		this.wallet = wallet;
-		this.roles = listRoles;
+	}
+	
+	public User() {
 	}
 
-	public User() {
-
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof User)) {
+			return false;
+		}
+		
+		User other = (User) obj;
+		return this.id.equals(other.id);
 	}
 
 	public Long getId() {
@@ -59,36 +55,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getNick() {
-		return nick;
+	public Login getLogin() {
+		return login;
 	}
 
-	public void setNick(String nick) {
-		this.nick = nick;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	public Integer getIntentosLogin() {
-		return intentosLogin;
-	}
-
-	public void setIntentosLogin(Integer intentosLogin) {
-		this.intentosLogin = intentosLogin;
-	}
-
-	public Boolean isActivo() {
-		return activo;
-	}
-
-	public void setActivo(Boolean activo) {
-		this.activo = activo;
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 
 	public List<Role> getRoles() {
@@ -107,4 +79,13 @@ public class User {
 		this.wallet = wallet;
 	}
 
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	
+	
 }

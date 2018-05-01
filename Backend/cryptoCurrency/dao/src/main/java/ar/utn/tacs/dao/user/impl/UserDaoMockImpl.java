@@ -11,6 +11,8 @@ import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.role.AdminRole;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.role.UserRole;
+import ar.utn.tacs.model.user.Login;
+import ar.utn.tacs.model.user.Person;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.Wallet;
 
@@ -23,11 +25,11 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 	
 	public UserDaoMockImpl() {
 		
-			roles.add(new AdminRole());
-			roles.add(new UserRole());
+		this.roles.add(new AdminRole());
+		this.roles.add(new UserRole());
 			
-		this.users.add(new User(1l, "brian", "1234", 0, true, new Wallet(), roles));
-		this.users.add(new User(2l, "alexis", "1234", 0, true, new Wallet(), roles));
+		this.users.add(new User(1l, new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet()));
+		this.users.add(new User(2l, new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet()));
 	}
 	
 	@Override
@@ -40,10 +42,10 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 	}
 
 	@Override
-	public String getTokenByLogin(String nick, String pass) {
+	public String getTokenByLogin(Login login) {
 		
 		User usuarioEncontrado = users.stream()
-				.filter(user -> user.getNick().equals(nick) && user.getPass().equals(pass))
+				.filter(user -> user.getLogin().equals(login))
 				.findFirst()
 				.get(); 
 		
@@ -58,11 +60,6 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 		}
 		
 		return token;
-	}
-
-	@Override
-	public List<User> getUsers() {
-		return users;
 	}
 	
 	private String getRandomHashSession() {
@@ -88,19 +85,19 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 		return sessions.get(token);
 	}
 	
-	private Boolean existsUser(String nick) {
-		return this.users.stream().anyMatch(u->u.getNick().equals(nick));
+	private Boolean existsUser(User user) {
+		return this.users.stream().anyMatch(u->u.getLogin().equals(user.getLogin()));
 	}
 
 	@Override
-	public void createUser(User user) {
+	public void newUser(User user) {
 		
-		if(existsUser(user.getNick())) {
+		if(existsUser(user)) {
 			throw new RuntimeException();
 		}
 		
-		user.setActivo(true);
-		user.setIntentosLogin(0);
+		user.getLogin().setActive(true);
+		user.getLogin().setTries(0);
 		user.setWallet(new Wallet());
 		user.setRoles(roles);
 		user.setId(Long.valueOf(this.users.size()+1));

@@ -35,8 +35,8 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 	
 	@Override
 	public User compareBalance(String nickA, String nickB) {
-		User userA = (User) this.users.stream().filter(user -> user.getNick().equals(nickA));
-		User userB = (User) this.users.stream().filter(user -> user.getNick().equals(nickB));
+		User userA = (User) this.users.stream().filter(user -> user.getLogin().getNick().equals(nickA)).findFirst().get();
+		User userB = (User) this.users.stream().filter(user -> user.getLogin().getNick().equals(nickB)).findFirst().get();
 		
 		return this.mayorCapitalEntre(userA, userB);
 	}

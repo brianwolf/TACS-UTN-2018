@@ -1,10 +1,9 @@
 package ar.utn.tacs.service.user.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.user.UserDao;
+import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.user.UserService;
 
@@ -14,28 +13,13 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 
 	@Override
-	public String getTokenByLogin(String nick, String pass) {
-		return userDao.getTokenByLogin(nick, pass);
+	public String getTokenByLogin(Login login) {
+		return userDao.getTokenByLogin(login);
 	}
 
 	@Override
-	public List<User> getUsers() {
-		 return userDao.getUsers();
-	}
-
-	@Override
-	public List<Long> getAllUserIds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void newUser(String nick,String pass) {
-		User user = new User();
-		user.setNick(nick);
-		user.setPass(pass);
-		
-		userDao.createUser(user);
+	public void newUser(User user) {
+		userDao.newUser(user);
 	}
 
 	@Override
@@ -49,7 +33,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void newUser(User user) {
-		//jiji vieja
+	public User getUserById(Long userId) {
+		return this.userDao.getUserById(userId);
 	}
 }

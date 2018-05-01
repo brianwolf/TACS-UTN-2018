@@ -1,7 +1,6 @@
 package ar.utn.tacs.service.user;
 
-import java.util.List;
-
+import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.GenericService;
 
@@ -10,32 +9,29 @@ public interface UserService extends GenericService{
 	/**
 	 * @param user
 	 */
-	void newUser(User user);
+	public void newUser(User user);
 	
 	/**
 	 * @param nick
 	 * @param pass
 	 * @return {@link User}
 	 */
-	String getTokenByLogin(String nick, String pass);
-	
-	/**
-	 * @return {@link List} {@link Long}
-	 */
-	List<Long> getAllUserIds();
-
-	/**
-	 * @return {@link List}
-	 */
-	List<User> getUsers();
-	
+	public String getTokenByLogin(Login login);
 	
 	/**
 	 * @param token
 	 */
-	void logOutUserByToken(String token);
+	public void logOutUserByToken(String token);
 
-	User getUserByToken(String token);
-
-	void newUser(String nick, String pass);
+	/**
+	 * @param token
+	 * @return {@link User}
+	 */
+	public User getUserByToken(String token);
+	
+	/**
+	 * @param userId
+	 * @return {@link User}
+	 */
+	public User getUserById(Long userId);
 }
