@@ -11,8 +11,14 @@ import ar.utn.tacs.service.admin.AdminService;
 
 public class AdminServiceImpl implements AdminService {
 
+	private static AdminService ADMIN_SERVICE = new AdminServiceImpl();
+	
 	@Autowired
 	private AdminDao adminDao;
+	
+	public static AdminService getInstance() {
+		return ADMIN_SERVICE;
+	}
 
 	@Override
 	public User compareBalance(String nickA, String nickB) {

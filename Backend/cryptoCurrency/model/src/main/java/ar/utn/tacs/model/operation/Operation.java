@@ -23,15 +23,15 @@ public abstract class Operation {
 	
 	protected BigDecimal amount;
 	
-	private BigDecimal quoteTimeSold;
+	protected BigDecimal quoteTimeSold;
 
 	@Transient
-	private BigDecimal quoteTimeNow;
+	protected BigDecimal quoteTimeNow;
 	
 	@Transient
-	private BigDecimal quoteDifference;
+	protected BigDecimal quoteDifference;
 	
-	private Date date;
+	protected Date date;
 	
 	protected Operation(Long id, String description) {
 		this.id = id;

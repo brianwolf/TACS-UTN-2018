@@ -18,6 +18,16 @@ public class Coin {
 		this.ticker = ticker;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Coin)) {
+			return false;
+		}
+
+		Coin other = (Coin) obj;
+		return this.getTicker().equals(other.getTicker());
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -49,6 +59,4 @@ public class Coin {
 	public void setValueInDollars(BigDecimal valueUsd) {
 		this.valueInDollars = valueUsd;
 	}
-
-
 }

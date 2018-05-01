@@ -1,5 +1,6 @@
 package ar.utn.tacs.dao.user.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Random;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
+import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.role.AdminRole;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.role.UserRole;
@@ -27,9 +29,14 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 		
 		this.roles.add(new AdminRole());
 		this.roles.add(new UserRole());
+		
+		HashMap<Coin, BigDecimal> coinsMap = new HashMap<Coin, BigDecimal>();
+			coinsMap.put(new Coin(1l, "bitcoin", "BTC"), new BigDecimal(0.005f));
+			coinsMap.put(new Coin(2l, "ethereum", "ETH"), new BigDecimal(0.08f));
+			coinsMap.put(new Coin(9999l, "dolar", "USD"), new BigDecimal(0.08f));
 			
-		this.users.add(new User(1l, new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet()));
-		this.users.add(new User(2l, new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet()));
+		this.users.add(new User(1l, new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(coinsMap)));
+		this.users.add(new User(2l, new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(coinsMap)));
 	}
 	
 	@Override

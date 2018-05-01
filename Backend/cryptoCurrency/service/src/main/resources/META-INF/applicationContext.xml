@@ -13,9 +13,9 @@
 
 	<context:component-scan base-package="ar.utn.tacs*" />
 
-	<bean id="adminService" 		class="ar.utn.tacs.service.admin.impl.AdminServiceImpl" />
+	<bean id="adminService" 		class="ar.utn.tacs.service.admin.impl.AdminServiceImpl" 			factory-method="getInstance"/>
 <!-- 	<bean id="externalService" 		class="ar.utn.tacs.service.external.impl.ExternalServiceImpl" /> -->
-	<bean id="externalService" 		class="ar.utn.tacs.service.external.impl.ExternalServiceMockImpl" />
-	<bean id="userService" 			class="ar.utn.tacs.service.user.impl.UserServiceImpl" />
-	<bean id="walletService" 		class="ar.utn.tacs.service.wallet.impl.WalletServiceImpl" />
+	<bean id="externalService" 		class="ar.utn.tacs.service.external.impl.ExternalServiceMockImpl"	factory-method="getInstance"/>
+	<bean id="userService" 			class="ar.utn.tacs.service.user.impl.UserServiceImpl" 				factory-method="getInstance"/>
+	<bean id="walletService" 		class="ar.utn.tacs.service.wallet.impl.WalletServiceImpl" 			factory-method="getInstance"/>
 </beans>

@@ -5,10 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.service.external.ExternalService;
 
 public class ExternalServiceMockImpl extends ExternalServiceImpl{
 	
+	private static ExternalService EXTERNAL_SERVICE = new ExternalServiceMockImpl();
+	
 	private List<Coin> coinList = new ArrayList<Coin>();
+	
+	public static ExternalService getInstance() {
+		return EXTERNAL_SERVICE;
+	}
 	
 	public ExternalServiceMockImpl() {
 		this.coinList = getCoinMarketCapPosta();
@@ -17,6 +24,7 @@ public class ExternalServiceMockImpl extends ExternalServiceImpl{
 	private List<Coin> getCoinMarketCapPosta() {
 		String response = makeRequest("GET",null,COIN_MARKET_CAP_URL);
 		
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> mapResult = gson.fromJson(response, List.class);
 		
 		CoinBuilder coinBuilder = new CoinBuilder();

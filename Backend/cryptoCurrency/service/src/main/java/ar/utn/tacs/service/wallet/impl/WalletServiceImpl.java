@@ -11,20 +11,21 @@ import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.transaction.TransactionBuilder;
 import ar.utn.tacs.model.user.User;
-import ar.utn.tacs.service.external.ExternalService;
-import ar.utn.tacs.service.user.UserService;
+import ar.utn.tacs.model.wallet.Wallet;
+import ar.utn.tacs.service.external.impl.ExternalServiceMockImpl;
+import ar.utn.tacs.service.user.impl.UserServiceImpl;
 import ar.utn.tacs.service.wallet.WalletService;
 
 public class WalletServiceImpl implements WalletService {
 
+	private static WalletService WALLET_SERVICE = new WalletServiceImpl();
+	
 	@Autowired
 	private WalletDao walletDao;
-	
-	@Autowired
-	private ExternalService externalService;
-	
-	@Autowired
-	private UserService userService;
+
+	public static WalletService getInstance() {
+		return WALLET_SERVICE;
+	}
 	
 	@Override
 	public List<Transaction> userTransactionHistory(String token, String coinSymbol) {
@@ -35,8 +36,8 @@ public class WalletServiceImpl implements WalletService {
 	private Transaction getTransaction(String operation,Map<String,Object> map) {
 		TransactionBuilder transactionBuilder = new TransactionBuilder();
 		String token = (String) map.get("token");
-		User user = userService.getUserByToken(token);
-		Coin coin = externalService.getCoinByName((String) ((Map<String,Object>)map.get("coin")).get("name"));
+		User user = UserServiceImpl.getInstance().getUserByToken(token);
+		Coin coin = ExternalServiceMockImpl.getInstance().getCoinByName((String) ((Map<String,Object>)map.get("coin")).get("name"));
 		String amountString = String.valueOf(map.get("amount"));
 		BigDecimal amount = BigDecimal.valueOf(Double.valueOf(amountString));
 		
@@ -59,5 +60,14 @@ public class WalletServiceImpl implements WalletService {
 		String token = (String) resultMap.get("token");
 		Transaction transaction = getTransaction(operation, resultMap);
 		return walletDao.buy(token,transaction);
+	}
+
+	@Override
+	public Wallet userWalletByToken(String token) {
+		
+		Wallet userWallet = UserServiceImpl.getInstance().getUserByToken(token).getWallet();
+			userWallet.updateCoinsValue(ExternalServiceMockImpl.getInstance().coinMarketCap());
+		
+		return userWallet; 
 	}
 }

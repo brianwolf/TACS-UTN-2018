@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.rest.wallet.WalletRest;
 import ar.utn.tacs.service.wallet.WalletService;
 
@@ -69,6 +70,20 @@ public class WalletRestImpl implements WalletRest{
 		try {
 			transactions = walletService.userTransactionHistory(token, coinSymbol);
 			return Response.status(Response.Status.OK).entity(transactions).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@GET
+	@Path(WalletRestImpl.USER_WALLET)
+	@Override
+	public Response userWalletByToken(@HeaderParam(value = "token")String token) {
+		
+		try {
+			Wallet wallet = walletService.userWalletByToken(token);
+			return Response.status(Response.Status.OK).entity(wallet).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

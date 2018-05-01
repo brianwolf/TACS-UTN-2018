@@ -19,9 +19,9 @@ public class Sale extends Operation {
 	@Override
 	public void doOperation() {
 
-		Map<Coin, BigDecimal> coinMap = this.user.getWallet().getCoinsMap();
+		Map<Coin, BigDecimal> coinMap = super.getUser().getWallet().getCoinsMap();
 
-		coinMap.get(this.coin).subtract(this.amount);
+		coinMap.get(this.getCoin()).subtract(this.amount);
 
 	}
 

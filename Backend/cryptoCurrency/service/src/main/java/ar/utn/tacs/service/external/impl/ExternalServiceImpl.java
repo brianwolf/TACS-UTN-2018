@@ -2,9 +2,7 @@ package ar.utn.tacs.service.external.impl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -23,12 +21,21 @@ import ar.utn.tacs.service.external.ExternalService;
 
 public class ExternalServiceImpl implements ExternalService{
 	
+	private static ExternalService EXTERNAL_SERVICE = new ExternalServiceImpl();
+
+	protected static String COIN_MARKET_CAP_URL = "https://api.coinmarketcap.com/v1/ticker/";
+	
+	
+	@SuppressWarnings("unused")
 	@Autowired
 	private ExternalDao externalDao;
 	
 	Gson gson = new Gson();
 	
-	protected static String COIN_MARKET_CAP_URL = "https://api.coinmarketcap.com/v1/ticker/";
+	
+	public static ExternalService getInstance() {
+		return EXTERNAL_SERVICE;
+	}
 	
 	@Override
 	public List<Coin> coinMarketCap() {

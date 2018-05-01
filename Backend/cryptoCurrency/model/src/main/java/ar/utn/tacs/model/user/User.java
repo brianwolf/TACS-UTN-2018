@@ -21,10 +21,10 @@ public class User {
 	private Person person;
 
 //	@Transient
-	private List<Role> roles = null;
+	private List<Role> roles;
 	
 //	@Transient
-	private Wallet wallet = null;
+	private Wallet wallet;
 	
 	public User(Long id, Login login, Person person, List<Role> roles, Wallet wallet) {
 		this.id = id;
