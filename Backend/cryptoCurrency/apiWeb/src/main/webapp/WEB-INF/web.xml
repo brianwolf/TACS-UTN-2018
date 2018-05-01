@@ -43,7 +43,7 @@
 
 	<servlet-mapping>
 		<servlet-name>jersey-serlvet</servlet-name>
-		<url-pattern>/apiWeb/*</url-pattern>
+		<url-pattern>/utn/crypto-currency/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>
