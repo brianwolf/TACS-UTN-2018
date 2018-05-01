@@ -30,13 +30,21 @@ public class RestFilter implements ContainerRequestFilter {
 		
 		boolean haveToken = request.getRequestHeaders().containsKey("token");
 		
-		return haveToken || this.isloginRest(request);
+		return haveToken || this.isloginRest(request) || this.isNewUserRest(request);
 	}
 	
 	private boolean isloginRest(ContainerRequest request) {
 		
 		boolean isPOST = request.getMethod().equals("POST");
 		boolean isLoginPath = request.getPath().contains("users/login");
+		
+		return isLoginPath && isPOST;
+	}
+	
+	private boolean isNewUserRest(ContainerRequest request) {
+		
+		boolean isPOST = request.getMethod().equals("POST");
+		boolean isLoginPath = request.getPath().contains("users");
 		
 		return isLoginPath && isPOST;
 	}
