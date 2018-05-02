@@ -43,7 +43,11 @@ public class RestFilter implements ContainerRequestFilter {
 		
 		String token = request.getHeaderValue(TOKEN);
 		
+<<<<<<< HEAD:Backend/cryptoCurrency/rest/src/main/java/ar/utn/tacs/rest/filter/RestFilter.java
 		return BeanUtil.getBean(UserService.class).getUserByToken(token)!=null;
+=======
+		return haveToken || this.isloginRest(request) || this.isNewUserRest(request);
+>>>>>>> master:Backend/cryptoCurrency/core/src/main/java/ar/utn/tacs/rest/RestFilter.java
 	}
 	
 	private boolean dontNeedToken(ContainerRequest request) {
@@ -54,6 +58,14 @@ public class RestFilter implements ContainerRequestFilter {
 		boolean isCreateUserPath = requestPath.equals(CREATE_USER_PATH);
 		
 		return (isLoginPath||isCreateUserPath) && isPOST;
+	}
+	
+	private boolean isNewUserRest(ContainerRequest request) {
+		
+		boolean isPOST = request.getMethod().equals("POST");
+		boolean isLoginPath = request.getPath().contains("users");
+		
+		return isLoginPath && isPOST;
 	}
 
 }

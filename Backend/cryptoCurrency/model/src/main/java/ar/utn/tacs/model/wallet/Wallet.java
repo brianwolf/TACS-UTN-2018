@@ -1,46 +1,69 @@
 package ar.utn.tacs.model.wallet;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
-import org.codehaus.jackson.annotate.JsonAnyGetter;
 
 import ar.utn.tacs.model.coin.Coin;
 
 public class Wallet {
 
-	private HashMap<Coin, BigDecimal> coinsMap;
-	
-	public Wallet(HashMap<Coin, BigDecimal> coinsMap) {
-		this.coinsMap = coinsMap;
-	}
+	private List<CoinAmaunt> coinAmaunts;
 	
 	public Wallet() {
-		this.coinsMap = new HashMap<Coin, BigDecimal>();
+		
 	}
 	
-	@JsonAnyGetter
-	public HashMap<Coin, BigDecimal> getCoinsMap() {
-		return coinsMap;
+	public Wallet(List<CoinAmaunt> coinAmaunts) {
+		this.coinAmaunts = coinAmaunts;
 	}
 
-	public void setCoinsMap(HashMap<Coin, BigDecimal> coinsMap) {
-		this.coinsMap = coinsMap;
+	public List<CoinAmaunt> getCoinAmaunts() {
+		return coinAmaunts;
+	}
+
+	public void setCoinAmaunts(List<CoinAmaunt> coinAmaunts) {
+		this.coinAmaunts = coinAmaunts;
 	}
 
 	public void updateCoinsValue(List<Coin> coinsWithUpdatedValue) {
 		
-		HashMap<Coin, BigDecimal> updatedCoinsMap = new HashMap<Coin, BigDecimal>();
-		for (Coin coin : this.coinsMap.keySet()) {
+		for (CoinAmaunt coinAmount : this.coinAmaunts) {
 			
-			Optional<Coin> optionalCoin = coinsWithUpdatedValue.stream().filter(cmk -> cmk.equals(coin)).findFirst();
+			Optional<Coin> optionalCoin = coinsWithUpdatedValue.stream().filter(cmk -> cmk.equals(coinAmount.getCoin())).findFirst();
 			if (optionalCoin.isPresent()) {
-				updatedCoinsMap.put(optionalCoin.get(), this.coinsMap.get(coin));
+				coinAmount.setCoin(optionalCoin.get());
 			}
 		};
+	}
+	
+	public boolean containsCoin(Coin coin) {
+		return this.coinAmaunts.stream().anyMatch(coinAmount -> coinAmount.getCoin().equals(coin));
+	}
+	
+	public boolean haveEnoughCoins(Coin coin, BigDecimal amount) {
 		
-		this.coinsMap = updatedCoinsMap;
+		CoinAmaunt coinAmaunt = this.getCoinAmountByCoin(coin);
+		if (coinAmaunt == null) return false;
+
+		return coinAmaunt.getAmount().subtract(amount).doubleValue() >= 0f;
+	}
+	
+	public boolean haveEnoughCoins(String ticker, BigDecimal amount) {
+		
+		CoinAmaunt coinAmaunt = this.getCoinAmountByTicker(ticker);
+		if (coinAmaunt == null) return false;
+
+		return coinAmaunt.getAmount().subtract(amount).doubleValue() >= 0f;
+	}
+	
+	public CoinAmaunt getCoinAmountByCoin(Coin coin) {
+		Optional<CoinAmaunt> optionalCoin = this.coinAmaunts.stream().filter(ca -> ca.getCoin().equals(coin)).findFirst();
+		return optionalCoin.isPresent()? optionalCoin.get() : null;
+	}
+	
+	public CoinAmaunt getCoinAmountByTicker(String ticker) {
+		Optional<CoinAmaunt> optionalCoin = this.coinAmaunts.stream().filter(ca -> ca.getCoin().getTicker().equals(ticker)).findFirst();
+		return optionalCoin.isPresent()? optionalCoin.get() : null;
 	}
 }

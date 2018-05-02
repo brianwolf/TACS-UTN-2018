@@ -1,0 +1,300 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-05-01T23:53:44.333Z",
+	"__export_source": "insomnia.desktop.app:v5.16.1",
+	"resources": [
+		{
+			"_id": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"created": 1525100962016,
+			"description": "",
+			"modified": 1525100962016,
+			"name": "Insomnia",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_684d9b418038449dbf3af33945224d96",
+			"color": null,
+			"created": 1525100962035,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1525100962035,
+			"name": "New Environment",
+			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_9c55d579eef64ff58457ce79b2d107bc",
+			"cookies": [
+				{
+					"creation": "2018-05-01T20:01:05.726Z",
+					"domain": "coinmarketcap.com",
+					"expires": "2019-05-01T20:01:06.000Z",
+					"hostOnly": false,
+					"httpOnly": true,
+					"id": "07814566958872038",
+					"key": "__cfduid",
+					"lastAccessed": "2018-05-01T20:01:05.726Z",
+					"path": "/",
+					"secure": true,
+					"value": "dd6da7c89a4eae6a94f5f7bedbd9bd94d1525204866"
+				}
+			],
+			"created": 1525100962106,
+			"modified": 1525204865728,
+			"name": "Default Jar",
+			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"created": 1525187449118,
+			"description": "",
+			"environment": {
+				"apiName": "apiWeb/utn/crypto-currency/",
+				"localHost": "http://localhost:8080/"
+			},
+			"metaSortKey": -1525187449118,
+			"modified": 1525216191252,
+			"name": "TACS-UTN",
+			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"created": 1525187462890,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187462890,
+			"modified": 1525187491731,
+			"name": "User",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"created": 1525187484218,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187484218,
+			"modified": 1525187484218,
+			"name": "Wallet",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"created": 1525187508712,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187508712,
+			"modified": 1525187508712,
+			"name": "Admin",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_fc7753944faf4dc381c6c92d75cb44a8",
+			"created": 1525187530920,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187530920,
+			"modified": 1525187530920,
+			"name": "External",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_b30dfd7fcfe9408d8f05852bdf32254a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nick\": \"lobezzzno\",\n\t\"pass\": \"1234\"\n}"
+			},
+			"created": 1525187472770,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187472770,
+			"method": "POST",
+			"modified": 1525216114698,
+			"name": "login",
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_1dfdf092b08e4ea580211d82f2bec207",
+			"authentication": {},
+			"body": {},
+			"created": 1525190992987,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525144376490,
+			"method": "GET",
+			"modified": 1525218580915,
+			"name": "user by token",
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a1996625f4d841508189c4f7b5a3d131",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nick\": \"lobezzzno\",\n\t\"pass\": \"1234\"\n}"
+			},
+			"created": 1525191837619,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_05b88263d1914582ace91b94f8407ce4",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525165924630,
+			"method": "PUT",
+			"modified": 1525202049361,
+			"name": "logout",
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users/logout",
+			"_type": "request"
+		},
+		{
+			"_id": "req_433c668896204e43b3b263ec65f35b2b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"login\": {\n\t\t\"nick\": \"doñaRosa\",\n\t\t\"pass\": \"1234\"\n\t},\n\t\"person\": {\n\t\t\"name\": \"Rosa\",\n\t\t\"lastName\": \"Operativos\",\n\t\t\"email\": \"doñaRosa@modificarKernelDeLinux.com\"\n\t}\n}"
+			},
+			"created": 1525217102527,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525176698700,
+			"method": "POST",
+			"modified": 1525218594605,
+			"name": "new user",
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_30925c3ee828444c8350c28903d2d3e1",
+			"authentication": {},
+			"body": {},
+			"created": 1525201817044,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828350,
+			"method": "GET",
+			"modified": 1525201831392,
+			"name": "wallet by token",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet",
+			"_type": "request"
+		},
+		{
+			"_id": "req_dad8ca67647c4023914a589ff4f9935c",
+			"authentication": {},
+			"body": {},
+			"created": 1525204861907,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1525204861907,
+			"method": "GET",
+			"modified": 1525204864020,
+			"name": "coin market cap",
+			"parameters": [],
+			"parentId": "fld_fc7753944faf4dc381c6c92d75cb44a8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "https://api.coinmarketcap.com/v1/ticker/",
+			"_type": "request"
+		}
+	]
+}
