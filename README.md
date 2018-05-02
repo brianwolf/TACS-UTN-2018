@@ -20,7 +20,7 @@ mvn clean install tomcat7:run
 
 ## Para probar
 
-Si se usa POSTMAN se puede importar el archivo ../TACS-UTN.postman_collection.json el cual contiene la collection de endpoints
+Si se usa POSTMAN se puede importar el archivo ../Rest Json/TACS-UTN.postman_collection.json el cual contiene la collection de endpoints
 
 ### Un ejemplo seria:
 
