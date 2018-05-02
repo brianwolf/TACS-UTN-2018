@@ -1,4 +1,4 @@
-package ar.utn.tacs.rest;
+package ar.utn.tacs.rest.filter;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -7,8 +7,17 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
 
+import ar.utn.tacs.rest.user.UserRest;
+import ar.utn.tacs.service.user.UserService;
+import ar.utn.tacs.util.BeanUtil;
+
 public class RestFilter implements ContainerRequestFilter {
 	
+	private static final String USERS_PATH = UserRest.BASE;
+	private static final String LOGIN_PATH = USERS_PATH+UserRest.GET_TOKEN_BY_LOGIN;
+	private static final String CREATE_USER_PATH = USERS_PATH+UserRest.NEW_USER;
+	private static final String TOKEN = "token";
+
 	@Override
 	public ContainerRequest filter(ContainerRequest request) {
 //		headers.add("Access-Control-Allow-Origin", "*");
@@ -16,7 +25,7 @@ public class RestFilter implements ContainerRequestFilter {
 //		headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");			
 //		headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia");
 		
-		if(!this.satisfactoryValidation(request)){
+		if(!this.isValid(request)){
 	        ResponseBuilder builder = null;
 	        builder = Response.status(Response.Status.UNAUTHORIZED);
 	        throw new WebApplicationException(builder.build());
@@ -26,19 +35,25 @@ public class RestFilter implements ContainerRequestFilter {
 		return request;
 	}
 	
-	private boolean satisfactoryValidation(ContainerRequest request) {
+	private boolean isValid(ContainerRequest request) {
 		
-		boolean haveToken = request.getRequestHeaders().containsKey("token");
+		if(this.dontNeedToken(request)) {
+			return true;
+		}
 		
-		return haveToken || this.isloginRest(request);
+		String token = request.getHeaderValue(TOKEN);
+		
+		return BeanUtil.getBean(UserService.class).getUserByToken(token)!=null;
 	}
 	
-	private boolean isloginRest(ContainerRequest request) {
+	private boolean dontNeedToken(ContainerRequest request) {
 		
+		String requestPath = "/"+request.getPath();
 		boolean isPOST = request.getMethod().equals("POST");
-		boolean isLoginPath = request.getPath().contains("users/login");
+		boolean isLoginPath = requestPath.equals(LOGIN_PATH);
+		boolean isCreateUserPath = requestPath.equals(CREATE_USER_PATH);
 		
-		return isLoginPath && isPOST;
+		return (isLoginPath||isCreateUserPath) && isPOST;
 	}
 
 }

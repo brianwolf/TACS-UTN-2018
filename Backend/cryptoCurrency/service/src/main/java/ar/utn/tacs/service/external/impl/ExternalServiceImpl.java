@@ -21,8 +21,6 @@ import ar.utn.tacs.service.external.ExternalService;
 
 public class ExternalServiceImpl implements ExternalService{
 	
-	private static ExternalService EXTERNAL_SERVICE = new ExternalServiceImpl();
-
 	protected static String COIN_MARKET_CAP_URL = "https://api.coinmarketcap.com/v1/ticker/";
 	
 	
@@ -32,10 +30,6 @@ public class ExternalServiceImpl implements ExternalService{
 	
 	Gson gson = new Gson();
 	
-	
-	public static ExternalService getInstance() {
-		return EXTERNAL_SERVICE;
-	}
 	
 	@Override
 	public List<Coin> coinMarketCap() {

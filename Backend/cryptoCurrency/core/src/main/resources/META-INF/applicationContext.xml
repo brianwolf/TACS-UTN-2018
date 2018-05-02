@@ -28,6 +28,8 @@
 		</property>
 	</bean>
 	
+	<bean id="beanUtil" class="ar.utn.tacs.util.BeanUtil"/>
+	
 	<import resource="classpath:META-INF/configDataSource.xml"/>
 
 </beans>

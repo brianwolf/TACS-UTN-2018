@@ -9,13 +9,8 @@ import ar.utn.tacs.service.external.ExternalService;
 
 public class ExternalServiceMockImpl extends ExternalServiceImpl{
 	
-	private static ExternalService EXTERNAL_SERVICE = new ExternalServiceMockImpl();
 	
 	private List<Coin> coinList = new ArrayList<Coin>();
-	
-	public static ExternalService getInstance() {
-		return EXTERNAL_SERVICE;
-	}
 	
 	public ExternalServiceMockImpl() {
 		this.coinList = getCoinMarketCapPosta();

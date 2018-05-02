@@ -32,7 +32,7 @@
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
-			<param-value>ar.utn.tacs.rest.RestFilter</param-value>
+			<param-value>ar.utn.tacs.rest.filter.RestFilter</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>

@@ -8,20 +8,16 @@ import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
-import ar.utn.tacs.service.external.impl.ExternalServiceMockImpl;
+import ar.utn.tacs.service.external.ExternalService;
 import ar.utn.tacs.service.user.UserService;
+import ar.utn.tacs.util.BeanUtil;
 
 public class UserServiceImpl implements UserService{
 	
-	private static UserService USER_SERVICE = new UserServiceImpl();
 	
 	@Autowired
 	private UserDao userDao;
 
-	public static UserService getInstance() {
-		return USER_SERVICE;
-	}
-	
 	@Override
 	public String getTokenByLogin(Login login) {
 		return userDao.getTokenByLogin(login);
@@ -41,7 +37,7 @@ public class UserServiceImpl implements UserService{
 	public User getUserByToken(String token) {
 		
 		User user = this.userDao.getUserByToken(token);
-		List<Coin> updatedCoins = ExternalServiceMockImpl.getInstance().coinMarketCap();
+		List<Coin> updatedCoins = BeanUtil.getBean(ExternalService.class).coinMarketCap();
 		user.getWallet().updateCoinsValue(updatedCoins);
 		
 		return user;
