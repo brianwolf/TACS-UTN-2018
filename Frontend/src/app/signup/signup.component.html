@@ -3,20 +3,26 @@
     <div class="col-md-4">
       <img src="assets/images/logo.png" width="50%" />
       <h1>TACS - Crypto</h1>
-      <form role="form">
+      <h4>Introduzca los datos del nuevo usuario a registrar</h4>
+      <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
+      <form role="form" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit(userRegistrationForm)">
         <div class="form-content">
           <div class="form-group">
-            <input type="text" class="form-control input-underline input-lg" id="" placeholder="Nombre de Usuario">
+            <input type="text" class="form-control input-underline input-lg" placeholder="Nombre de Usuario (Mínimo 3 caracteres)"
+            name="userName" #userName="ngModel" [(ngModel)]="user.userName" required minlength="3">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control input-underline input-lg" id="" placeholder="Contraseña">
+            <input type="password" class="form-control input-underline input-lg" placeholder="Contraseña (Mínimo 3 caracteres)"
+            name="password" #password="ngModel" [(ngModel)]="user.password" required minlength="3">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control input-underline input-lg" id="" placeholder="Repetir Contraseña">
+            <input type="password" class="form-control input-underline input-lg" placeholder="Repetir Contraseña"
+            name="confirmPassword" #password="ngModel" [(ngModel)]="confirmPassword" required minlength="3">
           </div>
         </div>
-        <a class="btn rounded-btn" [routerLink]="['/login']">Registrar Usuario</a>
-        <a class="btn rounded-btn" [routerLink]="['/login']">Cancelar</a>
+        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Registrar">
+        &nbsp; &nbsp;
+        <a class="btn rounded-btn" [routerLink]="['/login']">Ingresar</a>
       </form>
     </div>
   </div>

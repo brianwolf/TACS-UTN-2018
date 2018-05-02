@@ -1,12 +1,13 @@
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '../shared/services/user.service';
 
 export abstract class Componente {
   isActive = false;
   showMenu = '';
   pushRightClass = 'push-right';
 
-  constructor(public translate: TranslateService, public router: Router) {
+  constructor(public translate: TranslateService, public router: Router, public userService: UserService) {
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('es');
     const browserLang = this.translate.getBrowserLang();
@@ -50,7 +51,7 @@ export abstract class Componente {
   }
 
   onLoggedout() {
-    localStorage.removeItem('isLoggedin');
+    this.userService.logout();
   }
 
 }

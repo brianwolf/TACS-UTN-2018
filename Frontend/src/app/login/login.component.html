@@ -3,18 +3,23 @@
     <div class="col-md-4">
       <img src="assets/images/logo.png" width="50%" />
       <h1>TACS - Crypto</h1>
-      <form role="form">
+      <h4>Introduzca sus credenciales para ingresar al sistema</h4>
+      <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
+      <form role="form" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit(userRegistrationForm)">
         <div class="form-content">
           <div class="form-group">
-            <input type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="Nombre de Usuario">
+            <input type="text" class="form-control input-underline input-lg" placeholder="Nombre de Usuario" name="userName" #userName="ngModel"
+              [(ngModel)]="user.userName" required minlength="3">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control input-underline input-lg" id="" placeholder="Contraseña">
+            <input type="password" class="form-control input-underline input-lg" placeholder="Contraseña" name="password" #password="ngModel"
+              [(ngModel)]="user.password" required minlength="3">
           </div>
         </div>
-        <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">Ingresar</a>
-        &nbsp;
-        <a class="btn rounded-btn" [routerLink]="['/signup']">Registrar</a>
+        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Ingresar">
+        <!-- <button class="btn rounded-btn" [disabled]="!userRegistrationForm.valid">Ingresar</button> -->
+        &nbsp; &nbsp;
+        <a class="btn rounded-btn" [routerLink]="['/signup']">Nuevo Usuario</a>
       </form>
     </div>
   </div>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { routerTransition } from '../../router.animations';
 import { Componente } from '../componente';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,8 +15,8 @@ export class DashboardComponent extends Componente implements OnInit {
 
   public sliders: Array<any> = [];
 
-  constructor(public translate: TranslateService, public router: Router) {
-    super(translate, router);
+  constructor(public translate: TranslateService, public router: Router, public userService: UserService) {
+    super(translate, router, userService);
     this.sliders.push(
       {
         imagePath: 'assets/images/slider1.jpg',
