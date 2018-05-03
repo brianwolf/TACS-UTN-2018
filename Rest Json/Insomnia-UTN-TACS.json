@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-05-01T23:53:44.333Z",
+	"__export_date": "2018-05-03T03:22:40.604Z",
 	"__export_source": "insomnia.desktop.app:v5.16.1",
 	"resources": [
 		{
@@ -19,7 +19,7 @@
 			"created": 1525100962035,
 			"data": {},
 			"isPrivate": false,
-			"modified": 1525100962035,
+			"modified": 1525314856928,
 			"name": "New Environment",
 			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
 			"_type": "environment"
@@ -51,15 +51,37 @@
 			"_id": "fld_cc6151cc34b142eeb67574edcd277ec6",
 			"created": 1525187449118,
 			"description": "",
-			"environment": {
-				"apiName": "apiWeb/utn/crypto-currency/",
-				"localHost": "http://localhost:8080/"
-			},
+			"environment": {},
 			"metaSortKey": -1525187449118,
-			"modified": 1525216191252,
+			"modified": 1525314872423,
 			"name": "TACS-UTN",
 			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
 			"_type": "request_group"
+		},
+		{
+			"_id": "env_2bb8b184e4584b37b3007dca7e8cebf7",
+			"color": "#80ff00",
+			"created": 1525302487369,
+			"data": {
+				"apiName": "apiWeb/utn/crypto-currency/",
+				"localHost": "http://localhost:8080/"
+			},
+			"isPrivate": false,
+			"modified": 1525314844006,
+			"name": "Local",
+			"parentId": "env_684d9b418038449dbf3af33945224d96",
+			"_type": "environment"
+		},
+		{
+			"_id": "env_269273d0b452480e91cc34c75eb6c137",
+			"color": "#ff0000",
+			"created": 1525302498114,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1525302523445,
+			"name": "Cloud",
+			"parentId": "env_684d9b418038449dbf3af33945224d96",
+			"_type": "environment"
 		},
 		{
 			"_id": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
@@ -262,7 +284,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828350,
 			"method": "GET",
-			"modified": 1525201831392,
+			"modified": 1525301621595,
 			"name": "wallet by token",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
@@ -272,6 +294,114 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ localHost  }}{{ apiName  }}wallet",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e44273dc45a44b95a37fba6e600918f1",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 0.05\n}"
+			},
+			"created": 1525302373112,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828300,
+			"method": "POST",
+			"modified": 1525317475480,
+			"name": "buy",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/buy",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7b39c9a467ab4f4aaffe7775b5d57da8",
+			"authentication": {},
+			"body": {},
+			"created": 1525310596157,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828325,
+			"method": "GET",
+			"modified": 1525310950287,
+			"name": "user transaction history",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/history/transactions/BTC",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9cdf5d81b36e4797a01ed7a2542c445a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 0.05\n}"
+			},
+			"created": 1525317382233,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828275,
+			"method": "POST",
+			"modified": 1525317392126,
+			"name": "sale",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/sale",
 			"_type": "request"
 		},
 		{
