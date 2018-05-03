@@ -9,9 +9,19 @@ import ar.utn.tacs.service.GenericService;
 public interface ExternalService extends GenericService {
 
 	/**
-	 * @return {@link Map}
+	 * @return {@link Map} {@link Coin}
 	 */
-	List<Coin> coinMarketCap();
+	public List<Coin> coinMarketCap();
 
-	Coin getCoinByName(String name);
+	/**
+	 * @param name
+	 * @return {@link Coin}
+	 */
+	public Coin getCoinByName(String name);
+	
+	/**
+	 * @param ticker
+	 * @return {@link Coin}
+	 */
+	public Coin getCoinByTicker(String ticker);
 }

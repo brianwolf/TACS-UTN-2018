@@ -1,5 +1,7 @@
 package ar.utn.tacs.model.user;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 public class Login {
 
 	private String nick;
@@ -31,6 +33,7 @@ public class Login {
 		return this.nick.equals(other.nick) && this.pass.equals(other.pass);
 	}
 
+	@JsonIgnore
 	public String getNick() {
 		return nick;
 	}
@@ -39,6 +42,7 @@ public class Login {
 		this.nick = nick;
 	}
 
+	@JsonIgnore
 	public String getPass() {
 		return pass;
 	}

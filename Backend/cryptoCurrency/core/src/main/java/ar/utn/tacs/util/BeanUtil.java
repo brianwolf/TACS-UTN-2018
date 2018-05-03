@@ -18,7 +18,6 @@ public class BeanUtil implements ApplicationContextAware{
 		className = className.substring(0, 1).toLowerCase()+className.substring(1);
 		return (T)context.getBean(className,type);
 	}
-	
 
 
     public static ApplicationContext getApplicationContext() {
@@ -26,8 +25,7 @@ public class BeanUtil implements ApplicationContextAware{
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext ac)
-            throws BeansException {
+    public void setApplicationContext(ApplicationContext ac) throws BeansException {
         context = ac;
     }
 

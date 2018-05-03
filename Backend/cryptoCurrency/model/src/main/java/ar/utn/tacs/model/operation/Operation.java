@@ -6,9 +6,13 @@ import java.util.Date;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import ar.utn.tacs.model.coin.Coin;
-import ar.utn.tacs.model.user.User;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
+import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.model.wallet.CoinAmount;
+
+@JsonIgnoreProperties(value = {"id", "user"})
 public abstract class Operation {
 
 	@Id
@@ -16,24 +20,19 @@ public abstract class Operation {
 	
 	protected String description;
 	
-	protected Coin coin;
-	
+	protected CoinAmount coinAmount;
+
 	@Transient
 	protected User user;
 	
-	protected BigDecimal amount;
-	
 	protected BigDecimal quoteTimeSold;
-
-	@Transient
-	protected BigDecimal quoteTimeNow;
-	
-	@Transient
-	protected BigDecimal quoteDifference;
 	
 	protected Date date;
 	
-	protected Operation(Long id, String description) {
+	public Operation() {
+	}
+	
+	public Operation(Long id, String description) {
 		this.id = id;
 		this.description = description;
 	}
@@ -44,14 +43,6 @@ public abstract class Operation {
 
 	public void setQuoteTimeSold(BigDecimal quoteTimeSold) {
 		this.quoteTimeSold = quoteTimeSold;
-	}
-
-	public BigDecimal getQuoteTimeNow() {
-		return quoteTimeNow;
-	}
-
-	public void setQuoteTimeNow(BigDecimal quoteTimeNow) {
-		this.quoteTimeNow = quoteTimeNow;
 	}
 
 	public Long getId() {
@@ -70,12 +61,6 @@ public abstract class Operation {
 		this.description = description;
 	}
 
-	public abstract void doOperation();
-
-	public void setCoin(Coin coin) {
-		this.coin = coin;
-	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -84,18 +69,6 @@ public abstract class Operation {
 		return user;
 	}
 
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-
-	public Coin getCoin() {
-		return coin;
-	}
-	
 	public Date getDate() {
 		return date;
 	}
@@ -103,13 +76,26 @@ public abstract class Operation {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	public BigDecimal getQuoteDifference() {
-		this.quoteDifference = this.quoteTimeSold == null || this.quoteTimeNow == null? 
-				new BigDecimal(0l) : 
-				this.quoteTimeSold.subtract(this.quoteTimeNow);
-				
-		return this.quoteDifference;
+	
+	public CoinAmount getCoinAmount() {
+		return coinAmount;
 	}
 
+	public void setCoinAmount(CoinAmount coinAmount) {
+		this.coinAmount = coinAmount;
+	}
+
+	@JsonProperty(value="quoteDifference")
+	public BigDecimal getQuoteDifference() {
+		return this.quoteTimeSold == null || this.coinAmount == null? 
+				new BigDecimal(0l) : 
+				this.quoteTimeSold.subtract(this.coinAmount.getCoin().getValueInDollars());
+	}
+	
+	@JsonProperty(value="quoteTimeNow")
+	public BigDecimal getQuoteTimeNow() {
+		return this.coinAmount != null? this.coinAmount.getCoin().getValueInDollars() : new BigDecimal(0f);
+	}
+	
+	public abstract void doOperation();
 }

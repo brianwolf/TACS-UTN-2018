@@ -2,7 +2,6 @@ package ar.utn.tacs.rest.wallet.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.rest.wallet.WalletRest;
 import ar.utn.tacs.service.wallet.WalletService;
@@ -32,13 +32,10 @@ public class WalletRestImpl implements WalletRest{
 	@POST
 	@Path(WalletRest.BUY)
 	@Override
-	public Response buy(@HeaderParam(value = "token")String token,Map<String, Object> resultMap) {
-		//@PathParam("idUser") long idUser,@PathParam("idCoin") long idCoin, @PathParam("amount") BigDecimal amount
+	public Response buy(@HeaderParam(value = "token")String token, CoinAmountRest coinAmountRest) {
 		try {
-			//ESTO LUEGO SE VA A CAMBIAR
-			resultMap.put("token",token);
-			walletService.buy(resultMap);
-			return Response.status(Response.Status.OK).build();
+			walletService.buy(token, coinAmountRest);
+			return Response.status(Response.Status.ACCEPTED).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -48,12 +45,11 @@ public class WalletRestImpl implements WalletRest{
 	@POST
 	@Path(WalletRest.SALE)
 	@Override
-	public Response sale(@HeaderParam(value = "token")String token,Map<String, Object> resultMap) {
+	public Response sale(@HeaderParam(value = "token")String token, CoinAmountRest coinAmountRest) {
+		
 		try {
-			//ESTO LUEGO SE VA A CAMBIAR
-			resultMap.put("token",token);
-			walletService.sale(resultMap);
-			return Response.status(Response.Status.OK).build();
+			walletService.sale(token, coinAmountRest);
+			return Response.status(Response.Status.ACCEPTED).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -63,12 +59,12 @@ public class WalletRestImpl implements WalletRest{
 	@GET
 	@Path(WalletRestImpl.USER_TRANSACTION_HISTORY)
 	@Override
-	public Response userTransactionHistory(@HeaderParam(value = "token")String token, @PathParam("ticker")String coinSymbol) {
+	public Response userTransactionHistory(@HeaderParam(value = "token")String token, @PathParam("ticker")String ticker) {
 		
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		
 		try {
-			transactions = walletService.userTransactionHistory(token, coinSymbol);
+			transactions = walletService.userTransactionHistory(token, ticker);
 			return Response.status(Response.Status.OK).entity(transactions).build();
 
 		} catch (Exception e) {

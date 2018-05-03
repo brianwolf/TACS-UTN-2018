@@ -2,7 +2,7 @@ package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
 
-import ar.utn.tacs.model.wallet.CoinAmaunt;
+import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.Wallet;
 
 public class Buy extends Operation{
@@ -19,21 +19,22 @@ public class Buy extends Operation{
 	
 		Wallet userWallet = super.user.getWallet();
 		
-		BigDecimal finalPrice = super.amount.multiply(super.coin.getValueInDollars());
-		if (!userWallet.haveEnoughCoins("USD", finalPrice)) {
+		BigDecimal finalPrice = super.coinAmount.getAmount().multiply(super.coinAmount.getCoin().getValueInDollars());
+		if (!userWallet.haveEnoughDolar(finalPrice)) {
 			//new SosUnPobreException()
 			return;
 		}
 		
-		CoinAmaunt newCoin = userWallet.getCoinAmountByCoin(coin);
+		BigDecimal finalDolarAmount = userWallet.getDolarAmount().subtract(finalPrice);
+		userWallet.setDolarAmount(finalDolarAmount);
+		
+		CoinAmount newCoin = userWallet.getCoinAmountByCoin(super.coinAmount.getCoin());
 		if (newCoin == null) {
-			newCoin = new CoinAmaunt(super.coin, super.amount);
+			newCoin = new CoinAmount(super.coinAmount.getCoin(), super.coinAmount.getAmount());
 			userWallet.getCoinAmaunts().add(newCoin);
 		}
-		newCoin.getAmount().add(super.amount);
-		
-		CoinAmaunt dolar = userWallet.getCoinAmountByTicker("USD");
-		dolar.getAmount().subtract(finalPrice);
+		BigDecimal finalCoinAmount = newCoin.getAmount().add(super.coinAmount.getAmount());
+		newCoin.setAmount(finalCoinAmount);
 	}
 
 }

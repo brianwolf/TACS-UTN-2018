@@ -1,52 +1,79 @@
 package ar.utn.tacs.dao.wallet.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.wallet.WalletDao;
+import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.Wallet;
 
 public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao {
 
-	private HashMap<String, List<Transaction>> history = new HashMap<String,List<Transaction>>();
+	private HashMap<User, List<Transaction>> history;
+	
+	public WalletDaoMockImpl() {
+		this.history = new HashMap<User, List<Transaction>>(); 
+	}
 
 	@Override
-	public Boolean buy(String token,Transaction transaction) {
+	public Boolean buy(User user, Transaction transaction) {
 		
-		if(!getHistory().containsKey(token)) {
-			getHistory().put(token,new ArrayList<Transaction>());
+		transaction.setDateFinal(new Date());
+		
+		if(!getHistory().containsKey(user)) {
+			getHistory().put(user, new ArrayList<Transaction>());
 		}
 		
-		getHistory().get(token).add(transaction);
+		getHistory().get(user).add(transaction);
 		return true;
 	}
 
 	@Override
-	public Boolean sale(String token,Transaction transaction) {
-		if(!getHistory().containsKey(token)) {
-			getHistory().put(token,new ArrayList<Transaction>());
+	public Boolean sale(User user, Transaction transaction) {
+		
+		transaction.setDateFinal(new Date());
+		
+		if(!getHistory().containsKey(user)) {
+			getHistory().put(user, new ArrayList<Transaction>());
 		}
 		
-		getHistory().get(token).add(transaction);
+		getHistory().get(user).add(transaction);
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Transaction> userTransactionHistory(String token, String coinSymbol) {
-		List<Transaction> transactionsResult = getHistory().get(token);
-		return (List<Transaction>) transactionsResult.stream().filter(transaction -> transaction.getOperations().get(0).getCoin().getTicker().equals(coinSymbol)).collect(Collectors.toList());
+	public List<Transaction> userTransactionHistory(User user, Coin coin) {
+		
+		List<Transaction> transactionsResult = new ArrayList<Transaction>(); 
+
+		if (user == null || coin == null || !this.history.containsKey(user)) {
+			return transactionsResult;
+		}
+		
+		List<Transaction> historyUser = this.history.get(user);
+		Stream<Transaction> transactionsStram = historyUser.stream()
+				.filter(t -> t.getOperations().stream()
+						.anyMatch(o -> o.getCoinAmount().getCoin().equals(coin)));
+		
+		if (transactionsStram != null) {
+			transactionsResult = transactionsStram.collect(Collectors.toList());
+		}
+		
+		return transactionsResult; 
 	}
 
-	public HashMap<String, List<Transaction>> getHistory() {
+	public HashMap<User, List<Transaction>> getHistory() {
 		return history;
 	}
 
-	public void setHistory(HashMap<String, List<Transaction>> history) {
+	public void setHistory(HashMap<User, List<Transaction>> history) {
 		this.history = history;
 	}
 }

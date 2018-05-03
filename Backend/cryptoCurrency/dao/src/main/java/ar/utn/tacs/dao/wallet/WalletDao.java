@@ -2,31 +2,31 @@ package ar.utn.tacs.dao.wallet;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonValue;
-
 import ar.utn.tacs.dao.GenericDao;
+import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.user.User;
 
 public interface WalletDao extends GenericDao {
 
 	/**
-	 * @param resultMap
-	 * @return
+	 * @param user
+	 * @param transaction
+	 * @return {@link Boolean}
 	 */
-	Boolean buy(String token,Transaction transaction);
+	public Boolean buy(User user,Transaction transaction);
 
 	/**
-	 * @param idUser
-	 * @param idCoin
-	 * @param amount
-	 * @return {@link JsonValue}
+	 * @param user
+	 * @param transaction
+	 * @return {@link Boolean}
 	 */
-	Boolean sale(String token,Transaction transaction);
+	public Boolean sale(User user, Transaction transaction);
 
 	/**
 	 * @param idUser
 	 * @param idCoin
 	 * @return {@link List} {@link Transaction}
 	 */
-	List<Transaction> userTransactionHistory(String token, String coinSymbol);
+	public List<Transaction> userTransactionHistory(User user, Coin coin);
 }

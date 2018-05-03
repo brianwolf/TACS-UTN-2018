@@ -1,47 +1,52 @@
 package ar.utn.tacs.model.transaction;
 
-import java.math.BigDecimal;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.HashMap;
 
-import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.operation.Buy;
 import ar.utn.tacs.model.operation.Operation;
 import ar.utn.tacs.model.operation.Sale;
 import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.model.wallet.CoinAmount;
 
 public class TransactionBuilder {
 
-	public Transaction createTransaction(String operationName, User user, Coin coin,BigDecimal amount) {
+	@SuppressWarnings("rawtypes")
+	private HashMap<String, Class> operationsClassMap = new HashMap<String, Class>();
+	
+	public TransactionBuilder() {
+		operationsClassMap.put(Buy.class.getName(), Buy.class);
+		operationsClassMap.put(Sale.class.getName(), Sale.class);
+	}
+	
+	public Transaction createTransaction(String operationName, User user, CoinAmount coinAmount) {
 		
-		Operation  operation = getOperation(operationName);
-		operation.setCoin(coin);
-		operation.setUser(user);
-		operation.setAmount(amount);
+		Operation operation = getOperation(operationName);
+			operation.setUser(user);
+			operation.setCoinAmount(coinAmount);
+			operation.setQuoteTimeSold(coinAmount.getCoin().getValueInDollars());
+			operation.setDate(new Date());
+			operation.doOperation();
 		
 		Transaction transaction = new Transaction();
-		transaction.setDateStart(new Date());
-		transaction.addOperation(operation);
+			transaction.setDateStart(new Date());
+			transaction.addOperation(operation);
 		
 		return transaction;
 	}
 
-	private Operation getOperation(String operation) {
+	@SuppressWarnings("unchecked")
+	private Operation getOperation(String operationClassName) {
 		
-		Operation o = null;
-		
-		switch (operation) {
-		case "buy":
-			o = new Buy();
-			break;
-		case "sale":
-			o = new Sale();
-			break;
-
-		default:
-			o = new Buy();
-			break;
+		try {
+			return (Operation) this.operationsClassMap.get(operationClassName).getConstructor().newInstance();
+			
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
 		}
-		return o;
+		
+		return new Buy();
 	}
 	
 }

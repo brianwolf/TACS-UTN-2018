@@ -1,13 +1,12 @@
 package ar.utn.tacs.rest.wallet;
 
-import java.util.Map;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
+import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.rest.GenericRest;
 
 public interface WalletRest extends GenericRest {
@@ -22,32 +21,29 @@ public interface WalletRest extends GenericRest {
 	/**
 	 * {@link POST}
 	 * 
-	 * @param idUser
-	 * @param idCoin
-	 * @param amount
+	 * @param token
+	 * @param coinAmountRest
 	 * @return {@link JsonValue}
 	 */
-	Response buy(String token,Map<String, Object> resultMap);
+	Response buy(String token, CoinAmountRest coinAmountRest);
 
 	/**
 	 * {@link POST}
 	 * 
-	 * @param idUser
-	 * @param idCoin
-	 * @param amount
+	 * @param token
+	 * @param coinAmountRest
 	 * @return {@link JsonValue}
 	 */
-	Response sale(String token,Map<String, Object> resultMap);
+	Response sale(String token, CoinAmountRest coinAmountRest);
 
 	/**
 	 * {@link GET}
 	 * 
-	 * @param idUser
-	 * @param idCoin
+	 * @param token
+	 * @param ticker
 	 * @return {@link JsonValue}
 	 */
-	Response userTransactionHistory(String token, String coinSymbol);
-	
+	Response userTransactionHistory(String token, String ticker);
 	
 	/**
 	 * {@link GET}

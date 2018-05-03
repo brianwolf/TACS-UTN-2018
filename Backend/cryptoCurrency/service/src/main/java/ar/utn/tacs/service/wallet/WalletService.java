@@ -1,11 +1,11 @@
 package ar.utn.tacs.service.wallet;
 
 import java.util.List;
-import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
 import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.service.GenericService;
 
@@ -15,7 +15,7 @@ public interface WalletService extends GenericService{
 	 * @param resultMap
 	 * @return
 	 */
-	Boolean buy(Map<String, Object> map);
+	Boolean buy(String token, CoinAmountRest coinAmountRest);
 
 	/**
 	 * @param idUser
@@ -23,7 +23,7 @@ public interface WalletService extends GenericService{
 	 * @param amount
 	 * @return {@link JsonValue}
 	 */
-	Boolean sale(Map<String, Object> resultMap);
+	Boolean sale(String token, CoinAmountRest coinAmountRest);
 
 	/**
 	 * @param idUser

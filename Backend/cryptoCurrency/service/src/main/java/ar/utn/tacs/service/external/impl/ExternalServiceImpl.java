@@ -77,4 +77,10 @@ public class ExternalServiceImpl implements ExternalService{
 		return null;
 	}
 
+	@Override
+	public Coin getCoinByTicker(String ticker) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

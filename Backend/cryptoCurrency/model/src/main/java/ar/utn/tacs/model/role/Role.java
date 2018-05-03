@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.Id;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = {"id", "funcionalities"})
 public abstract class Role {
 	
 	@Id

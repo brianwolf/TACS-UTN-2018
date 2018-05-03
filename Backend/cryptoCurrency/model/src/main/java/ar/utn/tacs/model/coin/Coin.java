@@ -2,6 +2,9 @@ package ar.utn.tacs.model.coin;
 
 import java.math.BigDecimal;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = {"id"})
 public class Coin {
 
 	private Long id;
@@ -27,7 +30,7 @@ public class Coin {
 		Coin other = (Coin) obj;
 		return this.getTicker().equals(other.getTicker());
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

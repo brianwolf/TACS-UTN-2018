@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Id;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import ar.utn.tacs.model.operation.Operation;
 import ar.utn.tacs.model.user.User;
 
+@JsonIgnoreProperties(value = {"id", "user"})
 public class Transaction {
 
-	@Id
 	private Long id;
 	
 	private User user;

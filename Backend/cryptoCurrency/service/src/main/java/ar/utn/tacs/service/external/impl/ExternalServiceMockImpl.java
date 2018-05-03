@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import ar.utn.tacs.model.coin.Coin;
-import ar.utn.tacs.service.external.ExternalService;
 
 public class ExternalServiceMockImpl extends ExternalServiceImpl{
 	
@@ -35,6 +34,13 @@ public class ExternalServiceMockImpl extends ExternalServiceImpl{
 	@Override
 	public Coin getCoinByName(String name) {
 		return coinList.stream().filter(coin -> coin.getName().equals(name))
+		.findFirst()
+		.get();
+	}
+	
+	@Override
+	public Coin getCoinByTicker(String ticker) {
+		return coinList.stream().filter(coin -> coin.getTicker().equals(ticker))
 		.findFirst()
 		.get();
 	}

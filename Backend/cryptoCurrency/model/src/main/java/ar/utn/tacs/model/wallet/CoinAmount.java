@@ -4,17 +4,28 @@ import java.math.BigDecimal;
 
 import ar.utn.tacs.model.coin.Coin;
 
-public class CoinAmaunt {
+public class CoinAmount {
 	
 	private Coin coin;
 	private BigDecimal amount;
 	
-	public CoinAmaunt() {
+	public CoinAmount() {
 	}
 	
-	public CoinAmaunt(Coin coin, BigDecimal amount) {
+	public CoinAmount(Coin coin, BigDecimal amount) {
 		this.amount = amount;
 		this.coin = coin;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (!(obj instanceof CoinAmount)) {
+			return false;
+		}
+		
+		CoinAmount other = (CoinAmount) obj;
+		return this.getCoin().equals(other.getCoin()) && this.getAmount().equals(other.getAmount());
 	}
 
 	public Coin getCoin() {

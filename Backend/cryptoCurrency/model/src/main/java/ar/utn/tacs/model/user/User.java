@@ -2,6 +2,8 @@ package ar.utn.tacs.model.user;
 
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.wallet.Wallet;
 
@@ -10,6 +12,7 @@ import ar.utn.tacs.model.wallet.Wallet;
 //		@NamedNativeQuery(name = "findUsers", query = "select * from usuario", resultClass = User.class) })
 //@Entity
 //@Table(name = "USUARIO")
+@JsonIgnoreProperties(value = {"id"})
 public class User {
 
 //	@Id
@@ -39,12 +42,17 @@ public class User {
 
 	@Override
 	public boolean equals(Object obj) {
+		
 		if (!(obj instanceof User)) {
 			return false;
 		}
 		
 		User other = (User) obj;
-		return this.id.equals(other.id);
+		if (this.login == null || other.login == null) {
+			return false;
+		}
+		
+		return this.id.equals(other.id) || this.login.equals(other.login);
 	}
 
 	public Long getId() {
