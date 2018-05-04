@@ -12,13 +12,13 @@ import ar.utn.tacs.model.wallet.Wallet;
 public class WalletDaoImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao{
 
 	@Override
-	public Boolean buy(User user,Transaction transaction) {
-		return true;
+	public void buy(User user,Transaction transaction) {
+		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public Boolean sale(User user, Transaction transaction) {
-		return true;
+	public void sale(User user, Transaction transaction) {
+		// TODO Auto-generated method stub
 	}
 
 	@Override

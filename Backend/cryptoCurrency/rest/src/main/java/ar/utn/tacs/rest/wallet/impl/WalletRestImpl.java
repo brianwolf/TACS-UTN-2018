@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
+import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
+import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.model.wallet.Wallet;
@@ -35,8 +38,11 @@ public class WalletRestImpl implements WalletRest{
 	public Response buy(@HeaderParam(value = "token")String token, CoinAmountRest coinAmountRest) {
 		try {
 			walletService.buy(token, coinAmountRest);
-			return Response.status(Response.Status.ACCEPTED).build();
+			return Response.status(Response.Status.CREATED).build();
 
+		} catch (InsufficientMoneyException e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.createBasicResponse("No posee Dolares suficientes")).build();
+			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
@@ -49,8 +55,14 @@ public class WalletRestImpl implements WalletRest{
 		
 		try {
 			walletService.sale(token, coinAmountRest);
-			return Response.status(Response.Status.ACCEPTED).build();
+			return Response.status(Response.Status.CREATED).build();
 
+		} catch (DontHaveOperationCoinException e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.createBasicResponse("No posee la cripto moneda indicada")).build();
+			
+		} catch (InsufficientCryptoCurrencyException e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.createBasicResponse("No posee monto suficiente de la cripto moneda indicada")).build();
+			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}

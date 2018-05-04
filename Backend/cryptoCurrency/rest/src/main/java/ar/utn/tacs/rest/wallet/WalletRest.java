@@ -25,7 +25,7 @@ public interface WalletRest extends GenericRest {
 	 * @param coinAmountRest
 	 * @return {@link JsonValue}
 	 */
-	Response buy(String token, CoinAmountRest coinAmountRest);
+	public Response buy(String token, CoinAmountRest coinAmountRest);
 
 	/**
 	 * {@link POST}
@@ -34,7 +34,7 @@ public interface WalletRest extends GenericRest {
 	 * @param coinAmountRest
 	 * @return {@link JsonValue}
 	 */
-	Response sale(String token, CoinAmountRest coinAmountRest);
+	public Response sale(String token, CoinAmountRest coinAmountRest);
 
 	/**
 	 * {@link GET}
@@ -43,7 +43,7 @@ public interface WalletRest extends GenericRest {
 	 * @param ticker
 	 * @return {@link JsonValue}
 	 */
-	Response userTransactionHistory(String token, String ticker);
+	public Response userTransactionHistory(String token, String ticker);
 	
 	/**
 	 * {@link GET}
@@ -51,6 +51,6 @@ public interface WalletRest extends GenericRest {
 	 * @param token
 	 * @return {@link Response}
 	 */
-	Response userWalletByToken(String token);
+	public Response userWalletByToken(String token);
 
 }
