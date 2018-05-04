@@ -37,7 +37,6 @@ public class Wallet {
 	}
 
 	public void updateCoinsValue(List<Coin> coinsWithUpdatedValue) {
-		
 		for (CoinAmount coinAmount : this.coinAmaunts) {
 			
 			Optional<Coin> optionalCoin = coinsWithUpdatedValue.stream().filter(cmk -> cmk.equals(coinAmount.getCoin())).findFirst();
@@ -52,7 +51,6 @@ public class Wallet {
 	}
 	
 	public boolean haveEnoughCoins(Coin coin, BigDecimal amount) {
-		
 		CoinAmount coinAmaunt = this.getCoinAmountByCoin(coin);
 		if (coinAmaunt == null) return false;
 
@@ -68,7 +66,6 @@ public class Wallet {
 	}
 	
 	public boolean haveEnoughDolar(BigDecimal amount) {
-
 		return dolarAmount.subtract(amount).doubleValue() >= 0f;
 	}
 	
@@ -80,6 +77,18 @@ public class Wallet {
 	public CoinAmount getCoinAmountByTicker(String ticker) {
 		Optional<CoinAmount> optionalCoin = this.coinAmaunts.stream().filter(ca -> ca.getCoin().getTicker().equals(ticker)).findFirst();
 		return optionalCoin.isPresent()? optionalCoin.get() : null;
+	}
+	
+	public BigDecimal getDolarFinalBalance() {
+		BigDecimal finalBalance = new BigDecimal(0f);
+		
+		for (CoinAmount coinAmount : coinAmaunts) {
+			finalBalance = finalBalance.add(coinAmount.getDolarFinalBalance());
+		}
+		
+		finalBalance = finalBalance.add(this.dolarAmount);
+		
+		return finalBalance;
 	}
 	
 }

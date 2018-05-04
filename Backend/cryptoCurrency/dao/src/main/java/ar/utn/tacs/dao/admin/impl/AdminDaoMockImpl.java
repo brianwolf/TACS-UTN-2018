@@ -1,89 +1,112 @@
 package ar.utn.tacs.dao.admin.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.stream.Collectors;
 
 import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
-import ar.utn.tacs.dao.user.UserDao;
-import ar.utn.tacs.dao.wallet.WalletDao;
+import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
+import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.util.BeanUtil;
 
 public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements AdminDao{
 
-	@Autowired
-	private WalletDao walletDao;
+//	public List<Transaction> transactions;
+//	public List<User> usersInSession;
 	
-	@Autowired
-	private UserDao userDao;
-	
-	public List<Transaction> transactions=new ArrayList<Transaction>();
-	public List<User> users = new ArrayList<User>();
-	
-	//ESTO LO COMENTO PORQUE TIRA ERROR
-	public AdminDaoMockImpl() {
-		
-//		((WalletDaoMockImpl)walletDao).getHistory().values().forEach(transaction -> this.transactions.add((Transaction) transaction));
-		
-//		this.users = ((UserDaoMockImpl)userDao).getUsers();
-	}
+//	public AdminDaoMockImpl() {
+//		transactions = new ArrayList<Transaction>();
+//		this.usersInSession = new ArrayList<User>();
+//	}
+//	
+//	@PostConstruct
+//	public void init() {
+//		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+//		BeanUtil.getBean("userDao", UserDaoMockImpl.class).getSessions().values().stream().forEach(u -> this.usersInSession.add(u));;
+//	}
 	
 	@Override
 	public User compareBalance(String nickA, String nickB) {
-		User userA = (User) this.users.stream().filter(user -> user.getLogin().getNick().equals(nickA)).findFirst().get();
-		User userB = (User) this.users.stream().filter(user -> user.getLogin().getNick().equals(nickB)).findFirst().get();
+		User userA = BeanUtil.getBean("userDao", UserDaoMockImpl.class).getUserByNick(nickA);
+		User userB = BeanUtil.getBean("userDao", UserDaoMockImpl.class).getUserByNick(nickB);
 		
-		return this.mayorCapitalEntre(userA, userB);
+		BigDecimal balanceA = userA.getWallet().getDolarFinalBalance();
+		BigDecimal balanceB = userB.getWallet().getDolarFinalBalance();
+		
+		return balanceA.compareTo(balanceB) > 0? userA : userB;
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<Transaction> statesToday() {
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().getDay() == new Date().getDay());
+		
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+
+		return transactions.stream().filter(t -> {
+			
+			Calendar transactionDate = Calendar.getInstance();
+			transactionDate.setTime(t.getDateStart());
+			
+			Calendar today = Calendar.getInstance();
+			today.setTime(t.getDateStart());
+			
+			return transactionDate.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR);
+			
+		}).collect(Collectors.toList());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transaction> statesThreeDays() {
-		Calendar threeDays = Calendar.getInstance();
-		threeDays.setTime(new Date());
-		threeDays.add(Calendar.DAY_OF_MONTH, -3);
 		
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().after(threeDays.getTime()));
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+
+		
+		Calendar threeDaysBefore = Calendar.getInstance();
+			threeDaysBefore.setTime(new Date());
+			threeDaysBefore.add(Calendar.DAY_OF_MONTH, -3);
+		
+		return transactions.stream().filter(t -> t.getDateStart().after(threeDaysBefore.getTime())).collect(Collectors.toList());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transaction> statesLastWeek() {
-		Calendar lastWeek = Calendar.getInstance();
-		lastWeek.setTime(new Date());
-		lastWeek.add(Calendar.DAY_OF_MONTH, -7);
 		
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().after(lastWeek.getTime()));
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;		
+		
+		Calendar lastWeek = Calendar.getInstance();
+			lastWeek.setTime(new Date());
+			lastWeek.add(Calendar.DAY_OF_MONTH, -7);
+		
+		return transactions.stream().filter(t -> t.getDateStart().after(lastWeek.getTime())).collect(Collectors.toList());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transaction> statesLastMonth() {
-		Calendar lastWeek = Calendar.getInstance();
-		lastWeek.setTime(new Date());
-		lastWeek.add(Calendar.DAY_OF_MONTH, -30);
 		
-		return (List<Transaction>) this.transactions.stream().filter(transaction -> transaction.getDateStart().after(lastWeek.getTime()));
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+
+		
+		Calendar lastWeek = Calendar.getInstance();
+			lastWeek.setTime(new Date());
+			lastWeek.add(Calendar.DAY_OF_MONTH, -30);
+		
+		return transactions.stream().filter(t -> t.getDateStart().after(lastWeek.getTime())).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Transaction> statesStartTimes() {
-		return this.transactions;
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+		
+		return transactions;
 	}
-	
-	private User mayorCapitalEntre(User userA, User userB) {
-		return userA;
-	}
-
 }

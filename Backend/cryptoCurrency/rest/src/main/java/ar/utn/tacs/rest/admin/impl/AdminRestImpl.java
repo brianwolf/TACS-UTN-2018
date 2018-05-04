@@ -3,9 +3,12 @@ package ar.utn.tacs.rest.admin.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.POST;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +19,14 @@ import ar.utn.tacs.rest.admin.AdminRest;
 import ar.utn.tacs.service.admin.AdminService;
 
 @Path(AdminRest.BASE)
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class AdminRestImpl implements AdminRest {
 
 	@Autowired
 	private AdminService adminService;
 
-	@POST
+	@GET
 	@Path(AdminRest.COMPARE_BALANCE)
 	@Override
 	public Response compareBalance(@PathParam("nickA") String nickA, @PathParam("nickB") String nickB) {
@@ -36,7 +41,7 @@ public class AdminRestImpl implements AdminRest {
 		}
 	}
 
-	@POST
+	@GET
 	@Path(AdminRest.STATES_TODAY)
 	@Override
 	public Response statesToday() {
@@ -51,7 +56,7 @@ public class AdminRestImpl implements AdminRest {
 		}
 	}
 
-	@POST
+	@GET
 	@Path(AdminRest.STATES_THREE_DAYS)
 	@Override
 	public Response statesThreeDays() {
@@ -66,7 +71,7 @@ public class AdminRestImpl implements AdminRest {
 		}
 	}
 
-	@POST
+	@GET
 	@Path(AdminRest.STATES_LAST_WEEK)
 	@Override
 	public Response statesLastWeek() {
@@ -81,7 +86,7 @@ public class AdminRestImpl implements AdminRest {
 		}
 	}
 
-	@POST
+	@GET
 	@Path(AdminRest.STATES_LAST_MOTH)
 	@Override
 	public Response statesLastMonth() {
@@ -96,7 +101,7 @@ public class AdminRestImpl implements AdminRest {
 		}
 	}
 
-	@POST
+	@GET
 	@Path(AdminRest.STATES_START_TIMES)
 	@Override
 	public Response statesStartTimes() {

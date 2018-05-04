@@ -16,14 +16,14 @@ public class Transaction {
 	
 	private User user;
 	
-	private List<Operation> operations = new ArrayList<Operation>();
+	private List<Operation> operations;
 	
-	Date dateStart;
+	private Date dateStart;
 	
-	Date dateFinal;
-		
-	public List<Operation> getOperations() {
-		return operations;
+	private Date dateFinal;
+	
+	public Transaction() {
+		this.operations = new ArrayList<Operation>();
 	}
 
 	public void addOperation(Operation operation) {
@@ -60,5 +60,9 @@ public class Transaction {
 
 	public void setDateFinal(Date dateFinal) {
 		this.dateFinal = dateFinal;
+	}
+
+	public List<Operation> getOperations() {
+		return operations;
 	}
 }

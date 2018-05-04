@@ -16,7 +16,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public User compareBalance(String nickA, String nickB) {
-		return null;
+		return adminDao.compareBalance(nickA, nickB);
 	}
 
 	@Override

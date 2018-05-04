@@ -1,5 +1,7 @@
 package ar.utn.tacs.dao.user;
 
+import javax.jws.soap.SOAPBinding.Use;
+
 import ar.utn.tacs.dao.GenericDao;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
@@ -34,4 +36,11 @@ public interface UserDao extends GenericDao {
 	 * @return {@link User}
 	 */
 	public User getUserById(Long userId);
+	
+	
+	/**
+	 * @param nick
+	 * @return {@link Use}
+	 */
+	public User getUserByNick(String nick);
 }

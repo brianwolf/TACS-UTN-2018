@@ -34,12 +34,20 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 		List<CoinAmount> coinAmaunts = new ArrayList<CoinAmount>();
 			coinAmaunts.add(new CoinAmount(new Coin(1l, "bitcoin", "BTC"), new BigDecimal(0.005f)));
 			coinAmaunts.add(new CoinAmount(new Coin(2l, "ethereum", "ETH"), new BigDecimal(0.08f)));
-//			coinAmaunts.add(new CoinAmount(new Coin(9999l, "dolar", "USD"), new BigDecimal(10000f)));
 			
 		this.users.add(new User(1l, new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10000f))));
 		this.users.add(new User(2l, new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10000f))));
 	}
 	
+	
+	public HashMap<String, User> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(HashMap<String, User> sessions) {
+		this.sessions = sessions;
+	}
+
 	@Override
 	public User getUserById(Long userId) {
 		
@@ -112,6 +120,12 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 		
 		this.users.add(user);
 		
+	}
+
+	@Override
+	public User getUserByNick(String nick) {
+		User userresult = this.sessions.values().stream().filter(u -> u.getLogin().getNick().equals(nick)).findFirst().get();
+		return userresult;
 	}
 }
 

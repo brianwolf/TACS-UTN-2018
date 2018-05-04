@@ -2,6 +2,8 @@ package ar.utn.tacs.model.wallet;
 
 import java.math.BigDecimal;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import ar.utn.tacs.model.coin.Coin;
 
 public class CoinAmount {
@@ -42,5 +44,15 @@ public class CoinAmount {
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+	
+	/**
+	 * Retorna coin.valueInDollars * amount
+	 * 
+	 * @return {@link BigDecimal}
+	 */
+	@JsonIgnore(value=true)
+	public BigDecimal getDolarFinalBalance() {
+		return this.coin.getValueInDollars().multiply(this.amount);
 	}
 }
