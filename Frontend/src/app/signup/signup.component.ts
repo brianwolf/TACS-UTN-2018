@@ -27,14 +27,14 @@ export class SignupComponent implements OnInit {
       form.reset();
     }
     this.user = {
-      userName: null,
-      password: null
+      nick: null,
+      pass: null
     };
   }
 
   onSubmit(form: NgForm) {
     // console.log(this.user);
-    if (this.user.password !== this.confirmPassword) {
+    if (this.user.nick !== this.confirmPassword) {
       this.alert.raise('danger', 'Las contraseñas no coinciden');
       return;
     }

@@ -9,11 +9,11 @@
         <div class="form-content">
           <div class="form-group">
             <input type="text" class="form-control input-underline input-lg" placeholder="Nombre de Usuario" name="userName" #userName="ngModel"
-              [(ngModel)]="user.userName" required minlength="3">
+              [(ngModel)]="user.nick" required minlength="3">
           </div>
           <div class="form-group">
             <input type="password" class="form-control input-underline input-lg" placeholder="Contraseña" name="password" #password="ngModel"
-              [(ngModel)]="user.password" required minlength="3">
+              [(ngModel)]="user.pass" required minlength="3">
           </div>
         </div>
         <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Ingresar">

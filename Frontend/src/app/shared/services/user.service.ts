@@ -1,42 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { User } from '../model/user';
 
 @Injectable()
 export class UserService {
-  API = 'http://localhost:8080/apiweb/';
+  API = 'http://localhost:8080/utn/crypto-currency/';
   constructor(private http: HttpClient) { }
+
+  isAdmin() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return (currentUser && currentUser.admin) ? true : false;
+  }
 
   signup(user: User) {
     const requestHeader = new HttpHeaders({ 'No-Auth': 'True' });
     return this.http.post(this.API + 'users/new', user, { headers: requestHeader });
   }
 
-
-  // login(username: string, password: string) {
-  //   return this.http.post<any>('login', { username: username, password: password })
   login(user: User) {
-    return this.http.post<any>(this.API + 'login', user)
+    // const body = `{"nick": "lobezzzno", "pass": "1234"}`;
+    // const body = `{"nick": "${user.nick}", "pass": "${user.pass}"}`;
+    const body = JSON.stringify(user);
+
+    return this.http.post<any>(this.API + 'users/login', body)
       .map(_user => {
-        // si hay un JWT Token el login es exitoso
-        if (_user && _user.token) {
+        if (_user && _user.token) { // si hay un JWT Token el login es exitoso
+          console.log(_user.token);
+          this.getUserByToken(_user.token); // guardo el usuario
+          localStorage.setItem('currentUserName', user.nick);
           // guardo el token para mandarlo en todas las requests
-          localStorage.setItem('currentUser', JSON.stringify(_user));
+          localStorage.setItem('currentToken', JSON.stringify(_user.token));
         }
         return _user;
       });
   }
 
-  logout() {
-    localStorage.removeItem('currentUser');
+  getUserByToken(token: string) {
+    this.http
+      .get(this.API + 'users', { headers: { token: token } })
+      .subscribe(data => { localStorage.setItem('currentUser', JSON.stringify(data)); });
   }
 
-  // userAuthentication(user: User) {
-  //   // const requestBody = 'username=' + user.userName + '&password=' + user.password + '&grant_type=password';
-  //   const requestHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded', 'No-Auth': 'True' });
-  //   return this.http.post(this.API + 'login', requestBody, { headers: requestHeader });
-  // }
+  logout() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserName');
+    localStorage.removeItem('currentUserRole');
+  }
 
 }

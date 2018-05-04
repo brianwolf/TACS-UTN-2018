@@ -11,6 +11,7 @@ import { AlertService } from './shared/services/alert.service';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './shared/services/jwt.interceptor';
+import { RoleGuard } from './shared/guard/role.guard';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -38,6 +39,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     AlertService,
     AuthGuard,
+    RoleGuard,
     UserService,
     {
       provide: HTTP_INTERCEPTORS,

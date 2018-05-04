@@ -1,8 +1,10 @@
 package ar.utn.tacs.telegram.action;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.abilitybots.api.objects.MessageContext;
@@ -18,11 +20,17 @@ public class Login implements Action {
 		user.setName(ctx.firstArg());
 		user.setPass(ctx.secondArg());
 		try {
-			HttpEntity<User> request = new HttpEntity<>(user);
-			ResponseEntity<User> response = new RestTemplate()
-					.exchange(API + ENDPOINT, HttpMethod.POST, request, User.class);
-			if (response.getStatusCode().equals(HttpStatus.OK)) {
-				return "Login exitoso.";
+			System.out.println(user.toString());
+			HttpHeaders headers = new HttpHeaders();			
+			headers.setContentType(MediaType.APPLICATION_JSON);
+//			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+			HttpEntity<User> request = new HttpEntity<>(user, headers);
+			System.out.println(request.toString());
+			ResponseEntity<String> response = new RestTemplate()
+					.exchange(API + ENDPOINT, HttpMethod.POST, request, String.class);
+			if (response.getStatusCode().equals(HttpStatus.CREATED)) {
+				return response.getBody().toString();
+//				return "Login exitoso.";
 			} else {
 				return "Login fallido.";
 			}

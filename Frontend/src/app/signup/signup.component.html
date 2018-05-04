@@ -9,11 +9,11 @@
         <div class="form-content">
           <div class="form-group">
             <input type="text" class="form-control input-underline input-lg" placeholder="Nombre de Usuario (Mínimo 3 caracteres)"
-            name="userName" #userName="ngModel" [(ngModel)]="user.userName" required minlength="3">
+            name="userName" #userName="ngModel" [(ngModel)]="user.nick" required minlength="3">
           </div>
           <div class="form-group">
             <input type="password" class="form-control input-underline input-lg" placeholder="Contraseña (Mínimo 3 caracteres)"
-            name="password" #password="ngModel" [(ngModel)]="user.password" required minlength="3">
+            name="password" #password="ngModel" [(ngModel)]="user.pass" required minlength="3">
           </div>
           <div class="form-group">
             <input type="password" class="form-control input-underline input-lg" placeholder="Repetir Contraseña"

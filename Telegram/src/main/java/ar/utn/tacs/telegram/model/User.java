@@ -7,5 +7,10 @@ public class User {
 	
 	@Getter @Setter private String name;
 	@Getter @Setter private String pass;
+	
+	@Override
+	public String toString() {
+		return String.format("{ \"nick\"=\"%s\", \"pass\"=\"%s\" }", name, pass);
+	}
 
 }
