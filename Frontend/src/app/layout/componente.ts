@@ -3,11 +3,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../shared/services/user.service';
 
 export abstract class Componente {
+  nick: string;
+  role: string;
   isActive = false;
   showMenu = '';
   pushRightClass = 'push-right';
-
   constructor(public translate: TranslateService, public router: Router, public userService: UserService) {
+
+    this.nick = localStorage.getItem('currentUserName');
+    this.role = localStorage.getItem('currentUserRole');
+
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('es');
     const browserLang = this.translate.getBrowserLang();

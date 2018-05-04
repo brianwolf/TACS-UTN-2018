@@ -21,18 +21,20 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
-    console.log(this.user);
-    localStorage.setItem('currentUser', JSON.stringify(this.user));
+    localStorage.setItem('currentUserName', this.user.nick);
+    localStorage.setItem('currentUserRole', 'User');
     this.router.navigate(['dashboard']);
-    // this.userService.login(this.user)
-    //   .subscribe(
-    //     data => {
-    //       this.router.navigate(['dashboard']);
-    //     },
-    //     error => {
-    //       // this.alert.raise('danger', error.message);
-    //       this.alert.raise('danger', 'Error de conexión con el servidor');
-    //     });
   }
+
+  // onSubmit(form: NgForm) {
+  //   this.userService.login(this.user)
+  //     .subscribe(
+  //       data => {
+  //         this.router.navigate(['dashboard']);
+  //       },
+  //       error => {
+  //         this.alert.raise('danger', 'Error de conexión con el servidor');
+  //       });
+  // }
+
 }

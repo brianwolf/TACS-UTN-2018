@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class RoleGuard implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate() {
-    if (localStorage.getItem('currentUserName')) {
+    if (localStorage.getItem('currentUserRole') === 'Admin') {
       return true;
     }
-    this.router.navigate(['login']);
+    this.router.navigate(['access-denied']);
     return false;
   }
-
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Componente } from '../../componente';
 import { UserService } from '../../../shared/services/user.service';
+import { User } from '../../../shared/model/user';
 
 @Component({
   selector: 'app-header',

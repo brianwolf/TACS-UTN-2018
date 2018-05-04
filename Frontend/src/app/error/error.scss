@@ -1,19 +1,34 @@
+.msg-error-number {
+  font-size: 10em;
+  color: #333;
+}
+
+.msg-error-number .fa {
+  animation: fa-spin 5s infinite linear;
+}
+
+.msg-error-main {
+  font-size: 3em;
+  font-weight: bolder;
+  color: rgb(128, 16, 16);
+}
+
 .wrap {
+  text-align: center;
   width: 1000px;
   margin: 0 auto;
   background: #fff;
 }
 
 .logo {
-  width: 430px;
+  width: 500px;
   margin: auto;
   padding-top: 10em;
 }
 
 p a {
-  color: #eee;
-  font-size: 20px;
-  text-align: center;
+  color: #bbb;
+  font-size: 25px;
   display: block;
   background: #333;
   -webkit-border-radius: .5em;
@@ -22,6 +37,7 @@ p a {
 }
 
 p a:hover {
+  text-decoration:none;
   color: #fff;
 }
 
@@ -40,6 +56,7 @@ p a:hover {
 /*--responsive--*/
 @media(max-width:991px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 897px;
   }
@@ -47,6 +64,7 @@ p a:hover {
 }
 @media(max-width:900px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 820px;
   }
@@ -54,12 +72,14 @@ p a:hover {
 }
 @media(max-width:800px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 700px;
   }
 }
 @media (max-width:736px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 627px;
   }
@@ -67,6 +87,7 @@ p a:hover {
 }
 @media(max-width:667px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 600px;
   }
@@ -74,6 +95,7 @@ p a:hover {
 }
 @media(max-width:640px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 570px;
   }
@@ -81,6 +103,7 @@ p a:hover {
 }
 @media(max-width:600px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 458px;
   }
@@ -104,6 +127,7 @@ p a:hover {
 }
 @media(max-width:480px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 375px;
   }
@@ -119,6 +143,7 @@ p a:hover {
 }
 @media(max-width:414px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 357px;
   }
@@ -126,6 +151,7 @@ p a:hover {
 }
 @media(max-width:384px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 363px;
   }
@@ -141,6 +167,7 @@ p a:hover {
 }
 @media(max-width:375px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 337px;
   }
@@ -153,6 +180,7 @@ p a:hover {
 }
 @media(max-width:320px) {
   .wrap {
+    text-align: center;
     margin: 0 auto;
     width: 285px;
   }

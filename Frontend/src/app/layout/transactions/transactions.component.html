@@ -1,0 +1,30 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Transacciones'" [icon]="'fa-edit'"></app-page-header>
+  <div class="row">
+    <div class="col col-xl-6 col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header">Transacciones</div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Criptomoneda</th>
+                <th>Valor actual</th>
+                <th>Valor de compra</th>
+                <th>Diferencia</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let tr of transactions">
+              <tr>
+                <td>{{ tr.coin }}</td>
+                <td>{{ tr.actual }}</td>
+                <td>{{ tr.buy }}</td>
+                <td>{{ tr.dif }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
