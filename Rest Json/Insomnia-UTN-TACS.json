@@ -1,15 +1,15 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-05-03T03:22:40.604Z",
+	"__export_date": "2018-05-04T01:29:27.388Z",
 	"__export_source": "insomnia.desktop.app:v5.16.1",
 	"resources": [
 		{
 			"_id": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
 			"created": 1525100962016,
-			"description": "",
-			"modified": 1525100962016,
-			"name": "Insomnia",
+			"description": "Rest para el tp de TACS",
+			"modified": 1525390438161,
+			"name": "UTN-TACS",
 			"parentId": null,
 			"_type": "workspace"
 		},
@@ -63,11 +63,11 @@
 			"color": "#80ff00",
 			"created": 1525302487369,
 			"data": {
-				"apiName": "apiWeb/utn/crypto-currency/",
+				"apiName": "utn/crypto-currency/",
 				"localHost": "http://localhost:8080/"
 			},
 			"isPrivate": false,
-			"modified": 1525314844006,
+			"modified": 1525390970291,
 			"name": "Local",
 			"parentId": "env_684d9b418038449dbf3af33945224d96",
 			"_type": "environment"
@@ -80,6 +80,20 @@
 			"isPrivate": false,
 			"modified": 1525302523445,
 			"name": "Cloud",
+			"parentId": "env_684d9b418038449dbf3af33945224d96",
+			"_type": "environment"
+		},
+		{
+			"_id": "env_44397086aae043ba9a92680cf1491acd",
+			"color": "#8080c0",
+			"created": 1525390936875,
+			"data": {
+				"apiName": "apiWeb/utn/crypto-currency/",
+				"localHost": "http://localhost:8080/"
+			},
+			"isPrivate": false,
+			"modified": 1525390965419,
+			"name": "Eclipse Local",
 			"parentId": "env_684d9b418038449dbf3af33945224d96",
 			"_type": "environment"
 		},
@@ -135,7 +149,7 @@
 				"text": "{\n\t\"nick\": \"lobezzzno\",\n\t\"pass\": \"1234\"\n}"
 			},
 			"created": 1525187472770,
-			"description": "",
+			"description": "Antes que nada se tiene que loguear para usar los demas REST, ya que estos usan el tocken devuelto para sus headers.\n\nMuestra de resulstado esperado:\n\n{\n\t\"token\": \"NM17OLDOV1G3J44P6UD20NLCD0TO9M6M\"\n}",
 			"headers": [
 				{
 					"disabled": false,
@@ -147,7 +161,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525187472770,
 			"method": "POST",
-			"modified": 1525216114698,
+			"modified": 1525396662699,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
@@ -301,10 +315,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 0.05\n}"
+				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 1000\n}"
 			},
 			"created": 1525302373112,
-			"description": "",
+			"description": "El cuerpo que se le envia tiene la forma de:\n{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 1000\n}\n\nPuede fallar si el usuario no tiene dinero suficiente arrojando un 500 con este body:\n{\n\t\"message\": \"No posee Dolares suficientes\",\n\t\"type\": \"InsufficientMoneyException\"\n}\n\n",
 			"headers": [
 				{
 					"disabled": false,
@@ -321,7 +335,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828300,
 			"method": "POST",
-			"modified": 1525317475480,
+			"modified": 1525397222706,
 			"name": "buy",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
@@ -338,7 +352,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1525310596157,
-			"description": "",
+			"description": "Muestras las transacciones hechas, para tener mas transacciones hay que hacer pedidos REST de BUY y SALE exitosos",
 			"headers": [
 				{
 					"disabled": false,
@@ -355,7 +369,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828325,
 			"method": "GET",
-			"modified": 1525310950287,
+			"modified": 1525396770779,
 			"name": "user transaction history",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
@@ -372,10 +386,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 0.05\n}"
+				"text": "{\n\t\"ticker\": \"XRP\",\n\t\"amount\": 0.05\n}"
 			},
 			"created": 1525317382233,
-			"description": "",
+			"description": "El cuerpo que se le envia tiene la forma de: { \"ticker\": \"BTC\", \"amount\": 1000 }\n\nPuede fallar arrojando un 500 con alguno de estos cuerpos: \n\n{\n\t\"message\": \"No posee Dolares suficientes\", \"type\": \"InsufficientMoneyException\" \n}\n\n{\n\t\"message\": \"No posee la cripto moneda indicada\",\n\t\"type\": \"DontHaveOperationCoinException\"\n}",
 			"headers": [
 				{
 					"disabled": false,
@@ -392,7 +406,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828275,
 			"method": "POST",
-			"modified": 1525317392126,
+			"modified": 1525397331693,
 			"name": "sale",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",

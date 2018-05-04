@@ -14,14 +14,14 @@ public interface WalletDao extends GenericDao {
 	 * @param transaction
 	 * @return {@link Boolean}
 	 */
-	public Boolean buy(User user,Transaction transaction);
+	public void buy(User user,Transaction transaction);
 
 	/**
 	 * @param user
 	 * @param transaction
 	 * @return {@link Boolean}
 	 */
-	public Boolean sale(User user, Transaction transaction);
+	public void sale(User user, Transaction transaction);
 
 	/**
 	 * @param idUser

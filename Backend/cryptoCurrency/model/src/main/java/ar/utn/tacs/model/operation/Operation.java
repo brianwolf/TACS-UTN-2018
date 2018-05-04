@@ -9,6 +9,7 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.CoinAmount;
 
@@ -97,5 +98,5 @@ public abstract class Operation {
 		return this.coinAmount != null? this.coinAmount.getCoin().getValueInDollars() : new BigDecimal(0f);
 	}
 	
-	public abstract void doOperation();
+	public abstract void doOperation() throws UtnTacsException;
 }

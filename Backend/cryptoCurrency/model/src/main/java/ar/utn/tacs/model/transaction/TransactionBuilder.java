@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.HashMap;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.operation.Buy;
 import ar.utn.tacs.model.operation.Operation;
 import ar.utn.tacs.model.operation.Sale;
@@ -20,7 +21,7 @@ public class TransactionBuilder {
 		operationsClassMap.put(Sale.class.getName(), Sale.class);
 	}
 	
-	public Transaction createTransaction(String operationName, User user, CoinAmount coinAmount) {
+	public Transaction createTransaction(String operationName, User user, CoinAmount coinAmount) throws UtnTacsException {
 		
 		Operation operation = getOperation(operationName);
 			operation.setUser(user);

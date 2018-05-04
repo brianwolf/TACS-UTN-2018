@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.wallet.WalletDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.operation.Buy;
@@ -30,8 +31,9 @@ public class WalletServiceImpl implements WalletService {
 	 * @param user
 	 * @param coinAmount
 	 * @return {@link Transaction}
+	 * @throws UtnTacsException 
 	 */
-	private Transaction getTransaction(String operationName, User user, CoinAmount coinAmount) {
+	private Transaction getTransaction(String operationName, User user, CoinAmount coinAmount) throws UtnTacsException {
 		
 		TransactionBuilder transactionBuilder = new TransactionBuilder();
 		return transactionBuilder.createTransaction(operationName, user, coinAmount);
@@ -47,25 +49,24 @@ public class WalletServiceImpl implements WalletService {
 	}
 
 	@Override
-	public Boolean buy(String token, CoinAmountRest coinAmountRest) {
+	public void buy(String token, CoinAmountRest coinAmountRest) throws UtnTacsException {
 
 		CoinAmount coinAmount = coinAmountRest.toCoinAmount(BeanUtil.getBean(ExternalService.class).coinMarketCap());
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 		
 		Transaction transaction = this.getTransaction(Buy.class.getName(), user, coinAmount);
-		
-		return walletDao.buy(user,transaction);
+		walletDao.buy(user,transaction);
 	}
 
 	@Override
-	public Boolean sale(String token, CoinAmountRest coinAmountRest) {
+	public void sale(String token, CoinAmountRest coinAmountRest) throws UtnTacsException {
 		
 		CoinAmount coinAmount = coinAmountRest.toCoinAmount(BeanUtil.getBean(ExternalService.class).coinMarketCap());
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 		
 		Transaction transaction = this.getTransaction(Sale.class.getName(), user, coinAmount);
-		
-		return walletDao.sale(user,transaction);
+			
+		walletDao.sale(user,transaction);
 	}
 
 	@Override

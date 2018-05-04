@@ -2,6 +2,7 @@ package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
 
+import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.Wallet;
 
@@ -15,14 +16,13 @@ public class Buy extends Operation{
 	}
 
 	@Override
-	public void doOperation() {
+	public void doOperation() throws InsufficientMoneyException {
 	
 		Wallet userWallet = super.user.getWallet();
 		
 		BigDecimal finalPrice = super.coinAmount.getAmount().multiply(super.coinAmount.getCoin().getValueInDollars());
 		if (!userWallet.haveEnoughDolar(finalPrice)) {
-			//new SosUnPobreException()
-			return;
+			throw new InsufficientMoneyException();
 		}
 		
 		BigDecimal finalDolarAmount = userWallet.getDolarAmount().subtract(finalPrice);

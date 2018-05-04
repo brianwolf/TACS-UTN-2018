@@ -23,7 +23,7 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 	}
 
 	@Override
-	public Boolean buy(User user, Transaction transaction) {
+	public void buy(User user, Transaction transaction) {
 		
 		transaction.setDateFinal(new Date());
 		
@@ -32,11 +32,10 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 		}
 		
 		getHistory().get(user).add(transaction);
-		return true;
 	}
 
 	@Override
-	public Boolean sale(User user, Transaction transaction) {
+	public void sale(User user, Transaction transaction) {
 		
 		transaction.setDateFinal(new Date());
 		
@@ -45,7 +44,6 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 		}
 		
 		getHistory().get(user).add(transaction);
-		return true;
 	}
 
 	@Override
