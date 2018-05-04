@@ -1,0 +1,24 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Comparar Usuarios'" [icon]="'fa-edit'"></app-page-header>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label>Seleccione al usuario numero 1.</label>
+        <select class="form-control">
+          <option *ngFor="let user of users">{{ user }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label>Seleccione al usuario numero 2.</label>
+        <select class="form-control">
+          <option *ngFor="let user of users">{{ user }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <button type="submit" class="btn btn-primary">Comparar</button>
+    </div>
+  </div>
+</div>

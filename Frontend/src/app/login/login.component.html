@@ -16,9 +16,7 @@
               [(ngModel)]="user.pass" required minlength="3">
           </div>
         </div>
-        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Ingresar">
-        <!-- <button class="btn rounded-btn" [disabled]="!userRegistrationForm.valid">Ingresar</button> -->
-        &nbsp; &nbsp;
+        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Ingresar"> &nbsp; &nbsp;
         <a class="btn rounded-btn" [routerLink]="['/signup']">Nuevo Usuario</a>
       </form>
     </div>

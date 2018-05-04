@@ -14,11 +14,11 @@ import { UserService } from '../shared/services/user.service';
 export class SignupComponent implements OnInit {
 
   user: User;
-  confirmPassword: string;
 
   constructor(public alert: AlertService, private userService: UserService) { }
 
   ngOnInit() {
+    this.user = new User();
     this.resetForm();
   }
 
@@ -26,15 +26,14 @@ export class SignupComponent implements OnInit {
     if (form != null) {
       form.reset();
     }
-    this.user = {
-      nick: null,
-      pass: null
-    };
+    this.user.nick = null;
+    this.user.pass = null;
+    this.user.confirmPassword = null;
   }
 
   onSubmit(form: NgForm) {
     // console.log(this.user);
-    if (this.user.nick !== this.confirmPassword) {
+    if (this.user.nick !== this.user.confirmPassword) {
       this.alert.raise('danger', 'Las contraseñas no coinciden');
       return;
     }

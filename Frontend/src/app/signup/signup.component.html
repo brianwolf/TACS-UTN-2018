@@ -17,7 +17,7 @@
           </div>
           <div class="form-group">
             <input type="password" class="form-control input-underline input-lg" placeholder="Repetir Contraseña"
-            name="confirmPassword" #password="ngModel" [(ngModel)]="confirmPassword" required minlength="3">
+            name="confirmPassword" #password="ngModel" [(ngModel)]="user.confirmPassword" required minlength="3">
           </div>
         </div>
         <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Registrar">

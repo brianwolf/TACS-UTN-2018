@@ -12,6 +12,9 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './shared/services/jwt.interceptor';
 import { RoleGuard } from './shared/guard/role.guard';
+import { ServerErrorComponent } from './error/server-error/server-error.component';
+import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
+import { NotFoundComponent } from './error/not-found/not-found.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -35,7 +38,12 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AppRoutingModule
   ],
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    ServerErrorComponent,
+    AccessDeniedComponent,
+    NotFoundComponent
+  ],
   providers: [
     AlertService,
     AuthGuard,

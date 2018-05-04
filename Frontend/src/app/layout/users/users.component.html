@@ -1,0 +1,32 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Usuarios'" [icon]="'fa-edit'"></app-page-header>
+  <div class="row">
+    <div class="col col-xl-10 col-lg-12">
+      <div class="card">
+        <div class="card-header">Información de los Usuarios del Sistema</div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Cantidad de Monedas</th>
+                <th>Transacciones</th>
+                <th>Transacciones Hoy</th>
+                <th>Ultimo Acceso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.nick }}</td>
+                <td>{{ user.totalCoins }}</td>
+                <td>{{ user.transactions }}</td>
+                <td>{{ user.todayTransactions }}</td>
+                <td>{{ user.lastAccess }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

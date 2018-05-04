@@ -14,20 +14,19 @@ export class UserService {
   }
 
   signup(user: User) {
-    const requestHeader = new HttpHeaders({ 'No-Auth': 'True' });
-    return this.http.post(this.API + 'users/new', user, { headers: requestHeader });
+    const body = `{"nick": "${user.nick}", "pass": "${user.pass}"}`;
+    return this.http.post(this.API + 'users/new', body);
   }
 
   login(user: User) {
     // const body = `{"nick": "lobezzzno", "pass": "1234"}`;
-    // const body = `{"nick": "${user.nick}", "pass": "${user.pass}"}`;
-    const body = JSON.stringify(user);
+    const body = `{"nick": "${user.nick}", "pass": "${user.pass}"}`;
 
     return this.http.post<any>(this.API + 'users/login', body)
       .map(_user => {
         if (_user && _user.token) { // si hay un JWT Token el login es exitoso
           console.log(_user.token);
-          this.getUserByToken(_user.token); // guardo el usuario
+          // this.getUserByToken(_user.token); // guardo el usuario
           localStorage.setItem('currentUserName', user.nick);
           // guardo el token para mandarlo en todas las requests
           localStorage.setItem('currentToken', JSON.stringify(_user.token));
@@ -36,16 +35,23 @@ export class UserService {
       });
   }
 
-  getUserByToken(token: string) {
-    this.http
-      .get(this.API + 'users', { headers: { token: token } })
-      .subscribe(data => { localStorage.setItem('currentUser', JSON.stringify(data)); });
+  getUserByToken() {
+    return this.http.get(this.API + 'users/loggedin');
+  }
+
+  getWallet() {
+    return this.http.get(this.API + 'wallet');
+  }
+
+  getTransactions() {
+    return this.http.get(this.API + 'wallet/history/transactions');
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    // localStorage.removeItem('currentUser');
     localStorage.removeItem('currentUserName');
     localStorage.removeItem('currentUserRole');
+    // this.http.put(this.API + 'users/logout');
   }
 
 }

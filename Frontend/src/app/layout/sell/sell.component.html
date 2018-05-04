@@ -2,24 +2,27 @@
   <app-page-header [heading]="'Vender'" [icon]="'fa-edit'"></app-page-header>
   <div class="row">
     <div class="col-md-4 center-block">
-      <form role="form">
+      <form role="form" #buyForm="ngForm" (ngSubmit)="onSubmit(buyForm)">
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
               <i class="fa fa-btc"></i>
             </span>
           </div>
-          <input class="form-control" type="number" placeholder="Ingrese la criptomoneda a vender">
+          <input class="form-control" type="text" placeholder="Ingrese la criptomoneda a vender" name="ticker" #ticker="ngModel" [(ngModel)]="operation.ticker"
+            required minlength="2">
         </div>
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">Q</span>
           </div>
-          <input class="form-control" type="number" placeholder="Ingrese la cantidad">
+          <input class="form-control" type="number" placeholder="Ingrese la cantidad" name="amount" #amount="ngModel" [(ngModel)]="operation.amount"
+            required>
         </div>
-
-        <button class="btn btn-success" type="submit">Vender</button>
-        <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']" type="submit">Cancelar</button>
+        <input class="btn btn-success" type="submit" [disabled]="!buyForm.valid" value="Vender"> &nbsp;
+        <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
+        <hr>
+        <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
       </form>
     </div>
   </div>
