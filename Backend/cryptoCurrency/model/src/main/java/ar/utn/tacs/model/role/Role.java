@@ -45,4 +45,9 @@ public abstract class Role {
 		this.funcionalities = funcionalities;
 	}
 
+	public boolean canAccessTo(String requestPath) {
+		
+		return this.funcionalities.stream().anyMatch(f->f.canAccessTo(requestPath));
+	}
+
 }

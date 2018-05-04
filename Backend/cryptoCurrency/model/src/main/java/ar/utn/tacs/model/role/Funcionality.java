@@ -11,6 +11,16 @@ public class Funcionality {
 
 	private String baseURL;
 
+	public Funcionality(Long id, String description, String baseURL) {
+		this.id = id;
+		this.description = description;
+		this.baseURL = baseURL;
+	}
+	
+	public Funcionality() {
+		
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -33,6 +43,15 @@ public class Funcionality {
 
 	public void setBaseURL(String baseURL) {
 		this.baseURL = baseURL;
+	}
+
+	public boolean canAccessTo(String requestPath) {
+		
+		if(requestPath==null) {
+			return false;
+		}
+		
+		return requestPath.startsWith(this.baseURL);
 	}
 
 }

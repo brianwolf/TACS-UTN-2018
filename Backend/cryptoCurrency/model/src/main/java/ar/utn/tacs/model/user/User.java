@@ -94,6 +94,11 @@ public class User {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+
+	public boolean canAccessTo(String requestPath) {
+		
+		return this.roles.stream().anyMatch(r->r.canAccessTo(requestPath));
+	}
 	
 	
 }

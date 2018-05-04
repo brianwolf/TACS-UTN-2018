@@ -1,17 +1,33 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
   <div class="list-group">
     <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Dashboard' | translate }}
+      <i class="fa fa-fw fa-dashboard" aria-hidden="true"></i>&nbsp;{{ 'Dashboard' | translate }}
     </a>
     <a [routerLink]="['/buy']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-bitcoin"></i>&nbsp;{{ 'Buy' | translate }}
+      <i class="fa fa-fw fa-bitcoin" aria-hidden="true"></i>&nbsp;{{ 'Buy' | translate }}
     </a>
     <a [routerLink]="['/sell']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dollar"></i>&nbsp;{{ 'Sell' | translate }}
+      <i class="fa fa-fw fa-dollar" aria-hidden="true"></i>&nbsp;{{ 'Sell' | translate }}
     </a>
     <a [routerLink]="['/wallet']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-google-wallet"></i>&nbsp;{{ 'Wallet' | translate }}
+      <i class="fa fa-fw fa-google-wallet" aria-hidden="true"></i>&nbsp;{{ 'Wallet' | translate }}
     </a>
+    <a [routerLink]="['/transactions']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-line-chart" aria-hidden="true"></i>&nbsp;{{ 'Transactions' | translate }}
+    </a>
+    <hr>
+    <div *ngIf="role == 'Admin'">
+      <p class="list-group-item">{{ 'AdminSection' | translate }}</p>
+      <a [routerLink]="['/users']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-id-card-o" aria-hidden="true"></i>&nbsp;{{ 'Users' | translate }}
+      </a>
+      <a [routerLink]="['/compare']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-files-o" aria-hidden="true"></i>&nbsp;{{ 'Compare' | translate }}
+      </a>
+      <a [routerLink]="['/history']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-history" aria-hidden="true"></i>&nbsp;{{ 'History' | translate }}
+      </a>
+    </div>
     <div class="header-fields">
       <a (click)="rltAndLtr()" class="list-group-item">
         <span>
