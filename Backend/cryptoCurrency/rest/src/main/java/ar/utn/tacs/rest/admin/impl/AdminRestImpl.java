@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -42,36 +44,6 @@ public class AdminRestImpl implements AdminRest {
 	}
 
 	@GET
-	@Path(AdminRest.STATES_TODAY)
-	@Override
-	public Response statesToday() {
-		List<Transaction> transaccionResult = new ArrayList<Transaction>();
-		
-		try {
-			transaccionResult = adminService.statesToday();
-			return Response.status(Response.Status.OK).entity(transaccionResult).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
-	@GET
-	@Path(AdminRest.STATES_THREE_DAYS)
-	@Override
-	public Response statesThreeDays() {
-		List<Transaction> transaccionResult = new ArrayList<Transaction>();
-		
-		try {
-			transaccionResult = adminService.statesThreeDays();
-			return Response.status(Response.Status.OK).entity(transaccionResult).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
-	@GET
 	@Path(AdminRest.STATES_LAST_WEEK)
 	@Override
 	public Response statesLastWeek() {
@@ -87,7 +59,7 @@ public class AdminRestImpl implements AdminRest {
 	}
 
 	@GET
-	@Path(AdminRest.STATES_LAST_MOTH)
+	@Path(AdminRest.STATES_LAST_MONTH)
 	@Override
 	public Response statesLastMonth() {
 		List<Transaction> transaccionResult = new ArrayList<Transaction>();
@@ -102,18 +74,35 @@ public class AdminRestImpl implements AdminRest {
 	}
 
 	@GET
-	@Path(AdminRest.STATES_START_TIMES)
+	@Path(AdminRest.STATES_ALL)
 	@Override
-	public Response statesStartTimes() {
+	public Response statesAll() {
 		
 		List<Transaction> transaccionResult = new ArrayList<Transaction>();
 		
 		try {
-			transaccionResult = adminService.statesStartTimes();
+			transaccionResult = adminService.statesGetAll();
 			return Response.status(Response.Status.OK).entity(transaccionResult).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
+	@GET
+	@Path(AdminRest.STATES_BY_BEFORE_DAYS)
+	@Override
+	public Response statesByBeforeDays(@DefaultValue("0") @QueryParam("beforeDays") Integer beforeDays) {
+		List<Transaction> transaccionsResult = new ArrayList<Transaction>();
+		
+		try {
+			transaccionsResult = adminService.statesByBeforeDays(beforeDays);
+			
+			return Response.status(Response.Status.OK).entity(transaccionsResult).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
 }

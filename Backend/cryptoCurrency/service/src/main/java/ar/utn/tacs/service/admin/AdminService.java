@@ -18,16 +18,6 @@ public interface AdminService extends GenericService {
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesToday();
-
-	/**
-	 * @return {@link List}{@link Transaction}
-	 */
-	List<Transaction> statesThreeDays();
-
-	/**
-	 * @return {@link List}{@link Transaction}
-	 */
 	List<Transaction> statesLastWeek();
 
 	/**
@@ -38,5 +28,12 @@ public interface AdminService extends GenericService {
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesStartTimes();
+	List<Transaction> statesGetAll();
+	
+	
+	/**
+	 * @param beforeDays
+	 * @return {@link List} {@link Transaction}
+	 */
+	List<Transaction> statesByBeforeDays(Integer beforeDays);
 }

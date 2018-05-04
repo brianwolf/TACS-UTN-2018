@@ -20,16 +20,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Transaction> statesToday() {
-		return adminDao.statesToday();
-	}
-
-	@Override
-	public List<Transaction> statesThreeDays() {
-		return adminDao.statesThreeDays();
-	}
-
-	@Override
 	public List<Transaction> statesLastWeek() {
 		return adminDao.statesLastWeek();
 	}
@@ -40,8 +30,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Transaction> statesStartTimes() {
-		return adminDao.statesStartTimes();
+	public List<Transaction> statesGetAll() {
+		return adminDao.statesAll();
+	}
+
+	@Override
+	public List<Transaction> statesByBeforeDays(Integer beforeDays) {
+		return adminDao.statesByBeforeDays(beforeDays);
 	}
 
 }

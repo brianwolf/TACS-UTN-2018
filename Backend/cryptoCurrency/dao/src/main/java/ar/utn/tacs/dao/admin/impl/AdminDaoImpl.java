@@ -16,18 +16,6 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl<User> implements AdminD
 	}
 
 	@Override
-	public List<Transaction> statesToday() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Transaction> statesThreeDays() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Transaction> statesLastWeek() {
 		// TODO Auto-generated method stub
 		return null;
@@ -40,7 +28,13 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl<User> implements AdminD
 	}
 
 	@Override
-	public List<Transaction> statesStartTimes() {
+	public List<Transaction> statesAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Transaction> statesByBeforeDays(Integer beforeDays) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-05-04T04:52:38.202Z",
+	"__export_date": "2018-05-04T14:19:44.769Z",
 	"__export_source": "insomnia.desktop.app:v5.16.1",
 	"resources": [
 		{
@@ -315,7 +315,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 0.05\n}"
+				"text": "{\n\t\"ticker\": \"XRP\",\n\t\"amount\": 0.05\n}"
 			},
 			"created": 1525302373112,
 			"description": "El cuerpo que se le envia tiene la forma de:\n{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 1000\n}\n\nPuede fallar si el usuario no tiene dinero suficiente arrojando un 500 con este body:\n{\n\t\"message\": \"No posee Dolares suficientes\",\n\t\"type\": \"InsufficientMoneyException\"\n}\n\n",
@@ -335,7 +335,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828300,
 			"method": "POST",
-			"modified": 1525408653698,
+			"modified": 1525443509886,
 			"name": "buy",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
@@ -369,7 +369,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828325,
 			"method": "GET",
-			"modified": 1525408673555,
+			"modified": 1525443532296,
 			"name": "user transaction history by coin",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
@@ -378,7 +378,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ localHost  }}{{ apiName  }}wallet/history/transactions/BTC",
+			"url": "{{ localHost  }}{{ apiName  }}wallet/history/transactions?ticker=BTC",
 			"_type": "request"
 		},
 		{
@@ -416,6 +416,40 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ localHost  }}{{ apiName  }}wallet/sale",
+			"_type": "request"
+		},
+		{
+			"_id": "req_d4a95c5cf015423fb6b1e552d91bac25",
+			"authentication": {},
+			"body": {},
+			"created": 1525443139729,
+			"description": "Muestras las transacciones hechas, para tener mas transacciones hay que hacer pedidos REST de BUY y SALE exitosos",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828312.5,
+			"method": "GET",
+			"modified": 1525443151474,
+			"name": "user transaction history",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/history/transactions",
 			"_type": "request"
 		},
 		{
@@ -474,7 +508,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525187484617.5,
 			"method": "GET",
-			"modified": 1525406212499,
+			"modified": 1525441419003,
 			"name": "states today",
 			"parameters": [],
 			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
@@ -483,7 +517,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ localHost  }}{{ apiName  }}admin/states",
+			"url": "{{ localHost  }}{{ apiName  }}admin/states?beforeDays=0",
 			"_type": "request"
 		},
 		{
@@ -508,7 +542,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525187481655.625,
 			"method": "GET",
-			"modified": 1525404846018,
+			"modified": 1525442398312,
 			"name": "states lastMonth",
 			"parameters": [],
 			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
@@ -517,7 +551,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ localHost  }}{{ apiName  }}admin/states/lastMonth",
+			"url": "{{ localHost  }}{{ apiName  }}admin/states/lastmonth",
 			"_type": "request"
 		},
 		{
@@ -542,7 +576,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525187483136.5625,
 			"method": "GET",
-			"modified": 1525404836002,
+			"modified": 1525442391731,
 			"name": "states lastWeek",
 			"parameters": [],
 			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
@@ -551,7 +585,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ localHost  }}{{ apiName  }}admin/states/lastWeek",
+			"url": "{{ localHost  }}{{ apiName  }}admin/states/lastweek",
 			"_type": "request"
 		},
 		{
@@ -576,7 +610,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525187483877.0312,
 			"method": "GET",
-			"modified": 1525404820864,
+			"modified": 1525441718824,
 			"name": "states threeDays",
 			"parameters": [],
 			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
@@ -585,7 +619,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ localHost  }}{{ apiName  }}admin/states/threeDays",
+			"url": "{{ localHost  }}{{ apiName  }}admin/states?beforeDays=3",
 			"_type": "request"
 		},
 		{
@@ -610,7 +644,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525187484247.2656,
 			"method": "GET",
-			"modified": 1525405102626,
+			"modified": 1525441776969,
 			"name": "states startTimes",
 			"parameters": [],
 			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
@@ -619,7 +653,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ localHost  }}{{ apiName  }}admin/states/startTimes",
+			"url": "{{ localHost  }}{{ apiName  }}admin/states/all",
 			"_type": "request"
 		},
 		{

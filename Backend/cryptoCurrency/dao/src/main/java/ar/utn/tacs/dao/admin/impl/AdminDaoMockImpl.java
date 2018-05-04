@@ -43,7 +43,51 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 	}
 
 	@Override
-	public List<Transaction> statesToday() {
+	public List<Transaction> statesLastWeek() {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+
+		return transactions.stream().filter(t -> {
+			
+			Calendar transactionDate = Calendar.getInstance();
+				transactionDate.setTime(t.getDateStart());
+			
+			Calendar minDate = Calendar.getInstance();
+				minDate.setTime(new Date());
+			
+			return transactionDate.get(Calendar.WEEK_OF_MONTH) == minDate.get(Calendar.WEEK_OF_MONTH);
+			
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Transaction> statesLastMonth() {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+
+		return transactions.stream().filter(t -> {
+			
+			Calendar transactionDate = Calendar.getInstance();
+				transactionDate.setTime(t.getDateStart());
+			
+			Calendar minDate = Calendar.getInstance();
+				minDate.setTime(new Date());
+			
+			return transactionDate.get(Calendar.MONTH) == minDate.get(Calendar.MONTH);
+			
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Transaction> statesAll() {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+		
+		return transactions;
+	}
+
+	@Override
+	public List<Transaction> statesByBeforeDays(Integer beforeDays) {
 		
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
@@ -51,62 +95,18 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 		return transactions.stream().filter(t -> {
 			
 			Calendar transactionDate = Calendar.getInstance();
-			transactionDate.setTime(t.getDateStart());
+				transactionDate.setTime(t.getDateStart());
 			
-			Calendar today = Calendar.getInstance();
-			today.setTime(t.getDateStart());
+			Calendar minDate = Calendar.getInstance();
+				minDate.setTime(new Date());
 			
-			return transactionDate.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR);
+			if (beforeDays != null) {
+				minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
+			}
+			
+			return transactionDate.get(Calendar.DAY_OF_YEAR) >= minDate.get(Calendar.DAY_OF_YEAR);
 			
 		}).collect(Collectors.toList());
 	}
-
-	@Override
-	public List<Transaction> statesThreeDays() {
-		
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
-
-		
-		Calendar threeDaysBefore = Calendar.getInstance();
-			threeDaysBefore.setTime(new Date());
-			threeDaysBefore.add(Calendar.DAY_OF_MONTH, -3);
-		
-		return transactions.stream().filter(t -> t.getDateStart().after(threeDaysBefore.getTime())).collect(Collectors.toList());
-	}
-
-	@Override
-	public List<Transaction> statesLastWeek() {
-		
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;		
-		
-		Calendar lastWeek = Calendar.getInstance();
-			lastWeek.setTime(new Date());
-			lastWeek.add(Calendar.DAY_OF_MONTH, -7);
-		
-		return transactions.stream().filter(t -> t.getDateStart().after(lastWeek.getTime())).collect(Collectors.toList());
-	}
-
-	@Override
-	public List<Transaction> statesLastMonth() {
-		
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
-
-		
-		Calendar lastWeek = Calendar.getInstance();
-			lastWeek.setTime(new Date());
-			lastWeek.add(Calendar.DAY_OF_MONTH, -30);
-		
-		return transactions.stream().filter(t -> t.getDateStart().after(lastWeek.getTime())).collect(Collectors.toList());
-	}
-
-	@Override
-	public List<Transaction> statesStartTimes() {
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
-		
-		return transactions;
-	}
+	
 }

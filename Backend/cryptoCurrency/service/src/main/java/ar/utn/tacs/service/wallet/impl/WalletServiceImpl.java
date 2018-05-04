@@ -42,7 +42,7 @@ public class WalletServiceImpl implements WalletService {
 	@Override
 	public List<Transaction> userTransactionHistory(String token, String ticker) {
 		
-		Coin coin = BeanUtil.getBean(ExternalService.class).getCoinByTicker(ticker);
+		Coin coin = ticker.equals("")? null : BeanUtil.getBean(ExternalService.class).getCoinByTicker(ticker);
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 
 		return walletDao.userTransactionHistory(user, coin);

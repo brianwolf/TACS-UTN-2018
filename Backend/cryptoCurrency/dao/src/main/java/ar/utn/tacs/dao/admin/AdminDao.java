@@ -18,16 +18,6 @@ public interface AdminDao extends GenericDao{
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesToday();
-
-	/**
-	 * @return {@link List}{@link Transaction}
-	 */
-	List<Transaction> statesThreeDays();
-
-	/**
-	 * @return {@link List}{@link Transaction}
-	 */
 	List<Transaction> statesLastWeek();
 
 	/**
@@ -38,5 +28,11 @@ public interface AdminDao extends GenericDao{
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesStartTimes();
+	List<Transaction> statesAll();
+	
+	/**
+	 * @param beforeDays
+	 * @return {@link List} {@link Transaction}
+	 */
+	List<Transaction> statesByBeforeDays(Integer beforeDays);
 }

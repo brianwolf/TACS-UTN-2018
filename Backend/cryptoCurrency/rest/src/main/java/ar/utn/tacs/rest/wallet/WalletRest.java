@@ -2,6 +2,7 @@ package ar.utn.tacs.rest.wallet;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
@@ -16,7 +17,7 @@ public interface WalletRest extends GenericRest {
 	public static final String BUY = "/buy";
 	public static final String SALE = "/sale";
 	public static final String USER_WALLET = "";
-	public static final String USER_TRANSACTION_HISTORY = "/history/transactions/{ticker}";
+	public static final String USER_TRANSACTION_HISTORY = "/history/transactions";
 
 	/**
 	 * {@link POST}
@@ -25,7 +26,7 @@ public interface WalletRest extends GenericRest {
 	 * @param coinAmountRest
 	 * @return {@link JsonValue}
 	 */
-	public Response buy(String token, CoinAmountRest coinAmountRest);
+	Response buy(String token, CoinAmountRest coinAmountRest);
 
 	/**
 	 * {@link POST}
@@ -34,23 +35,24 @@ public interface WalletRest extends GenericRest {
 	 * @param coinAmountRest
 	 * @return {@link JsonValue}
 	 */
-	public Response sale(String token, CoinAmountRest coinAmountRest);
-
-	/**
-	 * {@link GET}
-	 * 
-	 * @param token
-	 * @param ticker
-	 * @return {@link JsonValue}
-	 */
-	public Response userTransactionHistory(String token, String ticker);
+	Response sale(String token, CoinAmountRest coinAmountRest);
 	
 	/**
 	 * {@link GET}
 	 * 
-	 * @param token
-	 * @return {@link Response}
+	 * {@link QueryParam}
+	 * "ticker": {@link String}
+	 * 
+	 * @param ticker
+	 * @return {@link String}
 	 */
-	public Response userWalletByToken(String token);
+	Response userTransactionHistory(String token, String ticker);
 
+	/**
+	 * {@link GET}
+	 * 
+	 * @param token
+	 * @return
+	 */
+	Response userWalletByToken(String token);
 }

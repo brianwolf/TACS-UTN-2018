@@ -1,6 +1,7 @@
 package ar.utn.tacs.rest.admin;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
@@ -12,11 +13,10 @@ public interface AdminRest extends GenericService{
 	public static final String BASE = "/admin";
 	
 	public static final String COMPARE_BALANCE = "/balance/{idUserA}/{idUserB}";
-	public static final String STATES_TODAY = "/states";
-	public static final String STATES_THREE_DAYS = "/states/threeDays";
-	public static final String STATES_LAST_WEEK = "/states/lastWeek";
-	public static final String STATES_LAST_MOTH = "/states/lastMonth";
-	public static final String STATES_START_TIMES = "/states/startTimes";
+	public static final String STATES_LAST_WEEK = "/states/lastweek";
+	public static final String STATES_LAST_MONTH = "/states/lastmonth";
+	public static final String STATES_ALL = "/states/all";
+	public static final String STATES_BY_BEFORE_DAYS = "/states";
 	
 	/**
 	 * {@link GET}
@@ -26,20 +26,6 @@ public interface AdminRest extends GenericService{
 	 * @return {@link JsonValue}
 	 */
 	Response compareBalance(String nickA, String nickB);
-	
-	/**
-	 * {@link GET}
-	 * 
-	 * @return {@link JsonValue}
-	 */
-	Response statesToday();
-	
-	/**
-	 * {@link GET}
-	 * 
-	 * @return {@link JsonValue}
-	 */
-	Response statesThreeDays();
 	
 	/**
 	 * {@link GET}
@@ -60,5 +46,15 @@ public interface AdminRest extends GenericService{
 	 * 
 	 * @return {@link JsonValue}
 	 */
-	Response statesStartTimes();
+	Response statesAll();
+	
+	/**
+	 * {@link GET}
+	 * 
+	 * {@link QueryParam}
+	 * "beforeDays" : {@link Integer} 
+	 * 
+	 * @return {@link Response}
+	 */
+	Response statesByBeforeDays(Integer beforeDays);
 }

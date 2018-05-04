@@ -21,6 +21,14 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 	public WalletDaoMockImpl() {
 		this.history = new HashMap<User, List<Transaction>>(); 
 	}
+	
+	public HashMap<User, List<Transaction>> getHistory() {
+		return history;
+	}
+
+	public void setHistory(HashMap<User, List<Transaction>> history) {
+		this.history = history;
+	}
 
 	@Override
 	public void buy(User user, Transaction transaction) {
@@ -50,9 +58,13 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 	public List<Transaction> userTransactionHistory(User user, Coin coin) {
 		
 		List<Transaction> transactionsResult = new ArrayList<Transaction>(); 
-
-		if (user == null || coin == null || !this.history.containsKey(user)) {
+		
+		if (user == null || !this.history.containsKey(user)) {
 			return transactionsResult;
+		}
+		
+		if (coin == null) {
+			return history.get(user); 
 		}
 		
 		List<Transaction> historyUser = this.history.get(user);
@@ -67,11 +79,4 @@ public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements
 		return transactionsResult; 
 	}
 
-	public HashMap<User, List<Transaction>> getHistory() {
-		return history;
-	}
-
-	public void setHistory(HashMap<User, List<Transaction>> history) {
-		this.history = history;
-	}
 }
