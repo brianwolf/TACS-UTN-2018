@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
 
+import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.user.UserRest;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.util.BeanUtil;
@@ -43,17 +44,40 @@ public class RestFilter implements ContainerRequestFilter {
 		
 		String token = request.getHeaderValue(TOKEN);
 		
-		return BeanUtil.getBean(UserService.class).getUserByToken(token)!=null;
+		User user = obtainUser(token);
+		
+		return userIsValid(user,request);
 	}
 	
+	private boolean userIsValid(User user, ContainerRequest request) {
+		
+		if(user!=null) {
+			return user.canAccessTo(getRequestPath(request));
+		}
+		return false;
+	}
+
+	private User obtainUser(String token) {
+		try {
+			return BeanUtil.getBean(UserService.class).getUserByToken(token);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
 	private boolean dontNeedToken(ContainerRequest request) {
 		
-		String requestPath = "/"+request.getPath();
+		String requestPath = getRequestPath(request);
 		boolean isPOST = request.getMethod().equals("POST");
 		boolean isLoginPath = requestPath.equals(LOGIN_PATH);
 		boolean isCreateUserPath = requestPath.equals(CREATE_USER_PATH);
 		
 		return (isLoginPath||isCreateUserPath) && isPOST;
+	}
+
+	private String getRequestPath(ContainerRequest request) {
+		return "/"+request.getPath();
 	}
 	
 }

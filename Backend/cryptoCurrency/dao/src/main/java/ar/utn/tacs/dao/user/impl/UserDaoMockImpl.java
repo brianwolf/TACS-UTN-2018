@@ -28,8 +28,8 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 	
 	public UserDaoMockImpl() {
 		
-		this.roles.add(new AdminRole());
 		this.roles.add(new UserRole());
+		this.roles.add(new AdminRole());
 		
 		List<CoinAmount> coinAmaunts = new ArrayList<CoinAmount>();
 			coinAmaunts.add(new CoinAmount(new Coin(1l, "bitcoin", "BTC"), new BigDecimal(0.005f)));
@@ -38,6 +38,8 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 			
 		this.users.add(new User(1l, new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10000f))));
 		this.users.add(new User(2l, new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10000f))));
+		//LE DOY SOLO EL ROL DE USER PARA QUE NO MANQUEE NADA XP
+		this.users.add(new User(2l, new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(coinAmaunts, new BigDecimal(10000f))));
 	}
 	
 	@Override

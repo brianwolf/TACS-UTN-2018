@@ -1,9 +1,8 @@
 package ar.utn.tacs.model.role;
 
-import org.codehaus.jackson.annotate.JsonIgnoreType;
+import java.util.ArrayList;
+import java.util.List;
 
-//ESTO SE PONE POR AHORA PORQUE JACKSON ROMPE AL SERIALIZAR CLASES VACIAS
-@JsonIgnoreType 
 public class AdminRole extends Role{
 
 	private static final Long ID_ROLE = 1l;
@@ -11,6 +10,13 @@ public class AdminRole extends Role{
 	
 	public AdminRole() {
 		super(ID_ROLE, DESCRIPTION);
+		List<Funcionality> funcionalities = new ArrayList<Funcionality>();
+		funcionalities.add(new Funcionality(1l,"admin","/admin"));
+		funcionalities.add(new Funcionality(2l,"wallet","/wallet"));
+		funcionalities.add(new Funcionality(3l,"external services","/services/external"));
+		funcionalities.add(new Funcionality(4l,"users","/users"));
+		
+		this.setFuncionalities(funcionalities);
 	}
 	
 }
