@@ -33,7 +33,6 @@ public class Login {
 		return this.nick.equals(other.nick) && this.pass.equals(other.pass);
 	}
 
-	@JsonIgnore
 	public String getNick() {
 		return nick;
 	}

@@ -18,7 +18,7 @@ public interface UserRest extends GenericRest{
 	
 	public static final String NEW_USER = "";
 	public static final String GET_TOKEN_BY_LOGIN = "/login";
-	public static final String GET_USER_BY_TOKEN = "";
+	public static final String GET_USER_BY_TOKEN = "/loggedin";
 	public static final String LOGOUT_USER_BY_TOKEN = "/logout";
 	
 	/**

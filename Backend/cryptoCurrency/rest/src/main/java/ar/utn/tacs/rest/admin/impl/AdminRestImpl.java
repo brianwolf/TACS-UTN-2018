@@ -105,4 +105,36 @@ public class AdminRestImpl implements AdminRest {
 		}
 	}
 
+	@GET
+	@Path(AdminRest.USERS_NICKS_ALL)
+	@Override
+	public Response getUsersNickAll() {
+		
+		try {
+			List<String> nicks = adminService.getUsersNickAll();
+			return Response.status(Response.Status.OK).entity(nicks).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@GET
+	@Path(AdminRest.GET_USER)
+	@Override
+	public Response getUser(@DefaultValue("") @QueryParam("nick") String nick) {
+		try {
+			User user = adminService.getUser(nick);
+			
+			if (user == null) {
+				return Response.status(Response.Status.NO_CONTENT).build();
+			}
+			
+			return Response.status(Response.Status.OK).entity(user).build();
+			
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
 }

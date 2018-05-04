@@ -36,4 +36,15 @@ public interface AdminService extends GenericService {
 	 * @return {@link List} {@link Transaction}
 	 */
 	List<Transaction> statesByBeforeDays(Integer beforeDays);
+	
+	/**
+	 * @return {@link List} {@link String}
+	 */
+	List<String> getUsersNickAll();
+
+	/**
+	 * @param nick
+	 * @return {@link User}
+	 */
+	User getUser(String nick);
 }

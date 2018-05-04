@@ -44,7 +44,24 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUserById(Long userId) {
-		return this.userDao.getUserById(userId);
+	public User getUserByid(Long id) {
+		return this.userDao.getUserById(id);
+	}
+
+	@Override
+	public User getUser(String nick) {
+		
+		User user = null;
+		
+		if (!nick.equals("")) {
+			user = this.userDao.getUserByNick(nick);
+		}
+		
+		return user;
+	}
+
+	@Override
+	public List<String> getUsersNickAll() {
+		return this.userDao.getUsersNicksAll();
 	}
 }

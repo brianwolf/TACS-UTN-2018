@@ -61,4 +61,10 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<String> getUsersNicksAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

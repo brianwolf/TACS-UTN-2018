@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
@@ -126,8 +127,14 @@ public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements Use
 
 	@Override
 	public User getUserByNick(String nick) {
-		User userresult = this.sessions.values().stream().filter(u -> u.getLogin().getNick().equals(nick)).findFirst().get();
+		User userresult = users.stream().filter(u -> u.getLogin().getNick().equals(nick)).findFirst().get();
 		return userresult;
+	}
+
+	@Override
+	public List<String> getUsersNicksAll() {
+		List<String> nicks = this.users.stream().map(u -> u.getLogin().getNick()).collect(Collectors.toList());
+		return nicks;
 	}
 }
 
