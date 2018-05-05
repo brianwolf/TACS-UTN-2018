@@ -1,9 +1,9 @@
 <div class="login-page" [@routerTransition]>
-  <div class="row justify-content-md-center">
-    <div class="col-md-4">
-      <img src="assets/images/logo.png" width="50%" />
+  <img src="assets/images/logo.png" width="30%" />
+  <div class="row">
+    <div class="mx-auto">
       <h1>TACS - Crypto</h1>
-      <h4>Introduzca sus credenciales para ingresar al sistema</h4>
+      <h4>Introduzca sus credenciales</h4>
       <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
       <form role="form" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit(userRegistrationForm)">
         <div class="form-content">
@@ -16,7 +16,7 @@
               [(ngModel)]="user.pass" required minlength="3">
           </div>
         </div>
-        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Ingresar"> &nbsp; &nbsp;
+        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Ingresar"> &nbsp;
         <a class="btn rounded-btn" [routerLink]="['/signup']">Nuevo Usuario</a>
       </form>
     </div>

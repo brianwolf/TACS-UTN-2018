@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -10,8 +10,8 @@ export class JwtInterceptor implements HttpInterceptor {
     const currentToken = localStorage.getItem('currentToken');
     console.log(currentToken);
     if (currentToken) {
-      request = request.clone({ headers: request.headers.set('token', currentToken) });
-      // request = request.clone({ setHeaders: { token: currentToken } });
+      request = request.clone({ setHeaders: { token: currentToken } });
+      // request = request.clone({ headers: request.headers.set('token', currentToken) });
       // request = request.clone({ setHeaders: { Authorization: `Bearer ${currentUser.token}` } });
     }
     console.log(request);

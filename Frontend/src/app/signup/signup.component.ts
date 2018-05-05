@@ -19,34 +19,22 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.user = new User();
-    this.resetForm();
-  }
-
-  resetForm(form?: NgForm) {
-    if (form != null) {
-      form.reset();
-    }
-    this.user.nick = null;
-    this.user.pass = null;
-    this.user.confirmPassword = null;
   }
 
   onSubmit(form: NgForm) {
-    // console.log(this.user);
-    if (this.user.nick !== this.user.confirmPassword) {
+    if (this.user.pass !== this.user.confirmPassword) {
       this.alert.raise('danger', 'Las contraseñas no coinciden');
       return;
     }
-    // this.alert.raise('dark', 'Usuario Registrado con exito');
     this.userService
       .signup(this.user)
       .subscribe(
         data => {
-          this.resetForm(form);
-          this.alert.raise('dark', 'Usuario Registrado con exito');
+          form.reset();
+          this.alert.raise('dark', 'Usuario Registrado con exito.');
         },
         error => {
-          this.alert.raise('danger', error);
+          this.alert.raise('danger', 'Error de conexión con el servidor!');
         });
     // .subscribe((data: any) => {
     //   if (data.Succeeded === true) {

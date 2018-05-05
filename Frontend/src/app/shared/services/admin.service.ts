@@ -9,8 +9,16 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  getUser(user) {
+    return this.http.get(this.API + `users/${user}`);
+  }
+
   getUsers() {
     return this.http.get(this.API + 'users/nicks');
+  }
+
+  compareUsers(user1, user2) {
+    return this.http.get(this.API + `balance/${user1}/${user2}`);
   }
 
   getToday() {

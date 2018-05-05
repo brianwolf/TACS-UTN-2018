@@ -14,13 +14,14 @@ export class SellComponent implements OnInit {
 
   operation: Operation;
 
-  constructor(private operationService: OperationService, private alert: AlertService, ) { }
+  constructor(private operationService: OperationService, private alert: AlertService) { }
 
   ngOnInit() {
-    this.operation = new Operation(null, null);
+    this.operation = new Operation();
   }
 
   onSubmit(form: NgForm) {
+    console.log(form.value);
     this.operationService.sell(this.operation)
       .subscribe(
         data => {

@@ -6,11 +6,16 @@ export class AlertService {
   message: string;
   status = false;
 
-  raise(type: string, message: string) {
+  raise(type: string, message: string, time?: number) {
     this.type = type;
     this.message = message;
     this.status = true;
-    setTimeout(() => this.status = false, 3000);
+    if (time == null) {
+      time = 3000;
+    }
+    if (time !== 0) {
+      setTimeout(() => this.status = false, time);
+    }
   }
 
 }

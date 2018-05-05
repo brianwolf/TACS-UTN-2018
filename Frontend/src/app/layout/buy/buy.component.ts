@@ -14,10 +14,10 @@ export class BuyComponent implements OnInit {
 
   operation: Operation;
 
-  constructor(private operationService: OperationService, private alert: AlertService, ) { }
+  constructor(private operationService: OperationService, private alert: AlertService) { }
 
   ngOnInit() {
-    this.operation = new Operation(null, null);
+    this.operation = new Operation();
   }
 
   onSubmit(form: NgForm) {

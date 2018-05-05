@@ -1,24 +1,28 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Comparar Usuarios'" [icon]="'fa-edit'"></app-page-header>
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Seleccione al usuario numero 1.</label>
-        <select class="form-control">
-          <option *ngFor="let user of users">{{ user }}</option>
-        </select>
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-9 col-xl-8">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Seleccione al primer usuario</label>
+            <select class="form-control" [(ngModel)]="user1">
+              <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Seleccione al segundo usuario</label>
+            <select class="form-control" [(ngModel)]="user2">
+              <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+            </select>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Seleccione al usuario numero 2.</label>
-        <select class="form-control">
-          <option *ngFor="let user of users">{{ user }}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <button type="submit" class="btn btn-primary">Comparar</button>
+      <button class="btn btn-primary" (click)="compare()">Comparar</button>
+      <hr>
+      <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
     </div>
   </div>
 </div>

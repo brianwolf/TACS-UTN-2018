@@ -1,7 +1,7 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Portafolio'" [icon]="'fa-edit'"></app-page-header>
-  <div class="row">
-    <div class="col col-xl-6 col-lg-12">
+  <div class="row justify-content-center">
+    <div class="col-xl-10 center-block">
       <div class="card mb-3">
         <div class="card-header">Portafolio</div>
         <div class="card-body table-responsive">
@@ -21,12 +21,12 @@
                 <td>{{ coin.amount }}</td>
                 <td>{{ coin.coin.valueInDollars }}</td>
               </tr>
-            <tr>
-              <th>USD</th>
-              <th>Dolár</th>
-              <th>{{ data.dolarAmount }}</th>
-              <th></th>
-            </tr>
+              <tr>
+                <th>USD</th>
+                <th>Dolár</th>
+                <th>{{ data.dolarAmount }}</th>
+                <th></th>
+              </tr>
             </tbody>
           </table>
         </div>

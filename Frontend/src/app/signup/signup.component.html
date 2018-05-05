@@ -1,27 +1,26 @@
 <div class="login-page" [@routerTransition]>
-  <div class="row justify-content-md-center">
-    <div class="col-md-4">
-      <img src="assets/images/logo.png" width="50%" />
+  <img src="assets/images/logo.png" width="30%" />
+  <div class="row">
+    <div class="mx-auto">
       <h1>TACS - Crypto</h1>
       <h4>Introduzca los datos del nuevo usuario a registrar</h4>
       <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
       <form role="form" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit(userRegistrationForm)">
         <div class="form-content">
           <div class="form-group">
-            <input type="text" class="form-control input-underline input-lg" placeholder="Nombre de Usuario (Mínimo 3 caracteres)"
-            name="userName" #userName="ngModel" [(ngModel)]="user.nick" required minlength="3">
+            <input type="text" class="form-control input-underline input-lg" placeholder="Nombre de Usuario (Mínimo 3 caracteres)" name="userName"
+              #userName="ngModel" [(ngModel)]="user.nick" required minlength="3">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control input-underline input-lg" placeholder="Contraseña (Mínimo 3 caracteres)"
-            name="password" #password="ngModel" [(ngModel)]="user.pass" required minlength="3">
+            <input type="password" class="form-control input-underline input-lg" placeholder="Contraseña (Mínimo 3 caracteres)" name="password"
+              #password="ngModel" [(ngModel)]="user.pass" required minlength="3">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control input-underline input-lg" placeholder="Repetir Contraseña"
-            name="confirmPassword" #password="ngModel" [(ngModel)]="user.confirmPassword" required minlength="3">
+            <input type="password" class="form-control input-underline input-lg" placeholder="Repetir Contraseña" name="confirmPassword"
+              #password="ngModel" [(ngModel)]="user.confirmPassword" required minlength="3">
           </div>
         </div>
-        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Registrar">
-        &nbsp; &nbsp;
+        <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Registrar"> &nbsp;
         <a class="btn rounded-btn" [routerLink]="['/login']">Ingresar</a>
       </form>
     </div>

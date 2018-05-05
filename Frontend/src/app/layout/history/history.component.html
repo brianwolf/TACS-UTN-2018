@@ -1,44 +1,45 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Información Historica'" [icon]="'fa-edit'"></app-page-header>
-  <div class="row">
-    <div class="col col-xl-6 col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          Historial de Transacciones
-        </div>
-        <div class="card-body table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Transacciones</th>
-                <th>Cantidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Hoy</th>
-                <td>{{ today }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Ultimos 3 días</th>
-                <td>{{ threeDays }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Ultima semana</th>
-                <td>{{ lastweek }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Ultimo mes</th>
-                <td>{{ lastMonth }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Inicio de los tiempos</th>
-                <td>{{ startTimes }}</td>
-              </tr>
-            </tbody>
-          </table>
+  <div class="row justify-content-center">
+    <!-- <div class="mx-auto"> -->
+    <div class="col-sm-8 col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Historial de Transacciones
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Transacciones</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Hoy</th>
+                  <td>{{ today }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ultimos 3 días</th>
+                  <td>{{ threeDays }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ultima semana</th>
+                  <td>{{ lastweek }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ultimo mes</th>
+                  <td>{{ lastMonth }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Inicio de los tiempos</th>
+                  <td>{{ startTimes }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
