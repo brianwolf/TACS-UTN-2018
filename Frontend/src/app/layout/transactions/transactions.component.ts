@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { Transaction } from '../../shared/model/transaction';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -14,13 +13,6 @@ export class TransactionsComponent implements OnInit {
   transactions: any;
 
   constructor(private userService: UserService) { }
-  // constructor() {
-  //   this.transactions = [
-  //     new Transaction('BTC', 123, 456, 12),
-  //     new Transaction('ETH', 123, 456, 12),
-  //     new Transaction('LTC', 123, 456, 12)
-  //   ];
-  // }
 
   ngOnInit() {
     this.getTransactions();

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
-import { OperationService } from '../../shared/services/operation.service';
 import { Operation } from '../../shared/model/operation';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-sell',
@@ -14,7 +14,7 @@ export class SellComponent implements OnInit {
 
   operation: Operation;
 
-  constructor(private operationService: OperationService, private alert: AlertService) { }
+  constructor(private userService: UserService, private alert: AlertService) { }
 
   ngOnInit() {
     this.operation = new Operation();
@@ -22,7 +22,7 @@ export class SellComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log(form.value);
-    this.operationService.sell(this.operation)
+    this.userService.sell(this.operation)
       .subscribe(
         data => {
           this.alert.raise('success', 'Operación realizada con exito.');

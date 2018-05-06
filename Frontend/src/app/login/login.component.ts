@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { AlertService } from '../shared/services/alert.service';
 import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/model/user';
-import { NgForm } from '@angular/forms';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-login',
@@ -23,9 +24,16 @@ export class LoginComponent implements OnInit {
     this.user = new User();
   }
 
-
   onSubmit(form: NgForm) {
     this.userService.login(this.user)
+      .map(_user => {
+        if (_user && _user.token) { // si hay un JWT Token el login es exitoso
+          console.log(_user.token);
+          // guardo el token para mandarlo en todas las requests
+          localStorage.setItem('currentToken', JSON.stringify(_user.token));
+        }
+        return _user;
+      })
       .subscribe(
         data => {
           this.checkAdmin();
@@ -39,7 +47,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('currentUserName', this.user.nick);
         });
   }
-
 
   checkAdmin() {
     let info: any;

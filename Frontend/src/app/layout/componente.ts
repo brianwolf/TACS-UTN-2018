@@ -56,7 +56,10 @@ export abstract class Componente {
   }
 
   onLoggedout() {
-    this.userService.logout();
+    // localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserName');
+    localStorage.removeItem('currentUserRole');
+    this.userService.logout().subscribe();
   }
 
 }
