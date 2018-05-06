@@ -21,10 +21,19 @@ public class RestFilter implements ContainerRequestFilter {
 
 	@Override
 	public ContainerRequest filter(ContainerRequest request) {
-//		headers.add("Access-Control-Allow-Origin", "*");
+		
+//		request.getRequestHeaders().add("Access-Control-Allow-Origin", "*");
 //		//headers.add("Access-Control-Allow-Origin", "http://podcastpedia.org"); //allows CORS requests only coming from podcastpedia.org		
-//		headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");			
-//		headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia");
+//		request.getRequestHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");			
+//		request.getRequestHeaders().add("Access-Control-Allow-Headers", "Content-Type, token");
+//		request.getRequestHeaders().add("Access-Control-Expose-Headers", "token");
+		
+		//ESTO DEBERIA IR ABAJO PARA QUE ANTES SE VALIDE EL TOKEN, PERO X ALGUNA RAZON EN EL OPTIONS NO ME LLEGA EL TOKEN
+		if(request.getMethod().equals("OPTIONS")) {
+			ResponseBuilder builder = null;
+			builder = Response.status(Response.Status.OK);
+			throw new WebApplicationException(builder.build());
+		}
 		
 		if(!this.isValid(request)){
 	        ResponseBuilder builder = null;
@@ -32,6 +41,7 @@ public class RestFilter implements ContainerRequestFilter {
 	        throw new WebApplicationException(builder.build());
 
 	    }
+		
 		
 		return request;
 	}
@@ -70,9 +80,12 @@ public class RestFilter implements ContainerRequestFilter {
 		
 		String requestPath = getRequestPath(request);
 		boolean isPOST = request.getMethod().equals("POST");
+//		boolean isOPTIONS = request.getMethod().equals("OPTIONS");
 		boolean isLoginPath = requestPath.equals(LOGIN_PATH);
 		boolean isCreateUserPath = requestPath.equals(CREATE_USER_PATH);
 		
+		//ESTA VALIDACION EXISTIRIA SI SE PUDIERA LEER EL TOKEN EN EL OPTIONS
+//		return (isLoginPath||isCreateUserPath) && (isPOST||isOPTIONS);
 		return (isLoginPath||isCreateUserPath) && isPOST;
 	}
 

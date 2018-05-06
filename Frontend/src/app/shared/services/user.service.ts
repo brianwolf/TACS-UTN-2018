@@ -23,7 +23,7 @@ export class UserService {
         if (_user && _user.token) { // si hay un JWT Token el login es exitoso
           console.log(_user.token);
           // guardo el token para mandarlo en todas las requests
-          localStorage.setItem('currentToken', JSON.stringify(_user.token));
+          localStorage.setItem('currentToken', _user.token);
         }
         return _user;
       });
