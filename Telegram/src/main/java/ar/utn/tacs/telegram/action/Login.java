@@ -21,16 +21,15 @@ public class Login implements Action {
 		user.setPass(ctx.secondArg());
 		try {
 			System.out.println(user.toString());
-			HttpHeaders headers = new HttpHeaders();			
+			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-//			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 			HttpEntity<User> request = new HttpEntity<>(user, headers);
 			System.out.println(request.toString());
 			ResponseEntity<String> response = new RestTemplate()
 					.exchange(API + ENDPOINT, HttpMethod.POST, request, String.class);
 			if (response.getStatusCode().equals(HttpStatus.CREATED)) {
 				return response.getBody().toString();
-//				return "Login exitoso.";
+				// return "Login exitoso.";
 			} else {
 				return "Login fallido.";
 			}

@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user';
+import { Operation } from '../model/operation';
 
 @Injectable()
 export class UserService {
+
   API = 'http://localhost:8080/utn/crypto-currency/';
+
   constructor(private http: HttpClient) { }
 
   signup(user: User) {
-    const body = { 'login': {'nick': user.nick, 'pass': user.pass } };
+    const body = { 'login': { 'nick': user.nick, 'pass': user.pass } };
     return this.http.post(this.API + 'users', JSON.stringify(body));
   }
 
@@ -17,16 +19,11 @@ export class UserService {
     // const body = `{"nick": "lobezzzno", "pass": "1234"}`;
     // const body = `{"nick": "${user.nick}", "pass": "${user.pass}"}`;
     const body = { nick: user.nick, pass: user.pass };
+    return this.http.post<any>(this.API + 'users/login', JSON.stringify(body));
+  }
 
-    return this.http.post<any>(this.API + 'users/login', JSON.stringify(body))
-      .map(_user => {
-        if (_user && _user.token) { // si hay un JWT Token el login es exitoso
-          console.log(_user.token);
-          // guardo el token para mandarlo en todas las requests
-          localStorage.setItem('currentToken', JSON.stringify(_user.token));
-        }
-        return _user;
-      });
+  logout() {
+    return this.http.put(this.API + 'users/logout', null);
   }
 
   getUserByToken() {
@@ -37,15 +34,16 @@ export class UserService {
     return this.http.get(this.API + 'wallet');
   }
 
-  getTransactions() {
-    return this.http.get(this.API + 'wallet/history/transactions');
+  buy(operation: Operation) {
+    return this.http.post(this.API + 'wallet/buy', operation);
   }
 
-  logout() {
-    // localStorage.removeItem('currentUser');
-    localStorage.removeItem('currentUserName');
-    localStorage.removeItem('currentUserRole');
-    // this.http.put(this.API + 'users/logout');
+  sell(operation: Operation) {
+    return this.http.post(this.API + 'wallet/sell', operation);
+  }
+
+  getTransactions() {
+    return this.http.get(this.API + 'wallet/history/transactions');
   }
 
 }

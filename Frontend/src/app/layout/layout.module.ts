@@ -19,7 +19,6 @@ import { UserService } from '../shared/services/user.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/services/jwt.interceptor';
 import { AdminService } from '../shared/services/admin.service';
-import { OperationService } from '../shared/services/operation.service';
 import { FormsModule } from '@angular/forms';
 
 
@@ -50,7 +49,6 @@ import { FormsModule } from '@angular/forms';
     AlertService,
     AdminService,
     UserService,
-    OperationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
