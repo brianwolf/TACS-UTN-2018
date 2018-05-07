@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
-import { Operation } from '../../shared/model/operation';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -12,27 +11,19 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class SellComponent implements OnInit {
 
-  operation: Operation;
-
   constructor(private userService: UserService, private alert: AlertService) { }
 
-  ngOnInit() {
-    this.operation = new Operation();
-  }
+  ngOnInit() { }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
-    this.userService.sell(this.operation)
+    const body = { ticker: form.value.ticker, amount: form.value.amount };
+    this.userService.sell(body)
       .subscribe(
-        data => {
-          this.alert.raise('success', 'Operación realizada con exito.');
-          form.reset();
-        },
-        error => {
-          this.alert.raise('danger', 'Error de conexión con el servidor');
-          form.reset();
-        }
+        data => this.alert.raise('success', 'Operación realizada con exito.')
+        ,
+        error => this.alert.raise('danger', 'Chequeé el Ticker o si tiene fondos suficientes.', 5000)
       );
+    form.reset();
   }
 
 }

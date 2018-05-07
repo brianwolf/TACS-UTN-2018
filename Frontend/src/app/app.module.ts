@@ -8,9 +8,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertService } from './shared/services/alert.service';
-import { AuthGuard } from './shared/guard/auth.guard';
 import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './shared/services/jwt.interceptor';
+import { AuthGuard } from './shared/guard/auth.guard';
 import { RoleGuard } from './shared/guard/role.guard';
 import { ServerErrorComponent } from './error/server-error/server-error.component';
 import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
@@ -46,9 +46,9 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     AlertService,
+    UserService,
     AuthGuard,
     RoleGuard,
-    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

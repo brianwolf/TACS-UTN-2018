@@ -9,8 +9,7 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class TransactionsComponent implements OnInit {
 
-  data: any[];
-  transactions: any;
+  operations: any[];
 
   constructor(private userService: UserService) { }
 
@@ -22,41 +21,15 @@ export class TransactionsComponent implements OnInit {
     this.userService.getTransactions()
       .subscribe(
         data => {
-          this.data = JSON.parse(data.toString());
-          this.transactions = this.data[0].operations;
-        },
-        error => this.dataAlternativa()
+          const _transactions = (<any>data);
+          this.operations = Array.from(_transactions[0].operations[0]);
+          for (const i in _transactions) {
+            for (const j in _transactions[i].operations) {
+              this.operations.push(_transactions[i].operations[j]);
+            }
+          }
+        }
       );
   }
-
-
-dataAlternativa() {
-  this.data = JSON.parse(`
-  [
-    {
-      "operations": [
-        {
-          "date": 1525464123063,
-          "description": "Compra",
-          "coinAmount": {
-            "coin": {
-              "name": "Bitcoin",
-              "ticker": "BTC",
-              "valueInDollars": 9644.07
-            },
-            "amount": 0.05
-          },
-          "quoteTimeSold": 9644.07,
-          "quoteTimeNow": 9644.07,
-          "quoteDifference": 0.00
-        }
-      ],
-      "dateFinal": 1525464123065,
-      "dateStart": 1525464123065
-    }
-  ]
-  `);
-  this.transactions = this.data[0].operations;
-}
 
 }

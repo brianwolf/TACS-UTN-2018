@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
-import { Operation } from '../../shared/model/operation';
 
 @Component({
   selector: 'app-buy',
@@ -12,26 +11,19 @@ import { Operation } from '../../shared/model/operation';
 })
 export class BuyComponent implements OnInit {
 
-  operation: Operation;
-
   constructor(private userService: UserService, private alert: AlertService) { }
 
-  ngOnInit() {
-    this.operation = new Operation();
-  }
+  ngOnInit() { }
 
   onSubmit(form: NgForm) {
-    this.userService.buy(this.operation)
+    const body = { ticker: form.value.ticker, amount: form.value.amount };
+    this.userService.buy(body)
       .subscribe(
-        data => {
-          this.alert.raise('success', 'Operación realizada con exito.');
-          form.reset();
-        },
-        error => {
-          this.alert.raise('danger', 'Error de conexión con el servidor');
-          form.reset();
-        }
+        data => this.alert.raise('success', 'Operación realizada con exito.')
+        ,
+        error => this.alert.raise('danger', 'Chequeé el Ticker o si tiene fondos suficientes.', 5000)
       );
+    form.reset();
   }
 
 }

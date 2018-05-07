@@ -2,6 +2,7 @@
 
 @Injectable()
 export class AlertService {
+
   type: string;
   message: string;
   status = false;
@@ -13,9 +14,7 @@ export class AlertService {
     if (time == null) {
       time = 3000;
     }
-    if (time !== 0) {
-      setTimeout(() => this.status = false, time);
-    }
+    setTimeout(() => this.status = false, time);
   }
 
 }

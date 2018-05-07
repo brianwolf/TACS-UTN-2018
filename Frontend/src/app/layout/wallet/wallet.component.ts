@@ -9,8 +9,7 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class WalletComponent implements OnInit {
 
-  data: any;
-  coins: any;
+  wallet;
 
   constructor(private userService: UserService) { }
 
@@ -22,38 +21,9 @@ export class WalletComponent implements OnInit {
     this.userService.getWallet()
       .subscribe(
         data => {
-          this.data = JSON.parse(data.toString());
-          this.coins = this.data.coinAmaunts;
-        },
-        error => this.dataAlternativa()
+          this.wallet = data;
+        }
       );
   }
 
-  dataAlternativa() {
-    this.data = JSON.parse(`
-    {
-      "dolarFinalBalance": 10110.25610753558389842510223388671875,
-      "dolarAmount": 9517.7965,
-      "coinAmaunts": [
-        {
-          "coin": {
-            "name": "Bitcoin",
-            "ticker": "BTC",
-            "valueInDollars": 9644.07
-          },
-          "amount": 0.054999999888241291046142578125
-        },
-        {
-          "coin": {
-            "name": "Ethereum",
-            "ticker": "ETH",
-            "valueInDollars": 775.447
-          },
-          "amount": 0.07999999821186065673828125
-        }
-      ]
-    }
-    `);
-    this.coins = this.data.coinAmaunts;
-  }
 }

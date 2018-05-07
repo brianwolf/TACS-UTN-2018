@@ -8,7 +8,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(user) {
+  getUser(user: string) {
     return this.http.get(this.API + `users/${user}`);
   }
 
@@ -16,7 +16,7 @@ export class AdminService {
     return this.http.get(this.API + 'users/nicks');
   }
 
-  compareUsers(user1, user2) {
+  compareUsers(user1: string, user2: string) {
     return this.http.get(this.API + `balance/${user1}/${user2}`);
   }
 

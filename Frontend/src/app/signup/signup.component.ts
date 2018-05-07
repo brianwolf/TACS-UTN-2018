@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../router.animations';
 import { NgForm } from '@angular/forms';
-import { User } from '../shared/model/user';
+import { Router } from '@angular/router';
+import { routerTransition } from '../router.animations';
 import { AlertService } from '../shared/services/alert.service';
 import { UserService } from '../shared/services/user.service';
 
@@ -13,37 +13,25 @@ import { UserService } from '../shared/services/user.service';
 })
 export class SignupComponent implements OnInit {
 
-  user: User;
+  constructor(private alert: AlertService, private userService: UserService, public router: Router) { }
 
-  constructor(public alert: AlertService, private userService: UserService) { }
-
-  ngOnInit() {
-    this.user = new User();
-  }
+  ngOnInit() { }
 
   onSubmit(form: NgForm) {
-    if (this.user.pass !== this.user.confirmPassword) {
+    if (form.value.pass !== form.value.confirmPass) {
       this.alert.raise('danger', 'Las contraseñas no coinciden');
       return;
     }
-    this.userService
-      .signup(this.user)
+    const body = { login: { nick: form.value.nick, pass: form.value.pass } };
+    this.userService.signup(body)
       .subscribe(
         data => {
           form.reset();
-          this.alert.raise('dark', 'Usuario Registrado con exito.');
+          this.alert.raise('success', 'Usuario Registrado con exito.');
+          this.router.navigate(['login']);
         },
-        error => {
-          this.alert.raise('danger', 'Error de conexión con el servidor!');
-        });
-    // .subscribe((data: any) => {
-    //   if (data.Succeeded === true) {
-    //     this.resetForm(form);
-    //     this.alertService.success('Usuario Registrado con exito');
-    //   } else {
-    //     this.toastr.error(data.Errors[0]);
-    //   }
-    // });
+        error => this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor.')
+      );
   }
 
 }

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../model/user';
-import { Operation } from '../model/operation';
 
 @Injectable()
 export class UserService {
@@ -10,16 +8,12 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  signup(user: User) {
-    const body = { 'login': { 'nick': user.nick, 'pass': user.pass } };
-    return this.http.post(this.API + 'users', JSON.stringify(body));
+  signup(user) {
+    return this.http.post(this.API + 'users', user);
   }
 
-  login(user: User) {
-    // const body = `{"nick": "lobezzzno", "pass": "1234"}`;
-    // const body = `{"nick": "${user.nick}", "pass": "${user.pass}"}`;
-    const body = { nick: user.nick, pass: user.pass };
-    return this.http.post<any>(this.API + 'users/login', JSON.stringify(body));
+  login(user) {
+    return this.http.post<any>(this.API + 'users/login', user);
   }
 
   logout() {
@@ -34,12 +28,12 @@ export class UserService {
     return this.http.get(this.API + 'wallet');
   }
 
-  buy(operation: Operation) {
+  buy(operation) {
     return this.http.post(this.API + 'wallet/buy', operation);
   }
 
-  sell(operation: Operation) {
-    return this.http.post(this.API + 'wallet/sell', operation);
+  sell(operation) {
+    return this.http.post(this.API + 'wallet/sale', operation);
   }
 
   getTransactions() {

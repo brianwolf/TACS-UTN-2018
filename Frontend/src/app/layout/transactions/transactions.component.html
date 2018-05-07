@@ -1,7 +1,7 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Transacciones'" [icon]="'fa-edit'"></app-page-header>
   <div class="row justify-content-center">
-      <div class="col-xl-10 center-block">
+    <div class="col-xl-10">
       <div class="card">
         <div class="card-header">Transacciones</div>
         <div class="card-body table-responsive">
@@ -17,13 +17,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let tr of transactions">
-                <td>{{ tr.description }}</td>
-                <td>{{ tr.coinAmount.coin.ticker }}</td>
-                <td>{{ tr.coinAmount.coin.name }}</td>
-                <td>{{ tr.quoteTimeSold }}</td>
-                <td>{{ tr.quoteTimeNow }}</td>
-                <td>{{ tr.quoteDifference }}</td>
+              <tr *ngFor="let op of operations">
+                <td>{{ op.description }}</td>
+                <td>{{ op.coinAmount.coin.ticker }}</td>
+                <td>{{ op.coinAmount.coin.name }}</td>
+                <td>{{ op.quoteTimeSold }}</td>
+                <td>{{ op.quoteTimeNow }}</td>
+                <td>{{ op.quoteDifference }}</td>
               </tr>
             </tbody>
           </table>
