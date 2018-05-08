@@ -11,8 +11,7 @@ import { AlertService } from '../../shared/services/alert.service';
 })
 export class CompareComponent implements OnInit {
 
-  users: any[];
-  winnerUser: any;
+  users;
   user1: string;
   user2: string;
 
@@ -23,16 +22,16 @@ export class CompareComponent implements OnInit {
   }
 
   fillSelector() {
-    this.adminService.getUsers().subscribe(data => this.users = (<any>data));
+    this.adminService.getUsers().subscribe(data => this.users = data);
   }
 
   compare() {
     this.adminService.compareUsers(this.user1, this.user2)
       .subscribe(data => {
-        this.winnerUser = data;
+        const winnerUser: any = data;
         this.alert.raise('success',
-          `El Usuario con mayor tenencias es ${this.winnerUser.login.nick},
-           con un total de ${Math.round(this.winnerUser.wallet.dolarFinalBalance)} dólares.`, 10000);
+          `El Usuario con mayor tenencias es ${winnerUser.login.nick},
+           con un total de ${Math.round(winnerUser.wallet.dolarFinalBalance)} dólares.`, 10000);
       },
       error => this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor.')
     );

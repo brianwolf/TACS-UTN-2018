@@ -21,11 +21,11 @@ export class TransactionsComponent implements OnInit {
     this.userService.getTransactions()
       .subscribe(
         data => {
-          const _transactions = (<any>data);
-          this.operations = Array.from(_transactions[0].operations[0]);
-          for (const i in _transactions) {
-            for (const j in _transactions[i].operations) {
-              this.operations.push(_transactions[i].operations[j]);
+          const transactions = data;
+          this.operations = Array.from(transactions[0].operations[0]);
+          for (const i in transactions) {
+            for (const j in transactions[i].operations) {
+              this.operations.push(transactions[i].operations[j]);
             }
           }
         }

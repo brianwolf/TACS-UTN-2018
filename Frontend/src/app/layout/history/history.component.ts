@@ -9,11 +9,11 @@ import { AdminService } from '../../shared/services/admin.service';
 })
 export class HistoryComponent implements OnInit {
 
-  today: any;
-  threeDays: any;
-  lastweek: any;
-  lastMonth: any;
-  startTimes: any;
+  today;
+  threeDays;
+  lastweek;
+  lastMonth;
+  startTimes;
 
   constructor(private adminService: AdminService) { }
 

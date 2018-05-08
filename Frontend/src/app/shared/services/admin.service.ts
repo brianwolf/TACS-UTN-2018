@@ -21,23 +21,23 @@ export class AdminService {
   }
 
   getToday() {
-    return this.http.get(this.API + 'states');
+    return this.http.get(this.API + 'states?beforeDays=0');
   }
 
   getThreeDays() {
-    return this.http.get(this.API + 'states/threeDays');
+    return this.http.get(this.API + 'states/?beforeDays=3');
   }
 
   getLastweek() {
-    return this.http.get(this.API + 'states/lastWeek');
+    return this.http.get(this.API + 'states/lastweek');
   }
 
   getLastMonth() {
-    return this.http.get(this.API + 'states/lastMonth');
+    return this.http.get(this.API + 'states/lastmonth');
   }
 
   getStartTimes() {
-    return this.http.get(this.API + 'states/startTimes');
+    return this.http.get(this.API + 'states/all');
   }
 
 }

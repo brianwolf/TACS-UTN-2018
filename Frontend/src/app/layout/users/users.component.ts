@@ -11,7 +11,7 @@ import { AlertService } from '../../shared/services/alert.service';
 export class UsersComponent implements OnInit {
 
   users: any[];
-  user: any;
+  user;
   userSelected: string;
   showInfo: boolean;
 

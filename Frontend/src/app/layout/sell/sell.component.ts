@@ -16,7 +16,12 @@ export class SellComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit(form: NgForm) {
-    const body = { ticker: form.value.ticker, amount: form.value.amount };
+    if (form.value.amount <= 0) {
+      this.alert.raise('warning', 'Debe ingresar un número positivo.');
+      form.value.amount = null;
+      return;
+    }
+    const body = { ticker: (<string>form.value.ticker).toUpperCase(), amount: form.value.amount };
     this.userService.sell(body)
       .subscribe(
         data => this.alert.raise('success', 'Operación realizada con exito.')

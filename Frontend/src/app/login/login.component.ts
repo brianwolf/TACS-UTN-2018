@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('currentToken', data.token);
           this.checkAdmin();
         },
-        error => this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor o no existe el usuario.')
+        error => this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor o credenciales incorrectas.')
       );
   }
 
@@ -34,8 +34,9 @@ export class LoginComponent implements OnInit {
     this.userService.getUserByToken()
       .subscribe(
         data => {
-          localStorage.setItem('currentUserName', (<any>data).login.nick);
-          for (const rol of (<any>data).roles) {
+          const user: any = data;
+          localStorage.setItem('currentUserName', user.login.nick);
+          for (const rol of user.roles) {
             if (rol.description === 'Administrador') {
               localStorage.setItem('currentUserRole', 'Admin');
               this.router.navigate(['dashboard']);

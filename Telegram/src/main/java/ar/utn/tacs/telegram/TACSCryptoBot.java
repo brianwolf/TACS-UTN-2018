@@ -1,16 +1,12 @@
 package ar.utn.tacs.telegram;
 
-import ar.utn.tacs.telegram.action.*;
-
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
 
-import ar.utn.tacs.telegram.model.Quote;
+import ar.utn.tacs.telegram.command.*;
 
 import static org.telegram.abilitybots.api.objects.Locality.ALL;
 import static org.telegram.abilitybots.api.objects.Privacy.PUBLIC;
-
-import org.springframework.web.client.RestTemplate;
 
 public class TACSCryptoBot extends AbilityBot  {
 	
@@ -34,8 +30,7 @@ public class TACSCryptoBot extends AbilityBot  {
 				.info("Nombre del contacto.")
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(ctx.update().getMessage().getFrom().getFirstName()+
-						" "+ctx.update().getMessage().getFrom().getLastName(), ctx.chatId()))
+				.action(ctx -> silent.send(ctx.user().fullName(), ctx.chatId()))
 				.build();
 	}
 	
@@ -60,7 +55,7 @@ public class TACSCryptoBot extends AbilityBot  {
 				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(Buy.exec(ctx), ctx.chatId()))
+				.action(ctx -> silent.send(Transaction.exec(ctx, "/wallet/buy"), ctx.chatId()))
 				.build();
 	}
 
@@ -72,7 +67,7 @@ public class TACSCryptoBot extends AbilityBot  {
 				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(Sell.exec(ctx), ctx.chatId()))
+				.action(ctx -> silent.send(Transaction.exec(ctx, "/wallet/sale"), ctx.chatId()))
 				.build();
 	}
 	
@@ -80,7 +75,7 @@ public class TACSCryptoBot extends AbilityBot  {
 	public Ability coin() {
 		return Ability
 				.builder()
-				.name("coin")
+				.name("amount")
 				.info("Cantidad de <coin-id>")
 				.input(1)
 				.locality(ALL)
@@ -98,22 +93,7 @@ public class TACSCryptoBot extends AbilityBot  {
 				.input(1)
 				.locality(ALL)
 				.privacy(PUBLIC)
-				.action(ctx -> silent.send(ActualQuote.exec(ctx), ctx.chatId()))
-				.build();
-	}
-
-	/* COMANDO DE PRUEBA /cita */
-	public Ability citaDelDia() {
-        Quote quote = new RestTemplate()
-        				.getForObject("http://gturnquist-quoters.cfapps.io/api/random",
-        						Quote.class);
-		return Ability
-				.builder()
-				.name("cita")
-				.info("Cita Random del dia")
-				.locality(ALL)
-				.privacy(PUBLIC)
-				.action(ctx -> silent.send(quote.getValue().getQuote(), ctx.chatId()))
+				.action(ctx -> silent.send(Quote.exec(ctx), ctx.chatId()))
 				.build();
 	}
 
