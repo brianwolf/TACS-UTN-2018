@@ -14,7 +14,7 @@ import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.Wallet;
 
-public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao {
+public class WalletDaoMockImpl implements WalletDao {
 
 	private HashMap<User, List<Transaction>> history;
 	

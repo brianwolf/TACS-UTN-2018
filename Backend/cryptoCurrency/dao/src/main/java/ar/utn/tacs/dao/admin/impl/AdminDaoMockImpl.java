@@ -16,7 +16,7 @@ import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
 
-public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements AdminDao{
+public class AdminDaoMockImpl implements AdminDao{
 	
 	@Override
 	public User compareBalance(String nickA, String nickB) {

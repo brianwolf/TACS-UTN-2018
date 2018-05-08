@@ -20,7 +20,7 @@ import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.Wallet;
 
-public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements UserDao{
+public class UserDaoMockImpl implements UserDao{
 	
 	private HashMap<String, User> sessions = new HashMap<String,User>();
  	
