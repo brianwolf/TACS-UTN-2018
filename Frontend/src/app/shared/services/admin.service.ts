@@ -9,7 +9,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   getUser(user: string) {
-    return this.http.get(this.API + `users/${user}`);
+    return this.http.get(this.API + `users?nick=${user}`);
   }
 
   getUsers() {
