@@ -1,6 +1,7 @@
 package ar.utn.tacs.model.wallet;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,26 +9,27 @@ import ar.utn.tacs.model.coin.Coin;
 
 public class Wallet {
 
-	private List<CoinAmount> coinAmaunts;
+	private List<CoinAmount> coinAmount = new ArrayList<CoinAmount>();
 	
+
 	private BigDecimal dolarAmount;
 	
 	public Wallet() {
 	}
 	
-	public Wallet(List<CoinAmount> coinAmaunts, BigDecimal dolarAmount) {
-		this.coinAmaunts = coinAmaunts;
+	public Wallet(List<CoinAmount> coinAmount, BigDecimal dolarAmount) {
+		this.coinAmount = coinAmount;
 		this.dolarAmount = dolarAmount;
 	}
-
-	public List<CoinAmount> getCoinAmaunts() {
-		return coinAmaunts;
-	}
-
-	public void setCoinAmaunts(List<CoinAmount> coinAmaunts) {
-		this.coinAmaunts = coinAmaunts;
+	
+	public List<CoinAmount> getCoinAmount() {
+		return coinAmount;
 	}
 	
+	public void setCoinAmount(List<CoinAmount> coinAmount) {
+		this.coinAmount = coinAmount;
+	}
+
 	public BigDecimal getDolarAmount() {
 		return dolarAmount;
 	}
@@ -37,7 +39,7 @@ public class Wallet {
 	}
 
 	public void updateCoinsValue(List<Coin> coinsWithUpdatedValue) {
-		for (CoinAmount coinAmount : this.coinAmaunts) {
+		for (CoinAmount coinAmount : this.coinAmount) {
 			
 			Optional<Coin> optionalCoin = coinsWithUpdatedValue.stream().filter(cmk -> cmk.equals(coinAmount.getCoin())).findFirst();
 			if (optionalCoin.isPresent()) {
@@ -47,7 +49,7 @@ public class Wallet {
 	}
 	
 	public boolean containsCoin(Coin coin) {
-		return this.coinAmaunts.stream().anyMatch(coinAmount -> coinAmount.getCoin().equals(coin));
+		return this.coinAmount.stream().anyMatch(coinAmount -> coinAmount.getCoin().equals(coin));
 	}
 	
 	public boolean haveEnoughCoins(Coin coin, BigDecimal amount) {
@@ -70,19 +72,19 @@ public class Wallet {
 	}
 	
 	public CoinAmount getCoinAmountByCoin(Coin coin) {
-		Optional<CoinAmount> optionalCoin = this.coinAmaunts.stream().filter(ca -> ca.getCoin().equals(coin)).findFirst();
+		Optional<CoinAmount> optionalCoin = this.coinAmount.stream().filter(ca -> ca.getCoin().equals(coin)).findFirst();
 		return optionalCoin.isPresent()? optionalCoin.get() : null;
 	}
 	
 	public CoinAmount getCoinAmountByTicker(String ticker) {
-		Optional<CoinAmount> optionalCoin = this.coinAmaunts.stream().filter(ca -> ca.getCoin().getTicker().equals(ticker)).findFirst();
+		Optional<CoinAmount> optionalCoin = this.coinAmount.stream().filter(ca -> ca.getCoin().getTicker().equals(ticker)).findFirst();
 		return optionalCoin.isPresent()? optionalCoin.get() : null;
 	}
 	
 	public BigDecimal getDolarFinalBalance() {
 		BigDecimal finalBalance = new BigDecimal(0f);
 		
-		for (CoinAmount coinAmount : coinAmaunts) {
+		for (CoinAmount coinAmount : coinAmount) {
 			finalBalance = finalBalance.add(coinAmount.getDolarFinalBalance());
 		}
 		
