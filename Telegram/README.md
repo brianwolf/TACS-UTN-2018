@@ -16,35 +16,31 @@ TACSCryptoBot
 `/me`
 
 Responde el nombre del contacto de quien lo invoque.
-
+****
 `/login <user> <pass>`
 
 Registra al usuario en el sistema.
-
-`/buy <coin-id> <quantity>`
+****
+`/buy <coin-ticker> <quantity>`
     
-`/sell <coin-id> <quantity>`
+`/sell <coin-ticker> <quantity>`
 
 Registra una transacción de la cryptomoneda indicada en el primer parámetro y su cantidad a la cotización actual.
 El usuario debe tener el saldo en dolares/crypto necesario para dicha transacción, de lo contrario
 se devuelve el mensaje de error correspondiente.
-
-`/coin <coin-id>`
+****
+`/amount <coin-ticker>`
 
 Responde la cantidad que posee el usuario de la cryptomoneda indicada en el primer parámetro.
-
-`/quote <coin-id>`
+****
+`/quote <coin-name>` ó `/quote <coin-ticker>`
 
 Responde la cotización actual de de la cryptomoneda indicada en el primer parámetro.
 
-`/cita`
+### Observaciones
 
-Responde una cita random sobre lo bueno que es usar el framework Spring :).
-
-# Observaciones
-
-` <coin-id>`
-Hace referencia al nombre de la criptomoneda, ej. bitcoin, ethereum, litecoin, etc.
+` <coin-ticker>`
+Hace referencia al ticker o simbolo de la criptomoneda, ej. **BTC** (Bitcoin), **ETH** (Ethereum), **LTC** (Litecoin), etc.
 
 ## Instalación
 
@@ -56,3 +52,6 @@ Instalar el archivos **lombok.jar** en su IDE.*
 ## Ejecución
 
 `mvn exec:java`
+
+## Uso
+Buscar en el directorio de Telegram el bot ***TACSCryptoBot*** y usar los comandos descriptos anteriormente. 

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import ar.utn.tacs.telegram.RepoToken;
-import ar.utn.tacs.telegram.model.User;
 
 public class Login implements Command {
 
@@ -21,14 +20,14 @@ public class Login implements Command {
 
 	public static String exec(MessageContext ctx) {
 		Integer userId = ctx.user().id();
-		User user = new User();
-		user.setNick(ctx.firstArg());
-		user.setPass(ctx.secondArg());
+		ObjectNode user = new ObjectMapper()
+				.createObjectNode()
+				.put("nick", ctx.firstArg())
+				.put("pass", ctx.secondArg());
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			String body = new ObjectMapper().writeValueAsString(user);
-			HttpEntity<String> request = new HttpEntity<>(body, headers);			
+			HttpEntity<ObjectNode> request = new HttpEntity<>(user, headers);			
 			ResponseEntity<ObjectNode> response = new RestTemplate()
 					.exchange(API + ENDPOINT, HttpMethod.POST, request, ObjectNode.class);
 			if (response.getStatusCode().equals(HttpStatus.CREATED)) {
