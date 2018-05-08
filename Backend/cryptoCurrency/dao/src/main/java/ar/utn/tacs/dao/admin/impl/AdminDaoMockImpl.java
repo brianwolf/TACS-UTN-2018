@@ -1,6 +1,7 @@
 package ar.utn.tacs.dao.admin.impl;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,20 +17,6 @@ import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
 
 public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements AdminDao{
-
-//	public List<Transaction> transactions;
-//	public List<User> usersInSession;
-	
-//	public AdminDaoMockImpl() {
-//		transactions = new ArrayList<Transaction>();
-//		this.usersInSession = new ArrayList<User>();
-//	}
-//	
-//	@PostConstruct
-//	public void init() {
-//		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
-//		BeanUtil.getBean("userDao", UserDaoMockImpl.class).getSessions().values().stream().forEach(u -> this.usersInSession.add(u));;
-//	}
 	
 	@Override
 	public User compareBalance(String nickA, String nickB) {
@@ -43,11 +30,12 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 	}
 
 	@Override
-	public List<Transaction> statesLastWeek() {
+	public BigInteger statesLastWeek() {
+		
 		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
 
-		return transactions.stream().filter(t -> {
+		List<Transaction> transactionsFilter = transactions.stream().filter(t -> {
 			
 			Calendar transactionDate = Calendar.getInstance();
 				transactionDate.setTime(t.getDateStart());
@@ -58,14 +46,16 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 			return transactionDate.get(Calendar.WEEK_OF_MONTH) == minDate.get(Calendar.WEEK_OF_MONTH);
 			
 		}).collect(Collectors.toList());
+		
+		return BigInteger.valueOf(transactionsFilter.size());
 	}
 
 	@Override
-	public List<Transaction> statesLastMonth() {
+	public BigInteger statesLastMonth() {
 		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
 
-		return transactions.stream().filter(t -> {
+		List<Transaction> transactionsFilter = transactions.stream().filter(t -> {
 			
 			Calendar transactionDate = Calendar.getInstance();
 				transactionDate.setTime(t.getDateStart());
@@ -76,23 +66,25 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 			return transactionDate.get(Calendar.MONTH) == minDate.get(Calendar.MONTH);
 			
 		}).collect(Collectors.toList());
+		
+		return BigInteger.valueOf(transactionsFilter.size());
 	}
 
 	@Override
-	public List<Transaction> statesAll() {
+	public BigInteger statesAll() {
 		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
 		
-		return transactions;
+		return BigInteger.valueOf(transactions.size());
 	}
 
 	@Override
-	public List<Transaction> statesByBeforeDays(Integer beforeDays) {
+	public BigInteger statesByBeforeDays(Integer beforeDays) {
 		
 		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));;
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
 
-		return transactions.stream().filter(t -> {
+		List<Transaction> transactionsFilter = transactions.stream().filter(t -> {
 			
 			Calendar transactionDate = Calendar.getInstance();
 				transactionDate.setTime(t.getDateStart());
@@ -107,6 +99,8 @@ public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements Ad
 			return transactionDate.get(Calendar.DAY_OF_YEAR) >= minDate.get(Calendar.DAY_OF_YEAR);
 			
 		}).collect(Collectors.toList());
+		
+		return BigInteger.valueOf(transactionsFilter.size());
 	}
 	
 }

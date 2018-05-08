@@ -1,5 +1,6 @@
 package ar.utn.tacs.service.admin;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import ar.utn.tacs.model.transaction.Transaction;
@@ -18,24 +19,23 @@ public interface AdminService extends GenericService {
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesLastWeek();
+	BigInteger statesLastWeek();
 
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesLastMonth();
+	BigInteger statesLastMonth();
 
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesGetAll();
-	
+	BigInteger statesAll();
 	
 	/**
 	 * @param beforeDays
 	 * @return {@link List} {@link Transaction}
 	 */
-	List<Transaction> statesByBeforeDays(Integer beforeDays);
+	BigInteger statesByBeforeDays(Integer beforeDays);
 	
 	/**
 	 * @return {@link List} {@link String}

@@ -1,6 +1,7 @@
 package ar.utn.tacs.rest.admin.impl;
 
-import java.util.ArrayList;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -15,7 +16,6 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.admin.AdminRest;
 import ar.utn.tacs.service.admin.AdminService;
@@ -47,11 +47,14 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_LAST_WEEK)
 	@Override
 	public Response statesLastWeek() {
-		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+
+		HashMap<String, BigInteger> map = new HashMap<>();
 		
 		try {
-			transaccionResult = adminService.statesLastWeek();
-			return Response.status(Response.Status.OK).entity(transaccionResult).build();
+			BigInteger transaccionsCount = adminService.statesLastWeek();
+			map.put("transactionsCount", transaccionsCount);
+			
+			return Response.status(Response.Status.OK).entity(map).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -62,11 +65,14 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_LAST_MONTH)
 	@Override
 	public Response statesLastMonth() {
-		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+
+		HashMap<String, BigInteger> map = new HashMap<>();
 		
 		try {
-			transaccionResult = adminService.statesLastMonth();
-			return Response.status(Response.Status.OK).entity(transaccionResult).build();
+			BigInteger transaccionsCount = adminService.statesLastMonth();
+			map.put("transactionsCount", transaccionsCount);
+			
+			return Response.status(Response.Status.OK).entity(map).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -77,12 +83,14 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_ALL)
 	@Override
 	public Response statesAll() {
-		
-		List<Transaction> transaccionResult = new ArrayList<Transaction>();
+
+		HashMap<String, BigInteger> map = new HashMap<>();
 		
 		try {
-			transaccionResult = adminService.statesGetAll();
-			return Response.status(Response.Status.OK).entity(transaccionResult).build();
+			BigInteger transaccionsCount = adminService.statesAll();
+			map.put("transactionsCount", transaccionsCount);
+			
+			return Response.status(Response.Status.OK).entity(map).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -93,12 +101,14 @@ public class AdminRestImpl implements AdminRest {
 	@Path(AdminRest.STATES_BY_BEFORE_DAYS)
 	@Override
 	public Response statesByBeforeDays(@DefaultValue("0") @QueryParam("beforeDays") Integer beforeDays) {
-		List<Transaction> transaccionsResult = new ArrayList<Transaction>();
+		
+		HashMap<String, BigInteger> map = new HashMap<>();
 		
 		try {
-			transaccionsResult = adminService.statesByBeforeDays(beforeDays);
+			BigInteger transaccionsCount = adminService.statesByBeforeDays(beforeDays);
+			map.put("transactionsCount", transaccionsCount);
 			
-			return Response.status(Response.Status.OK).entity(transaccionsResult).build();
+			return Response.status(Response.Status.OK).entity(map).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

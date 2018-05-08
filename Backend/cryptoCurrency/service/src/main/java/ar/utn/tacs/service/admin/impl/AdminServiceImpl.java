@@ -1,11 +1,11 @@
 package ar.utn.tacs.service.admin.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.admin.AdminDao;
-import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.admin.AdminService;
 import ar.utn.tacs.service.user.UserService;
@@ -22,22 +22,22 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Transaction> statesLastWeek() {
+	public BigInteger statesLastWeek() {
 		return adminDao.statesLastWeek();
 	}
 
 	@Override
-	public List<Transaction> statesLastMonth() {
+	public BigInteger statesLastMonth() {
 		return adminDao.statesLastMonth();
 	}
 
 	@Override
-	public List<Transaction> statesGetAll() {
+	public BigInteger statesAll() {
 		return adminDao.statesAll();
 	}
 
 	@Override
-	public List<Transaction> statesByBeforeDays(Integer beforeDays) {
+	public BigInteger statesByBeforeDays(Integer beforeDays) {
 		return adminDao.statesByBeforeDays(beforeDays);
 	}
 

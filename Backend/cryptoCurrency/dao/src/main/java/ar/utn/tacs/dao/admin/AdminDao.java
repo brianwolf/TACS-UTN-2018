@@ -1,5 +1,6 @@
 package ar.utn.tacs.dao.admin;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import ar.utn.tacs.dao.GenericDao;
@@ -18,21 +19,21 @@ public interface AdminDao extends GenericDao{
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesLastWeek();
+	BigInteger statesLastWeek();
 
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesLastMonth();
+	BigInteger statesLastMonth();
 
 	/**
 	 * @return {@link List}{@link Transaction}
 	 */
-	List<Transaction> statesAll();
+	BigInteger statesAll();
 	
 	/**
 	 * @param beforeDays
 	 * @return {@link List} {@link Transaction}
 	 */
-	List<Transaction> statesByBeforeDays(Integer beforeDays);
+	BigInteger statesByBeforeDays(Integer beforeDays);
 }
