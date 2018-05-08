@@ -12,7 +12,7 @@ public class Wallet {
 	private List<CoinAmount> coinAmount = new ArrayList<CoinAmount>();
 	
 
-	private BigDecimal dolarAmount;
+	private BigDecimal dolarAmount = new BigDecimal(0);
 	
 	public Wallet() {
 	}
