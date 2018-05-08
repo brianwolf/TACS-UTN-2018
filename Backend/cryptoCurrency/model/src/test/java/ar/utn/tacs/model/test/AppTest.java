@@ -1,4 +1,4 @@
-package ar.utn.tacs.modeloUsuario;
+package ar.utn.tacs.model.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

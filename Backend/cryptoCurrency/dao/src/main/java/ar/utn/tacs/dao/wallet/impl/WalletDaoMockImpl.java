@@ -7,14 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.wallet.WalletDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
-import ar.utn.tacs.model.wallet.Wallet;
 
-public class WalletDaoMockImpl extends GenericAbstractDaoImpl<Wallet> implements WalletDao {
+public class WalletDaoMockImpl implements WalletDao {
 
 	private HashMap<User, List<Transaction>> history;
 	

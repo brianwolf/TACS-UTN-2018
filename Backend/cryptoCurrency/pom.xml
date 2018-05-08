@@ -15,6 +15,12 @@
 		<service.version>1.0.0-SNAPSHOT</service.version>
 		<rest.version>1.0.0-SNAPSHOT</rest.version>
 		<apiWeb.version>1.0.0-SNAPSHOT</apiWeb.version>
+		
+		<spring.version>4.2.6.RELEASE</spring.version>
+		<jersey.version>1.8</jersey.version>
+		<hibernate.version>5.2.16.Final</hibernate.version>
+		<jackson.version>1.7.1</jackson.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<dependencyManagement>

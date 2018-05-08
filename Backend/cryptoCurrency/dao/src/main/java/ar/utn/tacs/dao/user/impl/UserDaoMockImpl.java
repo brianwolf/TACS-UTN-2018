@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.role.AdminRole;
@@ -20,7 +19,7 @@ import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.Wallet;
 
-public class UserDaoMockImpl extends GenericAbstractDaoImpl<User> implements UserDao{
+public class UserDaoMockImpl implements UserDao{
 	
 	private HashMap<String, User> sessions = new HashMap<String,User>();
  	

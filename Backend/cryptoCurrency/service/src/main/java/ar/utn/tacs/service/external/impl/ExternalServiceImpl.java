@@ -28,7 +28,7 @@ public class ExternalServiceImpl implements ExternalService{
 	@Autowired
 	private ExternalDao externalDao;
 	
-	Gson gson = new Gson();
+	private Gson gson = new Gson();
 	
 	
 	@Override

@@ -35,7 +35,7 @@ public interface UserService extends GenericService{
 	 * @param id
 	 * @return {@link User}
 	 */
-	User getUserByid(Long id);
+	User getUserById(Long id);
 	
 	/**
 	 * @param nick

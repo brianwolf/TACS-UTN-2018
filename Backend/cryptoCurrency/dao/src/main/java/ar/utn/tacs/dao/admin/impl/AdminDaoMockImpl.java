@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.utn.tacs.dao.admin.AdminDao;
-import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
 import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
 
-public class AdminDaoMockImpl extends GenericAbstractDaoImpl<User> implements AdminDao{
+public class AdminDaoMockImpl implements AdminDao{
 	
 	@Override
 	public User compareBalance(String nickA, String nickB) {

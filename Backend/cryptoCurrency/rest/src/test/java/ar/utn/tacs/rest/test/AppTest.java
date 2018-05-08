@@ -1,4 +1,4 @@
-package ar.utn.tacs.userService;
+package ar.utn.tacs.rest.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
