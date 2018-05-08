@@ -23,7 +23,7 @@ public class Amount implements Command {
 		String token = RepoToken.getInstance().getTokens().get(userId);
 		if (token == null)
 			return "Debe iniciar sesión antes de operar.";
-		String coin = ctx.firstArg();
+		String coin = ctx.firstArg().toUpperCase();
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
