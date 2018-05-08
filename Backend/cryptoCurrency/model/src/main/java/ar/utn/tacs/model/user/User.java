@@ -1,5 +1,6 @@
 package ar.utn.tacs.model.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -19,15 +20,15 @@ public class User {
 //	@Column(name = "id")
 	private Long id;
 	
-	private Login login;
+	private Login login = new Login();
 	
-	private Person person;
+	private Person person = new Person();
 
 //	@Transient
-	private List<Role> roles;
+	private List<Role> roles = new ArrayList<Role>();
 	
 //	@Transient
-	private Wallet wallet;
+	private Wallet wallet = new Wallet();
 	
 	public User(Long id, Login login, Person person, List<Role> roles, Wallet wallet) {
 		this.id = id;
