@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.external.ExternalService;
@@ -34,9 +36,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUserByToken(String token) {
+	public User getUserByToken(String token) throws UtnTacsException {
 		
 		User user = this.userDao.getUserByToken(token);
+		
+		if(user==null) {
+			throw new UserNotFoundException();
+		}
+		
 		List<Coin> updatedCoins = BeanUtil.getBean(ExternalService.class).coinMarketCap();
 		user.getWallet().updateCoinsValue(updatedCoins);
 		

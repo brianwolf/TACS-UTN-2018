@@ -3,6 +3,8 @@ package ar.utn.tacs.service.test;
 import org.junit.Assert;
 import org.junit.Test;
 
+import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 
@@ -27,8 +29,8 @@ public class UserServiceTestSuite extends ServiceTestSuite {
 		Assert.assertNotNull(token);
 	}
 	
-	@Test
-	public void tostadoSeDesLoguea() {
+	@Test(expected=UserNotFoundException.class)
+	public void tostadoSeDesLoguea() throws UtnTacsException {
 		
 		Login loginTostado = getLoginTostado();
 		
@@ -36,7 +38,7 @@ public class UserServiceTestSuite extends ServiceTestSuite {
 		
 		userService.logOutUserByToken(token);
 		
-		Assert.assertNull(userService.getUserByToken(token));
+		userService.getUserByToken(token);
 	}
 	
 	@Test

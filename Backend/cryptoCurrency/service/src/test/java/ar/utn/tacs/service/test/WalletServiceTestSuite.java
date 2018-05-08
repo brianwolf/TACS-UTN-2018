@@ -13,30 +13,18 @@ import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
-import ar.utn.tacs.service.wallet.WalletService;
 
 public class WalletServiceTestSuite extends ServiceTestSuite{
-	
-	@Autowired
-	WalletService walletService;
 	
 	@Test
 	public void tostadoCompraUnBitcoinYEsMillonario() {
 		
 		String token = getTokenTostado();
 		
-		BigDecimal cantidadBitcoin = (new BigDecimal(0)).add(getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount());
+		BigDecimal cantidadBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
 		
-		CoinAmountRest coinAmountRest = new CoinAmountRest();
-		coinAmountRest.setTicker("BTC");
-		coinAmountRest.setAmount("1");
+		tostadoCompraBitcoin(new BigDecimal(1));
 		
-		try {
-			walletService.buy(token, coinAmountRest);
-		} catch (UtnTacsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		BigDecimal cantidadNuevaBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
 		
@@ -44,15 +32,13 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 	}
 	
 	@Test(expected = InsufficientMoneyException.class)
-	public void tostadoIntentaComprarDiezBitcoinYNoTienePlata() throws UtnTacsException {
-		
-		tostadoCompraUnBitcoinYEsMillonario();
+	public void tostadoIntentaComprarDiezMilBitcoinYNoTienePlata() throws UtnTacsException {
 		
 		String token = getTokenTostado();
 		
 		CoinAmountRest coinAmountRest = new CoinAmountRest();
 		coinAmountRest.setTicker("BTC");
-		coinAmountRest.setAmount("10");
+		coinAmountRest.setAmount("10000");
 		
 		walletService.buy(token, coinAmountRest);
 		
@@ -72,8 +58,6 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 	
 	@Test(expected = DontHaveOperationCoinException.class)
 	public void tostadoIntentaVenderUnRippleYNoTieneMoneda() throws UtnTacsException {
-		
-		tostadoCompraUnBitcoinYEsMillonario();
 		
 		String token = getTokenTostado();
 		
@@ -104,19 +88,25 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 		
 		BigDecimal cantidadNuevaBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
 		
-		Assert.assertTrue(cantidadNuevaBitcoin.equals(new BigDecimal(0)));
+		Assert.assertEquals(cantidadNuevaBitcoin.compareTo(new BigDecimal(0)),0);
 	}
 	
 	@Test
 	public void tostadoTieneTransaccionesPorqueEsElLoboDeWallStreet() {
 		
-		tostadoCompraUnBitcoinYEsMillonario();
+		tostadoCompraBitcoin(new BigDecimal(1));
 		
 		String token = getTokenTostado();
 		
-		List<Transaction> transacciones = walletService.userTransactionHistory(token,"BTC");
+		List<Transaction> transacciones = null;
+		try {
+			transacciones = walletService.userTransactionHistory(token,"BTC");
+		} catch (UtnTacsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Assert.assertNotNull(transacciones);
-		Assert.assertNotEquals(transacciones.size(), 0);
+		Assert.assertEquals(transacciones.size(), 1);
 	}
 }

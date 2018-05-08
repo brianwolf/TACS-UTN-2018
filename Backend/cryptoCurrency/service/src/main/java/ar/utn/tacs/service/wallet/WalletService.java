@@ -32,12 +32,14 @@ public interface WalletService extends GenericService{
 	 * @param idUser
 	 * @param idCoin
 	 * @return {@link JsonValue}
+	 * @throws UtnTacsException 
 	 */
-	public List<Transaction> userTransactionHistory(String token, String coinSymbol);
+	public List<Transaction> userTransactionHistory(String token, String coinSymbol) throws UtnTacsException;
 	
 	/**
 	 * @param token
 	 * @return {@link Wallet}
+	 * @throws UtnTacsException 
 	 */
-	public Wallet userWalletByToken(String token);
+	public Wallet userWalletByToken(String token) throws UtnTacsException;
 }

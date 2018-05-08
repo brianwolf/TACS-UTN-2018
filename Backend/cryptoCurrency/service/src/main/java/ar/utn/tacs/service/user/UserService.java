@@ -2,6 +2,8 @@ package ar.utn.tacs.service.user;
 
 import java.util.List;
 
+import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.GenericService;
@@ -28,8 +30,9 @@ public interface UserService extends GenericService{
 	/**
 	 * @param token
 	 * @return {@link User}
+	 * @throws UtnTacsException 
 	 */
-	User getUserByToken(String token);
+	User getUserByToken(String token) throws UtnTacsException;
 	
 	/**
 	 * @param id

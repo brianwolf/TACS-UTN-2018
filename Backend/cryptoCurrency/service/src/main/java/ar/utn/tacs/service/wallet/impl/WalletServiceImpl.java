@@ -40,7 +40,7 @@ public class WalletServiceImpl implements WalletService {
 	}
 
 	@Override
-	public List<Transaction> userTransactionHistory(String token, String ticker) {
+	public List<Transaction> userTransactionHistory(String token, String ticker) throws UtnTacsException{
 		
 		Coin coin = ticker.equals("")? null : BeanUtil.getBean(ExternalService.class).getCoinByTicker(ticker);
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
@@ -70,7 +70,7 @@ public class WalletServiceImpl implements WalletService {
 	}
 
 	@Override
-	public Wallet userWalletByToken(String token) {
+	public Wallet userWalletByToken(String token)  throws UtnTacsException{
 		
 		Wallet userWallet = BeanUtil.getBean(UserService.class).getUserByToken(token).getWallet();
 			userWallet.updateCoinsValue(BeanUtil.getBean(ExternalService.class).coinMarketCap());
