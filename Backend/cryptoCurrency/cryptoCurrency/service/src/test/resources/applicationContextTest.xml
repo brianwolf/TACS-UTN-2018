@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+	 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		 
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	
+	<!-- MOCKS DAO -->
+	<bean id="userDao" 			class="ar.utn.tacs.dao.user.impl.UserDaoMockImpl" />
+	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl"/>
+	<bean id="adminDao" 		class="ar.utn.tacs.dao.admin.impl.AdminDaoMockImpl"/>
+	
+	<!--  SERVICE -->
+	<bean id="adminService" 		class="ar.utn.tacs.service.admin.impl.AdminServiceImpl" />
+	<bean id="externalService" 		class="ar.utn.tacs.service.external.impl.ExternalServiceMockImpl" />
+	<bean id="userService" 			class="ar.utn.tacs.service.user.impl.UserServiceImpl" />
+	<bean id="walletService" 		class="ar.utn.tacs.service.wallet.impl.WalletServiceImpl" />
+
+	<!--  OTROS -->
+	<bean id="beanUtil" class="ar.utn.tacs.util.BeanUtil"/>
+	
+</beans>

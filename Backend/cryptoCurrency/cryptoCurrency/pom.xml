@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.utn.tacs</groupId>
+	<artifactId>cryptoCurrency-pom</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- ESTO ES PARA PODER CAMBIAR LA VERSION DEL MODULO QUE SE QUIERA USAR -->
+	<properties>
+		<core.version>1.0.0-SNAPSHOT</core.version>
+		<model.version>1.0.0-SNAPSHOT</model.version>
+		<dao.version>1.0.0-SNAPSHOT</dao.version>
+		<service.version>1.0.0-SNAPSHOT</service.version>
+		<rest.version>1.0.0-SNAPSHOT</rest.version>
+		<apiWeb.version>1.0.0-SNAPSHOT</apiWeb.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- *************************************************************************************** 
+				MODULOS DE ESTE PROYECTO *************************************************************************************** -->
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rest</artifactId>
+				<version>${rest.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>dao</artifactId>
+				<version>${dao.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>service</artifactId>
+				<version>${service.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>apiWeb</artifactId>
+				<version>${apiWeb.version}</version>
+				<type>war</type>
+			</dependency>
+
+
+			<!-- *************************************************************************************** 
+				DEPENDENCIAS COMUNES A TODOS LOS MODULOS *************************************************************************************** -->
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>core</artifactId>
+				<version>${core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>model</artifactId>
+				<version>${model.version}</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<path>/</path>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<modules>
+		<module>core</module>
+		<module>model</module>
+		<module>dao</module>
+		<module>service</module>
+		<module>rest</module>
+		<module>apiWeb</module>
+	</modules>
+</project>
