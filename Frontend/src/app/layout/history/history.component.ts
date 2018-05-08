@@ -5,6 +5,7 @@ import { AdminService } from '../../shared/services/admin.service';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
+  styles: [' td { text-align:center } '],
   animations: [routerTransition()]
 })
 export class HistoryComponent implements OnInit {

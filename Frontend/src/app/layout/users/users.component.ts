@@ -6,6 +6,7 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
+  styles: [' td { text-align:center } '],
   animations: [routerTransition()]
 })
 export class UsersComponent implements OnInit {

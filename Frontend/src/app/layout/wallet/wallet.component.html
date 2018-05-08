@@ -15,17 +15,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let coin of wallet.coinAmount">
+              <tr *ngFor="let coin of wallet.coinAmounts">
                 <td>{{ coin.coin.ticker }}</td>
                 <td>{{ coin.coin.name }}</td>
-                <td>{{ coin.amount }}</td>
-                <td>{{ coin.coin.valueInDollars }}</td>
+                <td style="text-align:right">{{ coin.amount }}</td>
+                <td style="text-align:right">{{ coin.coin.valueInDollars }}</td>
               </tr>
             </tbody>
               <tr>
                 <th>USD</th>
                 <th>Dolár</th>
-                <th>{{ wallet.dolarAmount }}</th>
+                <th style="text-align:right">{{ wallet.dolarAmount }}</th>
                 <th></th>
               </tr>
 
