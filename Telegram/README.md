@@ -8,9 +8,6 @@ TACSCryptoBot
 #### UserName
 TACSCryptoBot
 
-#### Token
-528360666:AAE215nVkyXqXnOOYt9MJlaMm8o8JxWnyL0
-
 ## Comandos
 
 `/me`

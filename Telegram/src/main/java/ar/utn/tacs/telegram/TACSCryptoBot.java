@@ -51,7 +51,7 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("buy")
-				.info("Compra <coin-id> <quantity>")
+				.info("Compra <coin-ticker> <quantity>")
 				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
@@ -63,7 +63,7 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("sell")
-				.info("Vende <coin-id> <quantity>")
+				.info("Vende <coin-ticker> <quantity>")
 				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
@@ -76,7 +76,7 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("amount")
-				.info("Cantidad de <coin-id>")
+				.info("Cantidad de <coin-ticker>")
 				.input(1)
 				.locality(ALL)
 				.privacy(PUBLIC)
@@ -89,7 +89,7 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("quote")
-				.info("Cotización de <coin-id>")
+				.info("Cotización de <coin-ticker>")
 				.input(1)
 				.locality(ALL)
 				.privacy(PUBLIC)
