@@ -1,8 +1,20 @@
-local CURRENT_DIR=$1
-local PROJECT_DIR=$1/Backend/cryptoCurrency
+###########################################
+#VARS
+###########################################
+CURRENT_DIR="$PWD"
+PROJECT_DIR=$CURRENT_DIR'/Backend/cryptoCurrency'
 
-cd $PROJECT_DIR
+###########################################
+#TOMCAT
+###########################################
+cd "$PROJECT_DIR"
 export MAVEN_OPTS=-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n
-screen mvn clean install tomcat7:run && exit
-cd $CURRENT_DIR/Frontend 
-screen npm install && npm start && exit
+#screen mvn clean install tomcat7:run && exit
+mvn clean install tomcat7:run
+
+###########################################
+#NODEJS
+###########################################
+cd "$CURRENT_DIR/Frontend"
+#screen npm install && npm start && exit
+npm install && npm start
