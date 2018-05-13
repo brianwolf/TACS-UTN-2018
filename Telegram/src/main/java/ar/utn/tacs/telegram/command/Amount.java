@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import org.telegram.abilitybots.api.objects.MessageContext;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Amount extends Command {
 
@@ -20,8 +19,8 @@ public class Amount extends Command {
 			return "Debe iniciar sesión antes de operar.";
 		String coin = ctx.firstArg().toUpperCase();
 		try {
-			ResponseEntity<ObjectNode> response = new RestTemplate().exchange(API + ENDPOINT, HttpMethod.GET,
-					getRequest(null, userId), ObjectNode.class, coin);
+			ResponseEntity<JsonNode> response = new RestTemplate().exchange(API + ENDPOINT, HttpMethod.GET,
+					getRequest(null, userId), JsonNode.class, coin);
 			JsonNode amount = response.getBody().get("amount");
 			return String.format("Usted poseé %s de la cryptomoneda %s.", amount, coin);
 		} catch (HttpClientErrorException e) {
