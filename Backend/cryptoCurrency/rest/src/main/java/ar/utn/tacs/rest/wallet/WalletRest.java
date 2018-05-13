@@ -52,7 +52,8 @@ public interface WalletRest extends GenericRest {
 	 * {@link GET}
 	 * 
 	 * @param token
+	 * @param ticker
 	 * @return
 	 */
-	Response userWalletByToken(String token);
+	Response userWalletByToken(String token, String ticker);
 }

@@ -77,4 +77,12 @@ public class WalletServiceImpl implements WalletService {
 		
 		return userWallet; 
 	}
+
+	@Override
+	public CoinAmount userCoinAmountByToken(String token, String ticker) throws UtnTacsException {
+		
+		Wallet userWallet = userWalletByToken(token);
+		
+		return userWallet.getCoinAmountByTicker(ticker);
+	}
 }

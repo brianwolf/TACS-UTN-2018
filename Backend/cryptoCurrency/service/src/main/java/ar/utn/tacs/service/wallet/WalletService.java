@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonValue;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.service.GenericService;
@@ -42,4 +43,12 @@ public interface WalletService extends GenericService{
 	 * @throws UtnTacsException 
 	 */
 	public Wallet userWalletByToken(String token) throws UtnTacsException;
+
+	/**
+	 * @param token
+	 * @param ticker
+	 * @return {@link CoinAmount}
+	 * @throws UtnTacsException 
+	 */
+	public CoinAmount userCoinAmountByToken(String token, String ticker) throws UtnTacsException;
 }

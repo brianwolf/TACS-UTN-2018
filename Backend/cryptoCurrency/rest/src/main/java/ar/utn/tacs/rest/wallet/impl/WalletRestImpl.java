@@ -21,7 +21,6 @@ import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
-import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.rest.wallet.WalletRest;
 import ar.utn.tacs.service.wallet.WalletService;
 
@@ -91,11 +90,17 @@ public class WalletRestImpl implements WalletRest{
 	@GET
 	@Path(WalletRestImpl.USER_WALLET)
 	@Override
-	public Response userWalletByToken(@HeaderParam(value = "token")String token) {
+	public Response userWalletByToken(@HeaderParam(value = "token") String token,@QueryParam("ticker") String ticker) {
+		
+		Object response = null;
 		
 		try {
-			Wallet wallet = walletService.userWalletByToken(token);
-			return Response.status(Response.Status.OK).entity(wallet).build();
+			
+			response = String.valueOf(ticker)!="null"&&!String.valueOf(ticker).isEmpty() ? 
+					walletService.userCoinAmountByToken(token,ticker) : 
+					walletService.userWalletByToken(token);
+			
+			return Response.status(Response.Status.OK).entity(response).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
