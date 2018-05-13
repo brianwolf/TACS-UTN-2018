@@ -6,13 +6,15 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
+import com.sun.jersey.spi.container.ContainerResponse;
+import com.sun.jersey.spi.container.ContainerResponseFilter;
 
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.user.UserRest;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.util.BeanUtil;
 
-public class RestFilter implements ContainerRequestFilter {
+public class RestFilter implements ContainerRequestFilter,ContainerResponseFilter {
 	
 	private static final String USERS_PATH = UserRest.BASE;
 	private static final String LOGIN_PATH = USERS_PATH+UserRest.GET_TOKEN_BY_LOGIN;
@@ -23,6 +25,9 @@ public class RestFilter implements ContainerRequestFilter {
 	public ContainerRequest filter(ContainerRequest request) {
 		
 //		request.getRequestHeaders().add("Access-Control-Allow-Origin", "*");
+//		request.getRequestHeaders().add("Access-Control-Allow-Headers", "Authorization, token, Origin, X-Requested-With, Content-Type");
+//		request.getRequestHeaders().add("Access-Control-Expose-Headers", "Location, Content-Disposition");
+//		request.getRequestHeaders().add("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE, HEAD, OPTIONS");
 //		//headers.add("Access-Control-Allow-Origin", "http://podcastpedia.org"); //allows CORS requests only coming from podcastpedia.org		
 //		request.getRequestHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");			
 //		request.getRequestHeaders().add("Access-Control-Allow-Headers", "Content-Type, token");
@@ -44,6 +49,15 @@ public class RestFilter implements ContainerRequestFilter {
 		
 		
 		return request;
+	}
+	
+	@Override
+	public ContainerResponse filter(ContainerRequest request, ContainerResponse response) {
+		response.getHttpHeaders().add("Access-Control-Allow-Origin", "*");
+		response.getHttpHeaders().add("Access-Control-Allow-Headers", "Authorization, token, Origin, X-Requested-With, Content-Type");
+		response.getHttpHeaders().add("Access-Control-Expose-Headers", "Location, Content-Disposition");
+		response.getHttpHeaders().add("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE, HEAD, OPTIONS");
+		return response;
 	}
 	
 	private boolean isValid(ContainerRequest request) {
