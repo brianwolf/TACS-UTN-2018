@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +15,7 @@ import { RoleGuard } from './shared/guard/role.guard';
 import { ServerErrorComponent } from './error/server-error/server-error.component';
 import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
 import { NotFoundComponent } from './error/not-found/not-found.component';
+import { AppConfig }       from './app.config';
 
 
 // AoT requires an exported function for factories
@@ -50,11 +51,13 @@ export function createTranslateLoader(http: HttpClient) {
     UserService,
     AuthGuard,
     RoleGuard,
-    {
+        {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    },
+    AppConfig,
+        { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }
   ],
   bootstrap: [AppComponent]
 })

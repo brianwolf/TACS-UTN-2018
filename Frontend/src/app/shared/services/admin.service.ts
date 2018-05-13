@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class AdminService {
 
-  API = 'http://localhost:8080/utn/crypto-currency/';
+  API = '';
 
-  constructor(private http: HttpClient) {
-    this.http.get('./assets/config.json').subscribe((data: any) => this.API = data.API);
+  constructor(private http: HttpClient,private config: AppConfig) {
+    this.API=config.getConfig('host');
   }
 
   getUser(user: string) {

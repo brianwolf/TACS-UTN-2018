@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AppConfig } from '../../app.config';
+
 
 @Injectable()
 export class UserService {
 
-  API = 'http://localhost:8080/utn/crypto-currency/';
+  API = '';
 
-  constructor(private http: HttpClient) {
-    this.http.get('./assets/config.json').subscribe((data: any) => this.API = data.API);
+  constructor(private http: HttpClient,private config: AppConfig) {
+    this.API=config.getConfig('host');
   }
 
   signup(user) {
