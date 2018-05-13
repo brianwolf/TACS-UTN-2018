@@ -25,7 +25,7 @@ public class Quote extends Command {
 			if (response.getStatusCode().equals(HttpStatus.OK)) {
 				JsonNode coins = response.getBody();
 				for (JsonNode _coin : coins)
-					if (_coin.get("name").asText().equals(coin)
+					if (_coin.get("name").asText().toUpperCase().equals(coin.toUpperCase())
 							|| _coin.get("ticker").asText().equals(coin.toUpperCase()))
 						return String.format("La cotización actual de %s es u$s %f.", coin.toUpperCase(),
 								_coin.get("valueInDollars").asDouble());
