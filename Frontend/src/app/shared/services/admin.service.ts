@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AppConfig } from '../../app.config';
 
 @Injectable()
 export class AdminService {
