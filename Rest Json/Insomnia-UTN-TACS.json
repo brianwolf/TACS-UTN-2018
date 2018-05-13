@@ -1,8 +1,8 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-05-04T19:05:27.759Z",
-	"__export_source": "insomnia.desktop.app:v5.16.1",
+	"__export_date": "2018-05-13T17:20:35.448Z",
+	"__export_source": "insomnia.desktop.app:v5.16.2",
 	"resources": [
 		{
 			"_id": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
@@ -76,9 +76,12 @@
 			"_id": "env_269273d0b452480e91cc34c75eb6c137",
 			"color": "#ff0000",
 			"created": 1525302498114,
-			"data": {},
+			"data": {
+				"apiName": "utn/crypto-currency/",
+				"localHost": "https://utn-crypto-currency-rest.herokuapp.com/"
+			},
 			"isPrivate": false,
-			"modified": 1525302523445,
+			"modified": 1526231690697,
 			"name": "Cloud",
 			"parentId": "env_684d9b418038449dbf3af33945224d96",
 			"_type": "environment"
@@ -298,7 +301,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828350,
 			"method": "GET",
-			"modified": 1525301621595,
+			"modified": 1526231991563,
 			"name": "wallet by token",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
@@ -307,7 +310,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ localHost  }}{{ apiName  }}wallet",
+			"url": "{{ localHost  }}{{ apiName  }}wallet?ticker=",
 			"_type": "request"
 		},
 		{
@@ -730,11 +733,28 @@
 			"body": {},
 			"created": 1525204861907,
 			"description": "",
-			"headers": [],
+			"headers": [
+				{
+					"id": "pair_1c395e2343ff449fa7b49ac5bb50b07a",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_145bc0f7c8c84179aa12d882d69f7f0a",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				},
+				{
+					"disabled": true,
+					"id": "pair_a2f751b1ff5c414ea54644d690252e23",
+					"name": "",
+					"value": ""
+				}
+			],
 			"isPrivate": false,
 			"metaSortKey": -1525204861907,
 			"method": "GET",
-			"modified": 1525204864020,
+			"modified": 1526231931261,
 			"name": "coin market cap",
 			"parameters": [],
 			"parentId": "fld_fc7753944faf4dc381c6c92d75cb44a8",
@@ -743,7 +763,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.coinmarketcap.com/v1/ticker/",
+			"url": "{{ localHost  }}{{ apiName  }}services/external/coins",
 			"_type": "request"
 		}
 	]
