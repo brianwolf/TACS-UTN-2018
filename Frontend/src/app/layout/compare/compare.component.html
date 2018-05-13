@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-primary" (click)="compare()" [disabled]="!user1 && !user2">Comparar</button>
+      <button class="btn btn-primary" (click)="compare()" [disabled]="!user1 || !user2">Comparar</button>
       <hr>
       <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
     </div>

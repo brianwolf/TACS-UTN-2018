@@ -16,6 +16,7 @@ import { ServerErrorComponent } from './error/server-error/server-error.componen
 import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
 import { NotFoundComponent } from './error/not-found/not-found.component';
 
+
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
   // for development
@@ -58,3 +59,4 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

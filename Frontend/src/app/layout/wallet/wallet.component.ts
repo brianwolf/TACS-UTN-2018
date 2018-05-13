@@ -18,12 +18,7 @@ export class WalletComponent implements OnInit {
   }
 
   getWallet() {
-    this.userService.getWallet()
-      .subscribe(
-        data => {
-          this.wallet = data;
-        }
-      );
+    this.userService.getWallet().subscribe(data => this.wallet = data);
   }
 
 }

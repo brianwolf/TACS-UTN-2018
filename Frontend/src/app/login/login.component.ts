@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit(form: NgForm) {
-    // const body = { nick: 'lobezzzno', pass: '1234' };
-    const body = { nick: form.value.nick, pass: form.value.pass };
+    const body = { nick: 'lobezzzno', pass: '1234' };
+    // const body = { nick: form.value.nick, pass: form.value.pass };
     this.userService.login(body)
       .subscribe(
         data => {

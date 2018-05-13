@@ -11,9 +11,13 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class SellComponent implements OnInit {
 
+  wallet;
+
   constructor(private userService: UserService, private alert: AlertService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getWallet();
+  }
 
   onSubmit(form: NgForm) {
     if (form.value.amount <= 0) {
@@ -26,9 +30,14 @@ export class SellComponent implements OnInit {
       .subscribe(
         data => this.alert.raise('success', 'Operación realizada con exito.')
         ,
-        error => this.alert.raise('danger', 'Chequeé el Ticker o si tiene fondos suficientes.', 5000)
+        error => this.alert.raise('danger', 'Chequeé que la cantidad no supere el máximo disponible.', 5000)
       );
+    this.getWallet();
     form.reset();
+  }
+
+  getWallet() {
+    this.userService.getWallet().subscribe(data => this.wallet = data);
   }
 
 }

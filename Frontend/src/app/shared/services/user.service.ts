@@ -6,7 +6,9 @@ export class UserService {
 
   API = 'http://localhost:8080/utn/crypto-currency/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.http.get('./assets/config.json').subscribe((data: any) => this.API = data.API);
+  }
 
   signup(user) {
     return this.http.post(this.API + 'users', user);
@@ -38,6 +40,10 @@ export class UserService {
 
   getTransactions() {
     return this.http.get(this.API + 'wallet/history/transactions');
+  }
+
+  getAllCoins() {
+    return this.http.get(this.API + 'services/external/coins');
   }
 
 }

@@ -15,7 +15,10 @@ public class Login extends Command {
 	private static final String ENDPOINT = "/users/login";
 
 	public static ObjectNode getBody(MessageContext ctx) {
-		return new ObjectMapper().createObjectNode().put("nick", ctx.firstArg()).put("pass", ctx.secondArg());
+		return new ObjectMapper()
+				.createObjectNode()
+				.put("nick", ctx.firstArg())
+				.put("pass", ctx.secondArg());
 	}
 
 	public static String exec(MessageContext ctx) {

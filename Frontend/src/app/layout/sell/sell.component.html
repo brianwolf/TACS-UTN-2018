@@ -3,19 +3,23 @@
   <div class="row justify-content-center">
     <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-4 center-block">
       <form role="form" #buyForm="ngForm" (ngSubmit)="onSubmit(buyForm)">
+        <h4>Seleccione la criptomoneda a vender</h4>
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
               <i class="fa fa-btc"></i>
             </span>
           </div>
-          <input class="form-control" type="text" placeholder="Ticker de la criptomoneda a vender" name="ticker" ngModel required>
+          <select class="form-control" name="ticker" ngModel required>
+            <option *ngFor="let coin of wallet.coinAmounts" [value]="coin.coin.ticker">{{ coin.coin.ticker }} - {{ coin.coin.name }} - MAX={{ coin.amount }}</option>
+          </select>
         </div>
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">Q</span>
           </div>
-          <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001" placeholder="Cantidad" name="amount" ngModel required>
+          <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
+            placeholder="Cantidad" name="amount" ngModel required>
         </div>
         <input class="btn btn-success" type="submit" [disabled]="!buyForm.valid" value="Vender"> &nbsp;
         <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
