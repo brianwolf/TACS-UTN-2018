@@ -12,8 +12,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class Transaction extends Command {
 
 	public static ObjectNode getBody(MessageContext ctx) {
-		return new ObjectMapper().createObjectNode().put("ticker", ctx.firstArg().toUpperCase()).put("amount",
-				ctx.secondArg());
+		return new ObjectMapper()
+				.createObjectNode()
+				.put("ticker", ctx.firstArg().toUpperCase())
+				.put("amount", ctx.secondArg());
 	}
 
 	public static String exec(MessageContext ctx, String endpoint) {

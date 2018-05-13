@@ -11,9 +11,13 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class BuyComponent implements OnInit {
 
+  coins;
+
   constructor(private userService: UserService, private alert: AlertService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.fillSelector();
+  }
 
   onSubmit(form: NgForm) {
     if (form.value.amount <= 0) {
@@ -21,14 +25,19 @@ export class BuyComponent implements OnInit {
       form.value.amount = null;
       return;
     }
-    const body = { ticker: (<string>form.value.ticker).toUpperCase(), amount: form.value.amount };
+    const body = { ticker: form.value.ticker, amount: form.value.amount };
     this.userService.buy(body)
       .subscribe(
         data => this.alert.raise('success', 'Operación realizada con exito.')
         ,
-        error => this.alert.raise('danger', 'Chequeé el Ticker o si tiene fondos suficientes.', 5000)
+        error => this.alert.raise('danger', 'Chequeé si tiene fondos suficientes.', 5000)
       );
+    this.fillSelector();
     form.reset();
+  }
+
+  fillSelector() {
+    this.userService.getAllCoins().subscribe(data => this.coins = data);
   }
 
 }

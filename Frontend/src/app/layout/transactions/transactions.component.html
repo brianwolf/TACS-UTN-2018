@@ -8,16 +8,18 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr>
+                <th>Fecha</th>
                 <th>Tipo</th>
                 <th>Ticker</th>
                 <th>Moneda</th>
-                <th>Valor de compra</th>
-                <th>Valor actual</th>
-                <th>Diferencia</th>
+                <th style="text-align:right">Valor de compra</th>
+                <th style="text-align:right">Valor actual</th>
+                <th style="text-align:center">Diferencia</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let op of operations">
+              <tr *ngFor="let op of operations.reverse()">
+                <td>{{ op.date | date }}</td>
                 <td>{{ op.description }}</td>
                 <td>{{ op.coinAmount.coin.ticker }}</td>
                 <td>{{ op.coinAmount.coin.name }}</td>
