@@ -12,6 +12,7 @@
                 <th>Tipo</th>
                 <th>Ticker</th>
                 <th>Moneda</th>
+                <th style="text-align:right">Cantidad</th>
                 <th style="text-align:right">Valor de compra</th>
                 <th style="text-align:right">Valor actual</th>
                 <th style="text-align:center">Diferencia</th>
@@ -23,6 +24,7 @@
                 <td>{{ op.description }}</td>
                 <td>{{ op.coinAmount.coin.ticker }}</td>
                 <td>{{ op.coinAmount.coin.name }}</td>
+                <td style="text-align:right">{{ op.coinAmount.amount }}</td>
                 <td style="text-align:right">{{ op.quoteTimeSold }}</td>
                 <td style="text-align:right">{{ op.quoteTimeNow }}</td>
                 <td style="text-align:center">{{ op.quoteDifference }}</td>

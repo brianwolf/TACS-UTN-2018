@@ -21,12 +21,16 @@ public class Amount extends Command {
 		try {
 			ResponseEntity<JsonNode> response = new RestTemplate().exchange(API + ENDPOINT, HttpMethod.GET,
 					getRequest(null, userId), JsonNode.class, coin);
+			if (response.getBody() == null)
+				return String.format("Usted no poseé la cryptomoneda %s.", coin);
 			JsonNode amount = response.getBody().get("amount");
 			return String.format("Usted poseé %s de la cryptomoneda %s.", amount, coin);
 		} catch (HttpClientErrorException e) {
+			e.printStackTrace();
 			return e.getMessage();
 		} catch (HttpServerErrorException e) {
-			return "Usted no posee la cryptomoneda " + coin;
+			e.printStackTrace();
+			return e.getMessage();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();

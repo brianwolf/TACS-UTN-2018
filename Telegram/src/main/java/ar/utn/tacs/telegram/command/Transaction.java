@@ -29,8 +29,10 @@ public class Transaction extends Command {
 			new RestTemplate().exchange(API + endpoint, HttpMethod.POST, getRequest(body, userId), ObjectNode.class);
 			return "Transacción exitosa.";
 		} catch (HttpClientErrorException e) {
+			e.printStackTrace();
 			return e.getMessage();
 		} catch (HttpServerErrorException e) {
+			e.printStackTrace();
 			return "Transaccion fallida. Chequeé el ticker o si dispone de saldos.";
 		} catch (Exception e) {
 			e.printStackTrace();

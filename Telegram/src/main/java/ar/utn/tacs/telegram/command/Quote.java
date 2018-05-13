@@ -32,8 +32,10 @@ public class Quote extends Command {
 			}
 			return "No se ha encontrado la cryptomoneda " + coin;
 		} catch (HttpClientErrorException e) {
+			e.printStackTrace();
 			return e.getMessage();
 		} catch (HttpServerErrorException e) {
+			e.printStackTrace();
 			return e.getMessage();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -8,7 +8,7 @@ import ar.utn.tacs.telegram.RepoToken;
 
 public abstract class Command {
 
-	public static final String API = "http://localhost:8080/utn/crypto-currency";
+	public static final String API = "https://utn-crypto-currency-rest.herokuapp.com/utn/crypto-currency";
 
 	public static <T> HttpEntity<T> getRequest(T body, int userId) {
 		return new HttpEntity<T>(body, getHeaders(userId));

@@ -4,7 +4,7 @@
     "license": "UTN",
     "scripts": {
         "ng": "ng",
-		"start": "ng serve",
+        "start": "node server.js",
         "build": "ng build --prod",
         "gitbuild": "ng build --prod --base /brianwolf/TACS-UTN-2018/Frontend/master/dist/",
         "test": "ng test",

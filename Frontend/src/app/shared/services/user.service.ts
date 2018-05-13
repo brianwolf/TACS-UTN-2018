@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../../app.config';
 
-
 @Injectable()
 export class UserService {
 
-  API = '';
+  API;
 
-  constructor(private http: HttpClient,private config: AppConfig) {
-    this.API=config.getConfig('host');
+  constructor(private http: HttpClient, private config: AppConfig) {
+    this.API = config.getConfig('host');
   }
 
   signup(user) {
@@ -30,6 +29,10 @@ export class UserService {
 
   getWallet() {
     return this.http.get(this.API + 'wallet');
+  }
+
+  getWalletByCoin(coin) {
+    return this.http.get(this.API + `wallet?ticker=${coin}`);
   }
 
   buy(operation) {

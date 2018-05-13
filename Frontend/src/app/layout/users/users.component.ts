@@ -11,9 +11,8 @@ import { AlertService } from '../../shared/services/alert.service';
 })
 export class UsersComponent implements OnInit {
 
-  users: any[];
   user;
-  userSelected: string;
+  users;
   showInfo: boolean;
 
   constructor(private adminService: AdminService, private alert: AlertService) { }
@@ -23,15 +22,11 @@ export class UsersComponent implements OnInit {
   }
 
   fillSelector() {
-    this.adminService.getUsers().subscribe(data => this.users = (<any>data));
+    this.adminService.getUsers().subscribe((data: any) => this.users = data);
   }
 
-  getUser() {
-    if (!this.userSelected) {
-      this.alert.raise('danger', 'Debe seleccionar al usuario!');
-      return;
-    }
-    this.adminService.getUser(this.userSelected)
+  getUser(userSelected) {
+    this.adminService.getUser(userSelected)
       .subscribe(data => {
         this.user = data;
         this.showInfo = true;

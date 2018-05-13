@@ -6,7 +6,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label>Seleccione al primer usuario</label>
-            <select class="form-control" [(ngModel)]="user1">
+            <select class="form-control" #user1>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
@@ -14,13 +14,13 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label>Seleccione al segundo usuario</label>
-            <select class="form-control" [(ngModel)]="user2" required>
+            <select class="form-control" #user2>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
         </div>
       </div>
-      <button class="btn btn-primary" (click)="compare()" [disabled]="!user1 || !user2">Comparar</button>
+      <button class="btn btn-primary" (click)="compare(user1.value, user2.value)" [disabled]="!user1 || !user2">Comparar</button>
       <hr>
       <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
     </div>

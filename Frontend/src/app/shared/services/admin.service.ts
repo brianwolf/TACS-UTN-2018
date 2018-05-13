@@ -1,14 +1,14 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../../app.config';
 
 @Injectable()
 export class AdminService {
 
-  API = '';
+  API;
 
-  constructor(private http: HttpClient,private config: AppConfig) {
-    this.API=config.getConfig('host');
+  constructor(private http: HttpClient, private config: AppConfig) {
+    this.API = config.getConfig('host');
   }
 
   getUser(user: string) {

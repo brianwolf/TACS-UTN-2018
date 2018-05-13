@@ -8,12 +8,12 @@
           <div class="form-group">
             <hr>
             <label>Seleccione al usuario</label>
-            <select class="form-control" [(ngModel)]="userSelected">
+            <select class="form-control" #userSelected>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
-          <button class="btn btn-primary" (click)="getUser()">Obtener Información</button> &nbsp;
-          <button class="btn btn-secondary" (click)="showInfo = false">Limpiar</button>
+          <button class="btn btn-primary" (click)="getUser(userSelected.value)" [disabled]="!userSelected">Obtener Información</button> &nbsp;
+          <button class="btn btn-secondary" (click)="showInfo = false" [disabled]="!showInfo">Limpiar</button>
           <hr>
           <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
           <div *ngIf="showInfo" class="card-body table-responsive">
@@ -29,15 +29,15 @@
                 </tr>
                 <tr>
                   <th>Transacciones Hoy</th>
-                  <!-- <td>{{ user.nick }}</td> -->
+                  <td>{{ user.transactionsToday }}</td>
                 </tr>
                 <tr>
                   <th>Transacciones</th>
-                  <!-- <td>{{ user.nick }}</td> -->
+                  <td>{{ user.transactionsTotal }}</td>
                 </tr>
                 <tr>
                   <th>Ultimo Acceso</th>
-                  <!-- <td>{{ user.lastAccess }}</td> -->
+                  <td>{{ user.lastAccess }}</td>
                 </tr>
               </tbody>
             </table>

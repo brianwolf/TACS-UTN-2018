@@ -29,8 +29,10 @@ public class Login extends Command {
 			setToken(userId, response.getBody().get("token").asText());
 			return "Login exitoso.";
 		} catch (HttpClientErrorException e) {
+			e.printStackTrace();
 			return e.getMessage();
 		} catch (HttpServerErrorException e) {
+			e.printStackTrace();
 			return "Login fallido. Chequeé las credenciales.";
 		} catch (Exception e) {
 			e.printStackTrace();

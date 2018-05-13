@@ -11,33 +11,46 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class BuyComponent implements OnInit {
 
+  coinSelected;
+  saldoUSD;
   coins;
 
   constructor(private userService: UserService, private alert: AlertService) { }
 
   ngOnInit() {
-    this.fillSelector();
+    this.reset();
   }
 
   onSubmit(form: NgForm) {
     if (form.value.amount <= 0) {
       this.alert.raise('warning', 'Debe ingresar un número positivo.');
-      form.value.amount = null;
-      return;
+    } else if (form.value.amount * this.coinSelected.valueInDollars > this.saldoUSD) {
+      this.alert.raise('warning', 'No tiene saldo suficiente en u$s para realizar la transacción.');
+    } else {
+      const body = { ticker: form.value.coin.ticker, amount: form.value.amount };
+      this.userService.buy(body)
+        .subscribe(
+          data => this.alert.raise('success', 'Operación realizada con exito.')
+          ,
+          error => this.alert.raise('danger', 'Chequeé si tiene fondos suficientes.', 5000)
+        );
     }
-    const body = { ticker: form.value.ticker, amount: form.value.amount };
-    this.userService.buy(body)
-      .subscribe(
-        data => this.alert.raise('success', 'Operación realizada con exito.')
-        ,
-        error => this.alert.raise('danger', 'Chequeé si tiene fondos suficientes.', 5000)
-      );
-    this.fillSelector();
     form.reset();
+    this.reset();
   }
 
   fillSelector() {
     this.userService.getAllCoins().subscribe(data => this.coins = data);
+  }
+
+  getSaldoUSD() {
+    this.userService.getWallet().subscribe((data: any) => this.saldoUSD = data.dolarAmount);
+  }
+
+  reset() {
+    this.coinSelected = null;
+    this.fillSelector();
+    this.getSaldoUSD();
   }
 
 }
