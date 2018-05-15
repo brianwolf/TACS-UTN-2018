@@ -26,6 +26,7 @@ public class Amount extends Command {
 			JsonNode amount = response.getBody().get("amount");
 			return String.format("Usted poseé %s de la cryptomoneda %s.", amount, coin);
 		} catch (HttpClientErrorException e) {
+			removeToken(userId);
 			e.printStackTrace();
 			return e.getMessage();
 		} catch (HttpServerErrorException e) {

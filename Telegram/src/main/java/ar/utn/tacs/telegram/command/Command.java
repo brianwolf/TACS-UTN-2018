@@ -22,6 +22,10 @@ public abstract class Command {
 		return headers;
 	}
 
+	public static String removeToken(int userId) {
+		return RepoToken.getInstance().getTokens().remove(userId);
+	}	
+
 	public static String getToken(int userId) {
 		return RepoToken.getInstance().getTokens().get(userId);
 	}

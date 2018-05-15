@@ -1,0 +1,9 @@
+login - <user> <pass> Inicia sesión en el sistema.
+logout - Finaliza sesión en el sistema.
+buy - <coin-ticker> <quantity> Compra una cryptomoneda.
+sell - <coin-ticker> <quantity> Vende una cryptomoneda.
+amount - <coin-ticker> Muestra la tenencia total de la cryptomoneda.
+quote - <coin-name> Muestra la cotización actual de la cryptomoneda.
+me - Muestra el nombre completo del usuario.
+commands - Muestra la lista de comandos disponibles.
+help - Ayuda en pantalla.

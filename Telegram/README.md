@@ -16,7 +16,11 @@ Responde el nombre del contacto de quien lo invoque.
 ****
 `/login <user> <pass>`
 
-Registra al usuario en el sistema.
+Inicia sesión en el sistema.
+****
+`/logout`
+
+Finaliza sesión en el sistema.
 ****
 `/buy <coin-ticker> <quantity>`
     
@@ -33,6 +37,14 @@ Responde la cantidad que posee el usuario de la cryptomoneda indicada en el prim
 `/quote <coin-name>` ó `/quote <coin-ticker>`
 
 Responde la cotización actual de de la cryptomoneda indicada en el primer parámetro.
+****
+`/commands`
+
+Muestra por pantalla la lista completa de comandos disponibles.
+****
+`/help`
+
+Ayuda para operar el Bot.
 
 ### Observaciones
 
@@ -51,4 +63,5 @@ Instalar el archivos **lombok.jar** en su IDE.*
 `mvn exec:java`
 
 ## Uso
-Buscar en el directorio de Telegram el bot ***TACSCryptoBot*** y usar los comandos descriptos anteriormente. 
+Buscar en el directorio de Telegram el bot ***TACSCryptoBot*** y usar los comandos descriptos anteriormente.
+El usuario ya debe poseer previamente una cuenta en el sistema.

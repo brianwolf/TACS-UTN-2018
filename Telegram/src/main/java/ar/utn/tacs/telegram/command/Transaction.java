@@ -29,6 +29,7 @@ public class Transaction extends Command {
 			new RestTemplate().exchange(API + endpoint, HttpMethod.POST, getRequest(body, userId), ObjectNode.class);
 			return "Transacción exitosa.";
 		} catch (HttpClientErrorException e) {
+			removeToken(userId);
 			e.printStackTrace();
 			return e.getMessage();
 		} catch (HttpServerErrorException e) {

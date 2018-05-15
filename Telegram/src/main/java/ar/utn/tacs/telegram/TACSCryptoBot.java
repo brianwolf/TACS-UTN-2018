@@ -27,31 +27,55 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("me")
-				.info("Nombre del contacto.")
+				.info("Nombre completo del usuario.")
 				.locality(ALL)
 				.privacy(PUBLIC)
 				.action(ctx -> silent.send(ctx.user().fullName(), ctx.chatId()))
 				.build();
 	}
-	
+
 	public Ability login() {
 		return Ability
 				.builder()
 				.name("login")
-				.info("Autenticación con <user> <pass>")
+				.info("Inicia sesión con <user> <pass>.")
 				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
 				.action(ctx -> silent.send(Login.exec(ctx), ctx.chatId()))
 				.build();
 	}
-	
+
+	public Ability logout() {
+		return Ability
+				.builder()
+				.name("logout")
+				.info("Finaliza la sesión en el servidor.")
+				.input(0)
+				.locality(ALL)
+				.privacy(PUBLIC)
+				.action(ctx -> silent.send(Logout.exec(ctx), ctx.chatId()))
+				.build();
+	}
+
+	public Ability help() {
+		return Ability
+				.builder()
+				.name("help")
+				.info("Ayuda en pantalla.")
+				.input(0)
+				.locality(ALL)
+				.privacy(PUBLIC)
+				.action(ctx -> silent.send(Help.exec(), ctx.chatId()))
+				.build();
+	}
+
 	/* Como usuario quiero poder registrar una transacción (moneda, cantidad comprada / vendida) usando Telegram */
 	public Ability buy() {
 		return Ability
 				.builder()
 				.name("buy")
-				.info("Compra <coin-ticker> <quantity>")
+				.info("Compra <coin-ticker> <quantity>.")
 				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
@@ -63,7 +87,7 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("sell")
-				.info("Vende <coin-ticker> <quantity>")
+				.info("Vende <coin-ticker> <quantity>.")
 				.input(2)
 				.locality(ALL)
 				.privacy(PUBLIC)
@@ -76,7 +100,7 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("amount")
-				.info("Cantidad de <coin-ticker>")
+				.info("Tenencia total de <coin-ticker>.")
 				.input(1)
 				.locality(ALL)
 				.privacy(PUBLIC)
@@ -89,7 +113,7 @@ public class TACSCryptoBot extends AbilityBot  {
 		return Ability
 				.builder()
 				.name("quote")
-				.info("Cotización de <coin-ticker>")
+				.info("Cotización actual de <coin-ticker>.")
 				.input(1)
 				.locality(ALL)
 				.privacy(PUBLIC)
