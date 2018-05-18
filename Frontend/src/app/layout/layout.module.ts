@@ -23,10 +23,9 @@ import { UsersComponent } from './users/users.component';
 import { CompareComponent } from './compare/compare.component';
 import { HistoryComponent } from './history/history.component';
 import { AlertService } from '../shared/services/alert.service';
+import { AdminService } from '../shared/services/admin.service';
 import { UserService } from '../shared/services/user.service';
 import { JwtInterceptor } from '../shared/services/jwt.interceptor';
-import { AdminService } from '../shared/services/admin.service';
-import { OVERLAY_PROVIDERS } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -62,7 +61,6 @@ import { OVERLAY_PROVIDERS } from '@angular/cdk/overlay';
     AlertService,
     AdminService,
     UserService,
-    OVERLAY_PROVIDERS,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

@@ -8,7 +8,7 @@
 
           <input class="form-control input-underline" (keyup)="applyFilter($event.target.value)" placeholder="Filtrar...">
 
-          <table class="table table-hover table-striped" mat-table [dataSource]="operations" matSort>
+          <table class="table table-hover table-striped" mat-table [dataSource]="operations" matSort matSortActive="date" matSortDirection="desc">
 
             <ng-container matColumnDef="date">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
@@ -51,7 +51,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClicked(row)"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
           </table>
           <mat-paginator #paginator [pageSize]="10" [showFirstLastButtons]="true"></mat-paginator>

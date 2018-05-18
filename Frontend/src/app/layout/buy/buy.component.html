@@ -8,7 +8,7 @@
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <i class="fab fa-btc"></i>
+              <i class="fab fa-fw fa-btc"></i>
             </span>
           </div>
           <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
@@ -20,7 +20,7 @@
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
-                <i class="fas fa-dollar-sign"></i>
+                <i class="fas fa-fw fa-dollar-sign"></i>
               </span>
             </div>
             <span class="form-control">{{ coinSelected.valueInDollars }}</span>
@@ -31,7 +31,7 @@
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
-                <i class="fas fa-dollar-sign"></i>
+                <i class="fas fa-fw fa-dollar-sign"></i>
               </span>
             </div>
             <span class="form-control">{{ saldoUSD }}</span>
@@ -40,7 +40,9 @@
         <hr>
         <div class="form-group input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text">Q</span>
+            <span class="input-group-text">
+              <i class="fab fa-fw fa-quora"></i>
+            </span>
           </div>
           <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
             placeholder="Cantidad a comprar" name="amount" ngModel required>

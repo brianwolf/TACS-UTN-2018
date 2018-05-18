@@ -57,7 +57,7 @@ export abstract class Componente {
   }
 
   onLoggedout() {
-    // localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentToken');
     localStorage.removeItem('currentUserName');
     localStorage.removeItem('currentUserRole');
     this.userService.logout().subscribe();

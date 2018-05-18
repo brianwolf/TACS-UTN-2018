@@ -1,6 +1,6 @@
 ## Frontend para API Web TACS-Crypto
 ### Tecnologías utilizadas.
-- **[Angular 5](https://Angular.io/ "Angular")**
+- **[Angular 6](https://Angular.io/ "Angular")**
 - **[TypeScript](https://www.typescriptlang.org/ "TypeScript")**
 - **[Sass](https://sass-lang.com/ "Sass")**
 - **HTML 5**

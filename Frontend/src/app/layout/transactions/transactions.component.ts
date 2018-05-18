@@ -34,26 +34,42 @@ export class TransactionsComponent implements OnInit {
               this.operations.data.push(transactions[i].operations[j]);
             }
           }
-          this.operations.paginator = this.paginator;
-          this.operations.sortingDataAccessor = (operation, property) => {
-            switch (property) {
-              case 'ticker': return operation.coinAmount.coin.ticker;
-              case 'name': return operation.coinAmount.coin.name;
-              case 'amount': return operation.coinAmount.amount;
-              default: return operation[property];
-            }
-          };
-          this.operations.sort = this.sort;
+          this.initTableFunctions();
         }
       );
   }
 
   applyFilter(filterValue: string) {
-    this.operations.filter = filterValue.trim().toLowerCase();
+    this.operations.filter = filterValue;
   }
 
-  rowClicked(row) {
-    console.log(row);
+  initTableFunctions() {
+    /* Filtering */
+    this.operations.filterPredicate = (operation, filter: string) => {
+      const accumulator = (currentTerm, property) => {
+        switch (property) {
+          case 'coinAmount': return currentTerm + operation.coinAmount.coin.ticker
+            + operation.coinAmount.coin.name
+            + operation.coinAmount.amount;
+          default: return currentTerm + operation[property];
+        }
+      };
+      const dataStr = Object.keys(operation).reduce(accumulator, '').toLowerCase();
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
+    /* Sorting */
+    this.operations.sortingDataAccessor = (operation, property) => {
+      switch (property) {
+        case 'ticker': return operation.coinAmount.coin.ticker;
+        case 'name': return operation.coinAmount.coin.name;
+        case 'amount': return operation.coinAmount.amount;
+        default: return operation[property];
+      }
+    };
+    this.operations.sort = this.sort;
+    /* Paginator */
+    this.operations.paginator = this.paginator;
   }
 
 }

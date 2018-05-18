@@ -1,5 +1,5 @@
 <div class="login-page" [@routerTransition]>
-  <img src="assets/images/logo.png" width="25%" />
+  <img src="assets/images/logo.png" width="250px" />
   <div class="row">
     <div class="mx-auto">
       <h1>TACS - Crypto</h1>
@@ -8,16 +8,16 @@
       <form role="form" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit(userRegistrationForm)">
         <div class="form-content">
           <div class="form-group">
-            <input type="text" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Nombre de Usuario (Mínimo 3 caracteres)" name="nick"
-             ngModel required minlength="3">
+            <input type="text" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Nombre de Usuario (Mínimo 3 caracteres)"
+              name="nick" ngModel required minlength="3">
           </div>
           <div class="form-group">
-            <input type="password" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Contraseña (Mínimo 3 caracteres)" name="pass"
-             ngModel required minlength="3">
+            <input type="password" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Contraseña (Mínimo 3 caracteres)"
+              name="pass" ngModel required minlength="3">
           </div>
           <div class="form-group">
-            <input type="password" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Repetir Contraseña" name="confirmPass"
-             ngModel required minlength="3">
+            <input type="password" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Repetir Contraseña"
+              name="confirmPass" ngModel required minlength="3">
           </div>
         </div>
         <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Registrar"> &nbsp;

@@ -48,9 +48,9 @@ export class BuyComponent implements OnInit {
   }
 
   reset() {
-    this.coinSelected = null;
     this.fillSelector();
     this.getSaldoUSD();
+    this.coinSelected = null;
   }
 
 }

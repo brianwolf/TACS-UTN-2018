@@ -17,9 +17,7 @@
     "eofline": true,
     "forin": false,
     "import-blacklist": [
-      true,
-      "rxjs",
-      "rxjs/Rx"
+      true
     ],
     "import-spacing": true,
     "indent": [

@@ -5,8 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build --prod",
-    "gitbuild": "ng build --prod --base /brianwolf/TACS-UTN-2018/Frontend/master/dist/",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -30,10 +29,8 @@
     "@ngx-translate/http-loader": "^3.0.1",
     "chart.js": "^2.7.2",
     "core-js": "^2.5.6",
-    "font-awesome": "^4.7.0",
     "ng2-charts": "^1.6.0",
     "ngx-toastr": "^8.6.0",
-    "path": "^0.12.7",
     "rxjs": "^6.1.0",
     "yarn": "^1.6.0",
     "zone.js": "^0.8.26"
@@ -57,6 +54,7 @@
     "karma-coverage-istanbul-reporter": "^1.4.2",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^1.0.0",
+    "path": "^0.12.7",
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.10.0",

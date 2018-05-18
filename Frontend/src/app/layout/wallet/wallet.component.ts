@@ -28,25 +28,41 @@ export class WalletComponent implements OnInit {
     this.userService.getWallet().subscribe(data => {
       this.wallet = data;
       this.coins.data = this.wallet.coinAmounts;
-      this.coins.paginator = this.paginator;
-      this.coins.sortingDataAccessor = (coin, property) => {
-        switch (property) {
-          case 'ticker': return coin.coin.ticker;
-          case 'name': return coin.coin.name;
-          case 'valueInDollars': return coin.coin.valueInDollars;
-          default: return coin[property];
-        }
-      };
-      this.coins.sort = this.sort;
+      this.initTableFunctions();
     });
   }
 
   applyFilter(filterValue: string) {
-    this.coins.filter = filterValue.trim().toLowerCase();
+    this.coins.filter = filterValue;
   }
 
-  rowClicked(row) {
-    console.log(row);
+  initTableFunctions() {
+    /* Filtering */
+    this.coins.filterPredicate = (coin, filter: string) => {
+      const accumulator = (currentTerm, property) => {
+        switch (property) {
+          case 'coin': return currentTerm + coin.coin.ticker
+            + coin.coin.name
+            + coin.coin.valueInDollars;
+          default: return currentTerm + coin[property];
+        }
+      };
+      const dataStr = Object.keys(coin).reduce(accumulator, '').toLowerCase();
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
+    /* Sorting */
+    this.coins.sortingDataAccessor = (coin, property) => {
+      switch (property) {
+        case 'ticker': return coin.coin.ticker;
+        case 'name': return coin.coin.name;
+        case 'valueInDollars': return coin.coin.valueInDollars;
+        default: return coin[property];
+      }
+    };
+    this.coins.sort = this.sort;
+    /* Paginator */
+    this.coins.paginator = this.paginator;
   }
 
 }
