@@ -12,7 +12,7 @@ export class AlertService {
     this.message = message;
     this.status = true;
     if (time == null) {
-      time = 3000;
+      time = 5000;
     }
     setTimeout(() => this.status = false, time);
   }

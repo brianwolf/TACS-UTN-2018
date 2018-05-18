@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import {
+  MatButtonModule, MatInputModule, MatToolbarModule,
+  MatTableModule, MatPaginatorModule, MatSortModule
+} from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdownModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -9,18 +15,18 @@ import { HeaderComponent } from './components/header/header.component';
 import { PageHeaderModule } from '../shared/modules/page-header/page-header.module';
 import { BuyComponent } from './buy/buy.component';
 import { SellComponent } from './sell/sell.component';
+import { DepositComponent } from './deposit/deposit.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { AuthorizeComponent } from './authorize/authorize.component';
 import { UsersComponent } from './users/users.component';
-import { HistoryComponent } from './history/history.component';
 import { CompareComponent } from './compare/compare.component';
+import { HistoryComponent } from './history/history.component';
 import { AlertService } from '../shared/services/alert.service';
 import { UserService } from '../shared/services/user.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/services/jwt.interceptor';
 import { AdminService } from '../shared/services/admin.service';
-import { FormsModule } from '@angular/forms';
-
+import { OVERLAY_PROVIDERS } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -30,7 +36,13 @@ import { FormsModule } from '@angular/forms';
     NgbAlertModule.forRoot(),
     LayoutRoutingModule,
     TranslateModule,
-    NgbDropdownModule.forRoot()
+    NgbDropdownModule.forRoot(),
+    MatButtonModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   declarations: [
     LayoutComponent,
@@ -38,9 +50,10 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     BuyComponent,
     SellComponent,
+    DepositComponent,
     WalletComponent,
     TransactionsComponent,
-    CompareComponent,
+    AuthorizeComponent,
     UsersComponent,
     CompareComponent,
     HistoryComponent
@@ -49,6 +62,7 @@ import { FormsModule } from '@angular/forms';
     AlertService,
     AdminService,
     UserService,
+    OVERLAY_PROVIDERS,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

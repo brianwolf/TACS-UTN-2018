@@ -23,6 +23,8 @@ export class SignupComponent implements OnInit {
       return;
     }
     const body = { login: { nick: form.value.nick, pass: form.value.pass } };
+    form.controls['pass'].reset();
+    form.controls['confirmPass'].reset();
     this.userService.signup(body)
       .subscribe(
         data => {

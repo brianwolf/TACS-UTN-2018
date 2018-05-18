@@ -2,32 +2,32 @@
   <a class="navbar-brand" href="#">TACS - Crypto</a>
   <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
     <span class="navbar-toggler-icon"></span>
-    <i class="fa fa-bars text-muted" aria-hidden="true"></i>
+    <i class="fas fa-bars text-muted"></i>
   </button>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown" ngbDropdown>
         <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-          <i class="fa fa-user"></i> {{ role | translate }}
+          <i class="fas fa-user"></i>{{ role | translate }}
           <b class="caret"></b>
         </a>
         <div class="dropdown-menu-right" ngbDropdownMenu>
           <p class="dropdown-item">
-            <i class="fa fa-fw fa-id-card"></i> {{ nick }}
+            <i class="fas fa-id-card"></i>{{ nick }}
           </p>
           <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">
-            <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}
+            <i class="fas fa-sign-out-alt"></i>{{ 'Log Out' | translate }}
           </a>
         </div>
       </li>
       <li class="nav-item">
         <a href="javascript:void(0)" class="nav-link" (click)="rltAndLtr()">
-          {{ 'L/R' | translate }}
+          <i class="material-icons"> swap_horiz </i>
         </a>
       </li> &nbsp;
       <li class="nav-item dropdown" ngbDropdown>
         <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-          <i class="fa fa-language"></i> {{ 'Language' | translate }}
+          <i class="fas fa-language"></i>{{ 'Language' | translate }}
           <b class="caret"></b>
         </a>
         <div class="dropdown-menu-right" ngbDropdownMenu>

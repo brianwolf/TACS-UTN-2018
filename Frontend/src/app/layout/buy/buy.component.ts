@@ -30,7 +30,7 @@ export class BuyComponent implements OnInit {
       const body = { ticker: form.value.coin.ticker, amount: form.value.amount };
       this.userService.buy(body)
         .subscribe(
-          data => this.alert.raise('success', 'Operación realizada con exito.')
+          data => this.alert.raise('success', `Se compró ${body.amount} ${body.ticker}.`)
           ,
           error => this.alert.raise('danger', 'Chequeé si tiene fondos suficientes.', 5000)
         );

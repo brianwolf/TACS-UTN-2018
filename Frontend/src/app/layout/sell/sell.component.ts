@@ -30,7 +30,7 @@ export class SellComponent implements OnInit {
     const body = { ticker: form.value.coin.coin.ticker, amount: form.value.amount };
     this.userService.sell(body)
       .subscribe(
-        data => this.alert.raise('success', 'Operación realizada con exito.')
+        data => this.alert.raise('success', `Se vendió ${body.amount} ${body.ticker}.`)
         ,
         error => this.alert.raise('danger', 'Chequeé que la cantidad no supere el máximo disponible.', 5000)
       );

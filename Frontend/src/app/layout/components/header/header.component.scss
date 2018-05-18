@@ -1,6 +1,13 @@
 $topnav-background-color: #333;
 
 :host {
+  .fab,
+  .fal,
+  .far,
+  .fas {
+    margin-right: 8px;
+  }
+
   .navbar {
     background-color: $topnav-background-color;
 

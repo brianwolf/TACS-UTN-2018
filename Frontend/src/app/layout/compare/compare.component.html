@@ -1,8 +1,11 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Comparar Usuarios'" [icon]="'fa-edit'"></app-page-header>
+  <app-page-header [heading]="'Comparar Usuarios'" [icon]="'far fa-copy'"></app-page-header>
   <div class="row justify-content-center">
     <div class="col-md-10 col-lg-9 col-xl-8">
       <div class="row">
+        <div class="col-12">
+          <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
+        </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label>Seleccione al primer usuario</label>
@@ -21,8 +24,6 @@
         </div>
       </div>
       <button class="btn btn-primary" (click)="compare(user1.value, user2.value)" [disabled]="!user1 || !user2">Comparar</button>
-      <hr>
-      <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
     </div>
   </div>
 </div>

@@ -16,6 +16,7 @@ import { ServerErrorComponent } from './error/server-error/server-error.componen
 import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
 import { NotFoundComponent } from './error/not-found/not-found.component';
 import { AppConfig } from './app.config';
+import { OVERLAY_PROVIDERS } from '@angular/cdk/overlay';
 
 
 // AoT requires an exported function for factories
@@ -51,6 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
     UserService,
     AuthGuard,
     RoleGuard,
+    OVERLAY_PROVIDERS,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

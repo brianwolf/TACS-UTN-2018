@@ -1,42 +1,49 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
   <div class="list-group">
     <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard" aria-hidden="true"></i>&nbsp;{{ 'Dashboard' | translate }}
+      <i class="fas fa-home"></i>{{ 'Dashboard' | translate }}
     </a>
     <a [routerLink]="['/buy']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-bitcoin" aria-hidden="true"></i>&nbsp;{{ 'Buy' | translate }}
+      <i class="fab fa-fw fa-btc"></i>{{ 'Buy' | translate }}
     </a>
     <a [routerLink]="['/sell']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dollar" aria-hidden="true"></i>&nbsp;{{ 'Sell' | translate }}
+      <i class="fas fa-fw fa-dollar-sign"></i>{{ 'Sell' | translate }}
+    </a>
+    <a [routerLink]="['/deposit']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fas fa-fw fa-money-check-alt"></i>{{ 'Deposit' | translate }}
     </a>
     <a [routerLink]="['/wallet']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-google-wallet" aria-hidden="true"></i>&nbsp;{{ 'Wallet' | translate }}
+      <i class="fas fa-fw fa-wallet"></i>{{ 'Wallet' | translate }}
     </a>
     <a [routerLink]="['/transactions']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-line-chart" aria-hidden="true"></i>&nbsp;{{ 'Transactions' | translate }}
+      <i class="fas fa-fw fa-clipboard-list"></i>{{ 'Transactions' | translate }}
     </a>
     <hr>
     <div *ngIf="role == 'Admin'">
       <p class="list-group-item">{{ 'AdminSection' | translate }}</p>
+      <a [routerLink]="['/authorize']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fas fa-fw fa-check"></i>{{ 'Authorize' | translate }}
+      </a>
       <a [routerLink]="['/users']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-        <i class="fa fa-fw fa-id-card-o" aria-hidden="true"></i>&nbsp;{{ 'Users' | translate }}
+        <i class="fas fa-fw fa-users"></i>{{ 'Users' | translate }}
       </a>
       <a [routerLink]="['/compare']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-        <i class="fa fa-fw fa-files-o" aria-hidden="true"></i>&nbsp;{{ 'Compare' | translate }}
+        <i class="far fa-fw fa-copy"></i>{{ 'Compare' | translate }}
       </a>
       <a [routerLink]="['/history']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-        <i class="fa fa-fw fa-history" aria-hidden="true"></i>&nbsp;{{ 'History' | translate }}
+        <i class="fas fa-fw fa-history"></i>{{ 'History' | translate }}
       </a>
     </div>
     <div class="header-fields">
       <a (click)="rltAndLtr()" class="list-group-item">
         <span>
-          <i class="fa fa-arrows-h"></i>&nbsp; {{ 'L/R' | translate }}</span>
+          <i class="fas fa-fw fa-exchange-alt"></i>{{ 'L/R' | translate }}
+        </span>
       </a>
       <div class="nested-menu">
         <a class="list-group-item" (click)="addExpandClass('languages')">
           <span>
-            <i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }}
+            <i class="fas fa-fw fa-language"></i>{{ 'Language' | translate }}
             <b class="caret"></b>
           </span>
         </a>
@@ -58,14 +65,14 @@
       <div class="nested-menu">
         <a class="list-group-item" (click)="addExpandClass('profile')">
           <span>
-            <i class="fa fa-user"></i>&nbsp; Usuario</span>
+            <i class="fas fa-fw fa-user"></i>Usuario</span>
         </a>
         <li class="nested" [class.expand]="showMenu === 'profile'">
           <ul class="submenu">
             <li>
               <a [routerLink]="['/login']" (click)="onLoggedout()">
                 <span>
-                  <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                  <i class="fas fa-fw fa-sign-out-alt"></i>{{ 'Log Out' | translate }}</span>
               </a>
             </li>
           </ul>

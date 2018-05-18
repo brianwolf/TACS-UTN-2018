@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "test-ng4": {
+    "tacs-crypto": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -21,7 +21,6 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles/app.scss"
             ],
             "scripts": [
@@ -51,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "test-ng4:build"
+            "browserTarget": "tacs-crypto:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "test-ng4:build:production"
+              "browserTarget": "tacs-crypto:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "test-ng4:build"
+            "browserTarget": "tacs-crypto:build"
           }
         },
         "test": {
@@ -76,7 +75,6 @@
               "node_modules/chart.js/dist/Chart.js"
             ],
             "styles": [
-              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles/app.scss"
             ],
             "assets": [
@@ -99,7 +97,7 @@
         }
       }
     },
-    "test-ng4-e2e": {
+    "tacs-crypto-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -108,7 +106,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "test-ng4:serve"
+            "devServerTarget": "tacs-crypto:serve"
           }
         },
         "lint": {
@@ -125,7 +123,7 @@
       }
     }
   },
-  "defaultProject": "test-ng4",
+  "defaultProject": "tacs-crypto",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

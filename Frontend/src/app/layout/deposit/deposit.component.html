@@ -1,0 +1,43 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Depositar'" [icon]="'fas fa-money-check-alt'"></app-page-header>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-4 center-block">
+      <form role="form" #depositForm="ngForm" (ngSubmit)="onSubmit(depositForm)">
+        <h4>Ingrese la información del deposito</h4>
+        <div>
+          <label>Saldo actual en u$s</label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-dollar-sign"></i>
+              </span>
+            </div>
+            <span class="form-control">{{ saldoUSD }}</span>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-dollar-sign"></i>
+            </span>
+          </div>
+          <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100" placeholder="Monto del deposito"
+            name="amount" ngModel required>
+        </div>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">#</span>
+          </div>
+          <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100" placeholder="Numero de comprobante"
+            name="ticket" ngModel required>
+        </div>
+        <input class="btn btn-success" type="submit" [disabled]="!depositForm.valid" value="Informar"> &nbsp;
+        <input class="btn" type="reset" value="Limpiar"> &nbsp;
+        <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
+        <hr>
+        <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
+      </form>
+    </div>
+  </div>
+</div>

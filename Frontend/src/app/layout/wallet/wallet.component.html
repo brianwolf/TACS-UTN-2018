@@ -1,35 +1,46 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Portafolio'" [icon]="'fa-edit'"></app-page-header>
+  <app-page-header [heading]="'Portafolio'" [icon]="'fas fa-wallet'"></app-page-header>
   <div class="row justify-content-center">
-    <div class="col-xl-10 center-block">
-      <div class="card mb-3">
+    <div class="col-xl-10">
+      <div class="card">
         <div class="card-header">Portafolio</div>
         <div class="card-body table-responsive">
-          <table class="table table-hover table-striped">
-            <thead>
-              <tr>
-                <th>Ticker</th>
-                <th>Moneda</th>
-                <th style="text-align:right">Cantidad</th>
-                <th style="text-align:right">Cotización en USD</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let coin of wallet.coinAmounts">
-                <td>{{ coin.coin.ticker }}</td>
-                <td>{{ coin.coin.name }}</td>
-                <td style="text-align:right">{{ coin.amount }}</td>
-                <td style="text-align:right">{{ coin.coin.valueInDollars }}</td>
-              </tr>
-            </tbody>
-              <tr>
-                <th>USD</th>
-                <th>Dolár</th>
-                <th style="text-align:right">{{ wallet.dolarAmount }}</th>
-                <th></th>
-              </tr>
+
+          <input class="form-control input-underline" (keyup)="applyFilter($event.target.value)" placeholder="Filtrar...">
+
+          <table class="table table-hover table-striped" mat-table [dataSource]="coins" matSort>
+
+            <ng-container matColumnDef="ticker">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticker</th>
+              <td mat-cell *matCellDef="let coin"> {{coin.coin.ticker}} </td>
+              <td mat-footer-cell *matFooterCellDef>USD</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Moneda</th>
+              <td mat-cell *matCellDef="let coin"> {{coin.coin.name}} </td>
+              <td mat-footer-cell *matFooterCellDef>Dólar</td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+              <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.amount}} </td>
+              <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet.dolarAmount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="valueInDollars">
+              <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header>Valor en USD</th>
+              <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.coin.valueInDollars | currency :'USD':'$ ':'1.2-4'}} </td>
+              <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet.dolarAmount | currency :'USD':' $ '}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClicked(row)"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
           </table>
+          <mat-paginator #paginator [pageSize]="10" [showFirstLastButtons]="true"></mat-paginator>
+
         </div>
       </div>
     </div>

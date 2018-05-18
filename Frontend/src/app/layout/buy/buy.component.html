@@ -1,16 +1,16 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Comprar'" [icon]="'fa-edit'"></app-page-header>
+  <app-page-header [heading]="'Comprar'" [icon]="'fab fa-btc'"></app-page-header>
   <div class="row justify-content-center">
     <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-4 center-block">
       <form role="form" #buyForm="ngForm" (ngSubmit)="onSubmit(buyForm)">
         <h4>Seleccione la criptomoneda a comprar</h4>
+        <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <i class="fa fa-btc"></i>
+              <i class="fab fa-btc"></i>
             </span>
           </div>
-          <!-- <select class="form-control" name="ticker" ngModel required> -->
           <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
             <option *ngFor="let coin of coins" [ngValue]="coin">{{ coin.ticker }} - {{ coin.name }}</option>
           </select>
@@ -20,7 +20,7 @@
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
-                <i class="fa fa-dollar"></i>
+                <i class="fas fa-dollar-sign"></i>
               </span>
             </div>
             <span class="form-control">{{ coinSelected.valueInDollars }}</span>
@@ -31,7 +31,7 @@
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
-                <i class="fa fa-dollar"></i>
+                <i class="fas fa-dollar-sign"></i>
               </span>
             </div>
             <span class="form-control">{{ saldoUSD }}</span>
@@ -47,8 +47,6 @@
         </div>
         <input class="btn btn-success" type="submit" [disabled]="!buyForm.valid" value="Comprar"> &nbsp;
         <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
-        <hr>
-        <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
       </form>
     </div>
   </div>
