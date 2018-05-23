@@ -65,14 +65,17 @@
       <div class="nested-menu">
         <a class="list-group-item" (click)="addExpandClass('profile')">
           <span>
-            <i class="fas fa-fw fa-user"></i>Usuario</span>
+            <i class="fas fa-fw fa-user"></i>{{ role | translate }}</span>
         </a>
         <li class="nested" [class.expand]="showMenu === 'profile'">
           <ul class="submenu">
             <li>
+              <a>
+                <i class="fas fa-fw fa-id-card"></i>{{ nick }} </a>
+            </li>
+            <li>
               <a [routerLink]="['/login']" (click)="onLoggedout()">
-                <span>
-                  <i class="fas fa-fw fa-sign-out-alt"></i>{{ 'Log Out' | translate }}</span>
+                <i class="fas fa-fw fa-sign-out-alt"></i>{{ 'Log Out' | translate }}
               </a>
             </li>
           </ul>

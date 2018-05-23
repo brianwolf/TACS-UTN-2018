@@ -1,8 +1,6 @@
 package ar.utn.tacs.telegram.command;
 
 import org.springframework.http.HttpMethod;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.abilitybots.api.objects.MessageContext;
 
@@ -28,16 +26,8 @@ public class Transaction extends Command {
 		try {
 			new RestTemplate().exchange(API + endpoint, HttpMethod.POST, getRequest(body, userId), ObjectNode.class);
 			return "Transacción exitosa.";
-		} catch (HttpClientErrorException e) {
-			removeToken(userId);
-			e.printStackTrace();
-			return e.getMessage();
-		} catch (HttpServerErrorException e) {
-			e.printStackTrace();
-			return "Transaccion fallida. Chequeé el ticker o si dispone de saldos.";
 		} catch (Exception e) {
-			e.printStackTrace();
-			return e.getMessage();
+			return handleError(e, userId);
 		}
 	}
 

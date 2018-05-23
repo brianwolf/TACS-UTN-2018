@@ -2,8 +2,6 @@ package ar.utn.tacs.telegram.command;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.abilitybots.api.objects.MessageContext;
 
@@ -25,16 +23,8 @@ public class Amount extends Command {
 				return String.format("Usted no poseé la cryptomoneda %s.", coin);
 			JsonNode amount = response.getBody().get("amount");
 			return String.format("Usted poseé %s de la cryptomoneda %s.", amount, coin);
-		} catch (HttpClientErrorException e) {
-			removeToken(userId);
-			e.printStackTrace();
-			return e.getMessage();
-		} catch (HttpServerErrorException e) {
-			e.printStackTrace();
-			return e.getMessage();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return e.getMessage();
+			return handleError(e, userId);
 		}
 	}
 

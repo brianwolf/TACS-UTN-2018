@@ -1,0 +1,5 @@
+heroku create tacs-crypto-bot
+
+heroku deploy:jar target\telegram-1.0.0-jar-with-dependencies.jar --app tacs-crypto-bot
+
+heroku ps:scale worker=1

@@ -2,8 +2,6 @@ package ar.utn.tacs.telegram.command;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.abilitybots.api.objects.MessageContext;
 
@@ -28,15 +26,8 @@ public class Login extends Command {
 					getRequest(getBody(ctx), userId), ObjectNode.class);
 			setToken(userId, response.getBody().get("token").asText());
 			return "Login exitoso.";
-		} catch (HttpClientErrorException e) {
-			e.printStackTrace();
-			return e.getMessage();
-		} catch (HttpServerErrorException e) {
-			e.printStackTrace();
-			return "Login fallido. Chequeé las credenciales.";
 		} catch (Exception e) {
-			e.printStackTrace();
-			return e.getMessage();
+			return handleError(e, userId);
 		}
 	}
 

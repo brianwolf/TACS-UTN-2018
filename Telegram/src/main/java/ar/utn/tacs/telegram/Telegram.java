@@ -9,7 +9,7 @@ public class Telegram {
 	public static void main(String[] args) {
 		ApiContextInitializer.init();
 		try {
-			new TelegramBotsApi().registerBot(new TACSCryptoBot());
+			new TelegramBotsApi().registerBot(new TACSCryptoBot(args[0]));
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		}

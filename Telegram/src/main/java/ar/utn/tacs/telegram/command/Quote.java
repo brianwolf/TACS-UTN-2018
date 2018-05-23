@@ -3,8 +3,6 @@ package ar.utn.tacs.telegram.command;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.abilitybots.api.objects.MessageContext;
 
@@ -31,16 +29,9 @@ public class Quote extends Command {
 								_coin.get("valueInDollars").asDouble());
 			}
 			return "No se ha encontrado la cryptomoneda " + coin;
-		} catch (HttpClientErrorException e) {
-			removeToken(userId);
-			e.printStackTrace();
-			return e.getMessage();
-		} catch (HttpServerErrorException e) {
-			e.printStackTrace();
-			return e.getMessage();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return e.getMessage();
+			return handleError(e, userId);
 		}
 	}
+
 }

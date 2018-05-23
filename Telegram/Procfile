@@ -1,0 +1,1 @@
+worker: java $JAVA_OPTS -jar target/telegram-1.0.0-jar-with-dependencies.jar "528360666:AAE215nVkyXqXnOOYt9MJlaMm8o8JxWnyL0"
