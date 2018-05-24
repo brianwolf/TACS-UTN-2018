@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.service.admin.AdminService;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.util.BeanUtil;
@@ -47,8 +48,16 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public User getUser(String nick) {
-		return BeanUtil.getBean(UserService.class).getUser(nick);
+	public UserTransactionRest getUser(String nick) {
+		
+		User user = BeanUtil.getBean(UserService.class).getUser(nick);
+		
+		UserTransactionRest userTransactionRest = new UserTransactionRest();
+			userTransactionRest.setUser(user);
+			userTransactionRest.addTransactionCounter("today", this.statesByBeforeDays(0));
+			userTransactionRest.addTransactionCounter("all", this.statesAll());
+		
+		return userTransactionRest;
 	}
 
 }

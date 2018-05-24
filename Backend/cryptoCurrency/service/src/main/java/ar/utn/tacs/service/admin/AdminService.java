@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.service.GenericService;
 
 public interface AdminService extends GenericService {
@@ -46,5 +47,5 @@ public interface AdminService extends GenericService {
 	 * @param nick
 	 * @return {@link User}
 	 */
-	User getUser(String nick);
+	UserTransactionRest getUser(String nick);
 }

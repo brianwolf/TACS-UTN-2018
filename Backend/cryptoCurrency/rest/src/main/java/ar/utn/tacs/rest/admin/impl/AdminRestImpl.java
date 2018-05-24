@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.rest.admin.AdminRest;
 import ar.utn.tacs.service.admin.AdminService;
 
@@ -134,13 +135,13 @@ public class AdminRestImpl implements AdminRest {
 	@Override
 	public Response getUser(@DefaultValue("") @QueryParam("nick") String nick) {
 		try {
-			User user = adminService.getUser(nick);
+			UserTransactionRest userTransactionRest = adminService.getUser(nick);
 			
-			if (user == null) {
+			if (userTransactionRest == null) {
 				return Response.status(Response.Status.NO_CONTENT).build();
 			}
 			
-			return Response.status(Response.Status.OK).entity(user).build();
+			return Response.status(Response.Status.OK).entity(userTransactionRest).build();
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

@@ -8,26 +8,17 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.wallet.Wallet;
 
-//ESTO ES SOLO PARA PROBAR HACER UN SELECT
-//@NamedNativeQueries({
-//		@NamedNativeQuery(name = "findUsers", query = "select * from usuario", resultClass = User.class) })
-//@Entity
-//@Table(name = "USUARIO")
 @JsonIgnoreProperties(value = {"id"})
 public class User {
 
-//	@Id
-//	@Column(name = "id")
 	private Long id;
 	
 	private Login login = new Login();
 	
 	private Person person = new Person();
 
-//	@Transient
 	private List<Role> roles = new ArrayList<Role>();
 	
-//	@Transient
 	private Wallet wallet = new Wallet();
 	
 	public User(Long id, Login login, Person person, List<Role> roles, Wallet wallet) {

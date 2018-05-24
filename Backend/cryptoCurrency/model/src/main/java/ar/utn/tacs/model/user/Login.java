@@ -1,5 +1,7 @@
 package ar.utn.tacs.model.user;
 
+import java.util.Date;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class Login {
@@ -11,6 +13,8 @@ public class Login {
 	private Boolean active;
 
 	private Integer tries;
+	
+	private Date lastLogin;
 	
 	public Login(String nick, String pass, Boolean active, Integer tries) {
 		
@@ -65,4 +69,13 @@ public class Login {
 	public void setTries(Integer tries) {
 		this.tries = tries;
 	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+	
 }

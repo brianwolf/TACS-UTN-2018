@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.utn.tacs.dao.admin.AdminDao;
-import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
 import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
 import ar.utn.tacs.model.transaction.Transaction;

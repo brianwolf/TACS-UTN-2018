@@ -2,13 +2,13 @@ package ar.utn.tacs.dao.user.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.role.AdminRole;
@@ -75,6 +75,8 @@ public class UserDaoMockImpl implements UserDao{
 		
 		String token = "";
 		if (usuarioEncontrado != null) {
+			
+			usuarioEncontrado.getLogin().setLastLogin(new Date());
 			token = this.getRandomHashSession();
 			sessions.put(token, usuarioEncontrado);
 		}
