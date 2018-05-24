@@ -1,6 +1,7 @@
 package ar.utn.tacs.rest.admin;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
@@ -17,6 +18,8 @@ public interface AdminRest extends GenericService{
 	public static final String STATES_BY_BEFORE_DAYS = "/states";
 	public static final String USERS_NICKS_ALL = "/users/nicks";
 	public static final String GET_USER = "/users";
+	public static final String APPROVE_DEPOSIT = "/deposit/approve/{depositNumber}";
+	public static final String REJECT_DEPOSIT = "/deposit/reject/{depositNumber}";
 
 	/**
 	 * {@link GET}
@@ -74,4 +77,21 @@ public interface AdminRest extends GenericService{
 	 * @return {@link Response}
 	 */
 	Response getUser(String nick);
+	
+	/**
+	 * {@link PUT}
+	 * 
+	 * @param token
+	 * @return {@link Response}
+	 */
+	Response approveDeposit(String token, String despositNumber);
+
+	/**
+	 * {@link PUT}
+	 * 
+	 * @param token
+	 * @param despositNumber
+	 * @return {@link Response}
+	 */
+	Response rejectDeposit(String token, String despositNumber);
 }

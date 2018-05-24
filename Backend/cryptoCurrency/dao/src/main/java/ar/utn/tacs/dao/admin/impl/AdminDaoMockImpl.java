@@ -11,12 +11,24 @@ import java.util.stream.Collectors;
 import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
 import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
+import ar.utn.tacs.model.admin.Deposit;
+import ar.utn.tacs.model.admin.StateDepositNumber;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
 
 public class AdminDaoMockImpl implements AdminDao{
 	
+	private List<Deposit> listDeposit = new ArrayList<Deposit>();
+	
+	public List<Deposit> getListDeposit() {
+		return listDeposit;
+	}
+
+	public void setListDeposit(List<Deposit> listDeposit) {
+		this.listDeposit = listDeposit;
+	}
+
 	@Override
 	public User compareBalance(String nickA, String nickB) {
 		User userA = BeanUtil.getBean("userDao", UserDaoMockImpl.class).getUserByNick(nickA);
@@ -100,6 +112,32 @@ public class AdminDaoMockImpl implements AdminDao{
 		}).collect(Collectors.toList());
 		
 		return BigInteger.valueOf(transactionsFilter.size());
+	}
+
+	@Override
+	public void addDeposit(Deposit deposit) {
+		
+		this.listDeposit.add(deposit);
+	}
+
+	@Override
+	public void approveDeposit(Deposit deposit) {
+		
+		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
+		depositFounded.setState(StateDepositNumber.APROVATED);
+	}
+
+	@Override
+	public void rejectDeposit(Deposit deposit) {
+		
+		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
+		depositFounded.setState(StateDepositNumber.REJECTED);
+	}
+
+	@Override
+	public Deposit getDepositByDepositNumber(String depositNumber) {
+		
+		return this.listDeposit.stream().filter(d -> d.number.equals(depositNumber)).findFirst().get();
 	}
 	
 }

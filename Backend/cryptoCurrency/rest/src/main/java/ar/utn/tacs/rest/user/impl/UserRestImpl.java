@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.user.UserRest;
@@ -81,6 +82,20 @@ public class UserRestImpl implements UserRest {
 		try {
 			User userResult = userService.getUserByToken(token);
 			return Response.status(Response.Status.OK).entity(userResult).build();
+			
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@POST
+	@Path(UserRest.DECLARE_DEPOSIT)
+	@Override
+	public Response declareDeposit(@HeaderParam(value = "token")String token, DepositRest depositRest) {
+		
+		try {
+			userService.declareDeposit(token, depositRest);
+			return Response.status(Response.Status.OK).build();
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

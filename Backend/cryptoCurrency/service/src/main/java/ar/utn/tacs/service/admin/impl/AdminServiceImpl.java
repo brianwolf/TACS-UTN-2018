@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.admin.AdminDao;
+import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.service.admin.AdminService;
@@ -58,6 +59,35 @@ public class AdminServiceImpl implements AdminService {
 			userTransactionRest.addTransactionCounter("all", this.statesAll());
 		
 		return userTransactionRest;
+	}
+
+	@Override
+	public void addDeposit(Deposit deposit) {
+		this.adminDao.addDeposit(deposit);
+	}
+
+	@Override
+	public void approveDeposit(String depositNumber) {
+		try {
+			Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
+			this.adminDao.approveDeposit(deposit);	
+			
+			//walletService.cargarPlata(deposit)
+			
+		} catch (Exception e) {
+			//aca se tendria que hacer un rollback
+		}
+	}
+	
+	@Override
+	public void rejectDeposit(String depositNumber) {
+		try {
+			Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
+			this.adminDao.rejectDeposit(deposit);		
+			
+		} catch (Exception e) {
+			//aca se tendria que hacer un rollback
+		}
 	}
 
 }

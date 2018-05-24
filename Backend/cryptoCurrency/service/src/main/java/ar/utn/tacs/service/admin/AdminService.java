@@ -3,6 +3,7 @@ package ar.utn.tacs.service.admin;
 import java.math.BigInteger;
 import java.util.List;
 
+import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
@@ -48,4 +49,19 @@ public interface AdminService extends GenericService {
 	 * @return {@link User}
 	 */
 	UserTransactionRest getUser(String nick);
+	
+	/**
+	 * @param depositNumber
+	 */
+	void addDeposit(Deposit depositNumber);
+	
+	/**
+	 * @param depositNumber
+	 */
+	void approveDeposit(String depositNumber);
+
+	/**
+	 * @param depositNumber
+	 */
+	void rejectDeposit(String depositNumber);
 }

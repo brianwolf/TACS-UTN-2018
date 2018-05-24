@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
+import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.GenericRest;
@@ -20,6 +21,7 @@ public interface UserRest extends GenericRest{
 	public static final String GET_TOKEN_BY_LOGIN = "/login";
 	public static final String GET_USER_BY_TOKEN = "/loggedin";
 	public static final String LOGOUT_USER_BY_TOKEN = "/logout";
+	public static final String DECLARE_DEPOSIT = "/deposit/{depositNumberRest}";
 	
 	/**
 	 * {@link POST}
@@ -53,5 +55,15 @@ public interface UserRest extends GenericRest{
 	 * @return
 	 */
 	Response logOutUserByToken(String token);
+	
+	
+	/**
+	 * {@link POST}
+	 * 
+	 * @param token
+	 * @param depositRest
+	 * @return {@link Response}
+	 */
+	Response declareDeposit(String token, DepositRest depositRest);
 	
 }
