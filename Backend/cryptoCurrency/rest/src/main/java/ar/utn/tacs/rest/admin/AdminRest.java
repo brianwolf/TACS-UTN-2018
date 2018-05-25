@@ -84,7 +84,7 @@ public interface AdminRest extends GenericService{
 	 * @param token
 	 * @return {@link Response}
 	 */
-	Response approveDeposit(String token, String despositNumber);
+	Response approveDeposit(String despositNumber);
 
 	/**
 	 * {@link PUT}
@@ -93,5 +93,5 @@ public interface AdminRest extends GenericService{
 	 * @param despositNumber
 	 * @return {@link Response}
 	 */
-	Response rejectDeposit(String token, String despositNumber);
+	Response rejectDeposit(String despositNumber);
 }

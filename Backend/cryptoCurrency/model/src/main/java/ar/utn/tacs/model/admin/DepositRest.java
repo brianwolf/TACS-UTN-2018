@@ -39,6 +39,7 @@ public class DepositRest {
 		return state;
 	}
 
+	@JsonIgnore
 	public void setState(String state) {
 		this.state = state;
 	}
@@ -56,7 +57,7 @@ public class DepositRest {
 
 		Deposit depositNumber = new Deposit();
 		depositNumber.setUser(user);
-		depositNumber.setState(StateDepositNumber.valueOf(this.state));
+		depositNumber.setState(this.state == null? StateDepositNumber.WAITING : StateDepositNumber.valueOf(this.state));
 		depositNumber.setNumber(this.number);
 
 		return depositNumber;

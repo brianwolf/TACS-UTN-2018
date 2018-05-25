@@ -11,6 +11,7 @@ import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.service.admin.AdminService;
 import ar.utn.tacs.service.user.UserService;
+import ar.utn.tacs.service.wallet.WalletService;
 import ar.utn.tacs.util.BeanUtil;
 
 public class AdminServiceImpl implements AdminService {
@@ -68,11 +69,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void approveDeposit(String depositNumber) {
+		
 		try {
 			Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
 			this.adminDao.approveDeposit(deposit);	
 			
-			//walletService.cargarPlata(deposit)
+			BeanUtil.getBean(WalletService.class).doDeposit(deposit);
 			
 		} catch (Exception e) {
 			//aca se tendria que hacer un rollback
@@ -81,13 +83,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void rejectDeposit(String depositNumber) {
-		try {
-			Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
-			this.adminDao.rejectDeposit(deposit);		
-			
-		} catch (Exception e) {
-			//aca se tendria que hacer un rollback
-		}
+		
+		Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
+		this.adminDao.rejectDeposit(deposit);
 	}
 
 }

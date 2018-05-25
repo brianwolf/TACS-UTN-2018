@@ -7,7 +7,6 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -153,7 +152,7 @@ public class AdminRestImpl implements AdminRest {
 	@PUT
 	@Path(AdminRest.APPROVE_DEPOSIT)
 	@Override
-	public Response approveDeposit(@HeaderParam(value = "token") String token, String despositNumber) {
+	public Response approveDeposit(String despositNumber) {
 		try {
 			this.adminService.approveDeposit(despositNumber);
 			return Response.status(Response.Status.OK).build();
@@ -166,7 +165,7 @@ public class AdminRestImpl implements AdminRest {
 	@PUT
 	@Path(AdminRest.REJECT_DEPOSIT)
 	@Override
-	public Response rejectDeposit(@HeaderParam(value = "token") String token, String despositNumber) {
+	public Response rejectDeposit(String despositNumber) {
 		try {
 			this.adminService.rejectDeposit(despositNumber);
 			return Response.status(Response.Status.OK).build();

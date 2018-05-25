@@ -28,7 +28,6 @@ public class TransactionBuilder {
 			operation.setCoinAmount(coinAmount);
 			operation.setQuoteTimeSold(coinAmount.getCoin().getValueInDollars());
 			operation.setDate(new Date());
-			operation.doOperation();
 		
 		Transaction transaction = new Transaction();
 			transaction.setDateStart(new Date());
