@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatToolbarModule,
-  MatTableModule, MatPaginatorModule, MatSortModule
+  MatTableModule, MatPaginatorModule, MatSortModule, MatSelectModule, MatIconModule
 } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdownModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,11 +37,13 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor';
     TranslateModule,
     NgbDropdownModule.forRoot(),
     MatButtonModule,
+    MatIconModule,
     MatInputModule,
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSelectModule
   ],
   declarations: [
     LayoutComponent,

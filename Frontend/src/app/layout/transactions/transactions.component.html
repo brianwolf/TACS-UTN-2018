@@ -6,7 +6,9 @@
         <div class="card-header">Transacciones</div>
         <div class="card-body table-responsive">
 
-          <input class="form-control input-underline" (keyup)="applyFilter($event.target.value)" placeholder="Filtrar...">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+          </mat-form-field>
 
           <table class="table table-hover table-striped" mat-table [dataSource]="operations" matSort matSortActive="date" matSortDirection="desc">
 
@@ -54,7 +56,9 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
           </table>
-          <mat-paginator #paginator [pageSize]="10" [showFirstLastButtons]="true"></mat-paginator>
+
+          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
+
         </div>
       </div>
     </div>

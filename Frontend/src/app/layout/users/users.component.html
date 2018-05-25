@@ -4,14 +4,25 @@
     <div class="col-sm-8 col-md-6 col-lg-6 col-xl-5">
       <div class="card">
         <div class="card-header">Información de los Usuarios del Sistema</div>
-        <div class="col-lg-12">
+        <div class="col-12">
+          <hr>
+
+          <!-- <mat-form-field>
+            <mat-select placeholder="Usuarios" #userSelected>
+              <mat-option *ngFor="let user of users" [value]="user">
+                {{ user }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+
           <div class="form-group">
-            <hr>
             <label>Seleccione al usuario</label>
             <select class="form-control" #userSelected>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
+        <!-- </div>
+        <div class="col-lg-12"> -->
           <button class="btn btn-primary" (click)="getUser(userSelected.value)" [disabled]="!userSelected">Obtener Información</button> &nbsp;
           <button class="btn btn-secondary" (click)="showInfo = false" [disabled]="!showInfo">Limpiar</button>
           <hr>
@@ -29,15 +40,15 @@
                 </tr>
                 <tr>
                   <th>Transacciones Hoy</th>
-                  <td>{{ user.transactionsToday }}</td>
+                  <td>{{ user.transactionCounter.today }}</td>
                 </tr>
                 <tr>
                   <th>Transacciones</th>
-                  <td>{{ user.transactionsTotal }}</td>
+                  <td>{{ user.transactionCounter.all }}</td>
                 </tr>
                 <tr>
                   <th>Ultimo Acceso</th>
-                  <td>{{ user.lastAccess }}</td>
+                  <td>{{ user.login.lastLogin }}</td>
                 </tr>
               </tbody>
             </table>
