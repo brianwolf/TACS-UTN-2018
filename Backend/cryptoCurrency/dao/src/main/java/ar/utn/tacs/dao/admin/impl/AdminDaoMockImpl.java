@@ -13,6 +13,11 @@ import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
 import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
 import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.admin.StateDepositNumber;
+import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.commons.NotExistDepositException;
+import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
+import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
@@ -115,27 +120,49 @@ public class AdminDaoMockImpl implements AdminDao{
 	}
 
 	@Override
-	public void addDeposit(Deposit deposit) {
+	public void addDeposit(Deposit deposit) throws ExistingDepositException {
+		
+		if (this.listDeposit.contains(deposit)) {
+			throw new ExistingDepositException();
+		}
 		
 		this.listDeposit.add(deposit);
 	}
 
 	@Override
-	public void approveDeposit(Deposit deposit) {
+	public void approveDeposit(Deposit deposit) throws ApprovingApprovedDepositException, NotExistDepositException {
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
+		
+		if (depositFounded.getState().equals(StateDepositNumber.APROVATED)) {
+			throw new ApprovingApprovedDepositException();
+		}
+		
 		depositFounded.setState(StateDepositNumber.APROVATED);
 	}
 
 	@Override
-	public void rejectDeposit(Deposit deposit) {
+	public void rejectDeposit(Deposit deposit) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException {
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
+		
+		if (depositFounded.getState().equals(StateDepositNumber.APROVATED)) {
+			throw new RejectingApprovedDepositException();
+		}
+		
+		if (depositFounded.getState().equals(StateDepositNumber.REJECTED)) {
+			throw new RejectingRejectedDepositException();
+		}
+		
 		depositFounded.setState(StateDepositNumber.REJECTED);
 	}
 
 	@Override
-	public Deposit getDepositByDepositNumber(String depositNumber) {
+	public Deposit getDepositByDepositNumber(String depositNumber) throws NotExistDepositException {
+		
+		if (!this.listDeposit.stream().anyMatch(d -> d.number.equals(depositNumber))) {
+			throw new NotExistDepositException();
+		}
 		
 		return this.listDeposit.stream().filter(d -> d.number.equals(depositNumber)).findFirst().get();
 	}

@@ -18,6 +18,10 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.model.admin.Deposit;
+import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
+import ar.utn.tacs.model.commons.NotExistDepositException;
+import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
+import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.rest.admin.AdminRest;
@@ -158,7 +162,13 @@ public class AdminRestImpl implements AdminRest {
 			this.adminService.approveDeposit(despositNumber);
 			return Response.status(Response.Status.OK).build();
 
-		} catch (Exception e) {
+		} catch (NotExistDepositException notExistDepositException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(notExistDepositException.createBasicResponse("No existe el deposito solicitado")).build();
+		
+		} catch (ApprovingApprovedDepositException approvingApprovedDepositException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(approvingApprovedDepositException.createBasicResponse("El deposito ya fue aprobado")).build();
+		}
+		catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -171,6 +181,15 @@ public class AdminRestImpl implements AdminRest {
 			this.adminService.rejectDeposit(despositNumber);
 			return Response.status(Response.Status.OK).build();
 
+		} catch (NotExistDepositException notExistDepositException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(notExistDepositException.createBasicResponse("No existe el deposito solicitado")).build();
+		
+		} catch (RejectingApprovedDepositException rejectingApprovedDepositException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(rejectingApprovedDepositException.createBasicResponse("Imposible rechazar, el deposito ya fue aprobado")).build();
+		
+		} catch (RejectingRejectedDepositException rejectingRejectedDepositException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(rejectingRejectedDepositException.createBasicResponse("el deposito ya fue rechazado")).build();
+		
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}

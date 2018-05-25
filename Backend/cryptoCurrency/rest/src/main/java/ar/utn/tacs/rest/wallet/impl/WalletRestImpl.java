@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
+import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.transaction.Transaction;
@@ -114,7 +115,10 @@ public class WalletRestImpl implements WalletRest{
 			this.walletService.declareDeposit(token, depositRest);
 			return Response.status(Response.Status.OK).build();
 			
-		} catch (Exception e) {
+		} catch (ExistingDepositException existingDepositException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(existingDepositException.createBasicResponse("Ya existe un deposito con ese numero")).build();
+		} 
+		catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}

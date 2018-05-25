@@ -10,6 +10,7 @@ import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.admin.StateDepositNumber;
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.operation.Buy;
 import ar.utn.tacs.model.operation.Sale;
 import ar.utn.tacs.model.transaction.Transaction;
@@ -88,7 +89,7 @@ public class WalletServiceImpl implements WalletService {
 	}
 
 	@Override
-	public void declareDeposit(String token, DepositRest depositRest) {
+	public void declareDeposit(String token, DepositRest depositRest) throws ExistingDepositException {
 
 		try {
 			User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
@@ -98,8 +99,12 @@ public class WalletServiceImpl implements WalletService {
 
 			BeanUtil.getBean(AdminService.class).addDeposit(deposit);
 
+		} catch (ExistingDepositException existingDepositException) {
+			throw existingDepositException;
+		
 		} catch (UtnTacsException e) {
 			e.printStackTrace();
+			//hacer rollback
 		}
 
 	}

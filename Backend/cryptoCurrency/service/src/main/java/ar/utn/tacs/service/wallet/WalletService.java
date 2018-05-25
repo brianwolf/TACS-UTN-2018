@@ -7,6 +7,7 @@ import org.codehaus.jackson.annotate.JsonValue;
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.admin.DepositRest;
+import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
@@ -62,6 +63,7 @@ public interface WalletService extends GenericService{
 	/**
 	 * @param token
 	 * @param depositRest
+	 * @throws ExistingDepositException 
 	 */
-	void declareDeposit(String token, DepositRest depositRest);
+	void declareDeposit(String token, DepositRest depositRest) throws ExistingDepositException;
 }

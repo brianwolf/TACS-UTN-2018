@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.model.admin.Deposit;
+import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.commons.NotExistDepositException;
+import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
+import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.service.admin.AdminService;
@@ -63,12 +68,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void addDeposit(Deposit deposit) {
+	public void addDeposit(Deposit deposit) throws ExistingDepositException {
 		this.adminDao.addDeposit(deposit);
 	}
 
 	@Override
-	public void approveDeposit(String depositNumber) {
+	public void approveDeposit(String depositNumber) throws ApprovingApprovedDepositException, NotExistDepositException{
 		
 		try {
 			Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
@@ -76,13 +81,19 @@ public class AdminServiceImpl implements AdminService {
 			
 			BeanUtil.getBean(WalletService.class).doDeposit(deposit);
 			
+		} catch (ApprovingApprovedDepositException approvingApprovedDepositException) {
+			throw approvingApprovedDepositException;
+		
+		} catch (NotExistDepositException notExistDepositException) {
+			throw notExistDepositException;
+		
 		} catch (Exception e) {
 			//aca se tendria que hacer un rollback
 		}
 	}
 	
 	@Override
-	public void rejectDeposit(String depositNumber) {
+	public void rejectDeposit(String depositNumber) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException {
 		
 		Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
 		this.adminDao.rejectDeposit(deposit);
