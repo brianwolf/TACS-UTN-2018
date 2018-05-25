@@ -14,8 +14,6 @@ public class DepositRest {
 
 	public String amount;
 
-	public String userNick;
-
 	public DepositRest() {
 	}
 
@@ -35,16 +33,6 @@ public class DepositRest {
 	public void setState(String state) {
 		this.state = state;
 	}
-
-	public String getUserNick() {
-		return userNick;
-	}
-
-	@JsonIgnore
-	public void setUserNick(String userNick) {
-		this.userNick = userNick;
-	}
-
 	
 	public String getAmount() {
 		return amount;
