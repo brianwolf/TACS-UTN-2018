@@ -1,205 +1,926 @@
 {
-	"variables": [],
-	"info": {
-		"name": "TACS-UTN",
-		"_postman_id": "6f3010f8-8392-48a9-b760-d98b498880e6",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-05-25T03:25:03.649Z",
+	"__export_source": "insomnia.desktop.app:v5.16.4",
+	"resources": [
 		{
+			"_id": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"created": 1525100962016,
+			"description": "Rest para el tp de TACS",
+			"modified": 1525390438161,
+			"name": "UTN-TACS",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_684d9b418038449dbf3af33945224d96",
+			"color": null,
+			"created": 1525100962035,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1525314856928,
+			"name": "New Environment",
+			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_9c55d579eef64ff58457ce79b2d107bc",
+			"cookies": [
+				{
+					"creation": "2018-05-01T20:01:05.726Z",
+					"domain": "coinmarketcap.com",
+					"expires": "2019-05-01T20:01:06.000Z",
+					"hostOnly": false,
+					"httpOnly": true,
+					"id": "07814566958872038",
+					"key": "__cfduid",
+					"lastAccessed": "2018-05-01T20:01:05.726Z",
+					"path": "/",
+					"secure": true,
+					"value": "dd6da7c89a4eae6a94f5f7bedbd9bd94d1525204866"
+				}
+			],
+			"created": 1525100962106,
+			"modified": 1525204865728,
+			"name": "Default Jar",
+			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"created": 1525187449118,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187449118,
+			"modified": 1525314872423,
+			"name": "TACS-UTN",
+			"parentId": "wrk_ede5324095574162b4b5bfabcbd0d3d8",
+			"_type": "request_group"
+		},
+		{
+			"_id": "env_2bb8b184e4584b37b3007dca7e8cebf7",
+			"color": "#80ff00",
+			"created": 1525302487369,
+			"data": {
+				"apiName": "utn/crypto-currency/",
+				"localHost": "http://localhost:8080/"
+			},
+			"isPrivate": false,
+			"modified": 1525390970291,
+			"name": "Local",
+			"parentId": "env_684d9b418038449dbf3af33945224d96",
+			"_type": "environment"
+		},
+		{
+			"_id": "env_269273d0b452480e91cc34c75eb6c137",
+			"color": "#ff0000",
+			"created": 1525302498114,
+			"data": {
+				"apiName": "utn/crypto-currency/",
+				"localHost": "https://utn-crypto-currency-rest.herokuapp.com/"
+			},
+			"isPrivate": false,
+			"modified": 1527215396987,
+			"name": "Cloud",
+			"parentId": "env_684d9b418038449dbf3af33945224d96",
+			"_type": "environment"
+		},
+		{
+			"_id": "env_44397086aae043ba9a92680cf1491acd",
+			"color": "#8080c0",
+			"created": 1525390936875,
+			"data": {
+				"apiName": "apiWeb/utn/crypto-currency/",
+				"localHost": "http://localhost:8080/"
+			},
+			"isPrivate": false,
+			"modified": 1525390965419,
+			"name": "Eclipse Local",
+			"parentId": "env_684d9b418038449dbf3af33945224d96",
+			"_type": "environment"
+		},
+		{
+			"_id": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"created": 1525187462890,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187462890,
+			"modified": 1525187491731,
+			"name": "User",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"created": 1525187484218,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187484218,
+			"modified": 1525187484218,
+			"name": "Wallet",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"created": 1525187508712,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187508712,
+			"modified": 1525187508712,
+			"name": "Admin",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_fc7753944faf4dc381c6c92d75cb44a8",
+			"created": 1525187530920,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525187530920,
+			"modified": 1525187530920,
+			"name": "External",
+			"parentId": "fld_cc6151cc34b142eeb67574edcd277ec6",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_b30dfd7fcfe9408d8f05852bdf32254a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nick\": \"lobezzzno\",\n\t\"pass\": \"1234\"\n}"
+			},
+			"created": 1525187472770,
+			"description": "Antes que nada se tiene que loguear para usar los demas REST, ya que estos usan el tocken devuelto para sus headers.\n\nMuestra de resulstado esperado:\n\n{\n\t\"token\": \"NM17OLDOV1G3J44P6UD20NLCD0TO9M6M\"\n}",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187472770,
+			"method": "POST",
+			"modified": 1527215323888,
 			"name": "login",
-			"event": [
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_1dfdf092b08e4ea580211d82f2bec207",
+			"authentication": {},
+			"body": {},
+			"created": 1525190992987,
+			"description": "",
+			"headers": [
 				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"var jsonData =  pm.response.json();//JSON.parse(responseBody);",
-							"pm.globals.set(\"cryptoCurrencyToken\", jsonData.token);"
-						]
-					}
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
 				}
 			],
-			"request": {
-				"url": "http://localhost:8080/apiWeb/users/login/negro/987",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "token",
-						"value": "",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": null
-			},
-			"response": []
+			"isPrivate": false,
+			"metaSortKey": -1525144376490,
+			"method": "GET",
+			"modified": 1525458918419,
+			"name": "user by token",
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users/loggedin",
+			"_type": "request"
 		},
 		{
-			"name": "registerUser",
-			"event": [
+			"_id": "req_a1996625f4d841508189c4f7b5a3d131",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nick\": \"lobezzzno\",\n\t\"pass\": \"1234\"\n}"
+			},
+			"created": 1525191837619,
+			"description": "",
+			"headers": [
 				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"var jsonData =  pm.response.json();//JSON.parse(responseBody);",
-							"pm.globals.set(\"cryptoCurrencyToken\", jsonData.token);"
-						]
-					}
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_05b88263d1914582ace91b94f8407ce4",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
 				}
 			],
-			"request": {
-				"url": "http://localhost:8080/apiWeb/users",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "token",
-						"value": "",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"nick\":\"negro\",\n  \"pass\":\"987\"\n}"
-				},
-				"description": ""
-			},
-			"response": []
+			"isPrivate": false,
+			"metaSortKey": -1525165924630,
+			"method": "PUT",
+			"modified": 1525202049361,
+			"name": "logout",
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users/logout",
+			"_type": "request"
 		},
 		{
-			"name": "getCoins",
-			"request": {
-				"url": "http://localhost:8080/apiWeb/services/external/coins",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "token",
-						"value": "{{cryptoCurrencyToken}}",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": null
+			"_id": "req_433c668896204e43b3b263ec65f35b2b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"login\": {\n\t\t\"nick\": \"doñaRosa\",\n\t\t\"pass\": \"1234\"\n\t},\n\t\"person\": {\n\t\t\"name\": \"Rosa\",\n\t\t\"lastName\": \"Operativos\",\n\t\t\"email\": \"doñaRosa@modificarKernelDeLinux.com\"\n\t}\n}"
 			},
-			"response": []
-		},
-		{
-			"name": "getWalletHistory",
-			"request": {
-				"url": "http://localhost:8080/apiWeb/wallet/history/transactions/BTC",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "token",
-						"value": "{{cryptoCurrencyToken}}",
-						"description": ""
-					}
-				],
-				"body": {},
-				"description": null
-			},
-			"response": []
-		},
-		{
-			"name": "buyCoin",
-			"request": {
-				"url": "http://localhost:8080/apiWeb/wallet/buy",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "token",
-						"value": "{{cryptoCurrencyToken}}",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"coin\":{\n    \"name\":\"Bitcoin\"\n  },\n  \"amount\":2\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "saleCoin",
-			"request": {
-				"url": "http://localhost:8080/apiWeb/wallet/sale",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "token",
-						"value": "{{cryptoCurrencyToken}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"coin\":{\n    \"name\":\"Bitcoin\"\n  },\n  \"amount\":2\n}"
+			"created": 1525217102527,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
 				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525176698700,
+			"method": "POST",
+			"modified": 1525218594605,
+			"name": "new user",
+			"parameters": [],
+			"parentId": "fld_855dc22f5eeb4ce89d11a68d58545a1e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_30925c3ee828444c8350c28903d2d3e1",
+			"authentication": {},
+			"body": {},
+			"created": 1525201817044,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828350,
+			"method": "GET",
+			"modified": 1525301621595,
+			"name": "wallet by token",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e44273dc45a44b95a37fba6e600918f1",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 0.05\n}"
 			},
-			"response": []
+			"created": 1525302373112,
+			"description": "El cuerpo que se le envia tiene la forma de:\n{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 1000\n}\n\nPuede fallar si el usuario no tiene dinero suficiente arrojando un 500 con este body:\n{\n\t\"message\": \"No posee Dolares suficientes\",\n\t\"type\": \"InsufficientMoneyException\"\n}\n\n",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828300,
+			"method": "POST",
+			"modified": 1527122407357,
+			"name": "buy",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/buy",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7b39c9a467ab4f4aaffe7775b5d57da8",
+			"authentication": {},
+			"body": {},
+			"created": 1525310596157,
+			"description": "Muestras las transacciones hechas, para tener mas transacciones hay que hacer pedidos REST de BUY y SALE exitosos",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828325,
+			"method": "GET",
+			"modified": 1525443532296,
+			"name": "user transaction history by coin",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/history/transactions?ticker=BTC",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9cdf5d81b36e4797a01ed7a2542c445a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"ticker\": \"BTC\",\n\t\"amount\": 0.005\n}"
+			},
+			"created": 1525317382233,
+			"description": "El cuerpo que se le envia tiene la forma de: { \"ticker\": \"BTC\", \"amount\": 1000 }\n\nPuede fallar arrojando un 500 con alguno de estos cuerpos: \n\n{\n\t\"message\": \"No posee Dolares suficientes\", \"type\": \"InsufficientMoneyException\" \n}\n\n{\n\t\"message\": \"No posee la cripto moneda indicada\",\n\t\"type\": \"DontHaveOperationCoinException\"\n}",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828275,
+			"method": "POST",
+			"modified": 1525459081642,
+			"name": "sale",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/sale",
+			"_type": "request"
+		},
+		{
+			"_id": "req_d4a95c5cf015423fb6b1e552d91bac25",
+			"authentication": {},
+			"body": {},
+			"created": 1525443139729,
+			"description": "Muestras las transacciones hechas, para tener mas transacciones hay que hacer pedidos REST de BUY y SALE exitosos",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828312.5,
+			"method": "GET",
+			"modified": 1527210584810,
+			"name": "user transaction history",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/history/transactions",
+			"_type": "request"
+		},
+		{
+			"_id": "req_971ce676747840159a3c62f99f3547b2",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"number\": \"123\",\n\t\"amount\": 100,\n\t\"userNick\": \"lobezzzno\"\n}"
+			},
+			"created": 1527213535462,
+			"description": "Se le puede pasar el estado ej: \"state\":\"APROVATED\", pero no sirve porque en el back se setea a \"WAITING\".\nEl monto puede ser en numeric o string, es indistinto, el back lo toma como string y lo transforma en un BigDecimal\n\nPuede retornar un 500 acompañado de una exception en caso que exista un deposito con ese numero",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525122828306.25,
+			"method": "POST",
+			"modified": 1527218678446,
+			"name": "declare deposit",
+			"parameters": [],
+			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}wallet/deposit",
+			"_type": "request"
+		},
+		{
+			"_id": "req_64a77e0ab797476f9b86bd8c6f8b59a5",
+			"authentication": {},
+			"body": {},
+			"created": 1525404543123,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187496465,
+			"method": "GET",
+			"modified": 1525460316930,
+			"name": "compare balance",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/balance/lobezzzno/tostado",
+			"_type": "request"
+		},
+		{
+			"_id": "req_4c7191d997554269b3d05a5831629a2a",
+			"authentication": {},
+			"body": {},
+			"created": 1525404788387,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187484617.5,
+			"method": "GET",
+			"modified": 1525441419003,
+			"name": "states today",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/states?beforeDays=0",
+			"_type": "request"
+		},
+		{
+			"_id": "req_139c734b56dd4227a1cf4bf5ad88b94d",
+			"authentication": {},
+			"body": {},
+			"created": 1525404806451,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187481655.625,
+			"method": "GET",
+			"modified": 1525442398312,
+			"name": "states lastMonth",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/states/lastmonth",
+			"_type": "request"
+		},
+		{
+			"_id": "req_3982baafcab14e3eb655c5a1df187069",
+			"authentication": {},
+			"body": {},
+			"created": 1525404807323,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187483136.5625,
+			"method": "GET",
+			"modified": 1525442391731,
+			"name": "states lastWeek",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/states/lastweek",
+			"_type": "request"
+		},
+		{
+			"_id": "req_2d9d88383c0744a68fe9b2f655a3b22f",
+			"authentication": {},
+			"body": {},
+			"created": 1525404808095,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187483877.0312,
+			"method": "GET",
+			"modified": 1525441718824,
+			"name": "states threeDays",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/states?beforeDays=3",
+			"_type": "request"
+		},
+		{
+			"_id": "req_958cebd1ccdf480eb3b81f031b85c573",
+			"authentication": {},
+			"body": {},
+			"created": 1525405094824,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187484247.2656,
+			"method": "GET",
+			"modified": 1525441776969,
+			"name": "states startTimes",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/states/all",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7b31eb1193534032aa664b5b8becaf92",
+			"authentication": {},
+			"body": {},
+			"created": 1525458534535,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187481605.625,
+			"method": "GET",
+			"modified": 1525458572974,
+			"name": "users nick all",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/users/nicks",
+			"_type": "request"
+		},
+		{
+			"_id": "req_eb81d320cf2847aa8977e292d7849f05",
+			"authentication": {},
+			"body": {},
+			"created": 1525459318173,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187481555.625,
+			"method": "GET",
+			"modified": 1525735263030,
+			"name": "get user",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/users?nick=lobezzzno",
+			"_type": "request"
+		},
+		{
+			"_id": "req_cf61c701884940aebe23f49f5ef2db68",
+			"authentication": {},
+			"body": {},
+			"created": 1527212737048,
+			"description": "Si no encuentra resultados devuelve 204 NO CONTENT",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187474941.4062,
+			"method": "GET",
+			"modified": 1527217916910,
+			"name": "get deposits all",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/deposits/all",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b65c6ac3864c42428cd1d19b5e1b87f5",
+			"authentication": {},
+			"body": {},
+			"created": 1527212814358,
+			"description": "Parametros para la busqueda:\n\nStatus: [WAITING, APROVATED, REJECTED]    //SIN COMILLAS\n\nSi no encuentra resultados devuelve 204 NO CONTENT",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187474966.4062,
+			"method": "GET",
+			"modified": 1527214508810,
+			"name": "get deposits ",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/deposits?status=APROVATED",
+			"_type": "request"
+		},
+		{
+			"_id": "req_52fd819152324aa3bc512e5e0b0a9174",
+			"authentication": {},
+			"body": {},
+			"created": 1527214566821,
+			"description": "puede retornar un 500 acompañado de una exception en caso que no exista el deposito o ya halla sido aprovado",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187474916.4062,
+			"method": "PUT",
+			"modified": 1527218617247,
+			"name": "approve deposit",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/deposits/approve/123",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9a02e6feed894f93b10f2bd230f281ca",
+			"authentication": {},
+			"body": {},
+			"created": 1527214630226,
+			"description": "puede retornar un 500 acompañado de una exception en caso que no exista el deposito, ya halla sido aprovado o ya halla sido rechazado",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_e4b586f1160d4ef4b90013fca1b4c1dc",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_22111e4b69a94d01878605e515c206c1",
+					"name": "token",
+					"value": "{% response 'body', 'req_b30dfd7fcfe9408d8f05852bdf32254a', '$.token' %}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525187473843.2031,
+			"method": "PUT",
+			"modified": 1527218639401,
+			"name": "reject deposit",
+			"parameters": [],
+			"parentId": "fld_b10ae7f06d194189ab5c106b20fa9ef1",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ localHost  }}{{ apiName  }}admin/deposits/reject/123",
+			"_type": "request"
+		},
+		{
+			"_id": "req_dad8ca67647c4023914a589ff4f9935c",
+			"authentication": {},
+			"body": {},
+			"created": 1525204861907,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1525204861907,
+			"method": "GET",
+			"modified": 1525204864020,
+			"name": "coin market cap",
+			"parameters": [],
+			"parentId": "fld_fc7753944faf4dc381c6c92d75cb44a8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "https://api.coinmarketcap.com/v1/ticker/",
+			"_type": "request"
 		}
 	]
 }

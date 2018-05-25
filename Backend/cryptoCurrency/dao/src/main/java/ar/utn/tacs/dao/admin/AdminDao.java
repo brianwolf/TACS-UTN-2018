@@ -4,10 +4,16 @@ import java.math.BigInteger;
 import java.util.List;
 
 import ar.utn.tacs.dao.GenericDao;
+import ar.utn.tacs.model.admin.Deposit;
+import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.commons.NotExistDepositException;
+import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
+import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 
-public interface AdminDao extends GenericDao{
+public interface AdminDao extends GenericDao {
 
 	/**
 	 * @param idUserA
@@ -30,10 +36,49 @@ public interface AdminDao extends GenericDao{
 	 * @return {@link List}{@link Transaction}
 	 */
 	BigInteger statesAll();
-	
+
 	/**
 	 * @param beforeDays
 	 * @return {@link List} {@link Transaction}
 	 */
 	BigInteger statesByBeforeDays(Integer beforeDays);
+
+	/**
+	 * @param deposit
+	 * @throws ExistingDepositException 
+	 */
+	void addDeposit(Deposit deposit) throws ExistingDepositException;
+
+	/**
+	 * @param deposit
+	 * @throws ApprovingApprovedDepositException 
+	 * @throws NotExistDepositException 
+	 */
+	void approveDeposit(Deposit deposit) throws ApprovingApprovedDepositException, NotExistDepositException;
+
+	/**
+	 * @param deposit
+	 * @throws RejectingRejectedDepositException 
+	 * @throws RejectingApprovedDepositException 
+	 * @throws NotExistDepositException 
+	 */
+	void rejectDeposit(Deposit deposit) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException;
+
+	/**
+	 * @param depositNumber
+	 * @return {@link Deposit}
+	 * @throws NotExistDepositException 
+	 */
+	Deposit getDepositByDepositNumber(String depositNumber) throws NotExistDepositException;
+
+	/**
+	 * @param statusDescription
+	 * @return {@link List} {@link Deposit}
+	 */
+	List<Deposit> getDeposits(String statusDescription);
+
+	/**
+	 * @return {@link List} {@link Deposit}
+	 */
+	List<Deposit> getDepositsAll();
 }

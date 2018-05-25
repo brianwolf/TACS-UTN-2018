@@ -1,5 +1,6 @@
 package ar.utn.tacs.dao.wallet.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,10 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.wallet.WalletDao;
+import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.model.wallet.Wallet;
 
 public class WalletDaoMockImpl implements WalletDao {
 
@@ -29,8 +33,9 @@ public class WalletDaoMockImpl implements WalletDao {
 	}
 
 	@Override
-	public void buy(User user, Transaction transaction) {
+	public void buy(User user, Transaction transaction) throws UtnTacsException {
 		
+		transaction.doOperations();
 		transaction.setDateFinal(new Date());
 		
 		if(!getHistory().containsKey(user)) {
@@ -41,8 +46,9 @@ public class WalletDaoMockImpl implements WalletDao {
 	}
 
 	@Override
-	public void sale(User user, Transaction transaction) {
+	public void sale(User user, Transaction transaction) throws UtnTacsException {
 		
+		transaction.doOperations();
 		transaction.setDateFinal(new Date());
 		
 		if(!getHistory().containsKey(user)) {
@@ -75,6 +81,15 @@ public class WalletDaoMockImpl implements WalletDao {
 		}
 		
 		return transactionsResult; 
+	}
+
+	@Override
+	public void doDeposit(Deposit deposit) {
+		
+		Wallet wallet = deposit.getUser().getWallet();
+		BigDecimal finalAmount = wallet.getDolarAmount().add(deposit.getAmount());
+		
+		wallet.setDolarAmount(finalAmount);
 	}
 
 }

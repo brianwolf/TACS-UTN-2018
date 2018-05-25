@@ -53,5 +53,4 @@ public interface UserRest extends GenericRest{
 	 * @return
 	 */
 	Response logOutUserByToken(String token);
-	
 }

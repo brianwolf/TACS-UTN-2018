@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.operation.Operation;
 import ar.utn.tacs.model.user.User;
 
@@ -64,5 +65,11 @@ public class Transaction {
 
 	public List<Operation> getOperations() {
 		return operations;
+	}
+	
+	public void doOperations() throws UtnTacsException {
+		for (Operation operation : this.operations) {
+			operation.doOperation();
+		}
 	}
 }

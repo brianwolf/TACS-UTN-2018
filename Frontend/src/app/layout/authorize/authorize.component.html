@@ -2,25 +2,69 @@
   <app-page-header [heading]="'Depositos Pendientes'" [icon]="'fas fa-check'"></app-page-header>
   <div class="row justify-content-center">
     <div class="col-sm-8 col-md-6">
-        <div class="card">
-          <div class="card-header">
-              Depositos Pendientes para autorizar
-          </div>
-          <div class="card-body table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Usuario</th>
-                  <th>Monto</th>
-                  <th>Comprobante</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          Depositos Pendientes para autorizar
+        </div>
+        <div class="card-body table-responsive">
+          <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
+
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+          </mat-form-field>
+
+          <table class="table table-hover table-striped" mat-table [dataSource]="deposits" matSort matSortActive="date" matSortDirection="desc">
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+              <td mat-cell *matCellDef="let deposit"> {{deposit.date | date:'dd MMM yyyy HH:mm:ss'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="number">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticket</th>
+              <td mat-cell *matCellDef="let deposit"> {{deposit.number}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="userNick">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+              <td mat-cell *matCellDef="let deposit"> {{deposit.userNick}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+              <td class="text-right" mat-cell *matCellDef="let deposit"> {{deposit.amount | currency :'USD':' $ '}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="state">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+              <td class="text-center" mat-cell *matCellDef="let deposit">
+                <span *ngIf="deposit.state==='WAITING' && !proccesing">
+                  <a href="javascript:void(0)" (click)="approve(deposit.number)">
+                    <i class="fas fa-check-circle fa-2x" style="color:green"></i>
+                  </a>
+                  &nbsp;
+                  <a href="javascript:void(0)" (click)="reject(deposit.number)">
+                    <i class="fas fa-times-circle fa-2x" style="color:red"></i>
+                  </a>
+                </span>
+                <span *ngIf="deposit.state==='APROVATED'">
+                  <b style="color:green">APROBADO</b>
+                </span>
+                <span *ngIf="deposit.state==='REJECTED'">
+                  <b style="color:red">RECHAZADO</b>
+                </span>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
+
         </div>
       </div>
     </div>
   </div>
+</div>

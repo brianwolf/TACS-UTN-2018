@@ -6,10 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.admin.AdminDao;
+import ar.utn.tacs.model.admin.Deposit;
+import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.commons.NotExistDepositException;
+import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
+import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.service.admin.AdminService;
 import ar.utn.tacs.service.user.UserService;
+import ar.utn.tacs.service.wallet.WalletService;
 import ar.utn.tacs.util.BeanUtil;
 
 public class AdminServiceImpl implements AdminService {
@@ -58,6 +65,48 @@ public class AdminServiceImpl implements AdminService {
 			userTransactionRest.addTransactionCounter("all", this.statesAll());
 		
 		return userTransactionRest;
+	}
+
+	@Override
+	public void addDeposit(Deposit deposit) throws ExistingDepositException {
+		this.adminDao.addDeposit(deposit);
+	}
+
+	@Override
+	public void approveDeposit(String depositNumber) throws ApprovingApprovedDepositException, NotExistDepositException{
+		
+		try {
+			Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
+			this.adminDao.approveDeposit(deposit);	
+			
+			BeanUtil.getBean(WalletService.class).doDeposit(deposit);
+			
+		} catch (ApprovingApprovedDepositException approvingApprovedDepositException) {
+			throw approvingApprovedDepositException;
+		
+		} catch (NotExistDepositException notExistDepositException) {
+			throw notExistDepositException;
+		
+		} catch (Exception e) {
+			//aca se tendria que hacer un rollback
+		}
+	}
+	
+	@Override
+	public void rejectDeposit(String depositNumber) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException {
+		
+		Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
+		this.adminDao.rejectDeposit(deposit);
+	}
+
+	@Override
+	public List<Deposit> getDeposits(String statusDescription) {
+		return this.adminDao.getDeposits(statusDescription);
+	}
+	
+	@Override
+	public List<Deposit> getDepositsAll() {
+		return this.adminDao.getDepositsAll();
 	}
 
 }

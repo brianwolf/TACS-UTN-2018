@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
 import { AlertService } from '../../shared/services/alert.service';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +23,7 @@ export class UsersComponent implements OnInit {
   }
 
   fillSelector() {
-    this.adminService.getUsers().subscribe((data: any) => this.users = data);
+    this.adminService.getUsers().subscribe(data => this.users = data);
   }
 
   getUser(userSelected) {

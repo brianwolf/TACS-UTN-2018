@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.wallet.WalletDao;
+import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
@@ -25,5 +26,11 @@ public class WalletDaoImpl extends GenericAbstractDaoImpl<Wallet> implements Wal
 	public List<Transaction> userTransactionHistory(User user, Coin coin) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void doDeposit(Deposit deposit) {
+		// TODO Auto-generated method stub
+		
 	}
 }

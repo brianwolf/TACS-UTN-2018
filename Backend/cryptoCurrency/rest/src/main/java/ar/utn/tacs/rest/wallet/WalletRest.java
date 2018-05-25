@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
+import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.rest.GenericRest;
 
@@ -18,6 +19,7 @@ public interface WalletRest extends GenericRest {
 	public static final String SALE = "/sale";
 	public static final String USER_WALLET = "";
 	public static final String USER_TRANSACTION_HISTORY = "/history/transactions";
+	public static final String DECLARE_DEPOSIT = "/deposit";
 
 	/**
 	 * {@link POST}
@@ -56,4 +58,13 @@ public interface WalletRest extends GenericRest {
 	 * @return
 	 */
 	Response userWalletByToken(String token, String ticker);
+	
+	/**
+	 * {@link POST}
+	 * 
+	 * @param token
+	 * @param depositRest
+	 * @return {@link Response}
+	 */
+	Response declarerDeposit(String token, DepositRest depositRest);
 }

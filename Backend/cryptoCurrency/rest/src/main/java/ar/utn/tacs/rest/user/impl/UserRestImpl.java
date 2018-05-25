@@ -86,5 +86,4 @@ public class UserRestImpl implements UserRest {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
 }

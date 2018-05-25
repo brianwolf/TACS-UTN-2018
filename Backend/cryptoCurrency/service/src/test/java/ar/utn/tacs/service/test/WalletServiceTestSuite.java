@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
@@ -19,6 +18,7 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 	@Test
 	public void tostadoCompraUnBitcoinYEsMillonario() {
 		
+		@SuppressWarnings("unused")
 		String token = getTokenTostado();
 		
 		BigDecimal cantidadBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();

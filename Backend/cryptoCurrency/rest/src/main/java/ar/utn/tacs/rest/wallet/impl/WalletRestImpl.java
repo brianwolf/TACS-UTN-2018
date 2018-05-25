@@ -16,7 +16,9 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
+import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.transaction.Transaction;
@@ -90,19 +92,33 @@ public class WalletRestImpl implements WalletRest{
 	@GET
 	@Path(WalletRestImpl.USER_WALLET)
 	@Override
-	public Response userWalletByToken(@HeaderParam(value = "token") String token,@QueryParam("ticker") String ticker) {
-		
-		Object response = null;
+	public Response userWalletByToken(@HeaderParam(value = "token") String token, @QueryParam("ticker") String ticker) {
 		
 		try {
-			
-			response = String.valueOf(ticker)!="null"&&!String.valueOf(ticker).isEmpty() ? 
+			Object response = String.valueOf(ticker)!="null"&&!String.valueOf(ticker).isEmpty() ? 
 					walletService.userCoinAmountByToken(token,ticker) : 
 					walletService.userWalletByToken(token);
 			
 			return Response.status(Response.Status.OK).entity(response).build();
 
 		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@POST
+	@Path(WalletRestImpl.DECLARE_DEPOSIT)
+	@Override
+	public Response declarerDeposit(@HeaderParam(value = "token") String token, DepositRest depositRest) {
+		
+		try {
+			this.walletService.declareDeposit(token, depositRest);
+			return Response.status(Response.Status.OK).build();
+			
+		} catch (ExistingDepositException existingDepositException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(existingDepositException.createBasicResponse("Ya existe un deposito con ese numero")).build();
+		} 
+		catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}

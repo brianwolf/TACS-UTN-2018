@@ -5,6 +5,9 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonValue;
 
 import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.admin.Deposit;
+import ar.utn.tacs.model.admin.DepositRest;
+import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
@@ -18,7 +21,7 @@ public interface WalletService extends GenericService{
 	 * @return
 	 * @throws UtnTacsException 
 	 */
-	public void buy(String token, CoinAmountRest coinAmountRest) throws UtnTacsException;
+	void buy(String token, CoinAmountRest coinAmountRest) throws UtnTacsException;
 
 	/**
 	 * @param idUser
@@ -27,7 +30,7 @@ public interface WalletService extends GenericService{
 	 * @return {@link JsonValue}
 	 * @throws UtnTacsException 
 	 */
-	public void sale(String token, CoinAmountRest coinAmountRest) throws UtnTacsException;
+	void sale(String token, CoinAmountRest coinAmountRest) throws UtnTacsException;
 
 	/**
 	 * @param idUser
@@ -35,14 +38,14 @@ public interface WalletService extends GenericService{
 	 * @return {@link JsonValue}
 	 * @throws UtnTacsException 
 	 */
-	public List<Transaction> userTransactionHistory(String token, String coinSymbol) throws UtnTacsException;
+	List<Transaction> userTransactionHistory(String token, String coinSymbol) throws UtnTacsException;
 	
 	/**
 	 * @param token
 	 * @return {@link Wallet}
 	 * @throws UtnTacsException 
 	 */
-	public Wallet userWalletByToken(String token) throws UtnTacsException;
+	Wallet userWalletByToken(String token) throws UtnTacsException;
 
 	/**
 	 * @param token
@@ -50,5 +53,17 @@ public interface WalletService extends GenericService{
 	 * @return {@link CoinAmount}
 	 * @throws UtnTacsException 
 	 */
-	public CoinAmount userCoinAmountByToken(String token, String ticker) throws UtnTacsException;
+	CoinAmount userCoinAmountByToken(String token, String ticker) throws UtnTacsException;
+	
+	/**
+	 * @param amount
+	 */
+	void doDeposit(Deposit deposit);
+
+	/**
+	 * @param token
+	 * @param depositRest
+	 * @throws ExistingDepositException 
+	 */
+	void declareDeposit(String token, DepositRest depositRest) throws ExistingDepositException;
 }
