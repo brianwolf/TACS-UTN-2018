@@ -12,7 +12,7 @@ public class DepositRest {
 
 	public String state;
 
-	public BigDecimal amount;
+	public String amount;
 
 	public String userNick;
 
@@ -25,14 +25,6 @@ public class DepositRest {
 
 	public void setNumber(String number) {
 		this.number = number;
-	}
-
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
 	}
 
 	public String getState() {
@@ -53,12 +45,22 @@ public class DepositRest {
 		this.userNick = userNick;
 	}
 
+	
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
 	public Deposit toDeposit(User user) {
 
 		Deposit depositNumber = new Deposit();
 		depositNumber.setUser(user);
 		depositNumber.setState(this.state == null? StateDepositNumber.WAITING : StateDepositNumber.valueOf(this.state));
 		depositNumber.setNumber(this.number);
+		depositNumber.setAmount(new BigDecimal(this.amount));
 
 		return depositNumber;
 	}

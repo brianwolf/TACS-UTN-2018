@@ -139,5 +139,22 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		return this.listDeposit.stream().filter(d -> d.number.equals(depositNumber)).findFirst().get();
 	}
+
+	@Override
+	public List<Deposit> getDeposits(String statusDescription) {
+		
+		if (statusDescription.equals("")) {
+			return new ArrayList<Deposit>();
+		}
+		
+		StateDepositNumber stateDepositNumber = StateDepositNumber.valueOf(statusDescription);
+		return this.listDeposit.stream().filter(d -> d.getState().equals(stateDepositNumber)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Deposit> getDepositsAll() {
+
+		return this.listDeposit;
+	}
 	
 }

@@ -32,13 +32,13 @@ public interface AdminService extends GenericService {
 	 * @return {@link List}{@link Transaction}
 	 */
 	BigInteger statesAll();
-	
+
 	/**
 	 * @param beforeDays
 	 * @return {@link List} {@link Transaction}
 	 */
 	BigInteger statesByBeforeDays(Integer beforeDays);
-	
+
 	/**
 	 * @return {@link List} {@link String}
 	 */
@@ -49,12 +49,12 @@ public interface AdminService extends GenericService {
 	 * @return {@link User}
 	 */
 	UserTransactionRest getUser(String nick);
-	
+
 	/**
 	 * @param depositNumber
 	 */
 	void addDeposit(Deposit depositNumber);
-	
+
 	/**
 	 * @param depositNumber
 	 */
@@ -64,4 +64,14 @@ public interface AdminService extends GenericService {
 	 * @param depositNumber
 	 */
 	void rejectDeposit(String depositNumber);
+
+	/**
+	 * @param statusDescription
+	 */
+	List<Deposit> getDeposits(String statusDescription);
+
+	/**
+	 * @return
+	 */
+	List<Deposit> getDepositsAll();
 }

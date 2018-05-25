@@ -2,9 +2,15 @@ package ar.utn.tacs.model.admin;
 
 import java.math.BigDecimal;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import ar.utn.tacs.model.user.User;
 
+@JsonIgnoreProperties(value = {"id", "user"})
 public class Deposit {
+
+	public Long id;
 
 	public String number;
 
@@ -58,6 +64,19 @@ public class Deposit {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	@JsonProperty(value="userNick")
+	private String getUserNick(){
+		return this.user.getLogin().getNick();
 	}
 
 }

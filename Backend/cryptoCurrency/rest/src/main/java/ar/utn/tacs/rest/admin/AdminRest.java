@@ -18,8 +18,10 @@ public interface AdminRest extends GenericService{
 	public static final String STATES_BY_BEFORE_DAYS = "/states";
 	public static final String USERS_NICKS_ALL = "/users/nicks";
 	public static final String GET_USER = "/users";
-	public static final String APPROVE_DEPOSIT = "/deposit/approve/{depositNumber}";
-	public static final String REJECT_DEPOSIT = "/deposit/reject/{depositNumber}";
+	public static final String APPROVE_DEPOSIT = "/deposits/approve/{depositNumber}";
+	public static final String REJECT_DEPOSIT = "/deposits/reject/{depositNumber}";
+	public static final String GET_DEPOSITS = "/deposits";
+	public static final String GET_DEPOSITS_ALL = "/deposits/all";
 
 	/**
 	 * {@link GET}
@@ -94,4 +96,15 @@ public interface AdminRest extends GenericService{
 	 * @return {@link Response}
 	 */
 	Response rejectDeposit(String despositNumber);
+	
+	/**
+	 * @param statusDescription
+	 * @return {@link Response}
+	 */
+	Response getDeposits(String statusDescription);
+	
+	/**
+	 * @return {@link Response}
+	 */
+	Response getDepositsAll();
 }

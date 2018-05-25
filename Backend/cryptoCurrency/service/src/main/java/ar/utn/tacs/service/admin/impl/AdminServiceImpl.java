@@ -88,4 +88,14 @@ public class AdminServiceImpl implements AdminService {
 		this.adminDao.rejectDeposit(deposit);
 	}
 
+	@Override
+	public List<Deposit> getDeposits(String statusDescription) {
+		return this.adminDao.getDeposits(statusDescription);
+	}
+	
+	@Override
+	public List<Deposit> getDepositsAll() {
+		return this.adminDao.getDepositsAll();
+	}
+
 }

@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.rest.admin.AdminRest;
@@ -152,7 +153,7 @@ public class AdminRestImpl implements AdminRest {
 	@PUT
 	@Path(AdminRest.APPROVE_DEPOSIT)
 	@Override
-	public Response approveDeposit(String despositNumber) {
+	public Response approveDeposit(@PathParam(value="depositNumber") String despositNumber) {
 		try {
 			this.adminService.approveDeposit(despositNumber);
 			return Response.status(Response.Status.OK).build();
@@ -165,10 +166,46 @@ public class AdminRestImpl implements AdminRest {
 	@PUT
 	@Path(AdminRest.REJECT_DEPOSIT)
 	@Override
-	public Response rejectDeposit(String despositNumber) {
+	public Response rejectDeposit(@PathParam(value="depositNumber") String despositNumber) {
 		try {
 			this.adminService.rejectDeposit(despositNumber);
 			return Response.status(Response.Status.OK).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@GET
+	@Path(AdminRest.GET_DEPOSITS)
+	@Override
+	public Response getDeposits(@DefaultValue(value="") @QueryParam(value="status") String statusDescription) {
+		try {
+			List<Deposit> deposits = this.adminService.getDeposits(statusDescription);
+			
+			if (deposits.isEmpty()) {
+				return Response.status(Response.Status.NO_CONTENT).build();
+			}
+			
+			return Response.status(Response.Status.OK).entity(deposits).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Path(AdminRest.GET_DEPOSITS_ALL)
+	@Override
+	public Response getDepositsAll() {
+		try {
+			List<Deposit> deposits = this.adminService.getDepositsAll();
+			
+			if (deposits.isEmpty()) {
+				return Response.status(Response.Status.NO_CONTENT).build();
+			}
+			
+			return Response.status(Response.Status.OK).entity(deposits).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
