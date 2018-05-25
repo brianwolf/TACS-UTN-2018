@@ -10,16 +10,13 @@ import static org.telegram.abilitybots.api.objects.Privacy.PUBLIC;
 
 public class TACSCryptoBot extends AbilityBot  {
 
-	public static final String BOT_USERNAME = "TACSCryptoBot";
-	public static final int BOT_CREATORID = 521791773;
-
-	public TACSCryptoBot(String botName) {
-		super(botName, BOT_USERNAME);
+	public TACSCryptoBot() {
+		super(System.getenv("BOT_TOKEN"), System.getenv("BOT_USERNAME"));
 	}
 
 	@Override
 	public int creatorId() {
-		return BOT_CREATORID;
+		return Integer.parseInt(System.getenv("BOT_CREATORID"));
 	}
 
 	public Ability me() {

@@ -43,6 +43,10 @@ export class UserService {
     return this.http.post(this.API + 'wallet/sale', operation);
   }
 
+  deposit(operation) {
+    return this.http.post(this.API + 'wallet/deposit', operation);
+  }
+
   getTransactions() {
     return this.http.get(this.API + 'wallet/history/transactions');
   }

@@ -43,4 +43,20 @@ export class AdminService {
     return this.http.get(this.API + 'admin/states/all');
   }
 
+  getDeposit(status: string) {
+    return this.http.get(this.API + `admin/deposits?status=${status}`);
+  }
+
+  getDeposits() {
+    return this.http.get(this.API + 'admin/deposits/all');
+  }
+
+  approveDeposit(number: string) {
+    return this.http.put(this.API + `admin/deposits/approve/${number}`, null);
+  }
+
+  rejectDeposit(number: string) {
+    return this.http.put(this.API + `admin/deposits/reject/${number}`, null);
+  }
+
 }
