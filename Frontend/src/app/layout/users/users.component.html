@@ -21,7 +21,7 @@
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
-        <!-- </div>
+          <!-- </div>
         <div class="col-lg-12"> -->
           <button class="btn btn-primary" (click)="getUser(userSelected.value)" [disabled]="!userSelected">Obtener Información</button> &nbsp;
           <button class="btn btn-secondary" (click)="showInfo = false" [disabled]="!showInfo">Limpiar</button>
@@ -32,11 +32,11 @@
               <tbody>
                 <tr>
                   <th>Usuario</th>
-                  <td>{{ user.login.nick }}</td>
+                  <td><b>{{ user.user.login.nick }}</b></td>
                 </tr>
                 <tr>
                   <th>Cantidad de Monedas</th>
-                  <td>{{ user.wallet.coinAmounts.length }}</td>
+                  <td>{{ user.user.wallet.coinAmounts.length }}</td>
                 </tr>
                 <tr>
                   <th>Transacciones Hoy</th>
@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                   <th>Ultimo Acceso</th>
-                  <td>{{ user.login.lastLogin }}</td>
+                  <td>{{ user.user.login.lastLogin | date:'dd MMM yyyy HH:mm:ss' }}</td>
                 </tr>
               </tbody>
             </table>

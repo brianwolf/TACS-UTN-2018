@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
@@ -41,18 +41,18 @@ export class AuthorizeComponent implements OnInit {
     this.proccesing = true;
     this.adminService.approveDeposit(number).subscribe(
       data => this.alert.raise('success', 'Deposito Aprobado.'),
-      error => this.alert.raise('danger', 'ERROR: No se pudo realizar la operación.')
+      error => this.alert.raise('danger', 'ERROR: No se pudo realizar la operación.'),
+      () => this.getDeposits()
     );
-    this.getDeposits();
   }
 
   reject(number: string) {
     this.proccesing = true;
     this.adminService.rejectDeposit(number).subscribe(
       data => this.alert.raise('warning', 'Deposito Rechazado.'),
-      error => this.alert.raise('danger', 'ERROR: No se pudo realizar la operación.')
+      error => this.alert.raise('danger', 'ERROR: No se pudo realizar la operación.'),
+      () => this.getDeposits()
     );
-    this.getDeposits();
   }
 
   applyFilter(filterValue: string) {
