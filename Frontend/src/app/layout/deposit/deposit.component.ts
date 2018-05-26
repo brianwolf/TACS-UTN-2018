@@ -22,15 +22,14 @@ export class DepositComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.value.amount < 100) {
       this.alert.raise('warning', 'El monto mínimo es de u$s 100.-');
-      } else {
-        const nick = localStorage.getItem('currentUserName');
-        const body = { number: form.value.ticket, amount: form.value.amount, userNick: nick };
-        this.userService.deposit(body)
-          .subscribe(
-            success => this.alert.raise('success', 'El estado de su deposito se verificara en las proximas 24 horas.')
-            ,
-            (error: any) => this.alert.raise('danger', 'ERROR:' + error.message, 5000)
-          );
+    } else {
+      const body = { number: form.value.ticket, amount: form.value.amount };
+      this.userService.deposit(body)
+        .subscribe(
+          success => this.alert.raise('success', 'El estado de su deposito se verificara en las proximas 24 horas.')
+          ,
+          (error: any) => this.alert.raise('danger', 'ERROR:' + error.message, 5000)
+        );
     }
     form.reset();
   }

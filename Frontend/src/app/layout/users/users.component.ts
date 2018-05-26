@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
 import { AlertService } from '../../shared/services/alert.service';
-import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-users',

@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-05-25T03:25:03.649Z",
+	"__export_date": "2018-05-25T19:30:25.021Z",
 	"__export_source": "insomnia.desktop.app:v5.16.4",
 	"resources": [
 		{
@@ -460,7 +460,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"number\": \"123\",\n\t\"amount\": 100,\n\t\"userNick\": \"lobezzzno\"\n}"
+				"text": "{\n\t\"number\": \"123\",\n\t\"amount\": 100\n}"
 			},
 			"created": 1527213535462,
 			"description": "Se le puede pasar el estado ej: \"state\":\"APROVATED\", pero no sirve porque en el back se setea a \"WAITING\".\nEl monto puede ser en numeric o string, es indistinto, el back lo toma como string y lo transforma en un BigDecimal\n\nPuede retornar un 500 acompañado de una exception en caso que exista un deposito con ese numero",
@@ -480,7 +480,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1525122828306.25,
 			"method": "POST",
-			"modified": 1527218678446,
+			"modified": 1527276575713,
 			"name": "declare deposit",
 			"parameters": [],
 			"parentId": "fld_c084c51349af4acd8e9974b7bdd49f01",
