@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
-import { AlertService } from '../shared/services/alert.service';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -13,13 +13,13 @@ import { UserService } from '../shared/services/user.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private alert: AlertService, private userService: UserService, public router: Router) { }
+  constructor(private userService: UserService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() { }
 
   onSubmit(form: NgForm) {
     if (form.value.pass !== form.value.confirmPass) {
-      this.alert.raise('danger', 'Las contraseñas no coinciden');
+      this.snackBar.open('Las contraseñas no coinciden.', 'x', { panelClass: 'alert-warning' });
       return;
     }
     const body = { login: { nick: form.value.nick, pass: form.value.pass } };
@@ -29,10 +29,10 @@ export class SignupComponent implements OnInit {
       .subscribe(
         data => {
           form.reset();
-          this.alert.raise('success', 'Usuario Registrado con exito.');
+          this.snackBar.open('Usuario Registrado con exito.', 'x');
           this.router.navigate(['login']);
         },
-        error => this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor.')
+        error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' })
       );
   }
 

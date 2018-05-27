@@ -4,7 +4,6 @@
     <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-4 center-block">
       <form role="form" #buyForm="ngForm" (ngSubmit)="onSubmit(buyForm)">
         <h4>Seleccione la criptomoneda a vender</h4>
-        <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -23,7 +22,7 @@
                 <i class="fas fa-fw fa-dollar-sign"></i>
               </span>
             </div>
-            <span class="form-control">{{ coinSelected.coin.valueInDollars }}</span>
+            <span class="form-control">{{ coinSelected.coin.valueInDollars | number :'1.2' }}</span>
           </div>
         </div>
         <div *ngIf="coinSelected">
@@ -45,7 +44,7 @@
                 <i class="fas fa-fw fa-dollar-sign"></i>
               </span>
             </div>
-            <span class="form-control">{{ saldoUSD }}</span>
+            <span class="form-control">{{ saldoUSD | number :'1.2' }}</span>
           </div>
         </div>
         <hr>

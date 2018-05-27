@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
-import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class SellComponent implements OnInit {
   saldoUSD;
   coins;
 
-  constructor(private userService: UserService, private alert: AlertService) { }
+  constructor(private userService: UserService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.reset();
@@ -23,17 +23,16 @@ export class SellComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.value.amount <= 0) {
-      this.alert.raise('warning', 'Debe ingresar un número positivo.');
+      this.snackBar.open('Debe ingresar un número positivo.', 'x', { panelClass: 'alert-warning' });
     } else if (form.value.amount > this.coinSelected.amount) {
-      this.alert.raise('warning', 'La cantidad ingresada es mayor a la disponible.');
+      this.snackBar.open('La cantidad ingresada es mayor a la disponible.', 'x', { panelClass: 'alert-warning' });
     } else {
-    const body = { ticker: form.value.coin.coin.ticker, amount: form.value.amount };
-    this.userService.sell(body)
-      .subscribe(
-        data => this.alert.raise('success', `Se vendió ${body.amount} ${body.ticker}.`)
-        ,
-        error => this.alert.raise('danger', 'Chequeé que la cantidad no supere el máximo disponible.', 5000)
-      );
+      const body = { ticker: form.value.coin.coin.ticker, amount: form.value.amount };
+      this.userService.sell(body)
+        .subscribe(
+          data => this.snackBar.open(`Se vendió ${body.amount} ${body.ticker}.`, 'x'),
+          error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'x', { panelClass: 'alert-danger' })
+        );
     }
     form.reset();
     this.reset();

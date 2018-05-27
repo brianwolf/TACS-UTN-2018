@@ -1,7 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
 @import "bootstrap/bootstrap";
 @import "spinner";
 @import "utils";
 @import "rtl";
 @import "responsive";
+
+$config-mat-core: mat-typography-config(
+  $font-family: 'Lato'
+);
+
+$config-mat-snack-bar-typography: mat-typography-config(
+  $font-family: 'Lato',
+  $body-1: mat-typography-level(18px, 24px, 500)
+);
+
+@include mat-core($config-mat-core);
+@include mat-snack-bar-typography($config-mat-snack-bar-typography);
+
+body {font-family: 'Lato', sans-serif}

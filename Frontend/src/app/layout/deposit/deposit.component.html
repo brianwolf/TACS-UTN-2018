@@ -4,7 +4,6 @@
     <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-4 center-block">
       <form role="form" #depositForm="ngForm" (ngSubmit)="onSubmit(depositForm)">
         <h4>Ingrese la información del deposito</h4>
-        <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
         <div>
           <label>Saldo actual en u$s</label>
           <div class="form-group input-group">
@@ -13,7 +12,7 @@
                 <i class="fas fa-fw fa-dollar-sign"></i>
               </span>
             </div>
-            <span class="form-control">{{ saldoUSD }}</span>
+            <span class="form-control">{{ saldoUSD | number :'1.2' }}</span>
           </div>
         </div>
         <hr>

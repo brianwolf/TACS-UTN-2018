@@ -7,7 +7,6 @@
           Depositos Pendientes para autorizar
         </div>
         <div class="card-body table-responsive">
-          <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
 
           <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
