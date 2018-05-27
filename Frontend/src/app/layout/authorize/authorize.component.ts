@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
-import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-authorize',
@@ -20,7 +19,7 @@ export class AuthorizeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private adminService: AdminService, private alert: AlertService) { }
+  constructor(private adminService: AdminService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getDeposits();
@@ -40,8 +39,8 @@ export class AuthorizeComponent implements OnInit {
   approve(number: string) {
     this.proccesing = true;
     this.adminService.approveDeposit(number).subscribe(
-      data => this.alert.raise('success', 'Deposito Aprobado.'),
-      error => this.alert.raise('danger', 'ERROR: No se pudo realizar la operación.'),
+      data => this.snackBar.open('Deposito Aprobado.'),
+      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', null, { panelClass: 'alert-danger' }),
       () => this.getDeposits()
     );
   }
@@ -49,8 +48,8 @@ export class AuthorizeComponent implements OnInit {
   reject(number: string) {
     this.proccesing = true;
     this.adminService.rejectDeposit(number).subscribe(
-      data => this.alert.raise('warning', 'Deposito Rechazado.'),
-      error => this.alert.raise('danger', 'ERROR: No se pudo realizar la operación.'),
+      data => this.snackBar.open('Deposito Rechazado.', null, { panelClass: 'alert-warning' }),
+      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', null, { panelClass: 'alert-danger' }),
       () => this.getDeposits()
     );
   }

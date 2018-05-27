@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
-import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   users;
   showInfo: boolean;
 
-  constructor(private adminService: AdminService, private alert: AlertService) { }
+  constructor(private adminService: AdminService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.fillSelector();
@@ -27,10 +27,12 @@ export class UsersComponent implements OnInit {
 
   getUser(userSelected) {
     this.adminService.getUser(userSelected)
-      .subscribe(data => {
-        this.user = data;
-        this.showInfo = true;
-      }, error => this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor.')
+      .subscribe(
+        data => {
+          this.user = data;
+          this.showInfo = true;
+        },
+        error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' })
       );
   }
 

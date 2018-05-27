@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
-import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-compare',
@@ -13,7 +13,7 @@ export class CompareComponent implements OnInit {
 
   users;
 
-  constructor(private adminService: AdminService, private alert: AlertService) { }
+  constructor(private adminService: AdminService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.fillSelector();
@@ -27,11 +27,11 @@ export class CompareComponent implements OnInit {
     this.adminService.compareUsers(user1, user2)
       .subscribe(data => {
         const winnerUser: any = data;
-        this.alert.raise('success',
-          `El Usuario con mayor tenencias es ${winnerUser.login.nick},
-           con un total de ${Math.round(winnerUser.wallet.dolarFinalBalance)} dólares.`, 10000);
+        this.snackBar.open(`El Usuario con mayor tenencias es ${winnerUser.login.nick},
+        con un total de ${Math.round(winnerUser.wallet.dolarFinalBalance)} dólares.`, 'x',
+        { duration: 10000 });
       },
-        error => this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor.')
+        error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' })
       );
   }
 

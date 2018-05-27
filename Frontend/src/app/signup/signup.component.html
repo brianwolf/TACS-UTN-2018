@@ -1,10 +1,9 @@
 <div class="login-page" [@routerTransition]>
-  <img src="assets/images/logo.png" width="250px" />
+  <img src="assets/images/logo.png" width="250rem" />
   <div class="row">
     <div class="mx-auto">
       <h1>TACS - Crypto</h1>
       <h4>Introduzca los datos del nuevo usuario a registrar</h4>
-      <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
       <form role="form" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit(userRegistrationForm)">
         <div class="form-content">
           <div class="form-group">

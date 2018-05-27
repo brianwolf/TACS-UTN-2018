@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
-import { AlertService } from '../shared/services/alert.service';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -15,13 +15,12 @@ export class LoginComponent implements OnInit {
 
   loading = false;
 
-  constructor(public alert: AlertService, private userService: UserService, public router: Router) { }
+  constructor(private userService: UserService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() { }
 
   onSubmit(form: NgForm) {
     this.loading = true;
-    // const body = { nick: 'lobezzzno', pass: '1234' };
     const body = { nick: form.value.nick, pass: form.value.pass };
     form.controls['pass'].reset();
     this.userService.login(body)
@@ -31,7 +30,8 @@ export class LoginComponent implements OnInit {
           this.checkAdmin();
         },
         error => {
-          this.alert.raise('danger', 'ERROR: No se puede conectar con el servidor o credenciales incorrectas.');
+          this.snackBar.open('ERROR: No se puede conectar con el servidor o credenciales incorrectas.',
+            'x', { panelClass: 'alert-danger' });
           this.loading = false;
         }
       );
@@ -53,7 +53,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['dashboard']);
         },
         error => {
-          this.alert.raise('danger', 'ERROR: No se puede obtener datos de usuario.');
+          this.snackBar.open('ERROR: No se puede obtener datos de usuario.',
+            'x', { panelClass: 'alert-danger' });
           this.loading = false;
         }
       );

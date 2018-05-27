@@ -4,8 +4,7 @@
     <div class="col-sm-8 col-md-6 col-lg-6 col-xl-5">
       <div class="card">
         <div class="card-header">Información de los Usuarios del Sistema</div>
-        <div class="col-12">
-          <hr>
+        <div class="card-body table-responsive">
 
           <!-- <mat-form-field>
             <mat-select placeholder="Usuarios" #userSelected>
@@ -25,30 +24,31 @@
         <div class="col-lg-12"> -->
           <button class="btn btn-primary" (click)="getUser(userSelected.value)" [disabled]="!userSelected">Obtener Información</button> &nbsp;
           <button class="btn btn-secondary" (click)="showInfo = false" [disabled]="!showInfo">Limpiar</button>
-          <hr>
-          <ngb-alert *ngIf="alert.status" (close)="alert.status = false" [type]="alert.type">{{ alert.message }}</ngb-alert>
           <div *ngIf="showInfo" class="card-body table-responsive">
+            <hr>
             <table class="table table-hover table-striped">
               <tbody>
                 <tr>
                   <th>Usuario</th>
-                  <td><b>{{ user.user.login.nick }}</b></td>
+                  <td>
+                    <b>{{ user.user.login.nick }} </b>
+                  </td>
                 </tr>
                 <tr>
                   <th>Cantidad de Monedas</th>
-                  <td>{{ user.user.wallet.coinAmounts.length }}</td>
+                  <td> {{ user.user.wallet.coinAmounts.length }} </td>
                 </tr>
                 <tr>
                   <th>Transacciones Hoy</th>
-                  <td>{{ user.transactionCounter.today }}</td>
+                  <td> {{ user.transactionCounter.today }} </td>
                 </tr>
                 <tr>
                   <th>Transacciones</th>
-                  <td>{{ user.transactionCounter.all }}</td>
+                  <td> {{ user.transactionCounter.all }} </td>
                 </tr>
                 <tr>
                   <th>Ultimo Acceso</th>
-                  <td>{{ user.user.login.lastLogin | date:'dd MMM yyyy HH:mm:ss' }}</td>
+                  <td> {{ user.user.login.lastLogin | date:'dd MMM yyyy HH:mm:ss' }} </td>
                 </tr>
               </tbody>
             </table>

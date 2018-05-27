@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
-import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -13,29 +13,28 @@ export class DepositComponent implements OnInit {
 
   saldoUSD;
 
-  constructor(private userService: UserService, private alert: AlertService) { }
+  constructor(private userService: UserService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getWallet();
   }
 
+  getWallet() {
+    this.userService.getWallet().subscribe((data: any) => this.saldoUSD = data.dolarAmount);
+  }
+
   onSubmit(form: NgForm) {
     if (form.value.amount < 100) {
-      this.alert.raise('warning', 'El monto mínimo es de u$s 100.-');
+      this.snackBar.open('El monto mínimo es de u$s 100.-', 'x', { panelClass: 'alert-warning' });
     } else {
       const body = { number: form.value.ticket, amount: form.value.amount };
       this.userService.deposit(body)
         .subscribe(
-          success => this.alert.raise('success', 'El estado de su deposito se verificara en las proximas 24 horas.')
-          ,
-          (error: any) => this.alert.raise('danger', 'ERROR:' + error.message, 5000)
+          success => this.snackBar.open('El estado de su depósito se verificará en las próximas 24 horas.', 'x'),
+          error => this.snackBar.open('ERROR: ' + error.error.message, 'x', { panelClass: 'alert-danger' })
         );
     }
     form.reset();
-  }
-
-  getWallet() {
-    this.userService.getWallet().subscribe((data: any) => this.saldoUSD = data.dolarAmount);
   }
 
 }
