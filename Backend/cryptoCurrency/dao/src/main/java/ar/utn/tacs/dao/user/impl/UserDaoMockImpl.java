@@ -1,6 +1,7 @@
 package ar.utn.tacs.dao.user.impl;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,11 +37,11 @@ public class UserDaoMockImpl implements UserDao{
 			coinAmaunts.add(new CoinAmount(new Coin(1l, "bitcoin", "BTC"), new BigDecimal(0.005f)));
 			coinAmaunts.add(new CoinAmount(new Coin(2l, "ethereum", "ETH"), new BigDecimal(0.08f)));
 			
-		this.users.add(new User(1l, new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10000f))));
+		this.users.add(new User(new BigInteger("1"), new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10000f))));
 		//TENGO ! DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
-		this.users.add(new User(2l, new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10001f))));
+		this.users.add(new User(new BigInteger("2"), new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10001f))));
 		//LE DOY SOLO EL ROL DE USER PARA QUE NO MANQUEE NADA XP
-		this.users.add(new User(2l, new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(coinAmaunts, new BigDecimal(10000f))));
+		this.users.add(new User(new BigInteger("3"), new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(coinAmaunts, new BigDecimal(10000f))));
 	}
 	
 	
@@ -53,7 +54,7 @@ public class UserDaoMockImpl implements UserDao{
 	}
 
 	@Override
-	public User getUserById(Long userId) {
+	public User getUserById(BigInteger userId) {
 		
 		return users.stream()
 				.filter(user -> user.getId().equals(userId))

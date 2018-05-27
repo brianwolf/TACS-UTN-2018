@@ -25,18 +25,19 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 		
 		BigDecimal cantidadBitcoinsAComprar = new BigDecimal(1);
 		
-		//ESTO ES UNA NEGRADA, LO HAGO PARA OBTENER EL PRECIO QUE SE USO EN LA COMPRA
-		BigDecimal costoDeBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getCoin().getValueInDollars();
 		
 		BigDecimal cantidadBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
 		
 		tostadoCompraBitcoin(cantidadBitcoinsAComprar);
 		
+		//ESTO ES UNA NEGRADA, LO HAGO PARA OBTENER EL PRECIO QUE SE USO EN LA COMPRA
+		BigDecimal costoDeBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getCoin().getValueInDollars();
+		
 		BigDecimal cantidadNuevaBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
 		BigDecimal cantidadNuevaDolares = getUserTostadoPosta().getWallet().getDolarAmount();
 		
-		Assert.assertEquals(cantidadNuevaBitcoin,(new BigDecimal(1)).add(cantidadBitcoin));
-		Assert.assertEquals(cantidadNuevaDolares,cantidadDolares.subtract(costoDeBitcoin.multiply(cantidadBitcoinsAComprar)));
+		Assert.assertEquals(cantidadBitcoinsAComprar.add(cantidadBitcoin),cantidadNuevaBitcoin);
+		Assert.assertEquals(cantidadDolares.subtract(costoDeBitcoin.multiply(cantidadBitcoinsAComprar)),cantidadNuevaDolares);
 	}
 	
 	@Test
@@ -48,7 +49,9 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 		
 		BigDecimal cantidadRippleAComprar = new BigDecimal(1);
 		
-		BigDecimal cantidadRipple = getUserTostadoPosta().getWallet().getCoinAmountByTicker("XRP").getAmount();
+		BigDecimal cantidadRipple = getUserTostadoPosta().getWallet()
+									.getCoinAmountByTicker("XRP")==null ? new BigDecimal(0) 
+									: getUserTostadoPosta().getWallet().getCoinAmountByTicker("XRP").getAmount();
 		
 		tostadoCompraMoneda("XRP",cantidadRippleAComprar);
 		
@@ -58,8 +61,8 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 		BigDecimal cantidadNuevaRipple = getUserTostadoPosta().getWallet().getCoinAmountByTicker("XRP").getAmount();
 		BigDecimal cantidadNuevaDolares = getUserTostadoPosta().getWallet().getDolarAmount();
 		
-		Assert.assertEquals(cantidadNuevaRipple,(new BigDecimal(1)).add(cantidadRipple));
-		Assert.assertEquals(cantidadNuevaDolares,cantidadDolares.subtract(costoDeRipple.multiply(cantidadRippleAComprar)));
+		Assert.assertEquals((new BigDecimal(1)).add(cantidadRipple),cantidadNuevaRipple);
+		Assert.assertEquals(cantidadDolares.subtract(costoDeRipple.multiply(cantidadRippleAComprar)),cantidadNuevaDolares);
 	}
 	
 	@Test(expected = InsufficientMoneyException.class)

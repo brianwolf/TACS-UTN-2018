@@ -13,7 +13,7 @@ import ar.utn.tacs.model.user.User;
 
 public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao{
 	
-	public User getUserById(Long userId) {
+	public User getUserById(BigInteger userId) {
 		User user = new User();
 		user.setId(userId);
 //		user.setApellido("Tagrande");
@@ -29,12 +29,12 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
-		Session session = this.sessionFactory.openSession();
+//		Session session = this.sessionFactory.openSession();
 //		StoredProcedureQuery query = session.createStoredProcedureQuery("sp_traer_users");
-		Query query = session.getNamedQuery("findUsers");
+//		Query query = session.getNamedQuery("findUsers");
 		List<User> userList = null;
-		userList = query.getResultList();
-		session.close();
+//		userList = query.getResultList();
+//		session.close();
 		return userList;
 	}
 
@@ -52,8 +52,10 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 
 	@Override
 	public void newUser(User user) {
-		// TODO Auto-generated method stub
-		
+		if (!mongoTemplate.collectionExists(User.class)) {
+			mongoTemplate.createCollection(User.class);
+		}
+		mongoTemplate.insert(user);	
 	}
 
 	@Override
