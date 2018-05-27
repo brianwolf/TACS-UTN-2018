@@ -72,4 +72,16 @@ public class Transaction {
 			operation.doOperation();
 		}
 	}
+
+	public void execute() {
+		
+		for (Operation operation : operations) {
+			try {
+				operation.doOperation();
+			} catch (Exception e) {
+				// TODO: rollback
+			}
+		}
+		
+	}
 }

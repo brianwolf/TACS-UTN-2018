@@ -134,11 +134,11 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 		
-		if (depositFounded.getState().equals(StateDepositNumber.APROVATED)) {
+		if (depositFounded.getState().equals(StateDepositNumber.APPROVED)) {
 			throw new ApprovingApprovedDepositException();
 		}
 		
-		depositFounded.setState(StateDepositNumber.APROVATED);
+		depositFounded.setState(StateDepositNumber.APPROVED);
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 		
-		if (depositFounded.getState().equals(StateDepositNumber.APROVATED)) {
+		if (depositFounded.getState().equals(StateDepositNumber.APPROVED)) {
 			throw new RejectingApprovedDepositException();
 		}
 		

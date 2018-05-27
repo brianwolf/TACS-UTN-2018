@@ -2,7 +2,7 @@ package ar.utn.tacs.model.admin;
 
 public enum StateDepositNumber {
 
-	APROVATED("APROVATED"),
+	APPROVED("APPROVED"),
 	REJECTED("REJECTED"),
 	WAITING("WAITING");
 	

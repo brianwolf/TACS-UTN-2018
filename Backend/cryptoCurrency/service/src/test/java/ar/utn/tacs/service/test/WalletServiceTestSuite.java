@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
@@ -18,17 +19,47 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 	@Test
 	public void tostadoCompraUnBitcoinYEsMillonario() {
 		
-		@SuppressWarnings("unused")
 		String token = getTokenTostado();
+		
+		BigDecimal cantidadDolares = getUserTostadoPosta().getWallet().getDolarAmount();
+		
+		BigDecimal cantidadBitcoinsAComprar = new BigDecimal(1);
+		
+		//ESTO ES UNA NEGRADA, LO HAGO PARA OBTENER EL PRECIO QUE SE USO EN LA COMPRA
+		BigDecimal costoDeBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getCoin().getValueInDollars();
 		
 		BigDecimal cantidadBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
 		
-		tostadoCompraBitcoin(new BigDecimal(1));
-		
+		tostadoCompraBitcoin(cantidadBitcoinsAComprar);
 		
 		BigDecimal cantidadNuevaBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
+		BigDecimal cantidadNuevaDolares = getUserTostadoPosta().getWallet().getDolarAmount();
 		
 		Assert.assertEquals(cantidadNuevaBitcoin,(new BigDecimal(1)).add(cantidadBitcoin));
+		Assert.assertEquals(cantidadNuevaDolares,cantidadDolares.subtract(costoDeBitcoin.multiply(cantidadBitcoinsAComprar)));
+	}
+	
+	@Test
+	public void tostadoCompraUnRippleYEsMillonario() {
+		
+		String token = getTokenTostado();
+		
+		BigDecimal cantidadDolares = getUserTostadoPosta().getWallet().getDolarAmount();
+		
+		BigDecimal cantidadRippleAComprar = new BigDecimal(1);
+		
+		BigDecimal cantidadRipple = getUserTostadoPosta().getWallet().getCoinAmountByTicker("XRP").getAmount();
+		
+		tostadoCompraMoneda("XRP",cantidadRippleAComprar);
+		
+		//ESTO ES UNA NEGRADA, LO HAGO PARA OBTENER EL PRECIO QUE SE USO EN LA COMPRA
+		BigDecimal costoDeRipple = getUserTostadoPosta().getWallet().getCoinAmountByTicker("XRP").getCoin().getValueInDollars();
+		
+		BigDecimal cantidadNuevaRipple = getUserTostadoPosta().getWallet().getCoinAmountByTicker("XRP").getAmount();
+		BigDecimal cantidadNuevaDolares = getUserTostadoPosta().getWallet().getDolarAmount();
+		
+		Assert.assertEquals(cantidadNuevaRipple,(new BigDecimal(1)).add(cantidadRipple));
+		Assert.assertEquals(cantidadNuevaDolares,cantidadDolares.subtract(costoDeRipple.multiply(cantidadRippleAComprar)));
 	}
 	
 	@Test(expected = InsufficientMoneyException.class)

@@ -9,6 +9,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.admin.Deposit;
+import ar.utn.tacs.model.admin.DepositRest;
+import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.admin.AdminService;
 
@@ -77,6 +80,30 @@ public class AdminServiceTestSuite extends ServiceTestSuite{
 		nicksQueDeberianEstar.add(nickLobezzzno);
 		
 		Assert.assertTrue(adminService.getUsersNickAll().containsAll(nicksQueDeberianEstar));
+	}
+	
+	@Test
+	public void obtenerDepositoEnEsperaDeTostado() throws ExistingDepositException {
+		
+		String nickTostado = getLoginTostado().getNick();
+		
+		Boolean noHabiaDepositosEnEspera = adminService.getDeposits("WAITING").isEmpty();
+		
+		String token = getTokenTostado();
+		
+		DepositRest depositRest = new DepositRest();
+		depositRest.setNumber("1234");
+		depositRest.setState("WAITING");
+		depositRest.setAmount("1000");
+		
+		walletService.declareDeposit(token, depositRest);
+		
+		
+		List<Deposit> depositos = adminService.getDeposits("WAITING");
+		
+		Assert.assertTrue(noHabiaDepositosEnEspera);
+		Assert.assertEquals(depositos.size(), 1);
+		Assert.assertEquals(depositos.get(0).getUser().getLogin().getNick(), nickTostado);
 	}
 	
 }

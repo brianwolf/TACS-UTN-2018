@@ -51,9 +51,12 @@ public abstract class ServiceTestSuite {
 	}
 	
 	protected void tostadoCompraBitcoin(BigDecimal value) {
+		tostadoCompraMoneda("BTC", value);
+	}
+	protected void tostadoCompraMoneda(String ticker,BigDecimal value) {
 		String token = getTokenTostado();
 		CoinAmountRest coinAmountRest = new CoinAmountRest();
-		coinAmountRest.setTicker("BTC");
+		coinAmountRest.setTicker(ticker);
 		coinAmountRest.setAmount(value.toString());
 		
 		try {

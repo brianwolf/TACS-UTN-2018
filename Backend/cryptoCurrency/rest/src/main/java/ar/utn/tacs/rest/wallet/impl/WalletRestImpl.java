@@ -109,7 +109,7 @@ public class WalletRestImpl implements WalletRest{
 	@POST
 	@Path(WalletRestImpl.DECLARE_DEPOSIT)
 	@Override
-	public Response declarerDeposit(@HeaderParam(value = "token") String token, DepositRest depositRest) {
+	public Response declareDeposit(@HeaderParam(value = "token") String token, DepositRest depositRest) {
 		
 		try {
 			this.walletService.declareDeposit(token, depositRest);

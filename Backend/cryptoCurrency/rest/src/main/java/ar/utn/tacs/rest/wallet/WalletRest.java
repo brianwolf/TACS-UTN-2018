@@ -66,5 +66,5 @@ public interface WalletRest extends GenericRest {
 	 * @param depositRest
 	 * @return {@link Response}
 	 */
-	Response declarerDeposit(String token, DepositRest depositRest);
+	Response declareDeposit(String token, DepositRest depositRest);
 }

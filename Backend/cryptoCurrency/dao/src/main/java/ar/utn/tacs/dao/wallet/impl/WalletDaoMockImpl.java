@@ -38,6 +38,7 @@ public class WalletDaoMockImpl implements WalletDao {
 		transaction.doOperations();
 		transaction.setDateFinal(new Date());
 		
+		transaction.execute();
 		if(!getHistory().containsKey(user)) {
 			getHistory().put(user, new ArrayList<Transaction>());
 		}
@@ -51,6 +52,7 @@ public class WalletDaoMockImpl implements WalletDao {
 		transaction.doOperations();
 		transaction.setDateFinal(new Date());
 		
+		transaction.execute();
 		if(!getHistory().containsKey(user)) {
 			getHistory().put(user, new ArrayList<Transaction>());
 		}
