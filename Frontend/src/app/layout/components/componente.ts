@@ -57,10 +57,13 @@ export abstract class Componente {
   }
 
   onLoggedout() {
-    localStorage.removeItem('currentToken');
-    localStorage.removeItem('currentUserName');
-    localStorage.removeItem('currentUserRole');
-    this.userService.logout().subscribe();
+    this.userService.logout().subscribe(
+      data => {
+        localStorage.removeItem('currentToken');
+        localStorage.removeItem('currentUserName');
+        localStorage.removeItem('currentUserRole');
+      }
+    );
   }
 
 }

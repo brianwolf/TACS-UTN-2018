@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './layout.component';
 import { RoleGuard } from '../shared/guard/role.guard';
+import { LayoutComponent } from './layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { BuyComponent } from './buy/buy.component';
 import { SellComponent } from './sell/sell.component';
 import { DepositComponent } from './deposit/deposit.component';
@@ -18,7 +19,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', redirectTo: 'dashboard' },
-      { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'buy', component: BuyComponent },
       { path: 'sell', component: SellComponent },
       { path: 'deposit', component: DepositComponent },

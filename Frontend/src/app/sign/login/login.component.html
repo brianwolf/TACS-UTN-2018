@@ -1,0 +1,26 @@
+<div [@routerTransition]>
+  <h4>Ingrese sus credenciales</h4>
+  <div *ngIf="loading" class="loading">
+    <div class="third"></div>
+    <div class="second"></div>
+    <div class="first"></div>
+    <div class="second"></div>
+    <div class="third"></div>
+    <h6>Verificando...</h6>
+  </div>
+  <div class="loader"></div>
+  <form role="form" #userLoginForm="ngForm" (ngSubmit)="onSubmit(userLoginForm)">
+    <div class="form-content">
+      <div class="form-group">
+        <input type="text" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Nombre de Usuario" name="nick"
+          ngModel required minlength="3">
+      </div>
+      <div class="form-group">
+        <input type="password" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Contraseña" name="pass"
+          ngModel required minlength="3">
+      </div>
+    </div>
+    <input type="submit" class="btn rounded-btn" [disabled]="!userLoginForm.valid" value="Ingresar"> &nbsp;
+    <a class="btn rounded-btn" [routerLink]="['/signup']">Regístrese</a>
+  </form>
+</div>

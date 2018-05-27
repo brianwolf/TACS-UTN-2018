@@ -27,13 +27,19 @@
             <ng-container matColumnDef="amount">
               <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
               <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.amount}} </td>
-              <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet.dolarAmount}} </td>
+              <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet.dolarAmount | currency :'USD':' $ '}} </td>
             </ng-container>
 
             <ng-container matColumnDef="valueInDollars">
+                <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header>Cotización Actual</th>
+                <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.coin.valueInDollars | currency :'USD':'$ ':'1.2-4'}} </td>
+                <td class="text-right font-weight-bold" mat-footer-cell *matFooterCellDef> Total tenencias </td>
+              </ng-container>
+
+            <ng-container matColumnDef="total">
               <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header>Valor en USD</th>
-              <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.coin.valueInDollars | currency :'USD':'$ ':'1.2-4'}} </td>
-              <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet.dolarAmount | currency :'USD':' $ '}} </td>
+              <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.coin.valueInDollars * coin.amount | currency :'USD':'$ ':'1.2-4'}} </td>
+              <td class="text-right font-weight-bold" mat-footer-cell *matFooterCellDef> {{getTotal() + wallet.dolarAmount | currency :'USD':' $ '}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

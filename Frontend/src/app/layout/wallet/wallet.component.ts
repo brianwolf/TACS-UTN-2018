@@ -11,7 +11,7 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class WalletComponent implements OnInit {
 
-  displayedColumns = ['ticker', 'name', 'amount', 'valueInDollars'];
+  displayedColumns = ['ticker', 'name', 'amount', 'valueInDollars', 'total'];
   wallet;
   coins = new MatTableDataSource<any>();
 
@@ -57,12 +57,17 @@ export class WalletComponent implements OnInit {
         case 'ticker': return coin.coin.ticker;
         case 'name': return coin.coin.name;
         case 'valueInDollars': return coin.coin.valueInDollars;
+        case 'total': return coin.coin.valueInDollars * coin.amount;
         default: return coin[property];
       }
     };
     this.coins.sort = this.sort;
     /* Paginator */
     this.coins.paginator = this.paginator;
+  }
+
+  getTotal() {
+    return this.coins.data.map(coin => coin.coin.valueInDollars * coin.amount).reduce((acc, value) => acc + value, 0);
   }
 
 }

@@ -8,9 +8,11 @@ import {
   MatSortModule, MatTableModule, MatToolbarModule
 } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TimelineComponent } from './dashboard/components/timeline/timeline.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -30,6 +32,7 @@ import { HistoryComponent } from './history/history.component';
     FormsModule,
     LayoutRoutingModule,
     TranslateModule,
+    NgbCarouselModule.forRoot(),
     NgbDropdownModule.forRoot(),
     MatButtonModule,
     MatIconModule,
@@ -42,6 +45,8 @@ import { HistoryComponent } from './history/history.component';
   ],
   declarations: [
     LayoutComponent,
+    DashboardComponent,
+    TimelineComponent,
     PageHeaderComponent,
     SidebarComponent,
     HeaderComponent,
