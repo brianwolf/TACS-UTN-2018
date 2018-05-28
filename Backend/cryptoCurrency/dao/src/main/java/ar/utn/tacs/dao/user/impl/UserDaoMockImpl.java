@@ -123,7 +123,7 @@ public class UserDaoMockImpl implements UserDao{
 		user.getLogin().setTries(0);
 		user.setWallet(new Wallet());
 		user.setRoles(roles.subList(0, 1));
-		user.setId(Long.valueOf(this.users.size()+1));
+		user.setId(BigInteger.valueOf(this.users.size()+1));
 		
 		this.users.add(user);
 		

@@ -1,5 +1,6 @@
 package ar.utn.tacs.service.user.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUserById(Long id) {
+	public User getUserById(BigInteger id) {
 		return this.userDao.getUserById(id);
 	}
 

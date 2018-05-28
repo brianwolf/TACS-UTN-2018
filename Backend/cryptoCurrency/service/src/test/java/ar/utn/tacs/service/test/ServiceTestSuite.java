@@ -1,6 +1,7 @@
 package ar.utn.tacs.service.test;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public abstract class ServiceTestSuite {
 }
 	
 	protected User getUserTostado() {
-		return new User(2l, new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), null, new Wallet(null, new BigDecimal(10000f)));
+		return new User(new BigInteger("2"), new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), null, new Wallet(null, new BigDecimal(10000f)));
 	}
 	protected User getUserTostadoPosta() {
 		return userService.getUserById(getUserTostado().getId());

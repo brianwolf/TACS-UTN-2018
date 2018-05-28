@@ -1,10 +1,7 @@
 package ar.utn.tacs.dao.user.impl;
 
+import java.math.BigInteger;
 import java.util.List;
-
-import javax.persistence.Query;
-
-import org.hibernate.Session;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
@@ -12,6 +9,8 @@ import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 
 public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao{
+	
+	UserDaoMockImpl userDaoMock = new UserDaoMockImpl();
 	
 	public User getUserById(BigInteger userId) {
 		User user = new User();
@@ -23,11 +22,10 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 	}
 
 	public String getTokenByLogin(Login login) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return userDaoMock.getTokenByLogin(login);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
 //		Session session = this.sessionFactory.openSession();
 //		StoredProcedureQuery query = session.createStoredProcedureQuery("sp_traer_users");
@@ -46,8 +44,8 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 
 	@Override
 	public User getUserByToken(String token) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return userDaoMock.getUserByToken(token);
 	}
 
 	@Override

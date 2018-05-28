@@ -1,5 +1,6 @@
 package ar.utn.tacs.service.user;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import ar.utn.tacs.commons.UtnTacsException;
@@ -38,7 +39,7 @@ public interface UserService extends GenericService{
 	 * @param id
 	 * @return {@link User}
 	 */
-	User getUserById(Long id);
+	User getUserById(BigInteger id);
 	
 	/**
 	 * @param nick
