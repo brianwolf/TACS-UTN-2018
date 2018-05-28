@@ -11,7 +11,6 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class SellComponent implements OnInit {
 
-  coinSelected;
   saldoUSD;
   coins;
 
@@ -24,7 +23,7 @@ export class SellComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.value.amount <= 0) {
       this.snackBar.open('Debe ingresar un número positivo.', 'x', { panelClass: 'alert-warning' });
-    } else if (form.value.amount > this.coinSelected.amount) {
+    } else if (form.value.amount > form.value.coin.amount) {
       this.snackBar.open('La cantidad ingresada es mayor a la disponible.', 'x', { panelClass: 'alert-warning' });
     } else {
       const body = { ticker: form.value.coin.coin.ticker, amount: form.value.amount };
@@ -34,8 +33,8 @@ export class SellComponent implements OnInit {
           error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'x', { panelClass: 'alert-danger' })
         );
     }
-    form.reset();
     this.reset();
+    form.reset();
   }
 
   getWallet() {
@@ -46,7 +45,7 @@ export class SellComponent implements OnInit {
   }
 
   reset() {
-    this.coinSelected = null;
+    this.coins = null;
     this.getWallet();
   }
 

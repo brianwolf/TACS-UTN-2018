@@ -4,7 +4,7 @@ import { routerTransition } from '../../router.animations';
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
-  styleUrls: ['../error.scss'],
+  styleUrls: ['../error.component.scss'],
   animations: [routerTransition()]
 })
 export class NotFoundComponent implements OnInit {

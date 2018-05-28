@@ -16,17 +16,9 @@ import { JwtInterceptor } from './shared/services/jwt.interceptor';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { RoleGuard } from './shared/guard/role.guard';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { ServerErrorComponent } from './error/server-error/server-error.component';
-import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
-import { NotFoundComponent } from './error/not-found/not-found.component';
-import { ErrorFooterComponent } from './error/error-footer/error-footer.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
-  // for development
-  // return new TranslateHttpLoader(http, '/start-angular/TACS-Crypto/master/dist/assets/i18n/', '.json');
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -47,15 +39,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AppRoutingModule
   ],
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    ServerErrorComponent,
-    AccessDeniedComponent,
-    NotFoundComponent,
-    ErrorFooterComponent
-  ],
+  declarations: [AppComponent],
   providers: [
     AdminService,
     UserService,
