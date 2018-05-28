@@ -33,23 +33,23 @@
             </ng-container>
 
             <ng-container matColumnDef="amount">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
               <td class="text-right" mat-cell *matCellDef="let operation"> {{operation.coinAmount.amount}} </td>
             </ng-container>
 
             <ng-container matColumnDef="quoteTimeSold">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor de compra</th>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Valor de compra</th>
               <td class="text-right" mat-cell *matCellDef="let operation"> {{operation.quoteTimeSold | currency :'USD':'$ ':'1.2-4'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="quoteTimeNow">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor actual</th>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Valor actual</th>
               <td class="text-right" mat-cell *matCellDef="let operation"> {{operation.quoteTimeNow | currency :'USD':'$ ':'1.2-4'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="quoteDifference">
-              <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header>Diferencia</th>
-              <td class="text-center" mat-cell *matCellDef="let operation"> {{operation.quoteDifference}} </td>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Diferencia</th>
+              <td class="text-right" mat-cell *matCellDef="let operation"> {{operation.quoteDifference}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -37,7 +37,7 @@ p a {
 }
 
 p a:hover {
-  text-decoration:none;
+  text-decoration: none;
   color: #fff;
 }
 
@@ -53,23 +53,25 @@ p a:hover {
   color: rgb(112, 71, 71);
   text-decoration: none;
 }
+
 /*--responsive--*/
+
 @media(max-width:991px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 897px;
   }
-
 }
+
 @media(max-width:900px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 820px;
   }
-
 }
+
 @media(max-width:800px) {
   .wrap {
     text-align: center;
@@ -77,47 +79,45 @@ p a:hover {
     width: 700px;
   }
 }
+
 @media (max-width:736px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 627px;
   }
-
 }
+
 @media(max-width:667px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 600px;
   }
-
 }
+
 @media(max-width:640px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 570px;
   }
-
 }
+
 @media(max-width:600px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 458px;
   }
-
   .logo {
     width: 322px;
     margin: 0 auto;
     padding-top: 9em;
   }
-
   .logo img {
     width: 100%;
   }
-
   .footer {
     position: absolute;
     bottom: 147px;
@@ -125,14 +125,15 @@ p a:hover {
     font-size: 12px;
   }
 }
+
 @media(max-width:480px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 375px;
   }
-
 }
+
 @media(max-width:440px) {
   .footer {
     position: absolute;
@@ -141,21 +142,21 @@ p a:hover {
     font-size: 12px;
   }
 }
+
 @media(max-width:414px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 357px;
   }
-
 }
+
 @media(max-width:384px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 363px;
   }
-
   .footer {
     position: absolute;
     bottom: 105px;
@@ -165,30 +166,29 @@ p a:hover {
     line-height: 1.8em;
   }
 }
+
 @media(max-width:375px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 337px;
   }
-
   .logo {
     width: 250px;
     margin: 0 auto;
     padding-top: 8em;
   }
 }
+
 @media(max-width:320px) {
   .wrap {
     text-align: center;
     margin: 0 auto;
     width: 285px;
   }
-
   .logo {
     width: 181px;
     margin: 0 auto;
     padding-top: 5em;
   }
-
 }

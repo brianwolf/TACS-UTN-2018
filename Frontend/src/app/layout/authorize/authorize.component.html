@@ -30,13 +30,13 @@
             </ng-container>
 
             <ng-container matColumnDef="amount">
-              <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
               <td class="text-right" mat-cell *matCellDef="let deposit"> {{deposit.amount | currency :'USD':' $ '}} </td>
             </ng-container>
 
             <ng-container matColumnDef="state">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
-              <td class="text-center" mat-cell *matCellDef="let deposit">
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+              <td class="text-right" mat-cell *matCellDef="let deposit">
                 <span *ngIf="deposit.state==='WAITING' && !proccesing">
                   <a href="javascript:void(0)" (click)="approve(deposit.number)">
                     <i class="fas fa-check-circle fa-2x" style="color:green"></i>
