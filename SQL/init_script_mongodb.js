@@ -27,7 +27,7 @@ db.createCollection("conectedUsers");
 /*=====================================*/
 
 /*ROLES*/
-db.roles.insert([
+db.roles.insertMany([
   { 
     description: "administrator",
     functionalities: [
@@ -49,7 +49,7 @@ db.roles.insert([
 
 
 /*USUARIOS*/
-db.users.insert([
+db.users.insertMany([
   { 
     login: {
       nick: "lobezzzno",
@@ -126,7 +126,7 @@ db.users.insert([
 
   { 
     login: {
-      nick: "boberman"
+      nick: "boberman",
       pass: "1234",
       active: true,
       tries: 0,
