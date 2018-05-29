@@ -39,18 +39,18 @@
               <td class="text-right" mat-cell *matCellDef="let deposit">
                 <span *ngIf="deposit.state==='WAITING' && !proccesing">
                   <a href="javascript:void(0)" (click)="approve(deposit.number)">
-                    <i class="fas fa-check-circle fa-2x" style="color:green"></i>
+                    <i class="fas fa-check-circle fa-2x text-success"></i>
                   </a>
                   &nbsp;
                   <a href="javascript:void(0)" (click)="reject(deposit.number)">
-                    <i class="fas fa-times-circle fa-2x" style="color:red"></i>
+                    <i class="fas fa-times-circle fa-2x text-danger"></i>
                   </a>
                 </span>
                 <span *ngIf="deposit.state==='APPROVED'">
-                  <b style="color:green">APROBADO</b>
+                  <b class="text-success">APROBADO</b>
                 </span>
                 <span *ngIf="deposit.state==='REJECTED'">
-                  <b style="color:red">RECHAZADO</b>
+                  <b class="text-danger">RECHAZADO</b>
                 </span>
               </td>
             </ng-container>

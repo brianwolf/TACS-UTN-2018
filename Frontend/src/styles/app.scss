@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@angular/material/theming';
 @import "bootstrap/bootstrap";
@@ -8,16 +8,24 @@
 @import "rtl";
 @import "responsive";
 
-$config-mat-core: mat-typography-config(
-  $font-family: 'Lato'
-);
+$font-family:'Open Sans';
 
-$config-mat-snack-bar-typography: mat-typography-config(
-  $font-family: 'Lato',
-  $body-1: mat-typography-level(18px, 24px, 500)
-);
-
+$config-mat-core: mat-typography-config($font-family: inherit);
 @include mat-core($config-mat-core);
-@include mat-snack-bar-typography($config-mat-snack-bar-typography);
+.mat-simple-snackbar {
+  font-size: 18px
+}
 
-body {font-family: 'Lato', sans-serif}
+.mat-simple-snackbar-action {
+  color: inherit;
+  button {
+    font: {
+      size: 20px;
+      weight: 700;
+    }
+  }
+}
+
+body {
+  font-family: $font-family, sans-serif
+}

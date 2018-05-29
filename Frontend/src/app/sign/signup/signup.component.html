@@ -1,5 +1,8 @@
 <div [@routerTransition]>
   <h4>Ingrese los datos del nuevo usuario</h4>
+  <div *ngIf="loading" class="animated infinite zoomIn">
+    <h5>Registrando</h5>
+  </div>
   <form role="form" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit(userRegistrationForm)">
     <div class="form-content">
       <div class="form-group">

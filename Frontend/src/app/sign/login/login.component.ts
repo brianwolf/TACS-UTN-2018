@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
           this.checkAdmin();
         },
         error => {
-          this.snackBar.open('ERROR: No se puede conectar con el servidor o credenciales incorrectas.',
-            'x', { panelClass: 'alert-danger' });
+          this.snackBar
+            .open('ERROR: No se puede conectar con el servidor o credenciales incorrectas.', 'v', { panelClass: 'alert-danger' });
           this.loading = false;
         }
       );
@@ -53,8 +53,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['dashboard']);
         },
         error => {
-          this.snackBar.open('ERROR: No se puede obtener datos de usuario.',
-            'x', { panelClass: 'alert-danger' });
+          this.snackBar.open('ERROR: No se puede obtener datos de usuario.', 'v', { panelClass: 'alert-danger' });
           this.loading = false;
         }
       );

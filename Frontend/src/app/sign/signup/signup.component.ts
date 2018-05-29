@@ -13,11 +13,14 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class SignupComponent implements OnInit {
 
+  loading = false;
+
   constructor(private userService: UserService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() { }
 
   onSubmit(form: NgForm) {
+    this.loading = true;
     if (form.value.pass !== form.value.confirmPass) {
       this.snackBar.open('Las contraseñas no coinciden.', 'x', { panelClass: 'alert-warning' });
       return;
@@ -32,7 +35,10 @@ export class SignupComponent implements OnInit {
           this.snackBar.open('Usuario Registrado con exito.', 'x');
           this.router.navigate(['login']);
         },
-        error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' })
+        error => {
+          this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' });
+          this.loading = false;
+        }
       );
   }
 

@@ -6,7 +6,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label>Seleccione al primer usuario</label>
-            <select class="form-control" #user1>
+            <select class="form-control" (change)="winner = null; disabled = false" #user1>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
@@ -14,13 +14,51 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label>Seleccione al segundo usuario</label>
-            <select class="form-control" #user2>
+            <select class="form-control" (change)="winner = null; disabled = false" #user2>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
         </div>
       </div>
-      <button class="btn btn-primary" (click)="compare(user1.value, user2.value)" [disabled]="!user1 || !user2">Comparar</button>
+      <button class="btn btn-primary" (click)="compare(user1.value, user2.value)" [disabled]="!user1 || !user2 || disabled">Comparar</button>
+      <div *ngIf="winner" class="card-body table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <td class="font-weight-bold text-success">GANADOR</td>
+              <td class="font-weight-bold text-danger">PERDEDOR</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Usuario</th>
+              <td class="font-weight-bold"> {{ winner.login.nick }} </td>
+              <td class="font-weight-bold"> {{ loser.login.nick }} </td>
+            </tr>
+            <tr>
+              <th>Cantidad de monedas</th>
+              <td> {{ winner.wallet.coinAmounts.length }} </td>
+              <td> {{ loser.wallet.coinAmounts.length }} </td>
+            </tr>
+            <tr>
+              <th>Total en monedas</th>
+              <td> {{ winner.wallet.dolarFinalBalance - winner.wallet.dolarAmount | currency :'USD':' u$s ' }} </td>
+              <td> {{ loser.wallet.dolarFinalBalance - loser.wallet.dolarAmount | currency :'USD':' u$s ' }} </td>
+            </tr>
+            <tr>
+              <th>Saldo</th>
+              <td> {{ winner.wallet.dolarAmount | currency :'USD':' u$s ' }} </td>
+              <td> {{ loser.wallet.dolarAmount | currency :'USD':' u$s ' }} </td>
+            </tr>
+            <tr>
+              <th>Total tenencias</th>
+              <td class="font-weight-bold text-success"> {{ winner.wallet.dolarFinalBalance | currency :'USD':' u$s ' }} </td>
+              <td class="font-weight-bold text-danger"> {{ loser.wallet.dolarFinalBalance | currency :'USD':' u$s ' }} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

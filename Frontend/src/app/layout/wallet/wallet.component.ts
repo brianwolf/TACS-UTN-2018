@@ -66,8 +66,4 @@ export class WalletComponent implements OnInit {
     this.coins.paginator = this.paginator;
   }
 
-  getTotal() {
-    return this.coins.data.map(coin => coin.coin.valueInDollars * coin.amount).reduce((acc, value) => acc + value, 0);
-  }
-
 }
