@@ -13,12 +13,7 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 	UserDaoMockImpl userDaoMock = new UserDaoMockImpl();
 	
 	public User getUserById(BigInteger userId) {
-		User user = new User();
-		user.setId(userId);
-//		user.setApellido("Tagrande");
-//		user.setNombre("Juancho");
-//		user.setNick("juancito");
-		return user;
+		return getById(userId, User.class);
 	}
 
 	public String getTokenByLogin(Login login) {
@@ -26,25 +21,14 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		return userDaoMock.getTokenByLogin(login);
 	}
 
-	public List<User> getUsers() {
-//		Session session = this.sessionFactory.openSession();
-//		StoredProcedureQuery query = session.createStoredProcedureQuery("sp_traer_users");
-//		Query query = session.getNamedQuery("findUsers");
-		List<User> userList = null;
-//		userList = query.getResultList();
-//		session.close();
-		return userList;
-	}
-
 	@Override
 	public void logOutUserByToken(String token) {
-		// TODO Auto-generated method stub
+		userDaoMock.logOutUserByToken(token);
 		
 	}
 
 	@Override
 	public User getUserByToken(String token) {
-		
 		return userDaoMock.getUserByToken(token);
 	}
 
@@ -58,13 +42,11 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 
 	@Override
 	public User getUserByNick(String nick) {
-		// TODO Auto-generated method stub
-		return null;
+		return getByProperty("login.nick",nick, User.class);
 	}
 
 	@Override
 	public List<String> getUsersNicksAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return getPropertyAll("login.nick", String.class, User.class);
 	}
 }
