@@ -3,29 +3,12 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@angular/material/theming';
 @import "bootstrap/bootstrap";
+@import "material";
 @import "spinner";
 @import "utils";
 @import "rtl";
 @import "responsive";
-
 $font-family:'Open Sans';
-
-$config-mat-core: mat-typography-config($font-family: inherit);
-@include mat-core($config-mat-core);
-.mat-simple-snackbar {
-  font-size: 18px
-}
-
-.mat-simple-snackbar-action {
-  color: inherit;
-  button {
-    font: {
-      size: 20px;
-      weight: 700;
-    }
-  }
-}
-
 body {
-  font-family: $font-family, sans-serif
+  font-family: $font-family, sans-serif !important;
 }

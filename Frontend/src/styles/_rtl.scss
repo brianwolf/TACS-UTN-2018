@@ -54,15 +54,13 @@
     }
     .sidebar {
       right: -235px !important;
-    }
-    .main-container {
-      margin-right: 0;
-    }
-    &.push-right {
-      .sidebar {
+      &.push-right {
         left: auto !important;
         right: 0 !important;
       }
+    }
+    .main-container {
+      margin-right: 0;
     }
   }
 }

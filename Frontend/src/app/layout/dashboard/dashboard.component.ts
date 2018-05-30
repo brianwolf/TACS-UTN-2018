@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +10,7 @@ export class DashboardComponent implements OnInit {
 
   public sliders: Array<any> = [];
 
-  constructor(private translate: TranslateService) {
+  constructor() {
 
     this.sliders.push(
       {

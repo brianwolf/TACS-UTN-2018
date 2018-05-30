@@ -1,5 +1,5 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
-<section class="main-container">
+<section class="main-container" (swiperight)="cs.showSidebar()" (swipeleft)="cs.hideSidebar()">
   <router-outlet></router-outlet>
 </section>

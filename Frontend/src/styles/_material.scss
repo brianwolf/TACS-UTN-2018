@@ -1,0 +1,15 @@
+$config-mat-core: mat-typography-config($font-family: inherit);
+@include mat-core($config-mat-core);
+.mat-simple-snackbar {
+  font-size: 18px
+}
+
+.mat-simple-snackbar-action {
+  color: inherit;
+  button {
+    font: {
+      size: 20px;
+      weight: 700;
+    }
+  }
+}

@@ -1,40 +1,40 @@
-<nav class="navbar navbar-expand-lg fixed-top" (swipe)="toggleSidebar()">
+<nav class="navbar navbar-expand-lg fixed-top">
   <a class="navbar-brand" href="#">TACS - Crypto</a>
-  <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+  <button class="navbar-toggler" type="button" (click)="cs.toggleSidebar()">
     <span class="navbar-toggler-icon"></span>
     <i class="fas fa-bars text-muted"></i>
   </button>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown" ngbDropdown>
-        <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-          <i class="fas fa-user"></i>{{ role | translate }}
+        <a class="nav-link" ngbDropdownToggle>
+          <i class="fas fa-user"></i>{{ cs.role() | translate }}
           <b class="caret"></b>
         </a>
         <div class="dropdown-menu-right" ngbDropdownMenu>
           <p class="dropdown-item">
-            <i class="fas fa-id-card"></i>{{ nick }}
+            <i class="fas fa-id-card"></i>{{ cs.nick() }}
           </p>
-          <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">
+          <a class="dropdown-item" [routerLink]="['/login']" (click)="cs.logout()">
             <i class="fas fa-sign-out-alt"></i>{{ 'Log Out' | translate }}
           </a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="cursor: pointer" (click)="rltAndLtr()">
+        <a class="nav-link" (click)="cs.rltAndLtr()">
           <mat-icon>swap_horiz</mat-icon>
         </a>
       </li> &nbsp;
       <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link" style="cursor: pointer" ngbDropdownToggle>
+        <a class="nav-link" ngbDropdownToggle>
           <i class="fas fa-language"></i>{{ 'Language' | translate }}
           <b class="caret"></b>
         </a>
         <div class="dropdown-menu-right" ngbDropdownMenu>
-          <a class="dropdown-item" style="cursor: pointer" (click)="changeLang('es')">
+          <a class="dropdown-item" (click)="cs.changeLang('es')">
             {{ 'Spanish' | translate }}
           </a>
-          <a class="dropdown-item" style="cursor: pointer" (click)="changeLang('en')">
+          <a class="dropdown-item" (click)="cs.changeLang('en')">
             {{ 'English' | translate }}
           </a>
         </div>

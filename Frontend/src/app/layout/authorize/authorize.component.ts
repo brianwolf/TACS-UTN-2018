@@ -39,8 +39,8 @@ export class AuthorizeComponent implements OnInit {
   approve(number: string) {
     this.proccesing = true;
     this.adminService.approveDeposit(number).subscribe(
-      data => this.snackBar.open('Deposito Aprobado.'),
-      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', null, { panelClass: 'alert-danger' }),
+      data => this.snackBar.open('Deposito Aprobado.', 'v'),
+      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'v', { panelClass: 'alert-danger' }),
       () => this.getDeposits()
     );
   }
@@ -48,8 +48,8 @@ export class AuthorizeComponent implements OnInit {
   reject(number: string) {
     this.proccesing = true;
     this.adminService.rejectDeposit(number).subscribe(
-      data => this.snackBar.open('Deposito Rechazado.', null, { panelClass: 'alert-warning' }),
-      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', null, { panelClass: 'alert-danger' }),
+      data => this.snackBar.open('Deposito Rechazado.', 'v', { panelClass: 'alert-warning' }),
+      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'v', { panelClass: 'alert-danger' }),
       () => this.getDeposits()
     );
   }

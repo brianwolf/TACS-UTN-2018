@@ -10,6 +10,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppConfig } from './app.config';
 import { AppRoutingModule } from './app-routing.module';
+import { ComponentService } from './shared/services/component.service';
 import { AdminService } from './shared/services/admin.service';
 import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './shared/services/jwt.interceptor';
@@ -41,6 +42,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   declarations: [AppComponent],
   providers: [
+    ComponentService,
     AdminService,
     UserService,
     AuthGuard,

@@ -1,18 +1,15 @@
+import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../shared/services/user.service';
 
+@Injectable()
+export class ComponentService {
 
-export abstract class Componente {
-  nick: string;
-  role: string;
-  isActive = false;
-  showMenu = '';
+  sidebarActived;
   pushRightClass = 'push-right';
-  constructor(public translate: TranslateService, public router: Router, public userService: UserService) {
 
-    this.nick = localStorage.getItem('currentUserName');
-    this.role = localStorage.getItem('currentUserRole');
+  constructor(public translate: TranslateService, public router: Router, public userService: UserService) {
 
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('es');
@@ -20,32 +17,34 @@ export abstract class Componente {
     this.translate.use(browserLang.match(/en|es/) ? browserLang : 'es');
 
     this.router.events.subscribe(val => {
-      if (
-        val instanceof NavigationEnd &&
-        window.innerWidth <= 992 &&
-        this.isToggled()
-      ) {
-        this.toggleSidebar();
+      if (val instanceof NavigationEnd) {
+        this.hideSidebar();
       }
     });
   }
 
-  eventCalled() {
-    this.isActive = !this.isActive;
+  nick() {
+    return localStorage.getItem('currentUserName');
   }
 
-  addExpandClass(element: any) {
-    element === this.showMenu ?
-      this.showMenu = '0' :
-      this.showMenu = element;
+  role() {
+    return localStorage.getItem('currentUserRole');
   }
 
-  isToggled(): boolean {
-    return document.querySelector('body').classList.contains(this.pushRightClass);
+  isSidebarToggled(): boolean {
+    return this.sidebarActived;
+  }
+
+  showSidebar() {
+    this.sidebarActived = true;
+  }
+
+  hideSidebar() {
+    this.sidebarActived = false;
   }
 
   toggleSidebar() {
-    document.querySelector('body').classList.toggle(this.pushRightClass);
+    this.sidebarActived = !this.sidebarActived;
   }
 
   rltAndLtr() {
@@ -56,9 +55,9 @@ export abstract class Componente {
     this.translate.use(language);
   }
 
-  onLoggedout() {
+  logout() {
     this.userService.logout().subscribe(
-      data => {
+      () => {
         localStorage.removeItem('currentToken');
         localStorage.removeItem('currentUserName');
         localStorage.removeItem('currentUserRole');
