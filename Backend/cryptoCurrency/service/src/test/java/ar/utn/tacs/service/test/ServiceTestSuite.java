@@ -36,13 +36,22 @@ public abstract class ServiceTestSuite {
 	
 	protected Login getLoginLobezzzno() {
 		return new Login("lobezzzno", "1234", true, 0);
-}
+	}
 	
 	protected User getUserTostado() {
 		return new User(new BigInteger("2"), new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), null, new Wallet(null, new BigDecimal(10000f)));
 	}
+	
 	protected User getUserTostadoPosta() {
 		return userService.getUserById(getUserTostado().getId());
+	}
+	
+	protected User getUserLobezzzno() {
+		return new User(new BigInteger("1"), new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), null, new Wallet(null, new BigDecimal(10000f)));
+	}
+	
+	protected User getUserLobezzznoPosta() {
+		return userService.getUserById(getUserLobezzzno().getId());
 	}
 	
 	protected String getTokenTostado() {

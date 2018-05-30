@@ -33,18 +33,22 @@ public class UserDaoMockImpl implements UserDao{
 		this.roles.add(new UserRole());
 		this.roles.add(new AdminRole());
 		
-		List<CoinAmount> coinAmaunts = new ArrayList<CoinAmount>();
-			coinAmaunts.add(new CoinAmount(new Coin(1l, "bitcoin", "BTC"), new BigDecimal(0.005f)));
-			coinAmaunts.add(new CoinAmount(new Coin(2l, "ethereum", "ETH"), new BigDecimal(0.08f)));
-			
-		this.users.add(new User(new BigInteger("1"), new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10000f))));
+		this.users.add(new User(new BigInteger("1"), new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 		//TENGO ! DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
-		this.users.add(new User(new BigInteger("2"), new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(coinAmaunts, new BigDecimal(10001f))));
+		this.users.add(new User(new BigInteger("2"), new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10001f))));
 		//LE DOY SOLO EL ROL DE USER PARA QUE NO MANQUEE NADA XP
-		this.users.add(new User(new BigInteger("3"), new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(coinAmaunts, new BigDecimal(10000f))));
+		this.users.add(new User(new BigInteger("3"), new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 	}
 	
 	
+	private List<CoinAmount> newCoinAmounts() {
+		List<CoinAmount> coinAmounts = new ArrayList<CoinAmount>();
+		coinAmounts.add(new CoinAmount(new Coin(1l, "bitcoin", "BTC"), new BigDecimal(0.005f)));
+		coinAmounts.add(new CoinAmount(new Coin(2l, "ethereum", "ETH"), new BigDecimal(0.08f)));
+		return coinAmounts;
+	}
+
+
 	public HashMap<String, User> getSessions() {
 		return sessions;
 	}

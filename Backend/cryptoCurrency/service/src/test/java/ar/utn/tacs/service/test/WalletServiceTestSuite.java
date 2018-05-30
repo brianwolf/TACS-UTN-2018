@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ar.utn.tacs.commons.UtnTacsException;
-import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
@@ -18,8 +17,6 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 	
 	@Test
 	public void tostadoCompraUnBitcoinYEsMillonario() {
-		
-		String token = getTokenTostado();
 		
 		BigDecimal cantidadDolares = getUserTostadoPosta().getWallet().getDolarAmount();
 		
@@ -42,8 +39,6 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 	
 	@Test
 	public void tostadoCompraUnRippleYEsMillonario() {
-		
-		String token = getTokenTostado();
 		
 		BigDecimal cantidadDolares = getUserTostadoPosta().getWallet().getDolarAmount();
 		
@@ -143,4 +138,25 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 		Assert.assertNotNull(transacciones);
 		Assert.assertEquals(transacciones.size(), 1);
 	}
+	
+	//Incidente en produccion (1 compra de una moneda se le acredita a todos los users)
+	@Test
+	public void tostadoCompraUnBitcoinYSoloSeLeAcreditaAEl() {
+		
+		BigDecimal cantidadBitcoinsAComprar = new BigDecimal(1);
+		
+		
+		BigDecimal cantidadBitcoinTostado = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
+		BigDecimal cantidadBitcoinLobezzzno = getUserLobezzznoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
+		
+		tostadoCompraBitcoin(cantidadBitcoinsAComprar);
+		
+		
+		BigDecimal cantidadNuevaBitcoinTostado = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
+		BigDecimal cantidadNuevaBitcoinLobezzzno = getUserLobezzznoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
+		
+		Assert.assertEquals(cantidadBitcoinsAComprar.add(cantidadBitcoinTostado),cantidadNuevaBitcoinTostado);
+		Assert.assertEquals(cantidadBitcoinLobezzzno,cantidadNuevaBitcoinLobezzzno);
+	}
+
 }
