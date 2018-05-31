@@ -1,10 +1,7 @@
 package ar.utn.tacs.model.role;
 
-import javax.persistence.Id;
-
 public class Funcionality {
 
-	@Id
 	private Long id;
 
 	private String description;
@@ -18,7 +15,6 @@ public class Funcionality {
 	}
 	
 	public Funcionality() {
-		
 	}
 
 	public Long getId() {

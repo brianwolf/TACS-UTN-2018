@@ -1,4 +1,4 @@
-use UTN-TACS;
+use TACS-UTN;
 
 /*=====================================*/
 /* ELIMINACION DE DOCUMENTOS */
@@ -19,7 +19,7 @@ db.createCollection("coinsHistory");
 db.createCollection("transactions");
 db.createCollection("deposits");
 db.createCollection("roles");
-db.createCollection("conectedUsers");
+db.createCollection("connectedUsers");
 
 
 /*=====================================*/
@@ -84,7 +84,7 @@ db.users.insertMany([
   ],
       dolarAmount: 10000
     },
-    roles: db.roles.findOne({description: "administrator"})
+    roles: [db.roles.find({description: "administrator"})]
   },
 
   { 
@@ -158,9 +158,17 @@ db.users.insertMany([
     ],
       dolarAmount: 10000
     },
-    roles: db.roles.findOne({description: "user"})
+    roles: []
   }
 ]);
+
+db.users.update({
+  $or:[
+    {"login.nick": "lobezzzno"},
+    {"login.nick": "tostado"}
+  ]},
+  {roles: {$push}}
+);
 
 
 

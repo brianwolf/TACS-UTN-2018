@@ -2,6 +2,7 @@ package ar.utn.tacs.dao.impl;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -46,9 +47,43 @@ public abstract class GenericAbstractDaoImpl<T> implements GenericDao{
 		return mongoTemplate.find(q, clazz);
 	}
 	
+	protected List<T> getAllByProperties(Map<String, Object> propertiesAndValues, Class<T> clazz) {
+		Query q = new Query();
+		
+		for (String key : propertiesAndValues.keySet()) {
+			q.addCriteria(Criteria.where(key).is(propertiesAndValues.get(key)));
+		}
+		
+		return mongoTemplate.find(q, clazz);
+	}
+	
+	protected List<T> getAllByProperties(Map<String, Object> propertiesAndValues, Class<T> clazz, String collectionName) {
+		Query q = new Query();
+		
+		for (String key : propertiesAndValues.keySet()) {
+			q.addCriteria(Criteria.where(key).is(propertiesAndValues.get(key)));
+		}
+		
+		return mongoTemplate.find(q, clazz, collectionName);
+	}
+	
+	protected T getByProperty(String propertyName,Object propertyValue,Class<T> clazz, String collectionName) {
+		Query q = new Query();
+		q.addCriteria(Criteria.where(propertyName).is(propertyValue));
+		return mongoTemplate.findOne(q, clazz, collectionName);
+	}
+	
 	protected T getByProperty(String propertyName,Object propertyValue,Class<T> clazz) {
 		Query q = new Query();
 		q.addCriteria(Criteria.where(propertyName).is(propertyValue));
+		return mongoTemplate.findOne(q, clazz);
+	}
+	
+	protected T getByProperties(Map<String, Object> propertiesAndValues,Class<T> clazz) {
+		Query q = new Query();
+		for (String key : propertiesAndValues.keySet()) {
+			q.addCriteria(Criteria.where(key).is(propertiesAndValues.get(key)));
+		}
 		return mongoTemplate.findOne(q, clazz);
 	}
 	

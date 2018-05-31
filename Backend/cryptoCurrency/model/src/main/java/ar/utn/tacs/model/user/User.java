@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.wallet.Wallet;
 
-@Document
+@Document(collection="users")
 @JsonIgnoreProperties(value = {"id"})
 public class User {
 

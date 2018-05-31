@@ -2,14 +2,11 @@ package ar.utn.tacs.model.role;
 
 import java.util.List;
 
-import javax.persistence.Id;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = {"id", "funcionalities"})
 public abstract class Role {
 	
-	@Id
 	private Long id;
 	
 	private String description;
@@ -19,6 +16,10 @@ public abstract class Role {
 	public Role(Long id, String description) {
 		this.id = id;
 		this.description = description;
+	}
+
+	public Role() {
+		super();
 	}
 
 	public Long getId() {

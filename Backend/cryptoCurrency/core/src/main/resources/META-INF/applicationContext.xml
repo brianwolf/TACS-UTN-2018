@@ -29,6 +29,7 @@
 	</bean>
 	
 	<bean id="beanUtil" class="ar.utn.tacs.util.BeanUtil"/>
+	<bean id="tokenMakerUtil" class="ar.utn.tacs.util.TokenMakerUtil"/>
 	
 	<import resource="classpath:META-INF/configDataSource.xml"/>
 
