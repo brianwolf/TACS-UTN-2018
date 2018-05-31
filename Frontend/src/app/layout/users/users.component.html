@@ -1,7 +1,7 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Usuarios'" [icon]="'fas fa-users'"></app-page-header>
-  <div class="row justify-content-center">
-    <div class="col-sm-8 col-md-6 col-lg-6 col-xl-5">
+  <div class="row">
+    <div class="mx-auto">
       <div class="card">
         <div class="card-header">Información de los Usuarios del Sistema</div>
         <div class="card-body table-responsive">
@@ -22,7 +22,7 @@
           </div>
           <!-- </div>
         <div class="col-lg-12"> -->
-          <button class="btn btn-primary" (click)="getUser(userSelected.value)" [disabled]="!userSelected">Obtener Información</button> &nbsp;
+          <input type="submit" class="btn btn-primary" value="Obtener Información" [disabled]="!users" (click)="getUser(userSelected.value)"> &nbsp;
           <button class="btn btn-secondary" (click)="showInfo = false" [disabled]="!showInfo">Limpiar</button>
           <div *ngIf="showInfo" class="card-body table-responsive">
             <hr>
