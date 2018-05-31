@@ -1,4 +1,5 @@
-<nav class="sidebar" [ngClass]="{'push-right': cs.isSidebarToggled()}" (swipeleft)="cs.hideSidebar()">
+<!-- <nav class="sidebar" [ngClass]="{'push-right': cs.isSidebarToggled()}" (swipeleft)="cs.hideSidebar()"> -->
+<nav class="sidebar" [ngClass]="{'push-right': cs.isSidebarToggled()}">
   <div class="list-group">
     <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fas fa-home"></i>{{ 'Dashboard' | translate }}

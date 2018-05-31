@@ -1,43 +1,45 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Depositar'" [icon]="'fas fa-money-check-alt'"></app-page-header>
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-4 center-block">
-      <form role="form" #depositForm="ngForm" (ngSubmit)="onSubmit(depositForm)">
-        <h4>Ingrese la información del deposito</h4>
-        <div>
-          <label>Saldo actual en u$s</label>
-          <div class="form-group input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fas fa-fw fa-dollar-sign"></i>
-              </span>
+  <div class="row">
+    <div class="mx-auto">
+      <div class="card">
+        <div class="card-header">Información del deposito</div>
+        <div class="card-body table-responsive">
+          <form role="form" #depositForm="ngForm" (ngSubmit)="onSubmit(depositForm)">
+            <label>Saldo actual en u$s</label>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-fw fa-dollar-sign"></i>
+                </span>
+              </div>
+              <span class="form-control">{{ saldoUSD | number :'1.2' }}</span>
             </div>
-            <span class="form-control">{{ saldoUSD | number :'1.2' }}</span>
-          </div>
+            <hr>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-fw fa-dollar-sign"></i>
+                </span>
+              </div>
+              <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100" placeholder="Monto (mínimo u$s 100.-)"
+                name="amount" ngModel required>
+            </div>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fab fa-fw fa-slack-hash"></i>
+                </span>
+              </div>
+              <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100" placeholder="Numero de comprobante"
+                name="ticket" ngModel required>
+            </div>
+            <input class="btn btn-success" type="submit" [disabled]="!depositForm.valid" value="Informar"> &nbsp;
+            <input class="btn" type="reset" value="Limpiar"> &nbsp;
+            <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
+          </form>
         </div>
-        <hr>
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fas fa-fw fa-dollar-sign"></i>
-            </span>
-          </div>
-          <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100" placeholder="Monto del deposito (mínimo u$s 100.-)"
-            name="amount" ngModel required>
-        </div>
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fab fa-fw fa-slack-hash"></i>
-            </span>
-          </div>
-          <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100" placeholder="Numero de comprobante"
-            name="ticket" ngModel required>
-        </div>
-        <input class="btn btn-success" type="submit" [disabled]="!depositForm.valid" value="Informar"> &nbsp;
-        <input class="btn" type="reset" value="Limpiar"> &nbsp;
-        <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>
