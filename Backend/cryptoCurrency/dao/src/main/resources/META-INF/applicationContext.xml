@@ -14,13 +14,13 @@
 	<context:component-scan base-package="ar.utn.tacs*" />
 
 	<!-- PERSISTANCE -->
-<!-- 	<bean id="adminDao" 		class="ar.utn.tacs.dao.admin.impl.AdminDaoImpl" /> -->
+	<bean id="adminDao" 		class="ar.utn.tacs.dao.admin.impl.AdminDaoImpl" />
 	<bean id="externalDao" 		class="ar.utn.tacs.dao.external.impl.ExternalDaoImpl" />
 	<bean id="userDao" 			class="ar.utn.tacs.dao.user.impl.UserDaoImpl" />
-<!-- 	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoImpl" /> -->
+	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoImpl" />
 	
 	<!-- MOCKS -->
 <!-- 	<bean id="userDao" 			class="ar.utn.tacs.dao.user.impl.UserDaoMockImpl" /> -->
-	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl"/>
-	<bean id="adminDao" 		class="ar.utn.tacs.dao.admin.impl.AdminDaoMockImpl"/>
+<!-- 	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl"/> -->
+<!-- 	<bean id="adminDao" 		class="ar.utn.tacs.dao.admin.impl.AdminDaoMockImpl"/> -->
 </beans>

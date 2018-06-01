@@ -10,9 +10,12 @@ import ar.utn.tacs.model.wallet.Wallet;
 
 @TypeAlias(value = "ar.utn.tacs.model.operation.Buy")
 public class Buy extends Operation{
+	
+	public static final String DESCRIPTION = "BUY";
 
 	public Buy() {
 		super();
+		this.description = "BUY";
 	}
 
 	@Override

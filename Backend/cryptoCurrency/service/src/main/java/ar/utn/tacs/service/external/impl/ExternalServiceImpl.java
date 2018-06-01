@@ -2,7 +2,9 @@ package ar.utn.tacs.service.external.impl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -23,6 +25,7 @@ public class ExternalServiceImpl implements ExternalService{
 	
 	protected static String COIN_MARKET_CAP_URL = "https://api.coinmarketcap.com/v1/ticker/";
 	
+	private List<Coin> coinList = new ArrayList<Coin>();
 	
 	@SuppressWarnings("unused")
 	@Autowired
@@ -33,8 +36,7 @@ public class ExternalServiceImpl implements ExternalService{
 	
 	@Override
 	public List<Coin> coinMarketCap() {
-		
-		return null;
+		return this.coinList = getCoinMarketCapPosta();
 	}
 	
 	protected String makeRequest(String method,Object objeto,String url ) {
@@ -65,6 +67,17 @@ public class ExternalServiceImpl implements ExternalService{
 		}
 		return null;
 	}
+	
+	private List<Coin> getCoinMarketCapPosta() {
+		String response = makeRequest("GET", null, COIN_MARKET_CAP_URL);
+
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> mapResult = gson.fromJson(response, List.class);
+
+		CoinBuilder coinBuilder = new CoinBuilder();
+
+		return coinBuilder.createCoinList(mapResult);
+	}
 
 	private HttpMethod getHttpMethod(String method) {
 		
@@ -73,14 +86,12 @@ public class ExternalServiceImpl implements ExternalService{
 
 	@Override
 	public Coin getCoinByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return coinList.stream().filter(coin -> coin.getName().equals(name)).findFirst().get();
 	}
 
 	@Override
 	public Coin getCoinByTicker(String ticker) {
-		// TODO Auto-generated method stub
-		return null;
+		return coinList.stream().filter(coin -> coin.getTicker().equals(ticker)).findFirst().get();
 	}
 
 }

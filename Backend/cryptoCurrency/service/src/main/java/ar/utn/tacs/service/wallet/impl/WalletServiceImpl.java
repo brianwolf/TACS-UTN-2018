@@ -10,7 +10,6 @@ import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.deposit.DepositRest;
-import ar.utn.tacs.model.deposit.StateDepositNumber;
 import ar.utn.tacs.model.operation.Buy;
 import ar.utn.tacs.model.operation.Sale;
 import ar.utn.tacs.model.transaction.Transaction;
@@ -51,7 +50,7 @@ public class WalletServiceImpl implements WalletService {
 		CoinAmount coinAmount = coinAmountRest.toCoinAmount(BeanUtil.getBean(ExternalService.class).coinMarketCap());
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 
-		Transaction transaction = this.getTransaction(Buy.class.getName(), user, coinAmount);
+		Transaction transaction = this.getTransaction(Buy.DESCRIPTION, user, coinAmount);
 		walletDao.buy(user, transaction);
 	}
 
@@ -61,7 +60,7 @@ public class WalletServiceImpl implements WalletService {
 		CoinAmount coinAmount = coinAmountRest.toCoinAmount(BeanUtil.getBean(ExternalService.class).coinMarketCap());
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 
-		Transaction transaction = this.getTransaction(Sale.class.getName(), user, coinAmount);
+		Transaction transaction = this.getTransaction(Sale.DESCRIPTION, user, coinAmount);
 
 		walletDao.sale(user, transaction);
 	}
@@ -95,7 +94,7 @@ public class WalletServiceImpl implements WalletService {
 			User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 
 			Deposit deposit = depositRest.toDeposit(user);
-			deposit.setState(StateDepositNumber.WAITING.toString());
+			deposit.setState(Deposit.WAITING);
 
 			BeanUtil.getBean(AdminService.class).addDeposit(deposit);
 

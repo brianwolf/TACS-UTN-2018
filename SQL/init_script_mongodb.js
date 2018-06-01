@@ -8,6 +8,7 @@ db.coinsHistory.drop();
 db.transactions.drop();
 db.deposits.drop();
 db.roles.drop();
+db.operations.drop();
 db.connectedUsers.drop();
 
 
@@ -19,6 +20,7 @@ db.createCollection("coinsHistory");
 db.createCollection("transactions");
 db.createCollection("deposits");
 db.createCollection("roles");
+db.createCollection("operations");
 db.createCollection("connectedUsers");
 
 
@@ -45,8 +47,8 @@ db.roles.insertMany([
 		 baseURL:"/servicies/external"
 		},
 		{
-		 description:"/wallets",
-		 baseURL:"/wallets"
+		 description:"/wallet",
+		 baseURL:"/wallet"
 		}
     ]
   },
@@ -63,8 +65,8 @@ db.roles.insertMany([
 		 baseURL:"/servicies/external"
 		},
 		{
-		 description:"/wallets",
-		 baseURL:"/wallets"
+		 description:"/wallet",
+		 baseURL:"/wallet"
 		}
     ]
   }

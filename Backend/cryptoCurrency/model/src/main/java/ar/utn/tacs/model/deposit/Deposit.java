@@ -12,6 +12,12 @@ import ar.utn.tacs.model.user.User;
 @Document(collection = "deposits")
 @JsonIgnoreProperties(value = { "id", "user" })
 public class Deposit extends MongoPersistentObject {
+	
+	public static final String APPROVED = "APPROVED";
+	
+	public static final String REJECTED = "REJECTED";
+	
+	public static final String WAITING = "WAITING";
 
 	private String number;
 

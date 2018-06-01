@@ -17,7 +17,6 @@ import ar.utn.tacs.model.commons.NotExistDepositException;
 import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
 import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
 import ar.utn.tacs.model.deposit.Deposit;
-import ar.utn.tacs.model.deposit.StateDepositNumber;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
@@ -134,11 +133,11 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 		
-		if (depositFounded.getState().equals(StateDepositNumber.APPROVED.toString())) {
+		if (depositFounded.getState().equals(Deposit.APPROVED.toString())) {
 			throw new ApprovingApprovedDepositException();
 		}
 		
-		depositFounded.setState(StateDepositNumber.APPROVED.toString());
+		depositFounded.setState(Deposit.APPROVED.toString());
 	}
 
 	@Override
@@ -146,15 +145,15 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 		
-		if (depositFounded.getState().equals(StateDepositNumber.APPROVED.toString())) {
+		if (depositFounded.getState().equals(Deposit.APPROVED.toString())) {
 			throw new RejectingApprovedDepositException();
 		}
 		
-		if (depositFounded.getState().equals(StateDepositNumber.REJECTED.toString())) {
+		if (depositFounded.getState().equals(Deposit.REJECTED.toString())) {
 			throw new RejectingRejectedDepositException();
 		}
 		
-		depositFounded.setState(StateDepositNumber.REJECTED.toString());
+		depositFounded.setState(Deposit.REJECTED.toString());
 	}
 
 	@Override
@@ -174,8 +173,7 @@ public class AdminDaoMockImpl implements AdminDao{
 			return new ArrayList<Deposit>();
 		}
 		
-		StateDepositNumber stateDepositNumber = StateDepositNumber.valueOf(statusDescription);
-		return this.listDeposit.stream().filter(d -> d.getState().equals(stateDepositNumber)).collect(Collectors.toList());
+		return this.listDeposit.stream().filter(d -> d.getState().equals(statusDescription)).collect(Collectors.toList());
 	}
 
 	@Override

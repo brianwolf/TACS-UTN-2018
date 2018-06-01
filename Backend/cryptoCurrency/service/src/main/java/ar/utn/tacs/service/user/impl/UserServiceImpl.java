@@ -11,7 +11,6 @@ import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.deposit.DepositRest;
-import ar.utn.tacs.model.deposit.StateDepositNumber;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.admin.AdminService;
@@ -83,7 +82,7 @@ public class UserServiceImpl implements UserService{
 		try {
 			User user = this.getUserByToken(token);
 			Deposit deposit = depositRest.toDeposit(user);
-			deposit.setState(StateDepositNumber.WAITING.toString());
+			deposit.setState(Deposit.WAITING);
 			
 			BeanUtil.getBean(AdminService.class).addDeposit(deposit);
 			

@@ -17,8 +17,8 @@ public class TransactionBuilder {
 	private HashMap<String, Class> operationsClassMap = new HashMap<String, Class>();
 	
 	public TransactionBuilder() {
-		operationsClassMap.put(Buy.class.getName(), Buy.class);
-		operationsClassMap.put(Sale.class.getName(), Sale.class);
+		operationsClassMap.put(Buy.DESCRIPTION, Buy.class);
+		operationsClassMap.put(Sale.DESCRIPTION, Sale.class);
 	}
 	
 	public Transaction createTransaction(String operationName, User user, CoinAmount coinAmount) throws UtnTacsException {

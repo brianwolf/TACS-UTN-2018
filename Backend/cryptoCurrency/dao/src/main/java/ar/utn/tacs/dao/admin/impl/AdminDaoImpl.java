@@ -19,7 +19,6 @@ import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
 import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
 import ar.utn.tacs.model.deposit.Deposit;
-import ar.utn.tacs.model.deposit.StateDepositNumber;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
@@ -94,10 +93,11 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
 
 		if (beforeDays != null) {
 			minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
+			minDate.set(Calendar.HOUR_OF_DAY, 0);
 		}
 
 		Query q = new Query();
-		q.addCriteria(Criteria.where("dateStart").lte(new Date()).and("dateStart").gt(minDate.getTime()));
+		q.addCriteria(Criteria.where("dateStart").lte(new Date()).gt(minDate.getTime()));
 
 		Long count = mongoTemplate.count(q, Transaction.class);
 		return new BigInteger(count.toString());
@@ -111,10 +111,11 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
 
 		if (beforeDays != null) {
 			minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
+			minDate.set(Calendar.HOUR_OF_DAY, 0);
 		}
 
 		Query q = new Query();
-		q.addCriteria(Criteria.where("dateStart").lte(new Date()).and("dateStart").gt(minDate.getTime()));
+		q.addCriteria(Criteria.where("dateStart").lte(new Date()).gt(minDate.getTime()));
 		List<Transaction> transactions = mongoTemplate.find(q, Transaction.class);
 
 		return transactions;
@@ -134,28 +135,28 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
 	public void approveDeposit(Deposit deposit) throws ApprovingApprovedDepositException {
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 
-		if (depositFounded.getState().equals(StateDepositNumber.APPROVED.toString())) {
+		if (depositFounded.getState().equals(Deposit.APPROVED)) {
 			throw new ApprovingApprovedDepositException();
 		}
 
-		depositFounded.setState(StateDepositNumber.APPROVED.toString());
-		this.update(deposit);
+		depositFounded.setState(Deposit.APPROVED);
+		this.update(depositFounded);
 	}
 
 	@Override
 	public void rejectDeposit(Deposit deposit) throws RejectingApprovedDepositException, RejectingRejectedDepositException {
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 
-		if (depositFounded.getState().equals(StateDepositNumber.APPROVED.toString())) {
+		if (depositFounded.getState().equals(Deposit.APPROVED)) {
 			throw new RejectingApprovedDepositException();
 		}
 
-		if (depositFounded.getState().equals(StateDepositNumber.REJECTED.toString())) {
+		if (depositFounded.getState().equals(Deposit.REJECTED)) {
 			throw new RejectingRejectedDepositException();
 		}
 
-		depositFounded.setState(StateDepositNumber.REJECTED.toString());
-		this.update(deposit);
+		depositFounded.setState(Deposit.REJECTED);
+		this.update(depositFounded);
 	}
 
 	@Override

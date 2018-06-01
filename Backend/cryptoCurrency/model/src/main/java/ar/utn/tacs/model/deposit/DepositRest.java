@@ -46,7 +46,7 @@ public class DepositRest {
 
 		Deposit depositNumber = new Deposit();
 		depositNumber.setUser(user);
-		depositNumber.setState(this.state == null? StateDepositNumber.WAITING.toString() : this.state);
+		depositNumber.setState(this.state == null? Deposit.WAITING : this.state);
 		depositNumber.setNumber(this.number);
 		depositNumber.setAmount(new BigDecimal(this.amount));
 

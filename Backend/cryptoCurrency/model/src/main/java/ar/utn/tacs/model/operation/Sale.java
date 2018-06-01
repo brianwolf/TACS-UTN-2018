@@ -1,7 +1,6 @@
 package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import org.springframework.data.annotation.TypeAlias;
 
@@ -13,9 +12,12 @@ import ar.utn.tacs.model.wallet.Wallet;
 
 @TypeAlias(value = "ar.utn.tacs.model.operation.Sale")
 public class Sale extends Operation {
+	
+	public static final String DESCRIPTION = "SALE";
 
-	public Sale(BigInteger id) {
+	public Sale() {
 		super();
+		this.description = DESCRIPTION;
 	}
 
 	@Override
