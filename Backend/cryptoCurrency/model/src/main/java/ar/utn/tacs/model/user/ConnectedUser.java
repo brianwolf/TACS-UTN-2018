@@ -6,7 +6,7 @@ import org.bson.types.ObjectId;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import ar.utn.tacs.dao.impl.MongoPersistentObject;
+import ar.utn.tacs.dao.persistent.impl.MongoPersistentObject;
 
 @Document(collection = "connectedUsers")
 @JsonIgnoreProperties(value = { "id" })

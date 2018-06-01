@@ -1,25 +1,25 @@
-package ar.utn.tacs.model.admin;
+package ar.utn.tacs.model.deposit;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import ar.utn.tacs.dao.persistent.impl.MongoPersistentObject;
 import ar.utn.tacs.model.user.User;
 
-@JsonIgnoreProperties(value = {"id", "user"})
-public class Deposit {
+@Document(collection = "deposits")
+@JsonIgnoreProperties(value = { "id", "user" })
+public class Deposit extends MongoPersistentObject {
 
-	public BigInteger id;
+	private String number;
 
-	public String number;
+	private String state;
 
-	public StateDepositNumber state;
+	private BigDecimal amount;
 
-	public BigDecimal amount;
-
-	public User user;
+	private User user;
 
 	public Deposit() {
 	}
@@ -51,11 +51,11 @@ public class Deposit {
 		this.amount = amount;
 	}
 
-	public StateDepositNumber getState() {
+	public String getState() {
 		return state;
 	}
 
-	public void setState(StateDepositNumber state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
@@ -67,16 +67,8 @@ public class Deposit {
 		this.user = user;
 	}
 
-	public BigInteger getId() {
-		return id;
-	}
-
-	public void setId(BigInteger id) {
-		this.id = id;
-	}
-	
-	@JsonProperty(value="userNick")
-	private String getUserNick(){
+	@JsonProperty(value = "userNick")
+	private String getUserNick() {
 		return this.user.getLogin().getNick();
 	}
 

@@ -32,8 +32,8 @@ public class UserDaoMockImpl implements UserDao{
 	
 	public UserDaoMockImpl() {
 		
-		this.roles.add(new UserRole(null));
-		this.roles.add(new AdminRole(null));
+		this.roles.add(new UserRole());
+		this.roles.add(new AdminRole());
 		
 		this.users.add(new User(new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 		//TENGO ! DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
@@ -60,10 +60,10 @@ public class UserDaoMockImpl implements UserDao{
 	}
 
 	@Override
-	public User getUserById(BigInteger userId) {
+	public User getUserById(ObjectId id) {
 		
 		return users.stream()
-				.filter(user -> user.getId().equals(userId))
+				.filter(user -> user.getId().equals(id))
 				.findFirst()
 				.get();
 	}

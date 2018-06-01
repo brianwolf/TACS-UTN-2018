@@ -1,4 +1,4 @@
-package ar.utn.tacs.model.admin;
+package ar.utn.tacs.model.deposit;
 
 import java.math.BigDecimal;
 
@@ -46,7 +46,7 @@ public class DepositRest {
 
 		Deposit depositNumber = new Deposit();
 		depositNumber.setUser(user);
-		depositNumber.setState(this.state == null? StateDepositNumber.WAITING : StateDepositNumber.valueOf(this.state));
+		depositNumber.setState(this.state == null? StateDepositNumber.WAITING.toString() : this.state);
 		depositNumber.setNumber(this.number);
 		depositNumber.setAmount(new BigDecimal(this.amount));
 

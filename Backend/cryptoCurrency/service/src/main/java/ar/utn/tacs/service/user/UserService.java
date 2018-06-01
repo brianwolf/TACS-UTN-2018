@@ -1,10 +1,11 @@
 package ar.utn.tacs.service.user;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import ar.utn.tacs.commons.UtnTacsException;
-import ar.utn.tacs.model.admin.DepositRest;
+import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.GenericService;
@@ -40,7 +41,7 @@ public interface UserService extends GenericService{
 	 * @param id
 	 * @return {@link User}
 	 */
-	User getUserById(BigInteger id);
+	User getUserById(ObjectId id);
 	
 	/**
 	 * @param nick

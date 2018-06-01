@@ -1,9 +1,10 @@
 package ar.utn.tacs.dao.user;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.jws.soap.SOAPBinding.Use;
+
+import org.bson.types.ObjectId;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.GenericDao;
@@ -40,7 +41,7 @@ public interface UserDao extends GenericDao {
 	 * @param userId
 	 * @return {@link User}
 	 */
-	User getUserById(BigInteger id);
+	User getUserById(ObjectId id);
 	
 	
 	/**

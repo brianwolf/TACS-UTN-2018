@@ -3,18 +3,19 @@ package ar.utn.tacs.model.operation;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.springframework.data.annotation.TypeAlias;
+
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.Wallet;
 
+@TypeAlias(value = "ar.utn.tacs.model.operation.Sale")
 public class Sale extends Operation {
 
-	private static final String DESCRIPTION = "Venta";
-
 	public Sale(BigInteger id) {
-		super(id, DESCRIPTION);
+		super();
 	}
 
 	@Override

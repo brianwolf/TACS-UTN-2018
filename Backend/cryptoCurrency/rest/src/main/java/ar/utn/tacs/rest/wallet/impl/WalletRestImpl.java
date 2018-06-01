@@ -16,11 +16,11 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
 import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
+import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.rest.wallet.WalletRest;

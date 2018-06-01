@@ -4,11 +4,11 @@ import java.math.BigInteger;
 import java.util.List;
 
 import ar.utn.tacs.dao.GenericDao;
-import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.NotExistDepositException;
 import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
 import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
@@ -81,4 +81,10 @@ public interface AdminDao extends GenericDao {
 	 * @return {@link List} {@link Deposit}
 	 */
 	List<Deposit> getDepositsAll();
+
+	/**
+	 * @param beforeDays
+	 * @return {@link List} {@link Transaction}
+	 */
+	List<Transaction> transactionsStatesByBeforeDays(Integer beforeDays);
 }

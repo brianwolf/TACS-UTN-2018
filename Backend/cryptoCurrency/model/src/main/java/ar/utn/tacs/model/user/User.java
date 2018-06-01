@@ -6,22 +6,22 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import ar.utn.tacs.dao.impl.MongoPersistentObject;
+import ar.utn.tacs.dao.persistent.impl.MongoPersistentObject;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.wallet.Wallet;
 
-@Document(collection="users")
-@JsonIgnoreProperties(value = {"id"})
-public class User extends MongoPersistentObject{
+@Document(collection = "users")
+@JsonIgnoreProperties(value = { "id" })
+public class User extends MongoPersistentObject {
 
 	private Login login = new Login();
-	
+
 	private Person person = new Person();
 
 	private List<Role> roles = new ArrayList<Role>();
-	
+
 	private Wallet wallet = new Wallet();
-	
+
 	public User(Login login, Person person, List<Role> roles, Wallet wallet) {
 		super();
 		this.login = login;
@@ -35,16 +35,16 @@ public class User extends MongoPersistentObject{
 
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (!(obj instanceof User)) {
 			return false;
 		}
-		
+
 		User other = (User) obj;
 		if (this.login == null || other.login == null) {
 			return false;
 		}
-		
+
 		return getId().equals(other.getId()) || this.login.equals(other.login);
 	}
 
@@ -81,9 +81,8 @@ public class User extends MongoPersistentObject{
 	}
 
 	public boolean canAccessTo(String requestPath) {
-		
-		return this.roles.stream().anyMatch(r->r.canAccessTo(requestPath));
+
+		return this.roles.stream().anyMatch(r -> r.canAccessTo(requestPath));
 	}
-	
-	
+
 }

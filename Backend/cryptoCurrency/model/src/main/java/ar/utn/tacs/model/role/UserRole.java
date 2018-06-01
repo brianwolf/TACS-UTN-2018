@@ -1,15 +1,7 @@
 package ar.utn.tacs.model.role;
 
-import java.math.BigInteger;
+import org.springframework.data.annotation.TypeAlias;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
-public class UserRole extends Role{
-	
-	private static final String DESCRIPTION = "Usuario";
-	
-	public UserRole(BigInteger id) {
-		super(id,DESCRIPTION);
-	}
+@TypeAlias(value = "ar.utn.tacs.model.role.UserRole")
+public class UserRole extends Role {
 }

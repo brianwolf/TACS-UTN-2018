@@ -4,8 +4,8 @@ import java.util.List;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.GenericDao;
-import ar.utn.tacs.model.admin.Deposit;
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 

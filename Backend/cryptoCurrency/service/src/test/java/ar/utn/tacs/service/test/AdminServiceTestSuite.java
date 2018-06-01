@@ -9,9 +9,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ar.utn.tacs.model.admin.Deposit;
-import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.deposit.Deposit;
+import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.admin.AdminService;
 

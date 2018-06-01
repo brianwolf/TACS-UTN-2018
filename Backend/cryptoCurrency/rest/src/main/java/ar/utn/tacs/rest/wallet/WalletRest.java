@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
-import ar.utn.tacs.model.admin.DepositRest;
+import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.rest.GenericRest;
 

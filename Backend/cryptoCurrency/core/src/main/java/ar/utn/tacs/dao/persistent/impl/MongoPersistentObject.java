@@ -1,4 +1,4 @@
-package ar.utn.tacs.dao.impl;
+package ar.utn.tacs.dao.persistent.impl;
 
 import javax.persistence.Id;
 

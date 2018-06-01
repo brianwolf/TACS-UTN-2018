@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
 import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
-import ar.utn.tacs.model.admin.Deposit;
-import ar.utn.tacs.model.admin.StateDepositNumber;
+import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.NotExistDepositException;
 import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
 import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
-import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
+import ar.utn.tacs.model.deposit.Deposit;
+import ar.utn.tacs.model.deposit.StateDepositNumber;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
@@ -134,11 +134,11 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 		
-		if (depositFounded.getState().equals(StateDepositNumber.APPROVED)) {
+		if (depositFounded.getState().equals(StateDepositNumber.APPROVED.toString())) {
 			throw new ApprovingApprovedDepositException();
 		}
 		
-		depositFounded.setState(StateDepositNumber.APPROVED);
+		depositFounded.setState(StateDepositNumber.APPROVED.toString());
 	}
 
 	@Override
@@ -146,25 +146,25 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
 		
-		if (depositFounded.getState().equals(StateDepositNumber.APPROVED)) {
+		if (depositFounded.getState().equals(StateDepositNumber.APPROVED.toString())) {
 			throw new RejectingApprovedDepositException();
 		}
 		
-		if (depositFounded.getState().equals(StateDepositNumber.REJECTED)) {
+		if (depositFounded.getState().equals(StateDepositNumber.REJECTED.toString())) {
 			throw new RejectingRejectedDepositException();
 		}
 		
-		depositFounded.setState(StateDepositNumber.REJECTED);
+		depositFounded.setState(StateDepositNumber.REJECTED.toString());
 	}
 
 	@Override
 	public Deposit getDepositByDepositNumber(String depositNumber) throws NotExistDepositException {
 		
-		if (!this.listDeposit.stream().anyMatch(d -> d.number.equals(depositNumber))) {
+		if (!this.listDeposit.stream().anyMatch(d -> d.getNumber().equals(depositNumber))) {
 			throw new NotExistDepositException();
 		}
 		
-		return this.listDeposit.stream().filter(d -> d.number.equals(depositNumber)).findFirst().get();
+		return this.listDeposit.stream().filter(d -> d.getNumber().equals(depositNumber)).findFirst().get();
 	}
 
 	@Override
@@ -182,6 +182,31 @@ public class AdminDaoMockImpl implements AdminDao{
 	public List<Deposit> getDepositsAll() {
 
 		return this.listDeposit;
+	}
+
+	@Override
+	public List<Transaction> transactionsStatesByBeforeDays(Integer beforeDays) {
+		
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
+
+		List<Transaction> transactionsFilter = transactions.stream().filter(t -> {
+			
+			Calendar transactionDate = Calendar.getInstance();
+				transactionDate.setTime(t.getDateStart());
+			
+			Calendar minDate = Calendar.getInstance();
+				minDate.setTime(new Date());
+			
+			if (beforeDays != null) {
+				minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
+			}
+			
+			return transactionDate.get(Calendar.DAY_OF_YEAR) >= minDate.get(Calendar.DAY_OF_YEAR);
+			
+		}).collect(Collectors.toList());
+		
+		return transactionsFilter;
 	}
 	
 }

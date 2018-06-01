@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.wallet.WalletDao;
-import ar.utn.tacs.model.admin.Deposit;
-import ar.utn.tacs.model.admin.DepositRest;
-import ar.utn.tacs.model.admin.StateDepositNumber;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.deposit.Deposit;
+import ar.utn.tacs.model.deposit.DepositRest;
+import ar.utn.tacs.model.deposit.StateDepositNumber;
 import ar.utn.tacs.model.operation.Buy;
 import ar.utn.tacs.model.operation.Sale;
 import ar.utn.tacs.model.transaction.Transaction;
@@ -95,7 +95,7 @@ public class WalletServiceImpl implements WalletService {
 			User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 
 			Deposit deposit = depositRest.toDeposit(user);
-			deposit.setState(StateDepositNumber.WAITING);
+			deposit.setState(StateDepositNumber.WAITING.toString());
 
 			BeanUtil.getBean(AdminService.class).addDeposit(deposit);
 

@@ -1,4 +1,4 @@
-package ar.utn.tacs.model.admin;
+package ar.utn.tacs.model.deposit;
 
 public enum StateDepositNumber {
 

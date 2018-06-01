@@ -1,25 +1,22 @@
 package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
-import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.CoinAmount;
 
+@Document
 @JsonIgnoreProperties(value = {"id", "user"})
 public abstract class Operation {
 
-	@Id
-	protected BigInteger id;
-	
 	protected String description;
 	
 	protected CoinAmount coinAmount;
@@ -34,8 +31,7 @@ public abstract class Operation {
 	public Operation() {
 	}
 	
-	public Operation(BigInteger id, String description) {
-		this.id = id;
+	public Operation(String description) {
 		this.description = description;
 	}
 	
@@ -45,14 +41,6 @@ public abstract class Operation {
 
 	public void setQuoteTimeSold(BigDecimal quoteTimeSold) {
 		this.quoteTimeSold = quoteTimeSold;
-	}
-
-	public BigInteger getId() {
-		return id;
-	}
-
-	public void setId(BigInteger id) {
-		this.id = id;
 	}
 
 	public String getDescription() {

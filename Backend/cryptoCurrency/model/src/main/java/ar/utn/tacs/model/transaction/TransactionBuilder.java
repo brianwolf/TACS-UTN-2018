@@ -47,7 +47,7 @@ public class TransactionBuilder {
 		}
 		
 		//ESTO DESPUES HAY QUE CHARLARLO, XQ DEBERIA DE ROMPER (Y NO DEVOLVER UNA COMPRA)
-		return new Buy(null);
+		return new Buy();
 	}
 	
 }

@@ -1,17 +1,17 @@
 package ar.utn.tacs.service.user.impl;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.user.UserDao;
-import ar.utn.tacs.model.admin.Deposit;
-import ar.utn.tacs.model.admin.DepositRest;
-import ar.utn.tacs.model.admin.StateDepositNumber;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.commons.UserNotFoundException;
+import ar.utn.tacs.model.deposit.Deposit;
+import ar.utn.tacs.model.deposit.DepositRest;
+import ar.utn.tacs.model.deposit.StateDepositNumber;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.admin.AdminService;
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUserById(BigInteger id) {
+	public User getUserById(ObjectId id) {
 		return this.userDao.getUserById(id);
 	}
 
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService{
 		try {
 			User user = this.getUserByToken(token);
 			Deposit deposit = depositRest.toDeposit(user);
-			deposit.setState(StateDepositNumber.WAITING);
+			deposit.setState(StateDepositNumber.WAITING.toString());
 			
 			BeanUtil.getBean(AdminService.class).addDeposit(deposit);
 			

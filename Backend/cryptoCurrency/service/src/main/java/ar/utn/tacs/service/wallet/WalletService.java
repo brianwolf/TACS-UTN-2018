@@ -5,9 +5,9 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonValue;
 
 import ar.utn.tacs.commons.UtnTacsException;
-import ar.utn.tacs.model.admin.Deposit;
-import ar.utn.tacs.model.admin.DepositRest;
 import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.deposit.Deposit;
+import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.CoinAmountRest;

@@ -1,18 +1,18 @@
 package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
+
+import org.springframework.data.annotation.TypeAlias;
 
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.Wallet;
 
+@TypeAlias(value = "ar.utn.tacs.model.operation.Buy")
 public class Buy extends Operation{
 
-	private static final String DESCRIPTION = "Compra";
-	
-	public Buy(BigInteger id) {
-		super(id, DESCRIPTION);
+	public Buy() {
+		super();
 	}
 
 	@Override
