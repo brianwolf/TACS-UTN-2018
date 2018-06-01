@@ -18,8 +18,6 @@ import ar.utn.tacs.util.TokenMakerUtil;
 
 public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao {
 
-//	UserDaoMockImpl userDaoMock = new UserDaoMockImpl();
-
 	public User getUserById(BigInteger userId) {
 		return getById(userId, User.class);
 	}
@@ -49,15 +47,12 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 
 	@Override
 	public void logOutUserByToken(String token) {
-		
 		this.deleteByProperty("token",token,ConnectedUser.class);
 	}
 
 	@Override
 	public User getUserByToken(String token) {
-		
 		ConnectedUser connectedUser = this.getByProperty("token", token,  ConnectedUser.class);
-		
 		return getById(connectedUser.getIdUser(), User.class);
 	}
 

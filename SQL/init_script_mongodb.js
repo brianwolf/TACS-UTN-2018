@@ -29,7 +29,7 @@ db.createCollection("connectedUsers");
 /*ROLES*/
 db.roles.insertMany([
   { 
-    _class: "AdminRole",
+    _class: "ar.utn.tacs.model.role.AdminRole",
     description: "administrator",
     functionalities: [
 		{
@@ -51,7 +51,7 @@ db.roles.insertMany([
     ]
   },
   { 
-    _class: "UserRol",
+    _class: "ar.utn.tacs.model.role.AdminRole",
     description: "user",
     functionalities: [
 		{

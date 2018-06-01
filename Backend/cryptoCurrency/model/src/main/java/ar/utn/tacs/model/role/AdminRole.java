@@ -2,9 +2,11 @@ package ar.utn.tacs.model.role;
 
 import java.math.BigInteger;
 
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection="ar.utn.tacs.model.role.Role")
+@TypeAlias(value="ar.utn.tacs.model.role.AdminRole")
 public class AdminRole extends Role{
 
 	private static final String DESCRIPTION = "Administrador";
