@@ -29,6 +29,7 @@ db.createCollection("connectedUsers");
 /*ROLES*/
 db.roles.insertMany([
   { 
+    _class: "AdminRole",
     description: "administrator",
     functionalities: [
       "/admin",
@@ -38,6 +39,7 @@ db.roles.insertMany([
     ]
   },
   { 
+    _class: "UserRol",
     description: "user",
     functionalities: [
       "/users",
@@ -84,7 +86,7 @@ db.users.insertMany([
   ],
       dolarAmount: 10000
     },
-    roles: [db.roles.find({description: "administrator"})]
+    roles: []
   },
 
   { 
@@ -121,7 +123,7 @@ db.users.insertMany([
   ],
       dolarAmount: 10000
     },
-    roles: db.roles.findOne({description: "administrator"})
+    roles: []
   },
 
   { 
@@ -162,14 +164,19 @@ db.users.insertMany([
   }
 ]);
 
+
+/*ROLES A LOS USUARIOS*/
 db.users.update({
   $or:[
     {"login.nick": "lobezzzno"},
     {"login.nick": "tostado"}
   ]},
-  {roles: {$push}}
+  {$push: {roles: db.roles.findOne({description: "administrator"})}}
 );
 
-
+db.users.update(
+  {"login.nick": "boberman"},
+  {$push: {roles: db.roles.findOne({description: "user"})}}
+);
 
 

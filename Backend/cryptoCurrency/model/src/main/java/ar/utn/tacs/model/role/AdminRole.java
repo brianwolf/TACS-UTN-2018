@@ -3,6 +3,9 @@ package ar.utn.tacs.model.role;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.TypeAlias;
+
+@TypeAlias(value="AdminRole")
 public class AdminRole extends Role{
 
 	private static final Long ID_ROLE = 1l;
