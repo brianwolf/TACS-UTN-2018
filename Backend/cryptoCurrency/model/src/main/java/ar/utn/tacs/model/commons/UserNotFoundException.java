@@ -9,4 +9,4 @@ public class UserNotFoundException extends UtnTacsException{
 	 */
 	private static final long serialVersionUID = 6694365594798097964L;
 
-}
+}	

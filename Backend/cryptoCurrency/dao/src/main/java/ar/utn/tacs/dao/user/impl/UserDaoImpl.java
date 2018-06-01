@@ -6,11 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.ConnectedUser;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
@@ -25,11 +24,7 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		return getById(userId, User.class);
 	}
 
-	public String getTokenByLogin(Login login) {
-		
-		if (!mongoTemplate.collectionExists(User.class)) {
-			mongoTemplate.createCollection(User.class);
-		}
+	public String getTokenByLogin(Login login) throws UtnTacsException {
 		
 		String token = "";
 		
@@ -37,17 +32,17 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		propertiesAndValues.put("login.nick", login.getNick());
 		propertiesAndValues.put("login.pass", login.getPass());
 		
-		User user = super.getByProperties(propertiesAndValues, User.class);
+		User user = this.getByProperties(propertiesAndValues, User.class);
 		if (user == null) {
-			return token;
+			throw new UserNotFoundException();
 		}
 		
 		user.getLogin().setLastLogin(new Date());
-		super.update(user);
+		this.update(user);
 		
 		token = BeanUtil.getBean(TokenMakerUtil.class).makeToken();
 		ConnectedUser connectedUser = new ConnectedUser(token, user.getId());
-		mongoTemplate.insert(connectedUser);
+		this.insert(connectedUser);
 		
 		return token;
 	}
@@ -55,27 +50,20 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 	@Override
 	public void logOutUserByToken(String token) {
 		
-		Query q = new Query();
-		q.addCriteria(Criteria.where("token").is(token));
-		mongoTemplate.remove(q, ConnectedUser.class);
+		this.deleteByProperty("token",token,ConnectedUser.class);
 	}
 
 	@Override
 	public User getUserByToken(String token) {
 		
-		Query q = new Query();
-		q.addCriteria(Criteria.where("token").is(token));
-		ConnectedUser connectedUser = mongoTemplate.findOne(q, ConnectedUser.class);
+		ConnectedUser connectedUser = this.getByProperty("token", token,  ConnectedUser.class);
 		
-		return getById(connectedUser.getId(), User.class);
+		return getById(connectedUser.getIdUser(), User.class);
 	}
 
 	@Override
 	public void newUser(User user) {
-		if (!mongoTemplate.collectionExists(User.class)) {
-			mongoTemplate.createCollection(User.class);
-		}
-		mongoTemplate.insert(user);
+		this.insert(user);
 	}
 
 	@Override

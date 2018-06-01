@@ -1,6 +1,7 @@
 package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ import ar.utn.tacs.model.wallet.CoinAmount;
 public abstract class Operation {
 
 	@Id
-	protected Long id;
+	protected BigInteger id;
 	
 	protected String description;
 	
@@ -33,7 +34,7 @@ public abstract class Operation {
 	public Operation() {
 	}
 	
-	public Operation(Long id, String description) {
+	public Operation(BigInteger id, String description) {
 		this.id = id;
 		this.description = description;
 	}
@@ -46,11 +47,11 @@ public abstract class Operation {
 		this.quoteTimeSold = quoteTimeSold;
 	}
 
-	public Long getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 

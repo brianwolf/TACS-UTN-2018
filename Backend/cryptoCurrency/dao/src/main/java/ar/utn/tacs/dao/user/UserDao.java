@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.jws.soap.SOAPBinding.Use;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.GenericDao;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
@@ -20,8 +21,9 @@ public interface UserDao extends GenericDao {
 	 * @param nick
 	 * @param pass
 	 * @return {@link User}
+	 * @throws UtnTacsException 
 	 */
-	String getTokenByLogin(Login login);
+	String getTokenByLogin(Login login) throws UtnTacsException;
 	
 	/**
 	 * @param token

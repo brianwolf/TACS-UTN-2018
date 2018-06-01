@@ -33,6 +33,14 @@ public abstract class GenericAbstractDaoImpl<T> implements GenericDao{
 		mongoTemplate.remove(objeto);
 	}
 	
+	protected <A> void deleteByProperty(String propertyName, Object propertyValue, Class<A> clazz) {
+		
+		Query q = new Query();
+		q.addCriteria(Criteria.where(propertyName).is(propertyValue));
+		mongoTemplate.remove(q, clazz);
+		
+	}
+	
 	protected List<T> getAll(Class<T> clazz) {
 		return mongoTemplate.findAll(clazz);
 	}
@@ -73,7 +81,7 @@ public abstract class GenericAbstractDaoImpl<T> implements GenericDao{
 		return mongoTemplate.findOne(q, clazz, collectionName);
 	}
 	
-	protected T getByProperty(String propertyName,Object propertyValue,Class<T> clazz) {
+	protected <A> A getByProperty(String propertyName,Object propertyValue,Class<A> clazz) {
 		Query q = new Query();
 		q.addCriteria(Criteria.where(propertyName).is(propertyValue));
 		return mongoTemplate.findOne(q, clazz);

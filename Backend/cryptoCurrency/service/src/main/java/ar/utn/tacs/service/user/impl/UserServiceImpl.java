@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 
 	@Override
-	public String getTokenByLogin(Login login) {
+	public String getTokenByLogin(Login login) throws UtnTacsException {
 		return userDao.getTokenByLogin(login);
 	}
 

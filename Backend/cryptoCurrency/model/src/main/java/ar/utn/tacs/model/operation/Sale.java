@@ -1,6 +1,7 @@
 package ar.utn.tacs.model.operation;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
@@ -10,11 +11,10 @@ import ar.utn.tacs.model.wallet.Wallet;
 
 public class Sale extends Operation {
 
-	private static final Long ID = 1l;
 	private static final String DESCRIPTION = "Venta";
 
-	public Sale() {
-		super(ID, DESCRIPTION);
+	public Sale(BigInteger id) {
+		super(id, DESCRIPTION);
 	}
 
 	@Override

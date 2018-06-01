@@ -57,7 +57,13 @@ public abstract class ServiceTestSuite {
 	protected String getTokenTostado() {
 		Login loginTostado = getLoginTostado();
 		
-		return userService.getTokenByLogin(loginTostado);
+		try {
+			return userService.getTokenByLogin(loginTostado);
+		} catch (UtnTacsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	protected void tostadoCompraBitcoin(BigDecimal value) {

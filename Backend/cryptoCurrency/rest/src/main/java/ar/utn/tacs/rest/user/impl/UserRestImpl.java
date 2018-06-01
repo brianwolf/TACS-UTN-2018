@@ -52,7 +52,7 @@ public class UserRestImpl implements UserRest {
 			Map<String, Object> tokenMap = new HashMap<String, Object>();
 			tokenMap.put("token", this.userService.getTokenByLogin(login));
 			
-			return Response.status(Response.Status.CREATED).entity(tokenMap).build();
+			return Response.status(Response.Status.OK).entity(tokenMap).build();
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -66,7 +66,7 @@ public class UserRestImpl implements UserRest {
 		
 		try {
 			userService.logOutUserByToken(token);
-			return Response.status(Response.Status.CREATED).build();
+			return Response.status(Response.Status.OK).build();
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

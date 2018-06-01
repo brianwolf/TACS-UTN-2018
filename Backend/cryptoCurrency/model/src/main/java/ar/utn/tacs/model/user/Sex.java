@@ -1,15 +1,17 @@
 package ar.utn.tacs.model.user;
 
+import java.math.BigInteger;
+
 public class Sex {
 
-	private Long id;
+	private BigInteger id;
 	private String description;
 
-	public Long getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 

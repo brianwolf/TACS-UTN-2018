@@ -32,19 +32,40 @@ db.roles.insertMany([
     _class: "AdminRole",
     description: "administrator",
     functionalities: [
-      "/admin",
-      "/users",
-      "/servicies/external",
-      "/wallets"
+		{
+		 description: "/admin",
+		 baseURL:"/admin"
+		},
+		{
+		 description:"/users",
+		 baseURL:"/users"
+		},
+		{
+		 description:"/servicies/external",
+		 baseURL:"/servicies/external"
+		},
+		{
+		 description:"/wallets",
+		 baseURL:"/wallets"
+		}
     ]
   },
   { 
     _class: "UserRol",
     description: "user",
     functionalities: [
-      "/users",
-      "/servicies/external",
-      "/wallets"
+		{
+		 description:"/users",
+		 baseURL:"/users"
+		},
+		{
+		 description:"/servicies/external",
+		 baseURL:"/servicies/external"
+		},
+		{
+		 description:"/wallets",
+		 baseURL:"/wallets"
+		}
     ]
   }
 ]);

@@ -1,19 +1,21 @@
 package ar.utn.tacs.model.role;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = {"id", "funcionalities"})
+@JsonIgnoreProperties(value = {"id", "functionalities"})
 public abstract class Role {
 	
-	private Long id;
+	private BigInteger id;
 	
 	private String description;
 	
-	private List<Funcionality> funcionalities;  
+	private List<Funcionality> functionalities = new ArrayList<Funcionality>();
 	
-	public Role(Long id, String description) {
+	public Role(BigInteger id, String description) {
 		this.id = id;
 		this.description = description;
 	}
@@ -22,11 +24,11 @@ public abstract class Role {
 		super();
 	}
 
-	public Long getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 
@@ -38,17 +40,18 @@ public abstract class Role {
 		this.description = description;
 	}
 
-	public List<Funcionality> getFuncionalities() {
-		return funcionalities;
+
+	public List<Funcionality> getFunctionalities() {
+		return functionalities;
 	}
 
-	public void setFuncionalities(List<Funcionality> funcionalities) {
-		this.funcionalities = funcionalities;
+	public void setFunctionalities(List<Funcionality> functionalities) {
+		this.functionalities = functionalities;
 	}
 
 	public boolean canAccessTo(String requestPath) {
 		
-		return this.funcionalities.stream().anyMatch(f->f.canAccessTo(requestPath));
+		return this.functionalities.stream().anyMatch(f->f.canAccessTo(requestPath));
 	}
 
 }

@@ -30,8 +30,8 @@ public class UserDaoMockImpl implements UserDao{
 	
 	public UserDaoMockImpl() {
 		
-		this.roles.add(new UserRole());
-		this.roles.add(new AdminRole());
+		this.roles.add(new UserRole(null));
+		this.roles.add(new AdminRole(null));
 		
 		this.users.add(new User(new BigInteger("1"), new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 		//TENGO ! DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
@@ -43,8 +43,8 @@ public class UserDaoMockImpl implements UserDao{
 	
 	private List<CoinAmount> newCoinAmounts() {
 		List<CoinAmount> coinAmounts = new ArrayList<CoinAmount>();
-		coinAmounts.add(new CoinAmount(new Coin(1l, "bitcoin", "BTC"), new BigDecimal(0.005f)));
-		coinAmounts.add(new CoinAmount(new Coin(2l, "ethereum", "ETH"), new BigDecimal(0.08f)));
+		coinAmounts.add(new CoinAmount(new Coin(new BigInteger("1"), "bitcoin", "BTC"), new BigDecimal(0.005f)));
+		coinAmounts.add(new CoinAmount(new Coin(new BigInteger("2"), "ethereum", "ETH"), new BigDecimal(0.08f)));
 		return coinAmounts;
 	}
 

@@ -1,5 +1,6 @@
 package ar.utn.tacs.model.transaction;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import ar.utn.tacs.model.user.User;
 @JsonIgnoreProperties(value = {"id", "user"})
 public class Transaction {
 
-	private Long id;
+	private BigInteger id;
 	
 	private User user;
 	
@@ -31,11 +32,11 @@ public class Transaction {
 		this.operations.add(operation);
 	}
 
-	public Long getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 

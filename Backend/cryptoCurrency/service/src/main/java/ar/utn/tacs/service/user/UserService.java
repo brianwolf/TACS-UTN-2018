@@ -20,8 +20,9 @@ public interface UserService extends GenericService{
 	 * @param nick
 	 * @param pass
 	 * @return {@link User}
+	 * @throws UtnTacsException 
 	 */
-	String getTokenByLogin(Login login);
+	String getTokenByLogin(Login login) throws UtnTacsException;
 	
 	/**
 	 * @param token

@@ -46,7 +46,8 @@ public class TransactionBuilder {
 			e.printStackTrace();
 		}
 		
-		return new Buy();
+		//ESTO DESPUES HAY QUE CHARLARLO, XQ DEBERIA DE ROMPER (Y NO DEVOLVER UNA COMPRA)
+		return new Buy(null);
 	}
 	
 }
