@@ -1,41 +1,32 @@
 package ar.utn.tacs.model.user;
 
-import java.math.BigInteger;
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import ar.utn.tacs.dao.impl.MongoPersistentObject;
 
 @Document(collection = "connectedUsers")
 @JsonIgnoreProperties(value = { "id" })
-public class ConnectedUser {
-
-	@Id
-	private BigInteger id;
+public class ConnectedUser extends MongoPersistentObject {
 
 	private String token;
 
-	private BigInteger idUser;
+	private ObjectId idUser;
 
 	private Date timeConnecting;
 
-	public ConnectedUser(String token, BigInteger idUser) {
+	public ConnectedUser(String token, ObjectId objectId) {
 		super();
 		this.token = token;
-		this.idUser = idUser;
+		this.idUser = objectId;
+		this.timeConnecting = new Date();
 	}
 
 	public ConnectedUser() {
 		super();
-	}
-
-	public BigInteger getId() {
-		return id;
-	}
-
-	public void setId(BigInteger id) {
-		this.id = id;
 	}
 
 	public String getToken() {
@@ -54,11 +45,11 @@ public class ConnectedUser {
 		this.timeConnecting = timeConnecting;
 	}
 
-	public BigInteger getIdUser() {
+	public ObjectId getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(BigInteger idUser) {
+	public void setIdUser(ObjectId idUser) {
 		this.idUser = idUser;
 	}
 

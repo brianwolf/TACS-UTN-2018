@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
+
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.role.AdminRole;
@@ -33,11 +35,11 @@ public class UserDaoMockImpl implements UserDao{
 		this.roles.add(new UserRole(null));
 		this.roles.add(new AdminRole(null));
 		
-		this.users.add(new User(new BigInteger("1"), new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
+		this.users.add(new User(new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 		//TENGO ! DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
-		this.users.add(new User(new BigInteger("2"), new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10001f))));
+		this.users.add(new User(new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10001f))));
 		//LE DOY SOLO EL ROL DE USER PARA QUE NO MANQUEE NADA XP
-		this.users.add(new User(new BigInteger("3"), new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
+		this.users.add(new User(new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 	}
 	
 	
@@ -127,7 +129,7 @@ public class UserDaoMockImpl implements UserDao{
 		user.getLogin().setTries(0);
 		user.setWallet(new Wallet());
 		user.setRoles(roles.subList(0, 1));
-		user.setId(BigInteger.valueOf(this.users.size()+1));
+		user.setId(new ObjectId());
 		
 		this.users.add(user);
 		

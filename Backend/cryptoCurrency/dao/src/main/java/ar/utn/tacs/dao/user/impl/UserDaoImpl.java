@@ -40,6 +40,8 @@ public class UserDaoImpl extends GenericAbstractDaoImpl<User> implements UserDao
 		
 		token = BeanUtil.getBean(TokenMakerUtil.class).makeToken();
 		ConnectedUser connectedUser = new ConnectedUser(token, user.getId());
+		
+		this.deleteByProperty("idUser", user.getId(), ConnectedUser.class);
 		this.insert(connectedUser);
 		
 		return token;

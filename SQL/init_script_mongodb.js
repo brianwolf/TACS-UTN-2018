@@ -8,7 +8,7 @@ db.coinsHistory.drop();
 db.transactions.drop();
 db.deposits.drop();
 db.roles.drop();
-db.conectedUsers.drop();
+db.connectedUsers.drop();
 
 
 /*=====================================*/
