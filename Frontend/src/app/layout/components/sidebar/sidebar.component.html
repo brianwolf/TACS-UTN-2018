@@ -1,7 +1,6 @@
-<!-- <nav class="sidebar" [ngClass]="{'push-right': cs.isSidebarToggled()}" (swipeleft)="cs.hideSidebar()"> -->
 <nav class="sidebar" [ngClass]="{'push-right': cs.isSidebarToggled()}">
   <div class="list-group">
-    <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a [routerLink]="['/dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fas fa-home"></i>{{ 'Dashboard' | translate }}
     </a>
     <a [routerLink]="['/buy']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -36,6 +35,7 @@
       </a>
     </div>
     <div class="header-fields">
+      <hr>
       <a href="javascript:void(0)" (click)="cs.rltAndLtr()" class="list-group-item">
         <i class="fas fa-fw fa-exchange-alt"></i>{{ 'L/R' | translate }}
       </a>

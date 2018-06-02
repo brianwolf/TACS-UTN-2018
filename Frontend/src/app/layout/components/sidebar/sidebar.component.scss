@@ -20,12 +20,6 @@ $background-color: #222;
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out; // border-top: 1px solid rgba(255,255,255,0.3);
   .list-group {
-    .fab,
-    .fal,
-    .far,
-    .fas {
-      margin-right: 12px;
-    }
     a {
       color: #999;
       background: $background-color;
@@ -38,11 +32,8 @@ $background-color: #222;
       color: #fff;
       background: darken($background-color, 5%);
     }
-    .header-fields {
-      padding-top: 10px;
-      >.list-group-item:first-child {
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-      }
+    i {
+      margin-right: 12px;
     }
   }
 }

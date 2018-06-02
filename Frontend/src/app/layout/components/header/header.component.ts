@@ -4,7 +4,7 @@ import { ComponentService } from '../../../shared/services/component.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styles: ['i { margin-right: 8px }']
 })
 export class HeaderComponent implements OnInit {
 

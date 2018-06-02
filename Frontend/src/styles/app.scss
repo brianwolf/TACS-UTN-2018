@@ -1,13 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~@angular/material/theming';
 @import "bootstrap/bootstrap";
 @import "material";
 @import "spinner";
-@import "utils";
 @import "rtl";
 @import "responsive";
 body {
-  font-family: 'Open Sans', sans-serif !important;
+  font-family: 'Open Sans', sans-serif;
+  a {
+    cursor: pointer;
+  }
 }

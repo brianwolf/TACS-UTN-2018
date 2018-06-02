@@ -18,7 +18,7 @@
           name="confirmPass" ngModel required minlength="3">
       </div>
     </div>
-    <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid" value="Registrar"> &nbsp;
-    <a class="btn rounded-btn" [routerLink]="['/login']">Ingresar</a>
+    <input type="submit" class="btn rounded-btn" [disabled]="!userRegistrationForm.valid || loading" value="Registrar"> &nbsp;
+    <button class="btn rounded-btn" [routerLink]="['/login']" [disabled]="loading">Ingresar</button>
   </form>
 </div>

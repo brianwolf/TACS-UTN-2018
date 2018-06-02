@@ -11,6 +11,7 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class SellComponent implements OnInit {
 
+  coinSelected;
   saldoUSD;
   coins;
 

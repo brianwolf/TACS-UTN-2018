@@ -31,11 +31,11 @@
                   <i class="fab fa-fw fa-slack-hash"></i>
                 </span>
               </div>
-              <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100" placeholder="Numero de comprobante"
+              <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="1" placeholder="Numero de comprobante"
                 name="ticket" ngModel required>
             </div>
             <input class="btn btn-success" type="submit" [disabled]="!depositForm.valid" value="Informar"> &nbsp;
-            <input class="btn" type="reset" value="Limpiar"> &nbsp;
+            <input class="btn btn" type="reset" value="Limpiar"> &nbsp;
             <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
           </form>
         </div>

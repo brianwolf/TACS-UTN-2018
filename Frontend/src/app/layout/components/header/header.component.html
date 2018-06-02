@@ -1,15 +1,13 @@
-<nav class="navbar navbar-expand-lg fixed-top">
-  <a class="navbar-brand" href="#">TACS - Crypto</a>
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark fixed-top" (swipeleft)="cs.hideSidebar()" (swiperight)="cs.showSidebar()">
+  <a class="navbar-brand" [routerLink]="['/dashboard']">TACS - Crypto</a>
   <button class="navbar-toggler" type="button" (click)="cs.toggleSidebar()">
-    <span class="navbar-toggler-icon"></span>
-    <i class="fas fa-bars text-muted"></i>
+    <span class="navbar-toggler-icon navbar-light"></span>
   </button>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown" ngbDropdown>
         <a class="nav-link" ngbDropdownToggle>
           <i class="fas fa-user"></i>{{ cs.role() | translate }}
-          <b class="caret"></b>
         </a>
         <div class="dropdown-menu-right" ngbDropdownMenu>
           <p class="dropdown-item">
@@ -28,7 +26,6 @@
       <li class="nav-item dropdown" ngbDropdown>
         <a class="nav-link" ngbDropdownToggle>
           <i class="fas fa-language"></i>{{ 'Language' | translate }}
-          <b class="caret"></b>
         </a>
         <div class="dropdown-menu-right" ngbDropdownMenu>
           <a class="dropdown-item" (click)="cs.changeLang('es')">
