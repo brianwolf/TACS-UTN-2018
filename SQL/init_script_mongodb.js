@@ -32,7 +32,7 @@ db.createCollection("connectedUsers");
 db.roles.insertMany([
   { 
     _class: "ar.utn.tacs.model.role.AdminRole",
-    description: "administrator",
+    description: "Administrador",
     functionalities: [
 		{
 		 description: "/admin",
@@ -53,8 +53,8 @@ db.roles.insertMany([
     ]
   },
   { 
-    _class: "ar.utn.tacs.model.role.AdminRole",
-    description: "user",
+    _class: "ar.utn.tacs.model.role.UserRole",
+    description: "User",
     functionalities: [
 		{
 		 description:"/users",
@@ -194,12 +194,17 @@ db.users.update({
     {"login.nick": "lobezzzno"},
     {"login.nick": "tostado"}
   ]},
-  {$push: {roles: db.roles.findOne({description: "administrator"})}}
+  {$push: {roles: db.roles.findOne({description: "Administrador"})}}
+);
+
+db.users.update(
+    {"login.nick": "tostado"},
+  {$push: {roles: db.roles.findOne({description: "Administrador"})}}
 );
 
 db.users.update(
   {"login.nick": "boberman"},
-  {$push: {roles: db.roles.findOne({description: "user"})}}
+  {$push: {roles: db.roles.findOne({description: "User"})}}
 );
 
 
