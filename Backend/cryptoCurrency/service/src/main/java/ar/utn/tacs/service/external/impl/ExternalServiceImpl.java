@@ -42,8 +42,7 @@ public class ExternalServiceImpl implements ExternalService{
 	protected String makeRequest(String method,Object objeto,String url ) {
 		
 		try {
-			String urlMail = url;
-			URI uri = new URI(urlMail);
+			URI uri = new URI(url);
 
 			HttpHeaders headers = new HttpHeaders();
 	        headers.add("Content-Type", "application/json");

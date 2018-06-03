@@ -43,8 +43,8 @@ db.roles.insertMany([
 		 baseURL:"/users"
 		},
 		{
-		 description:"/servicies/external",
-		 baseURL:"/servicies/external"
+		 description:"/services/external",
+		 baseURL:"/services/external"
 		},
 		{
 		 description:"/wallet",
@@ -61,8 +61,8 @@ db.roles.insertMany([
 		 baseURL:"/users"
 		},
 		{
-		 description:"/servicies/external",
-		 baseURL:"/servicies/external"
+		 description:"/services/external",
+		 baseURL:"/services/external"
 		},
 		{
 		 description:"/wallet",
@@ -189,16 +189,13 @@ db.users.insertMany([
 
 
 /*ROLES A LOS USUARIOS*/
-db.users.update({
-  $or:[
-    {"login.nick": "lobezzzno"},
-    {"login.nick": "tostado"}
-  ]},
+db.users.update(
+  {"login.nick": "lobezzzno"},
   {$push: {roles: db.roles.findOne({description: "Administrador"})}}
 );
 
 db.users.update(
-    {"login.nick": "tostado"},
+  {"login.nick": "tostado"},
   {$push: {roles: db.roles.findOne({description: "Administrador"})}}
 );
 
