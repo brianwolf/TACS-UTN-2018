@@ -6,7 +6,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label>Seleccione al primer usuario</label>
-            <select class="form-control" (change)="winner = null; disabled = false" #user1>
+            <select class="form-control" (change)="winner = null" #user1>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
@@ -14,13 +14,13 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label>Seleccione al segundo usuario</label>
-            <select class="form-control" (change)="winner = null; disabled = false" #user2>
+            <select class="form-control" (change)="winner = null" #user2>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
           </div>
         </div>
       </div>
-      <button class="btn btn-primary" (click)="compare(user1.value, user2.value)" [disabled]="!user1 || !user2 || disabled">Comparar</button>
+      <button class="btn btn-primary" (click)="compare(user1.value, user2.value)" [disabled]="winner">Comparar</button>
       <div *ngIf="winner" class="card-body table-responsive">
         <table class="table table-hover table-striped">
           <thead>

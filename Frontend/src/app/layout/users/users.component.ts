@@ -13,7 +13,6 @@ export class UsersComponent implements OnInit {
 
   user;
   users;
-  showInfo: boolean;
 
   constructor(private adminService: AdminService, public snackBar: MatSnackBar) { }
 
@@ -26,14 +25,10 @@ export class UsersComponent implements OnInit {
   }
 
   getUser(userSelected) {
-    this.adminService.getUser(userSelected)
-      .subscribe(
-        data => {
-          this.user = data;
-          this.showInfo = true;
-        },
-        error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' })
-      );
+    this.adminService.getUser(userSelected).subscribe(
+      data => this.user = data,
+      error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' })
+    );
   }
 
 }

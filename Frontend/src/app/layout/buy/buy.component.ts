@@ -31,11 +31,15 @@ export class BuyComponent implements OnInit {
       this.userService.buy(body)
         .subscribe(
           data => this.snackBar.open(`Se compró ${body.amount} ${body.ticker}.`, 'x'),
-          error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'x', { panelClass: 'alert-danger' })
+          error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'x', { panelClass: 'alert-danger' }),
+          () => {
+            this.reset();
+            form.reset();
+            return;
+          }
         );
     }
-    this.reset();
-    form.reset();
+    form.controls['amount'].reset();
   }
 
   fillSelector() {

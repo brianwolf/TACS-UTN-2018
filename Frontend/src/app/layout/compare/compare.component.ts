@@ -22,7 +22,6 @@ export class CompareComponent implements OnInit {
   winner;
   loser;
   users;
-  disabled = true;
 
   constructor(private adminService: AdminService, public snackBar: MatSnackBar) { }
 
@@ -31,11 +30,10 @@ export class CompareComponent implements OnInit {
   }
 
   fillSelector() {
-    this.adminService.getUsers().subscribe(data => { this.users = data; this.disabled = false; });
+    this.adminService.getUsers().subscribe(data => this.users = data);
   }
 
   compare(nick1, nick2) {
-    this.disabled = true;
     this.adminService.getUser(nick1).subscribe(
       (user1: any) =>
         this.adminService.getUser(nick2).subscribe(
@@ -53,16 +51,5 @@ export class CompareComponent implements OnInit {
       error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'v', { panelClass: 'alert-danger' })
     );
   }
-
-  // compare(user1, user2) {
-  //   this.adminService.compareUsers(user1, user2)
-  //     .subscribe(data => {
-  //       const winnerUser: any = data;
-  //       this.snackBar.open(`El Usuario con mayor tenencias es ${winnerUser.login.nick},
-  //       con un total de ${Math.round(winnerUser.wallet.dolarFinalBalance)} dólares.`, 'x', { duration: 50000 });
-  //     },
-  //       error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'x', { panelClass: 'alert-danger' })
-  //     );
-  // }
 
 }

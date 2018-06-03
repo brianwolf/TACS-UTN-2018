@@ -31,11 +31,15 @@ export class SellComponent implements OnInit {
       this.userService.sell(body)
         .subscribe(
           data => this.snackBar.open(`Se vendió ${body.amount} ${body.ticker}.`, 'x'),
-          error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'x', { panelClass: 'alert-danger' })
+          error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'x', { panelClass: 'alert-danger' }),
+          () => {
+            this.reset();
+            form.reset();
+            return;
+          }
         );
     }
-    this.reset();
-    form.reset();
+    form.controls['amount'].reset();
   }
 
   getWallet() {
