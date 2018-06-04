@@ -91,7 +91,9 @@ public class Deposit extends MongoPersistentObject {
 	}
 
 	public void setState(String state) {
-		states.add(new DepositState(state, new Date()));
+		if(!state.equals(getActualState().getState())) {
+			states.add(new DepositState(state, new Date()));
+		}
 	}
 
 	public User getUser() {
