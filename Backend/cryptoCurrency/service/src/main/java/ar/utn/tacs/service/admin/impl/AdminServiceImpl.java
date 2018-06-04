@@ -61,10 +61,18 @@ public class AdminServiceImpl implements AdminService {
 		
 		UserTransactionRest userTransactionRest = new UserTransactionRest();
 			userTransactionRest.setUser(user);
-			userTransactionRest.addTransactionCounter("today", this.statesByBeforeDays(0));
-			userTransactionRest.addTransactionCounter("all", this.statesAll());
+			userTransactionRest.addTransactionCounter("today", this.statesByBeforeDays(user,0));
+			userTransactionRest.addTransactionCounter("all", this.statesAll(user));
 		
 		return userTransactionRest;
+	}
+
+	private BigInteger statesAll(User user) {
+		return adminDao.statesAll(user);
+	}
+
+	private BigInteger statesByBeforeDays(User user, Integer days) {
+		return adminDao.statesByBeforeDays(user,days);
 	}
 
 	@Override

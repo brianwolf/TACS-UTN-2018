@@ -87,35 +87,13 @@ public class AdminDaoMockImpl implements AdminDao{
 
 	@Override
 	public BigInteger statesAll() {
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
-		
-		return BigInteger.valueOf(transactions.size());
+		return statesAll(null);
 	}
 
 	@Override
 	public BigInteger statesByBeforeDays(Integer beforeDays) {
 		
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
-
-		List<Transaction> transactionsFilter = transactions.stream().filter(t -> {
-			
-			Calendar transactionDate = Calendar.getInstance();
-				transactionDate.setTime(t.getDateStart());
-			
-			Calendar minDate = Calendar.getInstance();
-				minDate.setTime(new Date());
-			
-			if (beforeDays != null) {
-				minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
-			}
-			
-			return transactionDate.get(Calendar.DAY_OF_YEAR) >= minDate.get(Calendar.DAY_OF_YEAR);
-			
-		}).collect(Collectors.toList());
-		
-		return BigInteger.valueOf(transactionsFilter.size());
+		return statesByBeforeDays(null, beforeDays);
 	}
 
 	@Override
@@ -205,6 +183,38 @@ public class AdminDaoMockImpl implements AdminDao{
 		}).collect(Collectors.toList());
 		
 		return transactionsFilter;
+	}
+
+	@Override
+	public BigInteger statesAll(User user) {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
+		
+		return BigInteger.valueOf(transactions.stream().filter(t->user==null||t.getUser().getId().equals(t.getUser().getId())).count());
+	}
+
+	@Override
+	public BigInteger statesByBeforeDays(User user, Integer beforeDays) {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		BeanUtil.getBean("walletDao", WalletDaoMockImpl.class).getHistory().values().stream().forEach(t -> transactions.addAll(t));
+
+		List<Transaction> transactionsFilter = transactions.stream().filter(t -> {
+			
+			Calendar transactionDate = Calendar.getInstance();
+				transactionDate.setTime(t.getDateStart());
+			
+			Calendar minDate = Calendar.getInstance();
+				minDate.setTime(new Date());
+			
+			if (beforeDays != null) {
+				minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
+			}
+			
+			return transactionDate.get(Calendar.DAY_OF_YEAR) >= minDate.get(Calendar.DAY_OF_YEAR)&&(user==null||t.getUser().getId().equals(t.getUser().getId()));
+			
+		}).collect(Collectors.toList());
+		
+		return BigInteger.valueOf(transactionsFilter.size());
 	}
 	
 }

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void newUser(User user) {
+	public void newUser(User user) throws UtnTacsException {
 		userDao.newUser(user);
 	}
 

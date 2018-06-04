@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.commons.ExistingUserException;
 import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
@@ -11,7 +12,7 @@ import ar.utn.tacs.model.user.User;
 public class UserServiceTestSuite extends ServiceTestSuite {
 	
 	@Test
-	public void createUserJesus() {
+	public void createUserJesus() throws UtnTacsException {
 		String nickJesus = "yisssas";
 		User jesus = new User();
 		jesus.getLogin().setNick(nickJesus);
@@ -19,6 +20,15 @@ public class UserServiceTestSuite extends ServiceTestSuite {
 		userService.newUser(jesus);
 		
 		Assert.assertNotNull(userService.getUser(nickJesus));
+	}
+	
+	@Test(expected=ExistingUserException.class)
+	public void intentoCrearATostadoPeroNoPuedoPorqueEsIrremplazable() throws UtnTacsException {
+		
+		User tostado2 = new User();
+		tostado2.setLogin(getLoginTostado());
+		
+		userService.newUser(tostado2);
 	}
 	
 	@Test

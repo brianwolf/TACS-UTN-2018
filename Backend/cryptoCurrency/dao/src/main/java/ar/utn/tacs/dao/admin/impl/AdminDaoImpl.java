@@ -79,28 +79,13 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
 	@Override
 	public BigInteger statesAll() {
 
-		Query q = new Query();
-		q.addCriteria(Criteria.where("dateStart").lte(new Date()));
-
-		return BigInteger.valueOf(mongoTemplate.count(q, Transaction.class));
+		return statesAll(null);
 	}
 
 	@Override
 	public BigInteger statesByBeforeDays(Integer beforeDays) {
 
-		Calendar minDate = Calendar.getInstance();
-		minDate.setTime(new Date());
-
-		if (beforeDays != null) {
-			minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
-			minDate.set(Calendar.HOUR_OF_DAY, 0);
-		}
-
-		Query q = new Query();
-		q.addCriteria(Criteria.where("dateStart").lte(new Date()).gt(minDate.getTime()));
-
-		Long count = mongoTemplate.count(q, Transaction.class);
-		return new BigInteger(count.toString());
+		return statesByBeforeDays(null, beforeDays);
 	}
 
 	@Override
@@ -174,6 +159,39 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
 	@Override
 	public List<Deposit> getDepositsAll() {
 		return this.getAll(Deposit.class);
+	}
+
+	@Override
+	public BigInteger statesAll(User user) {
+		Query q = new Query();
+		q.addCriteria(Criteria.where("dateStart").lte(new Date()));
+		
+		if(user!=null) {
+			q.addCriteria(Criteria.where("user.id").is(user.getId()));
+		}
+
+		return BigInteger.valueOf(mongoTemplate.count(q, Transaction.class));
+	}
+
+	@Override
+	public BigInteger statesByBeforeDays(User user, Integer beforeDays) {
+		Calendar minDate = Calendar.getInstance();
+		minDate.setTime(new Date());
+
+		if (beforeDays != null) {
+			minDate.add(Calendar.DAY_OF_YEAR, -beforeDays);
+			minDate.set(Calendar.HOUR_OF_DAY, 0);
+		}
+
+		Query q = new Query();
+		q.addCriteria(Criteria.where("dateStart").lte(new Date()).gt(minDate.getTime()));
+		
+		if(user!=null) {
+			q.addCriteria(Criteria.where("user.id").is(user.getId()));
+		}
+
+		Long count = mongoTemplate.count(q, Transaction.class);
+		return new BigInteger(count.toString());
 	}
 
 }

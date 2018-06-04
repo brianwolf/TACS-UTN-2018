@@ -1,5 +1,6 @@
 package ar.utn.tacs.dao.user.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,9 @@ import org.bson.types.ObjectId;
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
+import ar.utn.tacs.model.commons.ExistingUserException;
 import ar.utn.tacs.model.commons.UserNotFoundException;
+import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.user.ConnectedUser;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
@@ -23,11 +26,8 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 
 		String token = "";
 
-		Map<String, Object> propertiesAndValues = new HashMap<String, Object>();
-		propertiesAndValues.put("login.nick", login.getNick());
-		propertiesAndValues.put("login.pass", login.getPass());
-
-		User user = this.getByProperties(propertiesAndValues, User.class);
+		User user = getUserByLogin(login);
+		
 		if (user == null) {
 			throw new UserNotFoundException();
 		}
@@ -43,6 +43,17 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 
 		return token;
 	}
+	
+	private User getUserByLogin(Login login) throws UserNotFoundException {
+		
+		Map<String, Object> propertiesAndValues = new HashMap<String, Object>();
+		propertiesAndValues.put("login.nick", login.getNick());
+		propertiesAndValues.put("login.pass", login.getPass());
+
+		User user = this.getByProperties(propertiesAndValues, User.class);
+		
+		return user;
+	}
 
 	@Override
 	public void logOutUserByToken(String token) {
@@ -56,8 +67,25 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void newUser(User user) {
+	public void newUser(User user) throws UtnTacsException {
+		
+		User userBd = this.getUserByLogin(user.getLogin());
+		
+		if(userBd!=null) {
+			throw new ExistingUserException();
+		}
+		
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(this.getRolByDescription("User"));
+		
+		user.setRoles(roles);
+		
 		this.insert(user);
+	}
+
+	private Role getRolByDescription(String descripcion) {
+		
+		return getByProperty("description", descripcion, Role.class);
 	}
 
 	@Override

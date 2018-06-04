@@ -14,8 +14,9 @@ public interface UserService extends GenericService{
 	
 	/**
 	 * @param user
+	 * @throws UtnTacsException 
 	 */
-	void newUser(User user);
+	void newUser(User user) throws UtnTacsException;
 	
 	/**
 	 * @param nick

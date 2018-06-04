@@ -15,8 +15,9 @@ public interface UserDao extends GenericDao {
 	
 	/**
 	 * @param user
+	 * @throws UtnTacsException 
 	 */
-	void newUser(User user);
+	void newUser(User user) throws UtnTacsException;
 	
 	/**
 	 * @param nick
