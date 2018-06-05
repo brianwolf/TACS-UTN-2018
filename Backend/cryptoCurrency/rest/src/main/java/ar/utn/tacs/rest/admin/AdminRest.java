@@ -22,6 +22,7 @@ public interface AdminRest extends GenericService{
 	public static final String REJECT_DEPOSIT = "/deposits/reject/{depositNumber}";
 	public static final String GET_DEPOSITS = "/deposits";
 	public static final String GET_DEPOSITS_ALL = "/deposits/all";
+	public static final String CONVERT_USER_TO_ADMIN = "/users/toAdmin";
 
 	/**
 	 * {@link GET}
@@ -98,13 +99,26 @@ public interface AdminRest extends GenericService{
 	Response rejectDeposit(String despositNumber);
 	
 	/**
-	 * @param statusDescription
+	 * {@link GET}
+	 * 
+	 * @param statusDescription {@link QueryParam}
 	 * @return {@link Response}
 	 */
 	Response getDeposits(String statusDescription);
 	
 	/**
+	 * {@link GET}
+	 * 
 	 * @return {@link Response}
 	 */
 	Response getDepositsAll();
+	
+	
+	/**
+	 * {@link PUT}
+	 * 
+	 * @param nick {@link QueryParam}
+	 * @return
+	 */
+	Response convertUserToAdmin(String nick);
 }

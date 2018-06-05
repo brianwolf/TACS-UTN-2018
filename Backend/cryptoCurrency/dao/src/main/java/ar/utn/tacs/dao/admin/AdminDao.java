@@ -88,7 +88,16 @@ public interface AdminDao extends GenericDao {
 	 */
 	List<Transaction> transactionsStatesByBeforeDays(Integer beforeDays);
 
+	/**
+	 * @param user
+	 * @return
+	 */
 	BigInteger statesAll(User user);
 
+	/**
+	 * @param user
+	 * @param days
+	 * @return
+	 */
 	BigInteger statesByBeforeDays(User user, Integer days);
 }

@@ -7,6 +7,7 @@ import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.NotExistDepositException;
 import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
 import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.transaction.Transaction;
@@ -85,4 +86,9 @@ public interface AdminService extends GenericService {
 	 * @return
 	 */
 	List<Deposit> getDepositsAll();
+	
+	/**
+	 * @param nick
+	 */
+	void convertUserToAdmin(String nick) throws UserNotFoundException;
 }
