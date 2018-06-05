@@ -12,9 +12,9 @@ public class Login {
 
 	private String pass;
 
-	private Boolean active;
+	private Boolean active = true;
 
-	private Integer tries;
+	private Integer tries = 0;
 	
 	private Date lastLogin;
 	

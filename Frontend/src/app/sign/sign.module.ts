@@ -5,6 +5,7 @@ import { SignRoutingModule } from './sign-routing.module';
 import { SignComponent } from './sign.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { RelogComponent } from './relog/relog.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SignupComponent } from './signup/signup.component';
   declarations: [
     SignComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RelogComponent
   ]
 })
 export class SignModule { }

@@ -25,7 +25,11 @@ export class SignupComponent implements OnInit {
       this.snackBar.open('Las contraseñas no coinciden.', 'x', { panelClass: 'alert-warning' });
       return;
     }
-    const body = { login: { nick: form.value.nick, pass: form.value.pass } };
+    if (form.value.email =="") {
+      this.snackBar.open('El email es obligatorio', 'x', { panelClass: 'alert-warning' });
+      return;
+    }
+    const body = { login: { nick: form.value.nick, pass: form.value.pass } ,person:{email:form.value.email}};
     form.controls['pass'].reset();
     form.controls['confirmPass'].reset();
     this.userService.signup(body)

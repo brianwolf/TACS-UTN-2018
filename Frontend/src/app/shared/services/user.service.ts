@@ -55,4 +55,8 @@ export class UserService {
     return this.http.get(this.API + 'services/external/coins');
   }
 
+  relog(user) {
+    return this.http.post(this.API + 'users/relog/'+user.nick,null);
+  }
+
 }

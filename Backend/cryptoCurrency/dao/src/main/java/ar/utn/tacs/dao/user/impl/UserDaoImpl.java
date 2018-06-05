@@ -31,6 +31,7 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 
 		User user = getUserByLogin(login);
 		
+		if (user == null) {
 		User userByNick = getUserByNick(login.getNick());
 		userByNick.getLogin().incrementTries();
 		
@@ -38,8 +39,10 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 			this.blockUser(userByNick);
 			throw new UserBlockedException();
 		}
+		else {
+			this.update(userByNick);
+		}
 
-		if (user == null) {
 			throw new UserNotFoundException();
 		}
 
@@ -69,9 +72,17 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		propertiesAndValues.put("login.nick", login.getNick());
 		propertiesAndValues.put("login.pass", hashedPass);
 		
-		User user = this.getByProperties(propertiesAndValues, User.class);
+		User user = null;
+		
+		try {
+			user = this.getByProperties(propertiesAndValues, User.class);
+			
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+			return null;
+		}
 
-		return user.getLogin().getActive() ? user : null;
+		return user==null||!user.getLogin().getActive() ? null : user;
 	}
 
 	@Override
