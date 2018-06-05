@@ -21,6 +21,7 @@ import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.commons.NotExistDepositException;
 import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
 import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
@@ -227,6 +228,22 @@ public class AdminRestImpl implements AdminRest {
 			return Response.status(Response.Status.OK).entity(deposits).build();
 
 		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@PUT
+	@Path(AdminRest.CONVERT_USER_TO_ADMIN)
+	@Override
+	public Response convertUserToAdmin(@DefaultValue(value="") @QueryParam(value="nick") String nick) {
+		try {
+			this.adminService.convertUserToAdmin(nick);
+			return Response.status(Response.Status.OK).build();
+
+		} catch (UserNotFoundException userNotFoundException) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(userNotFoundException.createBasicResponse("No existe el deposito solicitado")).build();
+		}
+		catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}

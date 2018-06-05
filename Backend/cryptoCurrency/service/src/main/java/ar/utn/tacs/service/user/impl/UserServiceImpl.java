@@ -90,4 +90,14 @@ public class UserServiceImpl implements UserService{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void convertUserToAdmin(String nick) throws UserNotFoundException {
+		User user = this.userDao.getUserByNick(nick);
+		if (user == null) {
+			throw new UserNotFoundException();
+		}
+		
+		this.userDao.convertUserToAdmin(user);
+	}
 }

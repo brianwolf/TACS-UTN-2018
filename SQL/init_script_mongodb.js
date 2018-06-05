@@ -74,11 +74,12 @@ db.roles.insertMany([
 
 
 /*USUARIOS*/
+/*pass = 1234*/
 db.users.insertMany([
   { 
     login: {
       nick: "lobezzzno",
-      pass: "1234",
+      pass: "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
       active: true,
       tries: 0,
       lastLogin: new Date()
@@ -115,7 +116,7 @@ db.users.insertMany([
   { 
     login: {
       nick: "tostado",
-      pass: "1234",
+      pass: "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
       active: true,
       tries: 0,
       lastLogin: new Date()
@@ -152,7 +153,7 @@ db.users.insertMany([
   { 
     login: {
       nick: "boberman",
-      pass: "1234",
+      pass: "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
       active: true,
       tries: 0,
       lastLogin: new Date()

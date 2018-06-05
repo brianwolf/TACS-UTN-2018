@@ -216,5 +216,4 @@ public class AdminDaoMockImpl implements AdminDao{
 		
 		return BigInteger.valueOf(transactionsFilter.size());
 	}
-	
 }

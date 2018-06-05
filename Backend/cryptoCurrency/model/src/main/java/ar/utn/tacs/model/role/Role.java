@@ -11,10 +11,13 @@ import ar.utn.tacs.dao.persistent.impl.MongoPersistentObject;
 @Document(collection="roles")
 @JsonIgnoreProperties(value = { "id", "functionalities" })
 public abstract class Role extends MongoPersistentObject {
+	
+	public static final String USER 	= "User";
+	public static final String ADMIN 	= "Administrador";
 
-	private String description;
+	protected String description;
 
-	private List<Funcionality> functionalities = new ArrayList<Funcionality>();
+	protected List<Funcionality> functionalities = new ArrayList<Funcionality>();
 
 	public Role(String description) {
 
@@ -23,6 +26,17 @@ public abstract class Role extends MongoPersistentObject {
 
 	public Role() {
 		super();
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		
+		if (!(object instanceof Role)) {
+			return false;
+		}
+		
+		Role other = (Role) object;
+		return this.description.equals(other.description);
 	}
 
 	public String getDescription() {

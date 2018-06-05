@@ -17,6 +17,7 @@ import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.role.AdminRole;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.role.UserRole;
+import ar.utn.tacs.model.user.Gender;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.Person;
 import ar.utn.tacs.model.user.User;
@@ -35,11 +36,11 @@ public class UserDaoMockImpl implements UserDao{
 		this.roles.add(new UserRole());
 		this.roles.add(new AdminRole());
 		
-		this.users.add(new User(new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
+		this.users.add(new User(new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com", Gender.MALE), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 		//TENGO ! DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
-		this.users.add(new User(new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com"), roles, new Wallet(newCoinAmounts(), new BigDecimal(10001f))));
+		this.users.add(new User(new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com", Gender.MALE), roles, new Wallet(newCoinAmounts(), new BigDecimal(10001f))));
 		//LE DOY SOLO EL ROL DE USER PARA QUE NO MANQUEE NADA XP
-		this.users.add(new User(new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com"), roles.subList(0, 1), new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
+		this.users.add(new User(new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com", Gender.MALE), roles.subList(0, 1), new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 	}
 	
 	
@@ -145,6 +146,17 @@ public class UserDaoMockImpl implements UserDao{
 	public List<String> getUsersNicksAll() {
 		List<String> nicks = this.users.stream().map(u -> u.getLogin().getNick()).collect(Collectors.toList());
 		return nicks;
+	}
+
+
+	@Override
+	public void convertUserToAdmin(User user) {
+		
+		AdminRole adminRole = new AdminRole();		
+
+		if (!user.getRoles().contains(adminRole)) {
+			user.getRoles().add(adminRole);
+		}
 	}
 }
 

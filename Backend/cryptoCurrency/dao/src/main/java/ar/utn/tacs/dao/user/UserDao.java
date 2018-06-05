@@ -55,4 +55,9 @@ public interface UserDao extends GenericDao {
 	 * @return {@link String}
 	 */
 	List<String> getUsersNicksAll();
+	
+	/**
+	 * @param nick
+	 */
+	void convertUserToAdmin(User user);
 }

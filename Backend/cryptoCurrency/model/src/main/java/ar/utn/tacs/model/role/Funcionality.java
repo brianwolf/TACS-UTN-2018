@@ -1,33 +1,20 @@
 package ar.utn.tacs.model.role;
 
-import java.math.BigInteger;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Funcionality {
 
-	private BigInteger id;
-
 	private String description;
 
 	private String baseURL;
 
-	public Funcionality(BigInteger id, String description, String baseURL) {
-		this.id = id;
+	public Funcionality(String description, String baseURL) {
 		this.description = description;
 		this.baseURL = baseURL;
 	}
 	
 	public Funcionality() {
-	}
-
-	public BigInteger getId() {
-		return id;
-	}
-
-	public void setId(BigInteger id) {
-		this.id = id;
 	}
 
 	public String getDescription() {

@@ -13,11 +13,13 @@ import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.commons.ExistingUserException;
 import ar.utn.tacs.model.commons.UserNotFoundException;
+import ar.utn.tacs.model.role.AdminRole;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.user.ConnectedUser;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.util.BeanUtil;
+import ar.utn.tacs.util.HashUtil;
 import ar.utn.tacs.util.TokenMakerUtil;
 
 public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
@@ -27,7 +29,7 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		String token = "";
 
 		User user = getUserByLogin(login);
-		
+
 		if (user == null) {
 			throw new UserNotFoundException();
 		}
@@ -43,15 +45,17 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 
 		return token;
 	}
-	
+
 	private User getUserByLogin(Login login) throws UserNotFoundException {
+
+		String hashedPass = BeanUtil.getBean(HashUtil.class).getStringHash(login.getPass());
 		
 		Map<String, Object> propertiesAndValues = new HashMap<String, Object>();
 		propertiesAndValues.put("login.nick", login.getNick());
-		propertiesAndValues.put("login.pass", login.getPass());
+		propertiesAndValues.put("login.pass", hashedPass);
 
 		User user = this.getByProperties(propertiesAndValues, User.class);
-		
+
 		return user;
 	}
 
@@ -68,23 +72,26 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 
 	@Override
 	public void newUser(User user) throws UtnTacsException {
-		
-		User userBd = this.getUserByLogin(user.getLogin());
-		
-		if(userBd!=null) {
+
+		User userBd = this.getUserByNick(user.getLogin().getNick());
+
+		if (userBd != null) {
 			throw new ExistingUserException();
 		}
-		
+
 		List<Role> roles = new ArrayList<Role>();
-		roles.add(this.getRolByDescription("User"));
-		
+		roles.add(this.getRolByDescription(Role.USER));
+
 		user.setRoles(roles);
 		
+		String hashedPass = BeanUtil.getBean(HashUtil.class).getStringHash(user.getLogin().getPass());
+		user.getLogin().setPass(hashedPass);
+
 		this.insert(user);
 	}
 
 	private Role getRolByDescription(String descripcion) {
-		
+
 		return getByProperty("description", descripcion, Role.class);
 	}
 
@@ -101,5 +108,16 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 	@Override
 	public User getUserById(ObjectId id) {
 		return getById(id, User.class);
+	}
+
+	@Override
+	public void convertUserToAdmin(User user) {
+		AdminRole adminRole = (AdminRole) getByProperty("description", Role.ADMIN, Role.class);
+
+		if (!user.getRoles().contains(adminRole)) {
+			user.getRoles().add(adminRole);
+
+			this.update(user);
+		}
 	}
 }
