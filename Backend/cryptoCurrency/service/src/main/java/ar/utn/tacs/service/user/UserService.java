@@ -67,4 +67,9 @@ public interface UserService extends GenericService {
 	 * @throws UserNotFoundException 
 	 */
 	void convertUserToAdmin(String nick) throws UserNotFoundException;
+
+	void relogUserByNick(String nick) throws UserNotFoundException;
+
+	void changePassword(String token, Login login) throws UtnTacsException;
+	
 }

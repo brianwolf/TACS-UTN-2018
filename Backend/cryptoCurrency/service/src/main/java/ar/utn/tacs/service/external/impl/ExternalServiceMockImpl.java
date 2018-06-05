@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
 
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.email.Mail;
 import ar.utn.tacs.service.external.ExternalService;
 
 public class ExternalServiceMockImpl implements ExternalService {
@@ -90,6 +91,12 @@ public class ExternalServiceMockImpl implements ExternalService {
 	@Override
 	public Coin getCoinByTicker(String ticker) {
 		return coinList.stream().filter(coin -> coin.getTicker().equals(ticker)).findFirst().get();
+	}
+
+	@Override
+	public Boolean sendMail(Mail mail) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

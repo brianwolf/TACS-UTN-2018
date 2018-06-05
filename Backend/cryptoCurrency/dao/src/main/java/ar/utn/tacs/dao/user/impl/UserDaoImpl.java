@@ -83,10 +83,8 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		roles.add(this.getRolByDescription(Role.USER));
 
 		user.setRoles(roles);
+		user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(user.getLogin().getPass()));
 		
-		String hashedPass = BeanUtil.getBean(HashUtil.class).getStringHash(user.getLogin().getPass());
-		user.getLogin().setPass(hashedPass);
-
 		this.insert(user);
 	}
 
@@ -120,4 +118,11 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 			this.update(user);
 		}
 	}
+
+	@Override
+	public void changePassword(User user, String newPassword) {
+		user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(newPassword));
+		this.update(user);
+	}
+
 }

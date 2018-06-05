@@ -60,4 +60,6 @@ public interface UserDao extends GenericDao {
 	 * @param nick
 	 */
 	void convertUserToAdmin(User user);
+
+	void changePassword(User user, String newPassword);
 }

@@ -11,12 +11,15 @@ import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.deposit.DepositRest;
+import ar.utn.tacs.model.email.MailBuilder;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.admin.AdminService;
 import ar.utn.tacs.service.external.ExternalService;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.util.BeanUtil;
+import ar.utn.tacs.util.HashUtil;
+import ar.utn.tacs.util.TokenMakerUtil;
 
 public class UserServiceImpl implements UserService{
 	
@@ -100,4 +103,35 @@ public class UserServiceImpl implements UserService{
 		
 		this.userDao.convertUserToAdmin(user);
 	}
+
+	@Override
+	public void relogUserByNick(String nick) throws UserNotFoundException {
+		
+		User user = this.userDao.getUserByNick(nick);
+		
+		if(user==null) {
+			throw new UserNotFoundException();
+		}
+		
+		String newPassword = (new TokenMakerUtil()).makeToken();
+		
+		Boolean sended = BeanUtil.getBean(ExternalService.class).sendMail(MailBuilder.buildRelogMail(user,newPassword));
+		
+		if(sended) {
+			this.userDao.changePassword(user,newPassword);
+		}
+	}
+
+	@Override
+	public void changePassword(String token, Login login) throws UtnTacsException {
+		
+		User user = getUserByToken(token);
+		
+		if(user.getLogin().getNick()!=login.getNick()) {
+			throw new UserNotFoundException();
+		}
+		
+		this.userDao.changePassword(user,login.getPass());
+	}
+
 }

@@ -20,6 +20,9 @@ public interface UserRest extends GenericRest{
 	public static final String GET_TOKEN_BY_LOGIN = "/login";
 	public static final String GET_USER_BY_TOKEN = "/loggedin";
 	public static final String LOGOUT_USER_BY_TOKEN = "/logout";
+	public static final String CHANGE_PASSWORD = "";
+	public static final String RELOG = "/relog/{nick}";
+
 	
 	/**
 	 * {@link POST}
@@ -53,4 +56,23 @@ public interface UserRest extends GenericRest{
 	 * @return
 	 */
 	Response logOutUserByToken(String token);
+	
+	/**
+	 * {@link POST}
+	 * 
+	 * @param nick
+	 * @return
+	 */
+	Response reLog(String nick);
+	
+	/**
+	 * {@link PUT}
+	 * 
+	 * @param token
+	 * @param nick
+	 * @param pass
+	 * @return {@link JsonValue}
+	 */
+	Response changePassword(String token, Login login);
+	
 }

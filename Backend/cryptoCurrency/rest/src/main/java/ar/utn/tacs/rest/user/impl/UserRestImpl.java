@@ -9,6 +9,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -81,6 +82,32 @@ public class UserRestImpl implements UserRest {
 		try {
 			User userResult = userService.getUserByToken(token);
 			return Response.status(Response.Status.OK).entity(userResult).build();
+			
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@POST
+	@Path(UserRest.RELOG)
+	@Override
+	public Response reLog(@PathParam(value="nick") String nick) {
+		try {
+			userService.relogUserByNick(nick);
+			return Response.status(Response.Status.OK).build();
+			
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@PUT
+	@Path(UserRest.CHANGE_PASSWORD)
+	@Override
+	public Response changePassword(@HeaderParam(value = "token")String token,Login login) {
+		try {
+			userService.changePassword(token,login);
+			return Response.status(Response.Status.OK).build();
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

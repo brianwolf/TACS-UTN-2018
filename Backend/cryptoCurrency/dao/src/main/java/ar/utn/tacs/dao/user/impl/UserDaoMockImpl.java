@@ -158,5 +158,13 @@ public class UserDaoMockImpl implements UserDao{
 			user.getRoles().add(adminRole);
 		}
 	}
+
+
+	@Override
+	public void changePassword(User user, String newPassword) {
+		
+	}
+
+
 }
 

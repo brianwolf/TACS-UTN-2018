@@ -20,6 +20,7 @@ public class RestFilter implements ContainerRequestFilter,ContainerResponseFilte
 	private static final String LOGIN_PATH = USERS_PATH+UserRest.GET_TOKEN_BY_LOGIN;
 	private static final String CREATE_USER_PATH = USERS_PATH+UserRest.NEW_USER;
 	private static final String TOKEN = "token";
+	private static final String RELOG_PATH = USERS_PATH+UserRest.RELOG.replace("/{nick}", "");
 
 	@Override
 	public ContainerRequest filter(ContainerRequest request) {
@@ -97,10 +98,11 @@ public class RestFilter implements ContainerRequestFilter,ContainerResponseFilte
 //		boolean isOPTIONS = request.getMethod().equals("OPTIONS");
 		boolean isLoginPath = requestPath.equals(LOGIN_PATH);
 		boolean isCreateUserPath = requestPath.equals(CREATE_USER_PATH);
+		boolean isRelogPath = requestPath.startsWith(RELOG_PATH);
 		
 		//ESTA VALIDACION EXISTIRIA SI SE PUDIERA LEER EL TOKEN EN EL OPTIONS
 //		return (isLoginPath||isCreateUserPath) && (isPOST||isOPTIONS);
-		return (isLoginPath||isCreateUserPath) && isPOST;
+		return (isLoginPath||isCreateUserPath||isRelogPath) && isPOST;
 	}
 
 	private String getRequestPath(ContainerRequest request) {
