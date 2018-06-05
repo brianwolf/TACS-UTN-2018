@@ -1,6 +1,10 @@
 package ar.utn.tacs.model.deposit;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -10,8 +14,32 @@ import ar.utn.tacs.dao.persistent.impl.MongoPersistentObject;
 import ar.utn.tacs.model.user.User;
 
 @Document(collection = "deposits")
-@JsonIgnoreProperties(value = { "id", "user" })
+@JsonIgnoreProperties(value = { "id", "user" ,"states"})
 public class Deposit extends MongoPersistentObject {
+	
+	private class DepositState{
+		private Date date;
+		private String state;
+		
+		public DepositState(String state,Date date) {
+			this.date=date;
+			this.state = state;
+		}
+		
+		public Date getDate() {
+			return date;
+		}
+		public void setDate(Date date) {
+			this.date = date;
+		}
+		public String getState() {
+			return state;
+		}
+		public void setState(String state) {
+			this.state = state;
+		}
+		
+	}
 	
 	public static final String APPROVED = "APPROVED";
 	
@@ -21,11 +49,11 @@ public class Deposit extends MongoPersistentObject {
 
 	private String number;
 
-	private String state;
-
 	private BigDecimal amount;
 
 	private User user;
+	
+	private List<DepositState> states = new ArrayList<DepositState>();
 
 	public Deposit() {
 	}
@@ -56,13 +84,16 @@ public class Deposit extends MongoPersistentObject {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-
+	
+	@JsonProperty(value = "state")
 	public String getState() {
-		return state;
+		return getActualState().getState();
 	}
 
 	public void setState(String state) {
-		this.state = state;
+		if(!state.equals(getActualState().getState())) {
+			states.add(new DepositState(state, new Date()));
+		}
 	}
 
 	public User getUser() {
@@ -71,6 +102,19 @@ public class Deposit extends MongoPersistentObject {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	@JsonProperty(value = "date")
+	public Date getDate() {
+		return getActualState().getDate();
+	}
+
+//	public void setDate(Date date) {
+//		getActualState().setDate(date);
+//	}
+	
+	private DepositState getActualState() {
+		return states.stream().max(Comparator.comparing(DepositState::getDate)).orElse(new DepositState(null,null));
 	}
 
 	@JsonProperty(value = "userNick")
