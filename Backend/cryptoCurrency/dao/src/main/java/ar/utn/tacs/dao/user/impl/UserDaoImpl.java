@@ -12,6 +12,7 @@ import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.commons.ExistingUserException;
+import ar.utn.tacs.model.commons.UserBlockedException;
 import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.role.AdminRole;
 import ar.utn.tacs.model.role.Role;
@@ -29,6 +30,14 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		String token = "";
 
 		User user = getUserByLogin(login);
+		
+		User userByNick = getUserByNick(login.getNick());
+		userByNick.getLogin().incrementTries();
+		
+		if(userByNick.getLogin().hasExcededTries()) {
+			this.blockUser(userByNick);
+			throw new UserBlockedException();
+		}
 
 		if (user == null) {
 			throw new UserNotFoundException();
@@ -46,6 +55,12 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		return token;
 	}
 
+	private void blockUser(User user) {
+		user.getLogin().setTries(0);
+		user.getLogin().setActive(false);
+		this.update(user);
+	}
+
 	private User getUserByLogin(Login login) throws UserNotFoundException {
 
 		String hashedPass = BeanUtil.getBean(HashUtil.class).getStringHash(login.getPass());
@@ -53,10 +68,10 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		Map<String, Object> propertiesAndValues = new HashMap<String, Object>();
 		propertiesAndValues.put("login.nick", login.getNick());
 		propertiesAndValues.put("login.pass", hashedPass);
-
+		
 		User user = this.getByProperties(propertiesAndValues, User.class);
 
-		return user;
+		return user.getLogin().getActive() ? user : null;
 	}
 
 	@Override

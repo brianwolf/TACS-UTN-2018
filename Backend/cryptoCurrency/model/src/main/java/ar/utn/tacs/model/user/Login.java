@@ -6,6 +6,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class Login {
 
+	private static final Integer MAX_TRIES = 3;
+
 	private String nick;
 
 	private String pass;
@@ -76,6 +78,14 @@ public class Login {
 
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public void incrementTries() {
+		this.tries+=1;
+	}
+
+	public Boolean hasExcededTries() {
+		return this.tries>MAX_TRIES;
 	}
 	
 }

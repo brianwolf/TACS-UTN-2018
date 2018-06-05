@@ -18,7 +18,6 @@ import ar.utn.tacs.service.admin.AdminService;
 import ar.utn.tacs.service.external.ExternalService;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.util.BeanUtil;
-import ar.utn.tacs.util.HashUtil;
 import ar.utn.tacs.util.TokenMakerUtil;
 
 public class UserServiceImpl implements UserService{
@@ -118,6 +117,7 @@ public class UserServiceImpl implements UserService{
 		Boolean sended = BeanUtil.getBean(ExternalService.class).sendMail(MailBuilder.buildRelogMail(user,newPassword));
 		
 		if(sended) {
+			user.getLogin().setActive(true);
 			this.userDao.changePassword(user,newPassword);
 		}
 	}
