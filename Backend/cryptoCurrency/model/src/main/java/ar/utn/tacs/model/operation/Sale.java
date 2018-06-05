@@ -35,7 +35,8 @@ public class Sale extends Operation {
 		}
 		
 		BigDecimal finalCoinAmount = virtualCoin.getAmount().subtract(super.coinAmount.getAmount());
-		virtualCoin.setAmount(finalCoinAmount);
+		
+		userWallet.updateCoinAmount(virtualCoin,finalCoinAmount);
 		
 		BigDecimal finalPrice = super.coinAmount.getAmount().multiply(super.coinAmount.getCoin().getValueInDollars());
 		

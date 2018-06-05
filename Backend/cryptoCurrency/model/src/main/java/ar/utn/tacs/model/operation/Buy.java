@@ -38,7 +38,7 @@ public class Buy extends Operation{
 		}
 		
 		BigDecimal finalCoinAmount = newCoin.getAmount().add(super.coinAmount.getAmount());
-		newCoin.setAmount(finalCoinAmount);
+		userWallet.updateCoinAmount(newCoin, finalCoinAmount);
 	}
 
 }

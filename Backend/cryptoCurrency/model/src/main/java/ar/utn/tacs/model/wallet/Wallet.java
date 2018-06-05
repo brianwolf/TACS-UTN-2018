@@ -92,5 +92,14 @@ public class Wallet {
 		
 		return finalBalance;
 	}
+
+	public void updateCoinAmount(CoinAmount coinAmount, BigDecimal amount) {
+		if(amount.compareTo(new BigDecimal("0"))==0) {
+			coinAmounts.remove(coinAmount);
+		}
+		else {
+			coinAmount.setAmount(amount);
+		}
+	}
 	
 }

@@ -29,16 +29,10 @@ public class Deposit extends MongoPersistentObject {
 		public Date getDate() {
 			return date;
 		}
-		public void setDate(Date date) {
-			this.date = date;
-		}
+		
 		public String getState() {
 			return state;
 		}
-		public void setState(String state) {
-			this.state = state;
-		}
-		
 	}
 	
 	public static final String APPROVED = "APPROVED";
