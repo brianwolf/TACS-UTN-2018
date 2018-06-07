@@ -14,17 +14,17 @@ export class DashboardComponent implements OnInit {
 
     this.sliders.push(
       {
-        imagePath: 'assets/images/slider1.jpg',
+        imagePath: 'https://cdn.pixabay.com/photo/2018/05/17/21/26/cryptocurrency-3409725_1280.jpg',
         label: 'Buscando libertad?',
         text: 'Las criptomonedas le permiten realizar transacciones en cualquier parte y horario.'
       },
       {
-        imagePath: 'assets/images/slider2.jpg',
+        imagePath: 'https://cdn.pixabay.com/photo/2017/01/25/12/31/bitcoin-2007769_1280.jpg',
         label: 'Conozca los beneficios!',
         text: 'Tamaño de emisión fija, valor creciente, liquidez...'
       },
       {
-        imagePath: 'assets/images/slider3.jpg',
+        imagePath: 'https://cdn.pixabay.com/photo/2018/05/17/20/56/cryptocurrency-3409655_1280.jpg',
         label: 'Bitcoin',
         text: 'El futuro del dinero ya está aqui.'
       }

@@ -34,9 +34,9 @@
               <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="1" placeholder="Numero de comprobante"
                 name="ticket" ngModel required>
             </div>
-            <input class="btn btn-success" type="submit" [disabled]="!depositForm.valid" value="Informar"> &nbsp;
-            <input class="btn btn" type="reset" value="Limpiar"> &nbsp;
-            <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
+            <button mat-raised-button color="primary" [disabled]="!depositForm.valid">Informar</button> &nbsp;
+            <button mat-raised-button type="reset">Limpiar</button> &nbsp;
+            <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
           </form>
         </div>
       </div>

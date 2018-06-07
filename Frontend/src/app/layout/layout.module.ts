@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatButtonModule, MatIconModule, MatInputModule,
-  MatPaginatorModule, MatSelectModule,
+  MatAutocompleteModule, MatButtonModule, MatIconModule,
+  MatInputModule, MatPaginatorModule, MatSelectModule,
   MatSortModule, MatTableModule, MatToolbarModule
 } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ import { BuyComponent } from './buy/buy.component';
 import { SellComponent } from './sell/sell.component';
 import { DepositComponent } from './deposit/deposit.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { UserComponent } from './user/user.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { AuthorizeComponent } from './authorize/authorize.component';
 import { UsersComponent } from './users/users.component';
@@ -34,6 +35,7 @@ import { HistoryComponent } from './history/history.component';
     TranslateModule,
     NgbCarouselModule.forRoot(),
     NgbDropdownModule.forRoot(),
+    MatAutocompleteModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
@@ -41,7 +43,8 @@ import { HistoryComponent } from './history/history.component';
     MatSelectModule,
     MatSortModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule
   ],
   declarations: [
     LayoutComponent,
@@ -54,6 +57,7 @@ import { HistoryComponent } from './history/history.component';
     SellComponent,
     DepositComponent,
     WalletComponent,
+    UserComponent,
     TransactionsComponent,
     AuthorizeComponent,
     UsersComponent,

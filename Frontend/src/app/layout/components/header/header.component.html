@@ -7,14 +7,14 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown" ngbDropdown>
         <a class="nav-link" ngbDropdownToggle>
-          <i class="fas fa-user"></i>{{ cs.role() | translate }}
+          <i class="fas fa-user"></i>{{ cs.nick() | translate }}
         </a>
         <div class="dropdown-menu-right" ngbDropdownMenu>
-          <p class="dropdown-item">
-            <i class="fas fa-id-card"></i>{{ cs.nick() }}
-          </p>
+          <a class="dropdown-item" [routerLink]="['/user']" [routerLinkActive]="['router-link-active']">
+            <i class="fas fa-fw fa-id-card"></i>{{ 'Settings' | translate }}
+          </a>
           <a class="dropdown-item" [routerLink]="['/login']" (click)="cs.logout()">
-            <i class="fas fa-sign-out-alt"></i>{{ 'Log Out' | translate }}
+            <i class="fas fa-fw fa-sign-out-alt"></i>{{ 'Log Out' | translate }}
           </a>
         </div>
       </li>

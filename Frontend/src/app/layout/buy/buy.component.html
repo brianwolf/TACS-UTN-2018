@@ -48,8 +48,9 @@
               <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
                 placeholder="Cantidad a comprar" name="amount" ngModel required>
             </div>
-            <input class="btn btn-success" type="submit" [disabled]="!buyForm.valid" value="Comprar"> &nbsp;
-            <button class="btn btn-danger" routerLink="/dashboard" [routerLinkActive]="['router-link-active']">Cancelar</button>
+            <button mat-raised-button color="primary" [disabled]="!buyForm.valid">Comprar</button> &nbsp;
+            <button mat-raised-button type="reset">Limpiar</button> &nbsp;
+            <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
           </form>
         </div>
       </div>

@@ -31,7 +31,7 @@ export class DepositComponent implements OnInit {
       this.userService.deposit(body)
         .subscribe(
           success => this.snackBar.open('El estado de su depósito se verificará en las próximas 24 horas.', 'x'),
-          error => this.snackBar.open(`ERROR: ${error.error.message}`, 'v', { panelClass: 'alert-danger' })
+          error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' })
         );
     }
     form.reset();

@@ -36,6 +36,21 @@
     </div>
     <div class="header-fields">
       <hr>
+      <a href="javascript:void(0)" (click)="toggleMenu('profile')" class="list-group-item">
+        <i class="fas fa-fw fa-user"></i>{{ cs.nick() | translate }}
+      </a>
+      <ul *ngIf="menu === 'profile'" class="animated zoomIn">
+        <li>
+          <a [routerLink]="['/user']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-fw fa-id-card"></i>{{ 'Settings' | translate }}
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/login']" (click)="cs.logout()" class="list-group-item">
+            <i class="fas fa-fw fa-sign-out-alt"></i>{{ 'Log Out' | translate }}
+          </a>
+        </li>
+      </ul>
       <a href="javascript:void(0)" (click)="cs.rltAndLtr()" class="list-group-item">
         <i class="fas fa-fw fa-exchange-alt"></i>{{ 'L/R' | translate }}
       </a>
@@ -51,20 +66,6 @@
         <li>
           <a href="javascript:void(0)" (click)="cs.changeLang('es')" class="list-group-item">
             {{ 'Spanish' | translate }}
-          </a>
-        </li>
-      </ul>
-      <a href="javascript:void(0)" (click)="toggleMenu('profile')" class="list-group-item">
-        <i class="fas fa-fw fa-user"></i>{{ cs.role() | translate }}
-      </a>
-      <ul *ngIf="menu === 'profile'" class="animated zoomIn">
-        <li>
-          <a href="javascript:void(0)" class="list-group-item">
-            <i class="fas fa-fw fa-id-card"></i>{{ cs.nick() }} </a>
-        </li>
-        <li>
-          <a [routerLink]="['/login']" (click)="cs.logout()" class="list-group-item">
-            <i class="fas fa-fw fa-sign-out-alt"></i>{{ 'Log Out' | translate }}
           </a>
         </li>
       </ul>

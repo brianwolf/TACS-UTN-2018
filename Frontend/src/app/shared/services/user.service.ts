@@ -16,15 +16,19 @@ export class UserService {
   }
 
   login(user) {
-    return this.http.post<any>(this.API + 'users/login', user);
+    return this.http.post(this.API + 'users/login', user);
   }
 
   logout() {
     return this.http.put(this.API + 'users/logout', null);
   }
 
-  getUserByToken() {
+  getUser() {
     return this.http.get(this.API + 'users/loggedin');
+  }
+
+  putUser(user) {
+    return this.http.put(this.API + 'users/loggedin', user);
   }
 
   getWallet() {
@@ -56,7 +60,7 @@ export class UserService {
   }
 
   relog(user) {
-    return this.http.post(this.API + 'users/relog/'+user.nick,null);
+    return this.http.post(this.API + `users/relog/${user}`, null);
   }
 
 }

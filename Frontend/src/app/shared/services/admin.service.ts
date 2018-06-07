@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../../app.config';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Injectable()
 export class AdminService {
+
+  nicks: string[];
+  filteredNicks: Observable<string[]>;
+  nicksControl: FormControl = new FormControl();
 
   API;
 
@@ -57,6 +64,25 @@ export class AdminService {
 
   rejectDeposit(number: string) {
     return this.http.put(this.API + `admin/deposits/reject/${number}`, null);
+  }
+
+  convertAdmin(user: string) {
+    return this.http.put(this.API + `admin/users/toAdmin?nick=${user}`, null);
+  }
+
+
+  /* NICKS */
+
+  fillNicksSelector() {
+    this.getUsers().subscribe(
+      (data: any) => this.nicks = data,
+      error => null,
+      () => this.filteredNicks = this.nicksControl.valueChanges.pipe(startWith(''), map(val => this.filterUser(val)))
+    );
+  }
+
+  filterUser(val: string): string[] {
+    return this.nicks.filter(nick => nick.toLowerCase().startsWith(val.toLowerCase()));
   }
 
 }

@@ -5,13 +5,27 @@
       <div class="card">
         <div class="card-header">Información de los Usuarios del Sistema</div>
         <div class="card-body table-responsive">
-          <div class="form-group">
+          <form role="form" #nickForm="ngForm" (ngSubmit)="getUser(nickSelected.value)">
+
+            <mat-form-field>
+              <input autocapitalize="none" autocorrect="off" name="nick" placeholder="Seleccione al usuario" aria-label="Number" matInput
+                [formControl]="adminService.nicksControl" [matAutocomplete]="auto" required #nickSelected>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="activateButton()" (opened)="adminService.nicksControl.setValue('')">
+                <mat-option *ngFor="let nick of adminService.filteredNicks | async" [value]="nick">
+                  {{ nick }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <br>
+            <!-- <div class="form-group">
             <label>Seleccione al usuario</label>
-            <select class="form-control" (change)="user = null" #userSelected>
+            <select class="form-control" (change)="activateButton()" #userSelected>
               <option *ngFor="let user of users" [value]="user">{{ user }}</option>
             </select>
-          </div>
-          <input type="submit" class="btn btn-primary" value="Obtener Información" [disabled]="user" (click)="getUser(userSelected.value)">
+          </div> -->
+            <button mat-raised-button color="primary" [disabled]="!nickForm.valid || disabled">Obtener Información</button> &nbsp;
+            <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
+          </form>
           <div *ngIf="user" class="card-body table-responsive">
             <hr>
             <table class="table table-hover table-striped">
@@ -37,6 +51,18 @@
                 <tr>
                   <th>Ultimo Acceso</th>
                   <td> {{ user.user.login.lastLogin | date:'dd MMM yyyy HH:mm:ss' }} </td>
+                </tr>
+                <tr>
+                  <th>Rol</th>
+                  <td> {{ rol }} </td>
+                </tr>
+                <tr *ngIf="rol === 'Usuario' && !proccesing">
+                  <th>Hacer Administrador</th>
+                  <td class="text-center">
+                    <a href="javascript:void(0)" (click)="convertAdmin(user.user.login.nick)">
+                      <i class="fas fa-check-circle fa-2x text-success"></i>
+                    </a>
+                  </td>
                 </tr>
               </tbody>
             </table>

@@ -3,6 +3,19 @@ $topnav-background-color: #222;
   display: block;
 }
 
+a {
+  color: #999;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+}
+
+.animated {
+  color: #8A5;
+}
+
 .login-page {
   position: absolute;
   top: 0;
@@ -94,59 +107,4 @@ h1 {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   border: 2px solid #fff;
-}
-
-.animated {
-  color: #8A5;
-  >div {
-    border-radius: 100%;
-    display: inline-block;
-    -webkit-animation: sk-bouncedelay 1.2s infinite ease-in-out both;
-    animation: sk-bouncedelay 1.2s infinite ease-in-out both;
-  }
-  .first {
-    width: 22px;
-    height: 22px;
-    background-color: #ddd;
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-  }
-  .second {
-    width: 14px;
-    height: 14px;
-    background-color: #aaa;
-    -webkit-animation-delay: -0.26s;
-    animation-delay: -0.26s;
-  }
-  .third {
-    width: 8px;
-    height: 8px;
-    background-color: #777;
-    -webkit-animation-delay: -0.22s;
-    animation-delay: -0.22s;
-  }
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%,
-  100%,
-  80% {
-    -webkit-transform: scale(0);
-  }
-  40% {
-    -webkit-transform: scale(1.0);
-  }
-}
-
-@keyframes sk-bouncedelay {
-  0%,
-  100%,
-  80% {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  }
-  40% {
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
-  }
 }

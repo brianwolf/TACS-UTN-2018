@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
@@ -8,32 +8,31 @@ import { AdminService } from '../../shared/services/admin.service';
   selector: 'app-compare',
   templateUrl: './compare.component.html',
   styles: [`
-  th {
-    font-weight: bold
-  }
-  td {
-    text-align: right
-  }
+  th { font-weight: bold }
+  td { text-align: right }
+  mat-form-field { width: 100% }
   `],
   animations: [routerTransition()]
 })
 export class CompareComponent implements OnInit {
 
+  disabled;
   winner;
   loser;
-  users;
 
-  constructor(private adminService: AdminService, public snackBar: MatSnackBar) { }
+  constructor(public adminService: AdminService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.fillSelector();
+    this.adminService.fillNicksSelector();
   }
 
-  fillSelector() {
-    this.adminService.getUsers().subscribe(data => this.users = data);
+  activateButton() {
+    this.winner = null;
+    this.disabled = false;
   }
 
   compare(nick1, nick2) {
+    this.disabled = true;
     this.adminService.getUser(nick1).subscribe(
       (user1: any) =>
         this.adminService.getUser(nick2).subscribe(
@@ -48,7 +47,7 @@ export class CompareComponent implements OnInit {
           }
         )
       ,
-      error => this.snackBar.open('ERROR: No se puede conectar con el servidor.', 'v', { panelClass: 'alert-danger' })
+      error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' }),
     );
   }
 

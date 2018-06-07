@@ -21,16 +21,18 @@ export class RelogComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.loading = true;
-    const body = { nick: form.value.nick};
     form.controls['nick'].reset();
-    this.userService.relog(body)
-      .subscribe(
-        error => {
-          this.snackBar
-            .open('ERROR: No se puede conectar con el servidor o credenciales incorrectas.', 'v', { panelClass: 'alert-danger' });
-          this.loading = false;
-        }
-      );
+    this.userService.relog(form.value.nick).subscribe(
+      data => {
+        form.reset();
+        this.snackBar.open('Se le envio un mail con su nueva contraseña.', 'x');
+        this.router.navigate(['login']);
+      },
+      error => {
+        this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' });
+        this.loading = false;
+      }
+    );
   }
 
 }

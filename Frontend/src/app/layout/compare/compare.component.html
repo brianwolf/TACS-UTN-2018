@@ -2,25 +2,52 @@
   <app-page-header [heading]="'Comparar Usuarios'" [icon]="'far fa-copy'"></app-page-header>
   <div class="row justify-content-center">
     <div class="col-md-10 col-lg-9 col-xl-8">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label>Seleccione al primer usuario</label>
-            <select class="form-control" (change)="winner = null" #user1>
-              <option *ngFor="let user of users" [value]="user">{{ user }}</option>
-            </select>
+      <form role="form" #compareForm="ngForm" (ngSubmit)="compare(nick1.value, nick2.value)">
+        <div class="row">
+          <div class="col-sm-6">
+
+            <!-- <mat-form-field>
+              <input autocapitalize="none" autocorrect="off" name="nick" placeholder="Seleccione al primer usuario" aria-label="Number"
+                matInput [formControl]="adminService.nicksControl" [matAutocomplete]="auto" required #nick1>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="activateButton()">
+                <mat-option *ngFor="let nick of adminService.filteredNicks | async" [value]="nick">
+                  {{ nick }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field> -->
+
+            <div class="form-group">
+              <label>Seleccione al primer usuario</label>
+              <select class="form-control" (change)="activateButton()" #nick1 required>
+                <option *ngFor="let nick of adminService.nicks" [value]="nick">{{ nick }}</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="col-sm-6">
+
+            <!-- <mat-form-field>
+              <input autocapitalize="none" autocorrect="off" name="nick" placeholder="Seleccione al segundo usuario" aria-label="Number"
+                matInput [formControl]="adminService.nicksControl" [matAutocomplete]="auto" required #nick2>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="activateButton()">
+                <mat-option *ngFor="let nick of adminService.filteredNicks | async" [value]="nick">
+                  {{ nick }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field> -->
+
+            <div class="form-group">
+              <label>Seleccione al segundo usuario</label>
+              <select class="form-control" (change)="activateButton()" #nick2 required>
+                <option *ngFor="let nick of adminService.nicks" [value]="nick">{{ nick }}</option>
+              </select>
+            </div>
+
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label>Seleccione al segundo usuario</label>
-            <select class="form-control" (change)="winner = null" #user2>
-              <option *ngFor="let user of users" [value]="user">{{ user }}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-primary" (click)="compare(user1.value, user2.value)" [disabled]="winner">Comparar</button>
+        <button mat-raised-button color="primary" [disabled]="!compareForm.valid || disabled">Comparar</button> &nbsp;
+        <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
+      </form>
       <div *ngIf="winner" class="card-body table-responsive">
         <table class="table table-hover table-striped">
           <thead>

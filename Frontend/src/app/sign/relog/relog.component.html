@@ -1,17 +1,16 @@
 <div [@routerTransition]>
-  <h4>Ingrese sus credenciales</h4>
+  <h4>Generar nueva Contraseña</h4>
   <div *ngIf="loading" class="animated infinite zoomIn">
-    <h5>Enviando mail</h5>
+    <h5>Enviando Email</h5>
   </div>
-  <div class="loader"></div>
   <form role="form" #userRelogForm="ngForm" (ngSubmit)="onSubmit(userRelogForm)">
     <div class="form-content">
       <div class="form-group">
-        <input type="text" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Nombre de Usuario" name="nick"
+        <input type="email" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Nombre de Usuario" name="nick"
           ngModel required minlength="3">
       </div>
     </div>
-    <input type="submit" class="btn rounded-btn" [disabled]="!userRelogForm.valid || loading" value="Generar nueva password"> &nbsp;
+    <input type="submit" class="btn rounded-btn" [disabled]="!userRelogForm.valid || loading" value="Generar"> &nbsp;
     <button class="btn rounded-btn" [routerLink]="['/login']" [disabled]="loading">Ingresar</button>
   </form>
 </div>
