@@ -18,6 +18,6 @@
     <button class="btn rounded-btn" [routerLink]="['/signup']" [disabled]="loading">Regístrese</button>
     <br>
     <br>
-    <a [routerLink]="['/relog']">Olvido su Contraseña?</a>
+    <a *ngIf="!loading" [routerLink]="['/relog']">Olvido su Contraseña?</a>
   </form>
 </div>
