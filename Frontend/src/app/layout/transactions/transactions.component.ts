@@ -13,6 +13,7 @@ export class TransactionsComponent implements OnInit {
 
   displayedColumns = ['date', 'description', 'ticker', 'name', 'amount', 'quoteTimeSold', 'quoteTimeNow', 'quoteDifference'];
   operations = new MatTableDataSource<any>();
+  coins;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -20,7 +21,24 @@ export class TransactionsComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.getTransactions();
+    this.getAllCoins();
+  }
+
+  getAllCoins() {
+    this.userService.getAllCoins().subscribe(
+      data => {
+        this.coins = data;
+        this.getTransactions();
+      });
+    // setTimeout(() => this.getAllCoins(), 10000);
+  }
+
+  getActualQuote(operation) {
+    return this.coins.find(coin => coin.ticker === operation.coinAmount.coin.ticker).valueInDollars;
+  }
+
+  getDiff(operation) {
+    return (this.getActualQuote(operation) - operation.quoteTimeSold) / operation.quoteTimeSold;
   }
 
   getTransactions() {
@@ -64,6 +82,8 @@ export class TransactionsComponent implements OnInit {
         case 'ticker': return operation.coinAmount.coin.ticker;
         case 'name': return operation.coinAmount.coin.name;
         case 'amount': return operation.coinAmount.amount;
+        case 'quoteTimeNow': return this.getActualQuote(operation);
+        case 'quoteDifference': return this.getDiff(operation);
         default: return operation[property];
       }
     };

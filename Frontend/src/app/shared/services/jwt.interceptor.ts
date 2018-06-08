@@ -4,7 +4,6 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, Htt
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
