@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Usuarios'" [icon]="'fas fa-users'"></app-page-header>
+  <app-page-header [heading]="'Users'" [icon]="'fas fa-users'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
       <div class="card">
@@ -24,14 +24,14 @@
             </select>
           </div> -->
             <button mat-raised-button color="primary" [disabled]="!nickForm.valid || disabled">Obtener Información</button> &nbsp;
-            <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
+            <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
           </form>
           <div *ngIf="user" class="card-body table-responsive">
             <hr>
             <table class="table table-hover table-striped">
               <tbody>
                 <tr>
-                  <th>Usuario</th>
+                  <th>{{ 'User' | translate }}</th>
                   <td>
                     <b>{{ user.user.login.nick }} </b>
                   </td>
@@ -45,7 +45,7 @@
                   <td> {{ user.transactionCounter.today }} </td>
                 </tr>
                 <tr>
-                  <th>Transacciones</th>
+                  <th>{{ 'Transactions' | translate }}</th>
                   <td> {{ user.transactionCounter.all }} </td>
                 </tr>
                 <tr>

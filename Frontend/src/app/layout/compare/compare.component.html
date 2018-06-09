@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Comparar Usuarios'" [icon]="'far fa-copy'"></app-page-header>
+  <app-page-header [heading]="'Compare'" [icon]="'far fa-copy'"></app-page-header>
   <div class="row justify-content-center">
     <div class="col-md-10 col-lg-9 col-xl-8">
       <form role="form" #compareForm="ngForm" (ngSubmit)="compare(nick1.value, nick2.value)">
@@ -45,8 +45,8 @@
 
           </div>
         </div>
-        <button mat-raised-button color="primary" [disabled]="!compareForm.valid || disabled">Comparar</button> &nbsp;
-        <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
+        <button mat-raised-button color="primary" [disabled]="!compareForm.valid || disabled">{{ 'Compare' | translate }}</button> &nbsp;
+        <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
       </form>
       <div *ngIf="winner" class="card-body table-responsive">
         <table class="table table-hover table-striped">

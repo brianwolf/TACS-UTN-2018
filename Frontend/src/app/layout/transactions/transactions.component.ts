@@ -38,7 +38,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   getDiff(operation) {
-    return (this.getActualQuote(operation) - operation.quoteTimeSold) / operation.quoteTimeSold;
+    return this.getActualQuote(operation) / operation.quoteTimeSold - 1;
   }
 
   getTransactions() {

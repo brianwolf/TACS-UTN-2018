@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { routerTransition } from '../../router.animations';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../sign.component.scss'],
-  animations: [routerTransition()]
+  styleUrls: ['../sign.component.scss']
 })
 export class LoginComponent implements OnInit {
 

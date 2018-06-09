@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Vender'" [icon]="'fas fa-dollar-sign'"></app-page-header>
+  <app-page-header [heading]="'Sell'" [icon]="'fas fa-dollar-sign'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
       <div class="card">
@@ -59,8 +59,8 @@
               <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
                 placeholder="Cantidad a vender" name="amount" ngModel required>
             </div>
-            <button mat-raised-button color="primary" [disabled]="!sellForm.valid">Vender</button> &nbsp;
-            <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
+            <button mat-raised-button color="primary" [disabled]="!sellForm.valid">{{ 'Sell' | translate }}</button> &nbsp;
+            <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
           </form>
         </div>
       </div>

@@ -4,16 +4,14 @@ $topnav-background-color: #222;
 }
 
 a {
-  color: #999;
+  // color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 0.8);
+  // color: #999;
   text-decoration: none;
 }
 
 a:hover {
   color: #fff;
-}
-
-.animated {
-  color: #8A5;
 }
 
 .login-page {
@@ -79,6 +77,10 @@ h1 {
   small {
     color: rgba(255, 255, 255, 0.7);
   }
+}
+
+h5 {
+  color: #8A5;
 }
 
 .form-group {

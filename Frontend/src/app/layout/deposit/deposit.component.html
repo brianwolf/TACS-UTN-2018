@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Depositar'" [icon]="'fas fa-money-check-alt'"></app-page-header>
+  <app-page-header [heading]="'Deposit'" [icon]="'fas fa-money-check-alt'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
       <div class="card">
@@ -35,8 +35,8 @@
                 name="ticket" ngModel required>
             </div>
             <button mat-raised-button color="primary" [disabled]="!depositForm.valid">Informar</button> &nbsp;
-            <button mat-raised-button type="reset">Limpiar</button> &nbsp;
-            <button mat-raised-button color="warn" routerLink="/dashboard">Cancelar</button>
+            <button mat-raised-button type="reset">{{ 'Clean' | translate }}</button> &nbsp;
+            <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
           </form>
         </div>
       </div>

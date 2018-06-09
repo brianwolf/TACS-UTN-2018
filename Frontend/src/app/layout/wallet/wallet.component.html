@@ -1,43 +1,43 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Portafolio'" [icon]="'fas fa-wallet'"></app-page-header>
+  <app-page-header [heading]="'Wallet'" [icon]="'fas fa-wallet'"></app-page-header>
   <div class="row justify-content-center">
     <div class="col-xl-10">
       <div class="card">
-        <div class="card-header">Portafolio</div>
+        <div class="card-header">{{ 'Wallet' | translate }}</div>
         <div class="card-body table-responsive">
 
           <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{ 'Filter' | translate }}">
           </mat-form-field>
 
           <table class="table table-hover table-striped" mat-table [dataSource]="coins" matSort>
 
             <ng-container matColumnDef="ticker">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticker</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Ticker' | translate }}</th>
               <td mat-cell *matCellDef="let coin"> {{coin.coin.ticker}} </td>
               <td mat-footer-cell *matFooterCellDef>USD</td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Moneda</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Coin' | translate }}</th>
               <td mat-cell *matCellDef="let coin"> {{coin.coin.name}} </td>
               <td mat-footer-cell *matFooterCellDef>Dólar</td>
             </ng-container>
 
             <ng-container matColumnDef="amount">
-              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Quantity' | translate }}</th>
               <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.amount}} </td>
               <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet.dolarAmount | currency :'USD':' $ '}} </td>
             </ng-container>
 
             <ng-container matColumnDef="valueInDollars">
-              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Cotización Actual</th>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Actual Quote' | translate }}</th>
               <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.coin.valueInDollars | currency :'USD':'$ ':'1.2-4'}} </td>
               <td class="text-right font-weight-bold" mat-footer-cell *matFooterCellDef> Total tenencias </td>
             </ng-container>
 
             <ng-container matColumnDef="total">
-              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>Valor en USD</th>
+              <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Value in USD' | translate }}</th>
               <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.coin.valueInDollars * coin.amount | currency :'USD':'$ ':'1.2-4'}} </td>
               <td class="text-right font-weight-bold" mat-footer-cell *matFooterCellDef> {{wallet.dolarFinalBalance | currency :'USD':' $ '}} </td>
             </ng-container>
