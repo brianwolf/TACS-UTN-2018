@@ -1,4 +1,4 @@
-<div [@routerTransition] class="animated zoomIn">
+<div class="animated zoomIn">
   <h4>Ingrese los datos del nuevo usuario</h4>
   <div *ngIf="loading" class="animated infinite zoomIn">
     <h5>Registrando</h5>
@@ -11,7 +11,7 @@
       </div>
       <div class="form-group">
         <input type="email" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Email" name="email"
-          ngModel required>
+          ngModel email required>
       </div>
       <div class="form-group">
         <input type="password" autocapitalize="none" class="form-control input-underline input-lg" placeholder="Contraseña (min 3)"

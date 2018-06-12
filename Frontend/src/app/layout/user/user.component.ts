@@ -13,6 +13,7 @@ import { UserService } from '../../shared/services/user.service';
 export class UserComponent implements OnInit {
 
   user;
+  loading;
 
   constructor(private userService: UserService, public snackBar: MatSnackBar) { }
 
@@ -20,22 +21,35 @@ export class UserComponent implements OnInit {
     this.getUser();
   }
 
-  onSubmit(form: NgForm) {
-    if (form.value.newPass !== form.value.confirmedNewPass) {
-      this.snackBar.open('Las contraseñas nuevas no coinciden.', 'x', { panelClass: 'alert-danger' });
-      form.controls['newPass'].reset();
-      form.controls['confirmedNewPass'].reset();
-    } else {
-      console.log(this.user);
-    }
-    // this.userService.putUser(this.user).subscribe();
-  }
-
   getUser() {
     this.userService.getUser().subscribe(
       data => this.user = data,
       error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' })
     );
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.value.newPass !== form.value.confirmedNewPass) {
+      this.snackBar.open('Las contraseñas nuevas no coinciden.', 'x', { panelClass: 'alert-warning' });
+    } else {
+      this.loading = true;
+      const oldUser = this.user;
+      const newUser = this.user;
+      oldUser.login.pass = form.value.pass;
+      newUser.login.pass = form.value.newPass;
+      const body = { oldUser: oldUser, newUser: newUser };
+      this.userService.signup(body).subscribe(
+        data => this.snackBar.open('Usuario Actualizado con exito.', 'x'),
+        error => {
+          this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' });
+          this.loading = false;
+        },
+        () => this.loading = false
+      );
+      form.controls['pass'].reset();
+      form.controls['newPass'].reset();
+      form.controls['confirmedNewPass'].reset();
+    }
   }
 
 }
