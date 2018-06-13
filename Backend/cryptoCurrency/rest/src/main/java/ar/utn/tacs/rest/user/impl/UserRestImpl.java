@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.model.user.ChangeUserRequest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.user.UserRest;
@@ -102,11 +103,11 @@ public class UserRestImpl implements UserRest {
 	}
 
 	@PUT
-	@Path(UserRest.CHANGE_PASSWORD)
+	@Path(UserRest.CHANGE_USER)
 	@Override
-	public Response changePassword(@HeaderParam(value = "token")String token,Login login) {
+	public Response updateUser(@HeaderParam(value = "token")String token,ChangeUserRequest changeUserRequest) {
 		try {
-			userService.changePassword(token,login);
+			userService.updateUser(token,changeUserRequest.getOldUser(),changeUserRequest.getNewUser());
 			return Response.status(Response.Status.OK).build();
 			
 		} catch (Exception e) {

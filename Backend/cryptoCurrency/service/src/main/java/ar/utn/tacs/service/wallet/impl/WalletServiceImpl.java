@@ -1,10 +1,13 @@
 package ar.utn.tacs.service.wallet.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.dao.wallet.WalletDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.commons.ExistingDepositException;
@@ -51,7 +54,22 @@ public class WalletServiceImpl implements WalletService {
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 
 		Transaction transaction = this.getTransaction(Buy.DESCRIPTION, user, coinAmount);
-		walletDao.buy(user, transaction);
+		
+		transaction.doOperations();
+		transaction.setDateFinal(new Date());
+
+		User userTransaction = new User();
+		userTransaction.setId(user.getId());
+
+		transaction.setUser(userTransaction);
+		this.walletDao.insertTransaction(transaction);
+		
+		this.updateUser(user);
+	}
+	
+	private void updateUser(User user) {
+		BeanUtil.getBean(UserDao.class).updateUser(user);
+
 	}
 
 	@Override
@@ -61,8 +79,17 @@ public class WalletServiceImpl implements WalletService {
 		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
 
 		Transaction transaction = this.getTransaction(Sale.DESCRIPTION, user, coinAmount);
+		
+		transaction.doOperations();
+		transaction.setDateFinal(new Date());
 
-		walletDao.sale(user, transaction);
+		User userTransaction = new User();
+		userTransaction.setId(user.getId());
+		
+		transaction.setUser(userTransaction);
+		this.walletDao.insertTransaction(transaction);
+		
+		this.updateUser(user);
 	}
 
 	@Override
@@ -84,7 +111,11 @@ public class WalletServiceImpl implements WalletService {
 
 	@Override
 	public void doDeposit(Deposit deposit) {
-		this.walletDao.doDeposit(deposit);
+		Wallet wallet = deposit.getUser().getWallet();
+		BigDecimal finalAmount = wallet.getDolarAmount().add(deposit.getAmount());
+		
+		wallet.setDolarAmount(finalAmount);
+		this.updateUser(deposit.getUser());
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.transaction.Transaction;
+import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
 
 public class WalletServiceTestSuite extends ServiceTestSuite{
@@ -115,9 +116,9 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 			e.printStackTrace();
 		}
 		
-		BigDecimal cantidadNuevaBitcoin = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC").getAmount();
+		CoinAmount amountBitcoinNuevo = getUserTostadoPosta().getWallet().getCoinAmountByTicker("BTC");
 		
-		Assert.assertEquals(cantidadNuevaBitcoin.compareTo(new BigDecimal(0)),0);
+		Assert.assertNull(amountBitcoinNuevo);
 	}
 	
 	@Test
@@ -136,7 +137,7 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 		}
 		
 		Assert.assertNotNull(transacciones);
-		Assert.assertEquals(transacciones.size(), 1);
+		Assert.assertEquals(1,transacciones.size());
 	}
 	
 	//Incidente en produccion (1 compra de una moneda se le acredita a todos los users)

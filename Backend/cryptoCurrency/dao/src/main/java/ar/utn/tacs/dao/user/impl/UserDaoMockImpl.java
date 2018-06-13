@@ -3,11 +3,7 @@ package ar.utn.tacs.dao.user.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
@@ -17,6 +13,7 @@ import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.role.AdminRole;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.role.UserRole;
+import ar.utn.tacs.model.user.ConnectedUser;
 import ar.utn.tacs.model.user.Gender;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.Person;
@@ -26,10 +23,10 @@ import ar.utn.tacs.model.wallet.Wallet;
 
 public class UserDaoMockImpl implements UserDao{
 	
-	private HashMap<String, User> sessions = new HashMap<String,User>();
- 	
 	private List<User> users = new ArrayList<User>();
 	private List<Role> roles = new ArrayList<Role>();
+
+	private List<ConnectedUser> connectedUsers = new ArrayList<ConnectedUser>();
 	
 	public UserDaoMockImpl() {
 		
@@ -37,7 +34,7 @@ public class UserDaoMockImpl implements UserDao{
 		this.roles.add(new AdminRole());
 		
 		this.users.add(new User(new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com", Gender.MALE), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
-		//TENGO ! DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
+		//TENGO 1 DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
 		this.users.add(new User(new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com", Gender.MALE), roles, new Wallet(newCoinAmounts(), new BigDecimal(10001f))));
 		//LE DOY SOLO EL ROL DE USER PARA QUE NO MANQUEE NADA XP
 		this.users.add(new User(new Login("boberman", "1234", true, 0), new Person("alejandro", "bobero", "bobero@gmail.com", Gender.MALE), roles.subList(0, 1), new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
@@ -51,94 +48,23 @@ public class UserDaoMockImpl implements UserDao{
 		return coinAmounts;
 	}
 
-
-	public HashMap<String, User> getSessions() {
-		return sessions;
-	}
-
-	public void setSessions(HashMap<String, User> sessions) {
-		this.sessions = sessions;
-	}
-
 	@Override
 	public User getUserById(ObjectId id) {
 		
 		return users.stream()
 				.filter(user -> user.getId().equals(id))
-				.findFirst()
-				.get();
-	}
-
-	@Override
-	public String getTokenByLogin(Login login) {
-		
-		User usuarioEncontrado = users.stream()
-				.filter(user -> user.getLogin().equals(login))
-				.findFirst()
-				.get(); 
-		
-		//ELIMINA SESION
-		Optional<String> key = sessions.keySet().stream().filter(k->sessions.get(k).getId().equals(usuarioEncontrado.getId())).findFirst();
-		logOutUserByToken(key.hashCode()==0 ? null : key.get());
-		
-		String token = "";
-		if (usuarioEncontrado != null) {
-			
-			usuarioEncontrado.getLogin().setLastLogin(new Date());
-			token = this.getRandomHashSession();
-			sessions.put(token, usuarioEncontrado);
-		}
-		
-		return token;
-	}
-	
-	private String getRandomHashSession() {
-        
-		String baseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder hashResult = new StringBuilder();
-        Random rnd = new Random();
-        
-        while (hashResult.length() < 32) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * baseCharacters.length());
-            hashResult.append(baseCharacters.charAt(index));
-        }
-        
-        return hashResult.toString();
-    }
-
-	public void logOutUserByToken(String token) {
-		this.sessions.remove(token);
+				.findFirst().orElse(null);
 	}
 
 	@Override
 	public User getUserByToken(String token) {
-		return sessions.get(token);
+		ConnectedUser connectedUser = this.connectedUsers.stream().filter(c->c.getToken().equals(token)).findFirst().orElse(new ConnectedUser());
+		return this.getUserById(connectedUser.getIdUser());
 	}
 	
-	private Boolean existsUser(User user) {
-		return this.users.stream().anyMatch(u->u.getLogin().equals(user.getLogin()));
-	}
-
-	@Override
-	public void newUser(User user) {
-		
-		if(existsUser(user)) {
-			throw new RuntimeException();
-		}
-		
-		user.getLogin().setActive(true);
-		user.getLogin().setTries(0);
-		user.setWallet(new Wallet());
-		user.setRoles(roles.subList(0, 1));
-		user.setId(new ObjectId());
-		
-		this.users.add(user);
-		
-	}
-
 	@Override
 	public User getUserByNick(String nick) {
-		User userresult = users.stream().filter(u -> u.getLogin().getNick().equals(nick)).findFirst().get();
+		User userresult = users.stream().filter(u -> u.getLogin().getNick().equals(nick)).findFirst().orElse(null);
 		return userresult;
 	}
 
@@ -148,21 +74,50 @@ public class UserDaoMockImpl implements UserDao{
 		return nicks;
 	}
 
+	@Override
+	public void updateUser(User user) {
+		this.users.remove(this.getUserById(user.getId()));
+		this.insertUser(user);
+	}
+
 
 	@Override
-	public void convertUserToAdmin(User user) {
-		
-		AdminRole adminRole = new AdminRole();		
+	public User getUserByLogin(Login login){
+		return this.users.stream().filter(u->u.getLogin().getNick().equals(login.getNick())&&u.getLogin().getPass().equals(login.getPass())).findFirst().orElse(null);
+	}
 
-		if (!user.getRoles().contains(adminRole)) {
-			user.getRoles().add(adminRole);
+
+	@Override
+	public void deleteConnectedUserById(ObjectId id) {
+		ConnectedUser connectedUser = this.connectedUsers.stream().filter(c->c.getId().equals(id)).findFirst().orElse(null);
+		if(connectedUser!=null) {
+			this.connectedUsers.remove(connectedUser);
 		}
 	}
 
 
 	@Override
-	public void changePassword(User user, String newPassword) {
-		
+	public void insertConnectedUser(ConnectedUser connectedUser) {
+		this.connectedUsers.add(connectedUser);
+	}
+
+
+	@Override
+	public void insertUser(User user) {
+		this.users.add(user);
+	}
+
+
+	@Override
+	public Role getRolByDescription(String descripcion) {
+		return this.roles.stream().filter(r->r.getDescription().equals(descripcion)).findFirst().orElse(null);
+	}
+
+
+	@Override
+	public void deleteConnectedUserByToken(String token) {
+		ConnectedUser connectedUser = this.connectedUsers.stream().filter(c->c.getToken().equals(token)).findFirst().orElse(new ConnectedUser());
+		this.deleteConnectedUserById(connectedUser.getId());
 	}
 
 

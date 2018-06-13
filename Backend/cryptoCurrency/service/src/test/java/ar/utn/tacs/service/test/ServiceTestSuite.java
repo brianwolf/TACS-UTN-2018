@@ -24,6 +24,7 @@ import ar.utn.tacs.service.wallet.WalletService;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public abstract class ServiceTestSuite {
 	
+	
 	@Autowired
 	UserService userService;
 	
@@ -39,7 +40,7 @@ public abstract class ServiceTestSuite {
 	}
 	
 	protected User getUserTostado() {
-		return new User(new Login("tostado", "1234", true, 0), new Person("alexis", "taberna", "tostado@gmail.com", Gender.MALE), null, new Wallet(null, new BigDecimal(10000f)));
+		return userService.getUser("tostado");
 	}
 	
 	protected User getUserTostadoPosta() {
@@ -47,7 +48,7 @@ public abstract class ServiceTestSuite {
 	}
 	
 	protected User getUserLobezzzno() {
-		return new User(new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com", Gender.MALE), null, new Wallet(null, new BigDecimal(10000f)));
+		return this.userService.getUser("lobezzzno");
 	}
 	
 	protected User getUserLobezzznoPosta() {

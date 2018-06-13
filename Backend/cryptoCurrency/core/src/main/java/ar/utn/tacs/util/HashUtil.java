@@ -3,6 +3,7 @@ package ar.utn.tacs.util;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 public class HashUtil {
 
@@ -42,4 +43,17 @@ public class HashUtil {
 		    
 		return sb.toString();
 	}
-}
+	
+	public String getRandomHashString() {
+        
+		String baseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder hashResult = new StringBuilder();
+        Random rnd = new Random();
+        
+        while (hashResult.length() < 32) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * baseCharacters.length());
+            hashResult.append(baseCharacters.charAt(index));
+        }
+        
+        return hashResult.toString();
+    }}

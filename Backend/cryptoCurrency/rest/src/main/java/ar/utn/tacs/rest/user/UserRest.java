@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
+import ar.utn.tacs.model.user.ChangeUserRequest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.GenericRest;
@@ -20,7 +21,7 @@ public interface UserRest extends GenericRest{
 	public static final String GET_TOKEN_BY_LOGIN = "/login";
 	public static final String GET_USER_BY_TOKEN = "/loggedin";
 	public static final String LOGOUT_USER_BY_TOKEN = "/logout";
-	public static final String CHANGE_PASSWORD = "";
+	public static final String CHANGE_USER = "";
 	public static final String RELOG = "/relog/{nick}";
 
 	
@@ -69,10 +70,9 @@ public interface UserRest extends GenericRest{
 	 * {@link PUT}
 	 * 
 	 * @param token
-	 * @param nick
-	 * @param pass
+	 * @param changeUserRequest
 	 * @return {@link JsonValue}
 	 */
-	Response changePassword(String token, Login login);
+	Response updateUser(String token, ChangeUserRequest changeUserRequest);
 	
 }

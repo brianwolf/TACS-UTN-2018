@@ -16,6 +16,7 @@ public class UserServiceTestSuite extends ServiceTestSuite {
 		String nickJesus = "yisssas";
 		User jesus = new User();
 		jesus.getLogin().setNick(nickJesus);
+		jesus.getLogin().setPass("sonofgod");
 		
 		userService.newUser(jesus);
 		
@@ -49,12 +50,6 @@ public class UserServiceTestSuite extends ServiceTestSuite {
 		userService.logOutUserByToken(token);
 		
 		userService.getUserByToken(token);
-	}
-	
-	@Test
-	public void getTostadoById() {
-		
-		Assert.assertNotNull(userService.getUserById(getUserTostado().getId()));
 	}
 	
 }

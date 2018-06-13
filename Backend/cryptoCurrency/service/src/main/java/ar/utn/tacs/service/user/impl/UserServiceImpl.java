@@ -1,5 +1,7 @@
 package ar.utn.tacs.service.user.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -8,16 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.commons.ExistingUserException;
+import ar.utn.tacs.model.commons.UserBlockedException;
 import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.email.MailBuilder;
+import ar.utn.tacs.model.role.AdminRole;
+import ar.utn.tacs.model.role.Role;
+import ar.utn.tacs.model.user.ConnectedUser;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.service.admin.AdminService;
 import ar.utn.tacs.service.external.ExternalService;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.util.BeanUtil;
+import ar.utn.tacs.util.HashUtil;
 import ar.utn.tacs.util.TokenMakerUtil;
 
 public class UserServiceImpl implements UserService{
@@ -28,17 +36,64 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String getTokenByLogin(Login login) throws UtnTacsException {
-		return userDao.getTokenByLogin(login);
+
+		String token = "";
+
+		User user = this.userDao.getUserByLogin(login);
+		
+		if (user == null) {
+		User userByNick = this.userDao.getUserByNick(login.getNick());
+		userByNick.getLogin().incrementTries();
+		
+		if(userByNick.getLogin().hasExcededTries()) {
+			this.blockUser(userByNick);
+			throw new UserBlockedException();
+		}
+		else {
+			this.userDao.updateUser(userByNick);
+		}
+
+			throw new UserNotFoundException();
+		}
+
+		user.getLogin().setLastLogin(new Date());
+		this.userDao.updateUser(user);
+
+		token = BeanUtil.getBean(TokenMakerUtil.class).makeToken();
+		ConnectedUser connectedUser = new ConnectedUser(token, user.getId());
+
+		this.userDao.deleteConnectedUserById(user.getId());
+		this.userDao.insertConnectedUser(connectedUser);
+
+		return token;
+	}
+
+	private void blockUser(User user) {
+		user.getLogin().setTries(0);
+		user.getLogin().setActive(false);
+		this.userDao.updateUser(user);
 	}
 
 	@Override
 	public void newUser(User user) throws UtnTacsException {
-		userDao.newUser(user);
+		User userBd = this.userDao.getUserByNick(user.getLogin().getNick());
+
+		if (userBd != null) {
+			throw new ExistingUserException();
+		}
+
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(this.userDao.getRolByDescription(Role.USER));
+
+		user.setRoles(roles);
+		user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(user.getLogin().getPass()));
+		
+		this.userDao.insertUser(user);
 	}
 
 	@Override
 	public void logOutUserByToken(String token) {
-		userDao.logOutUserByToken(token);
+		userDao.deleteConnectedUserByToken(token);
 	}
 
 	@Override
@@ -100,7 +155,13 @@ public class UserServiceImpl implements UserService{
 			throw new UserNotFoundException();
 		}
 		
-		this.userDao.convertUserToAdmin(user);
+		AdminRole adminRole = (AdminRole) this.userDao.getRolByDescription(Role.ADMIN);
+
+		if (!user.getRoles().contains(adminRole)) {
+			user.getRoles().add(adminRole);
+
+			this.userDao.updateUser(user);
+		}
 	}
 
 	@Override
@@ -112,13 +173,14 @@ public class UserServiceImpl implements UserService{
 			throw new UserNotFoundException();
 		}
 		
-		String newPassword = (new TokenMakerUtil()).makeToken();
+		String newPassword = BeanUtil.getBean(HashUtil.class).getRandomHashString();
 		
 		Boolean sended = BeanUtil.getBean(ExternalService.class).sendMail(MailBuilder.buildRelogMail(user,newPassword));
 		
 		if(sended) {
 			user.getLogin().setActive(true);
-			this.userDao.changePassword(user,newPassword);
+			user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(newPassword));
+			this.userDao.updateUser(user);
 		}
 	}
 
@@ -131,7 +193,38 @@ public class UserServiceImpl implements UserService{
 			throw new UserNotFoundException();
 		}
 		
-		this.userDao.changePassword(user,login.getPass());
+		user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(login.getPass()));
+		this.userDao.updateUser(user);
+	}
+
+	@Override
+	public void updateUser(String token, User oldUser, User newUser) throws UtnTacsException {
+		
+		User user = this.userDao.getUserByToken(token);
+		
+		if(user==null) {
+			throw new UserNotFoundException();
+		}
+		
+		//NEGRADA DE LOS DIOSES
+		if(!oldUser.getLogin().getNick().equals(newUser.getLogin().getNick())) {
+			throw new UtnTacsException();
+		}
+		
+		if(newUser.getLogin().getPass()!=null&&BeanUtil.getBean(HashUtil.class).
+				getStringHash(oldUser.getLogin().getPass()).equals(user.getLogin().getPass())) {
+			
+			user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(newUser.getLogin().getPass()));
+		}
+		
+		if(newUser.getPerson().getEmail()!=null&&BeanUtil.getBean(HashUtil.class).
+				getStringHash(oldUser.getPerson().getEmail()).equals(user.getPerson().getEmail())) {
+			
+			user.getPerson().setEmail(newUser.getPerson().getEmail());
+		}
+		
+		this.userDao.updateUser(user);
+		
 	}
 
 }

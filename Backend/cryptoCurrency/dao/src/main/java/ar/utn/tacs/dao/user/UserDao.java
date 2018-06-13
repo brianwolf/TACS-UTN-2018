@@ -6,31 +6,19 @@ import javax.jws.soap.SOAPBinding.Use;
 
 import org.bson.types.ObjectId;
 
-import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.dao.GenericDao;
+import ar.utn.tacs.model.commons.UserNotFoundException;
+import ar.utn.tacs.model.role.Role;
+import ar.utn.tacs.model.user.ConnectedUser;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
 
 public interface UserDao extends GenericDao {
 	
 	/**
-	 * @param user
-	 * @throws UtnTacsException 
-	 */
-	void newUser(User user) throws UtnTacsException;
-	
-	/**
-	 * @param nick
-	 * @param pass
-	 * @return {@link User}
-	 * @throws UtnTacsException 
-	 */
-	String getTokenByLogin(Login login) throws UtnTacsException;
-	
-	/**
 	 * @param token
 	 */
-	void logOutUserByToken(String token);
+	void deleteConnectedUserByToken(String token);
 
 	/**
 	 * @param token
@@ -56,10 +44,15 @@ public interface UserDao extends GenericDao {
 	 */
 	List<String> getUsersNicksAll();
 	
-	/**
-	 * @param nick
-	 */
-	void convertUserToAdmin(User user);
+	void updateUser(User user);
 
-	void changePassword(User user, String newPassword);
+	User getUserByLogin(Login login) throws UserNotFoundException;
+
+	void deleteConnectedUserById(ObjectId id);
+
+	void insertConnectedUser(ConnectedUser connectedUser);
+
+	void insertUser(User user);
+
+	Role getRolByDescription(String descripcion);
 }

@@ -1,11 +1,13 @@
 package ar.utn.tacs.service.admin.impl;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.dao.admin.AdminDao;
+import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.NotExistDepositException;
@@ -27,7 +29,14 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public User compareBalance(String nickA, String nickB) {
-		return adminDao.compareBalance(nickA, nickB);
+		
+		User userA = BeanUtil.getBean(UserDao.class).getUserByNick(nickA);
+		User userB = BeanUtil.getBean(UserDao.class).getUserByNick(nickB);
+
+		BigDecimal balanceA = userA.getWallet().getDolarFinalBalance();
+		BigDecimal balanceB = userB.getWallet().getDolarFinalBalance();
+
+		return balanceA.compareTo(balanceB) > 0 ? userA : userB;
 	}
 
 	@Override
@@ -78,15 +87,31 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void addDeposit(Deposit deposit) throws ExistingDepositException {
-		this.adminDao.addDeposit(deposit);
+		
+		try {
+			if (this.adminDao.getDepositByNumber(deposit.getNumber()) != null) {
+				throw new ExistingDepositException();
+			}
+		} catch (NotExistDepositException e) {
+			// TODO Auto-generated catch block
+		}
+
+		this.adminDao.insertDeposit(deposit);
 	}
 
 	@Override
 	public void approveDeposit(String depositNumber) throws ApprovingApprovedDepositException, NotExistDepositException{
 		
 		try {
-			Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
-			this.adminDao.approveDeposit(deposit);	
+			Deposit deposit = this.adminDao.getDepositByNumber(depositNumber);
+			Deposit depositFounded = this.adminDao.getDepositByNumber(deposit.getNumber());
+
+			if (depositFounded.getState().equals(Deposit.APPROVED)) {
+				throw new ApprovingApprovedDepositException();
+			}
+
+			depositFounded.setState(Deposit.APPROVED);
+			this.adminDao.updateDeposit(depositFounded);
 			
 			BeanUtil.getBean(WalletService.class).doDeposit(deposit);
 			
@@ -104,8 +129,19 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void rejectDeposit(String depositNumber) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException {
 		
-		Deposit deposit = this.adminDao.getDepositByDepositNumber(depositNumber);
-		this.adminDao.rejectDeposit(deposit);
+		Deposit deposit = this.adminDao.getDepositByNumber(depositNumber);
+		Deposit depositFounded = this.adminDao.getDepositByNumber(deposit.getNumber());
+
+		if (depositFounded.getState().equals(Deposit.APPROVED)) {
+			throw new RejectingApprovedDepositException();
+		}
+
+		if (depositFounded.getState().equals(Deposit.REJECTED)) {
+			throw new RejectingRejectedDepositException();
+		}
+
+		depositFounded.setState(Deposit.REJECTED);
+		this.adminDao.updateDeposit(depositFounded);
 	}
 
 	@Override

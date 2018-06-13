@@ -71,5 +71,7 @@ public interface UserService extends GenericService {
 	void relogUserByNick(String nick) throws UserNotFoundException;
 
 	void changePassword(String token, Login login) throws UtnTacsException;
+
+	void updateUser(String token, User oldUser, User newUser) throws UtnTacsException;
 	
 }

@@ -6,21 +6,11 @@ import java.util.List;
 import ar.utn.tacs.dao.GenericDao;
 import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.NotExistDepositException;
-import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
-import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
 import ar.utn.tacs.model.deposit.Deposit;
-import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 
 public interface AdminDao extends GenericDao {
-
-	/**
-	 * @param idUserA
-	 * @param idUserB
-	 * @return {@link User}
-	 */
-	User compareBalance(String nickA, String nickB);
 
 	/**
 	 * @return {@link List}{@link Transaction}
@@ -43,33 +33,14 @@ public interface AdminDao extends GenericDao {
 	 */
 	BigInteger statesByBeforeDays(Integer beforeDays);
 
-	/**
-	 * @param deposit
-	 * @throws ExistingDepositException 
-	 */
-	void addDeposit(Deposit deposit) throws ExistingDepositException;
-
-	/**
-	 * @param deposit
-	 * @throws ApprovingApprovedDepositException 
-	 * @throws NotExistDepositException 
-	 */
-	void approveDeposit(Deposit deposit) throws ApprovingApprovedDepositException, NotExistDepositException;
-
-	/**
-	 * @param deposit
-	 * @throws RejectingRejectedDepositException 
-	 * @throws RejectingApprovedDepositException 
-	 * @throws NotExistDepositException 
-	 */
-	void rejectDeposit(Deposit deposit) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException;
+	void insertDeposit(Deposit deposit) throws ExistingDepositException;
 
 	/**
 	 * @param depositNumber
 	 * @return {@link Deposit}
 	 * @throws NotExistDepositException 
 	 */
-	Deposit getDepositByDepositNumber(String depositNumber) throws NotExistDepositException;
+	Deposit getDepositByNumber(String depositNumber) throws NotExistDepositException;
 
 	/**
 	 * @param statusDescription
@@ -100,4 +71,7 @@ public interface AdminDao extends GenericDao {
 	 * @return
 	 */
 	BigInteger statesByBeforeDays(User user, Integer days);
+
+	void updateDeposit(Deposit deposit);
+
 }

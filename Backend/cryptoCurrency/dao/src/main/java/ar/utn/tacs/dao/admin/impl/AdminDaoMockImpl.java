@@ -1,6 +1,5 @@
 package ar.utn.tacs.dao.admin.impl;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,13 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.utn.tacs.dao.admin.AdminDao;
-import ar.utn.tacs.dao.user.impl.UserDaoMockImpl;
 import ar.utn.tacs.dao.wallet.impl.WalletDaoMockImpl;
-import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
-import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.NotExistDepositException;
-import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
-import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
@@ -33,16 +27,6 @@ public class AdminDaoMockImpl implements AdminDao{
 		this.listDeposit = listDeposit;
 	}
 
-	@Override
-	public User compareBalance(String nickA, String nickB) {
-		User userA = BeanUtil.getBean("userDao", UserDaoMockImpl.class).getUserByNick(nickA);
-		User userB = BeanUtil.getBean("userDao", UserDaoMockImpl.class).getUserByNick(nickB);
-		
-		BigDecimal balanceA = userA.getWallet().getDolarFinalBalance();
-		BigDecimal balanceB = userB.getWallet().getDolarFinalBalance();
-		
-		return balanceA.compareTo(balanceB) > 0? userA : userB;
-	}
 
 	@Override
 	public BigInteger statesLastWeek() {
@@ -97,45 +81,7 @@ public class AdminDaoMockImpl implements AdminDao{
 	}
 
 	@Override
-	public void addDeposit(Deposit deposit) throws ExistingDepositException {
-		
-		if (this.listDeposit.contains(deposit)) {
-			throw new ExistingDepositException();
-		}
-		
-		this.listDeposit.add(deposit);
-	}
-
-	@Override
-	public void approveDeposit(Deposit deposit) throws ApprovingApprovedDepositException, NotExistDepositException {
-		
-		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
-		
-		if (depositFounded.getState().equals(Deposit.APPROVED.toString())) {
-			throw new ApprovingApprovedDepositException();
-		}
-		
-		depositFounded.setState(Deposit.APPROVED.toString());
-	}
-
-	@Override
-	public void rejectDeposit(Deposit deposit) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException {
-		
-		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
-		
-		if (depositFounded.getState().equals(Deposit.APPROVED.toString())) {
-			throw new RejectingApprovedDepositException();
-		}
-		
-		if (depositFounded.getState().equals(Deposit.REJECTED.toString())) {
-			throw new RejectingRejectedDepositException();
-		}
-		
-		depositFounded.setState(Deposit.REJECTED.toString());
-	}
-
-	@Override
-	public Deposit getDepositByDepositNumber(String depositNumber) throws NotExistDepositException {
+	public Deposit getDepositByNumber(String depositNumber) throws NotExistDepositException {
 		
 		if (!this.listDeposit.stream().anyMatch(d -> d.getNumber().equals(depositNumber))) {
 			throw new NotExistDepositException();
@@ -215,5 +161,21 @@ public class AdminDaoMockImpl implements AdminDao{
 		}).collect(Collectors.toList());
 		
 		return BigInteger.valueOf(transactionsFilter.size());
+	}
+
+	@Override
+	public void insertDeposit(Deposit deposit){
+		this.listDeposit.add(deposit);		
+	}
+
+	@Override
+	public void updateDeposit(Deposit deposit) {
+		try {
+			this.listDeposit.remove(this.getDepositByNumber(deposit.getNumber()));
+		} catch (NotExistDepositException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.insertDeposit(deposit);
 	}
 }

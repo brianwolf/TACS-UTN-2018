@@ -1,6 +1,5 @@
 package ar.utn.tacs.dao.admin.impl;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,28 +12,11 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
-import ar.utn.tacs.dao.user.UserDao;
-import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
-import ar.utn.tacs.model.commons.ExistingDepositException;
-import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
-import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
-import ar.utn.tacs.util.BeanUtil;
 
 public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
-
-	@Override
-	public User compareBalance(String nickA, String nickB) {
-		User userA = BeanUtil.getBean(UserDao.class).getUserByNick(nickA);
-		User userB = BeanUtil.getBean(UserDao.class).getUserByNick(nickB);
-
-		BigDecimal balanceA = userA.getWallet().getDolarFinalBalance();
-		BigDecimal balanceB = userB.getWallet().getDolarFinalBalance();
-
-		return balanceA.compareTo(balanceB) > 0 ? userA : userB;
-	}
 
 	@Override
 	public BigInteger statesLastWeek() {
@@ -107,45 +89,7 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public void addDeposit(Deposit deposit) throws ExistingDepositException {
-
-		if (this.getByProperty("number", deposit.getNumber(), Deposit.class) != null) {
-			throw new ExistingDepositException();
-		}
-
-		this.insert(deposit);
-	}
-
-	@Override
-	public void approveDeposit(Deposit deposit) throws ApprovingApprovedDepositException {
-		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
-
-		if (depositFounded.getState().equals(Deposit.APPROVED)) {
-			throw new ApprovingApprovedDepositException();
-		}
-
-		depositFounded.setState(Deposit.APPROVED);
-		this.update(depositFounded);
-	}
-
-	@Override
-	public void rejectDeposit(Deposit deposit) throws RejectingApprovedDepositException, RejectingRejectedDepositException {
-		Deposit depositFounded = this.getDepositByDepositNumber(deposit.getNumber());
-
-		if (depositFounded.getState().equals(Deposit.APPROVED)) {
-			throw new RejectingApprovedDepositException();
-		}
-
-		if (depositFounded.getState().equals(Deposit.REJECTED)) {
-			throw new RejectingRejectedDepositException();
-		}
-
-		depositFounded.setState(Deposit.REJECTED);
-		this.update(depositFounded);
-	}
-
-	@Override
-	public Deposit getDepositByDepositNumber(String depositNumber) {
+	public Deposit getDepositByNumber(String depositNumber) {
 		return this.getByProperty("number", depositNumber, Deposit.class);
 	}
 
@@ -192,6 +136,16 @@ public class AdminDaoImpl extends GenericAbstractDaoImpl implements AdminDao {
 
 		Long count = mongoTemplate.count(q, Transaction.class);
 		return new BigInteger(count.toString());
+	}
+
+	@Override
+	public void insertDeposit(Deposit deposit){
+		this.insert(deposit);
+	}
+
+	@Override
+	public void updateDeposit(Deposit deposit) {
+		this.update(deposit);
 	}
 
 }

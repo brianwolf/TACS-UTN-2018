@@ -18,7 +18,7 @@ public abstract class GenericAbstractDaoImpl implements GenericDao {
 	@Autowired
 	protected MongoTemplate mongoTemplate;
 
-	protected void insert(Object objeto) {
+	protected <T> void insert(T objeto) {
 		if (!mongoTemplate.collectionExists(objeto.getClass())) {
 			mongoTemplate.createCollection(objeto.getClass());
 		}
@@ -89,12 +89,12 @@ public abstract class GenericAbstractDaoImpl implements GenericDao {
 		Query q = new Query();
 		q.fields().include(propertyName);
 		List<T> list = mongoTemplate.find(q, clazz);
-		return list.stream().map(o -> getProperty(propertyName, o, propertyClazz)).collect(Collectors.toList());
+		return list.stream().map(o -> getPropertyByReflection(propertyName, o, propertyClazz)).collect(Collectors.toList());
 
 	}
 
 	@SuppressWarnings("unchecked")
-	private <A> A getProperty(String propertyName, Object o, Class<A> propertyClazz) {
+	private <A> A getPropertyByReflection(String propertyName, Object o, Class<A> propertyClazz) {
 
 		Object finalObject = o;
 
