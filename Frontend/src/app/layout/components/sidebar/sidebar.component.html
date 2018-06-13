@@ -20,7 +20,7 @@
     </a>
     <hr>
     <div *ngIf="cs.role() == 'Admin'">
-      <p class="list-group-item">{{ 'AdminSection' | translate }}</p>
+      <p class="list-group-item">{{ 'Admin' | translate }}</p>
       <a [routerLink]="['/authorize']" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fas fa-fw fa-check"></i>{{ 'Authorize' | translate }}
       </a>
@@ -42,7 +42,7 @@
       <ul *ngIf="menu === 'profile'" class="animated zoomIn">
         <li>
           <a [routerLink]="['/user']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fas fa-fw fa-id-card"></i>{{ 'Settings' | translate }}
+            <i class="fas fa-fw fa-id-card"></i>{{ 'Profile' | translate }}
           </a>
         </li>
         <li>

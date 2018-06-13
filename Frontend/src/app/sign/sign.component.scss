@@ -4,9 +4,7 @@ $topnav-background-color: #222;
 }
 
 a {
-  // color: rgba(255, 255, 255, 1);
   color: rgba(255, 255, 255, 0.8);
-  // color: #999;
   text-decoration: none;
 }
 
@@ -14,7 +12,7 @@ a:hover {
   color: #fff;
 }
 
-.login-page {
+.sign {
   position: absolute;
   top: 0;
   left: 0;

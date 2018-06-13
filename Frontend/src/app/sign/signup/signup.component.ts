@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
@@ -9,13 +9,11 @@ import { UserService } from '../../shared/services/user.service';
   templateUrl: './signup.component.html',
   styleUrls: ['../sign.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
   loading = false;
 
   constructor(private userService: UserService, public router: Router, public snackBar: MatSnackBar) { }
-
-  ngOnInit() { }
 
   onSubmit(form: NgForm) {
     if (form.value.pass !== form.value.confirmPass) {
