@@ -32,9 +32,6 @@ import { HistoryComponent } from './history/history.component';
     CommonModule,
     FormsModule,
     LayoutRoutingModule,
-    TranslateModule,
-    NgbCarouselModule.forRoot(),
-    NgbDropdownModule.forRoot(),
     MatAutocompleteModule,
     MatButtonModule,
     MatIconModule,
@@ -44,7 +41,10 @@ import { HistoryComponent } from './history/history.component';
     MatSortModule,
     MatTableModule,
     MatToolbarModule,
-    ReactiveFormsModule
+    NgbCarouselModule.forRoot(),
+    NgbDropdownModule.forRoot(),
+    ReactiveFormsModule,
+    TranslateModule
   ],
   declarations: [
     LayoutComponent,

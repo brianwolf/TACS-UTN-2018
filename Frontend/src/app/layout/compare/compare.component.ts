@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
+import { AlertService } from '../../shared/services/alert.service';
 import { AdminService } from '../../shared/services/admin.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class CompareComponent implements OnInit {
   winner;
   loser;
 
-  constructor(public adminService: AdminService, public snackBar: MatSnackBar) { }
+  constructor(public alertService: AlertService, public adminService: AdminService) { }
 
   ngOnInit() {
     this.adminService.fillNicksSelector();
@@ -47,7 +47,7 @@ export class CompareComponent implements OnInit {
           }
         )
       ,
-      error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' }),
+      error => this.alertService.error(error.error.message)
     );
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentService } from '../../../shared/services/component.service';
 
 @Component({
@@ -6,13 +6,11 @@ import { ComponentService } from '../../../shared/services/component.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
   menu;
 
   constructor(public cs: ComponentService) { }
-
-  ngOnInit() { }
 
   toggleMenu(element) {
     this.menu = element === this.menu ? null : element;

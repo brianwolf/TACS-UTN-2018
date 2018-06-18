@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { routerTransition } from '../../router.animations';
+import { AlertService } from '../../shared/services/alert.service';
 import { AdminService } from '../../shared/services/admin.service';
 
 @Component({
@@ -11,7 +12,6 @@ import { AdminService } from '../../shared/services/admin.service';
 })
 export class AuthorizeComponent implements OnInit {
 
-
   displayedColumns = ['date', 'number', 'userNick', 'amount', 'state'];
   deposits = new MatTableDataSource<any>();
   proccesing;
@@ -19,7 +19,7 @@ export class AuthorizeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private adminService: AdminService, public snackBar: MatSnackBar) { }
+  constructor(public alertService: AlertService, public adminService: AdminService) { }
 
   ngOnInit() {
     this.getDeposits();
@@ -39,8 +39,8 @@ export class AuthorizeComponent implements OnInit {
   approve(number: string) {
     this.proccesing = true;
     this.adminService.approveDeposit(number).subscribe(
-      data => this.snackBar.open('Deposito Aprobado.', 'v'),
-      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'v', { panelClass: 'alert-danger' }),
+      data => this.alertService.success('Deposito Aprobado.'),
+      error => this.alertService.error(error.error.message),
       () => this.getDeposits()
     );
   }
@@ -48,8 +48,8 @@ export class AuthorizeComponent implements OnInit {
   reject(number: string) {
     this.proccesing = true;
     this.adminService.rejectDeposit(number).subscribe(
-      data => this.snackBar.open('Deposito Rechazado.', 'v', { panelClass: 'alert-warning' }),
-      error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'v', { panelClass: 'alert-danger' }),
+      data => this.alertService.warning('Deposito Rechazado.'),
+      error => this.alertService.error(error.error.message),
       () => this.getDeposits()
     );
   }

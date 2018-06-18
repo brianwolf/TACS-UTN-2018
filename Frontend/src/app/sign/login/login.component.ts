@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent {
 
   loading = false;
 
-  constructor(private userService: UserService, public router: Router, public snackBar: MatSnackBar) { }
+  constructor(public alertService: AlertService, private userService: UserService, public router: Router) { }
 
   onSubmit(form: NgForm) {
     this.loading = true;
@@ -25,7 +25,7 @@ export class LoginComponent {
         this.checkAdmin();
       },
       error => {
-        this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' });
+        this.alertService.error(error.error.message);
         this.loading = false;
       }
     );
@@ -46,7 +46,7 @@ export class LoginComponent {
         this.router.navigate(['dashboard']);
       },
       error => {
-        this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' });
+        this.alertService.error(error.error.message);
         this.loading = false;
       }
     );

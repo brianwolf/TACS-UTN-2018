@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfig } from '../../app.config';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { AppConfig } from '../../app.config';
 
 @Injectable()
 export class AdminService {
@@ -15,7 +15,7 @@ export class AdminService {
   API;
 
   constructor(private http: HttpClient, private config: AppConfig) {
-    this.API = config.getConfig('host');
+    this.API = config.getConfig('API');
   }
 
   getUser(user: string) {

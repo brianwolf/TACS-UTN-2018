@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
+import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class DepositComponent implements OnInit {
 
   saldoUSD;
 
-  constructor(private userService: UserService, public snackBar: MatSnackBar) { }
+  constructor(public alertService: AlertService, private userService: UserService) { }
 
   ngOnInit() {
     this.getWallet();
@@ -25,13 +25,13 @@ export class DepositComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.value.amount < 100) {
-      this.snackBar.open('El monto mínimo es de u$s 100.-', 'v', { panelClass: 'alert-warning' });
+      this.alertService.warning('El monto mínimo es de u$s 100.-');
     } else {
       const body = { number: form.value.ticket, amount: form.value.amount };
       this.userService.deposit(body)
         .subscribe(
-          success => this.snackBar.open('El estado de su depósito se verificará en las próximas 24 horas.', 'x'),
-          error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' })
+          success => this.alertService.success('El estado de su depósito se verificará en las próximas 24 horas.'),
+          error => this.alertService.error(error.error.message),
         );
     }
     form.reset();

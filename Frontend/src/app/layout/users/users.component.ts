@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
 
   proccesing;
 
-  constructor(public adminService: AdminService, public snackBar: MatSnackBar) { }
+  constructor(public alertService: AlertService, public adminService: AdminService) { }
 
   ngOnInit() {
     this.adminService.fillNicksSelector();
@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit {
   getUser(nick) {
     this.disabled = true;
     if (!this.adminService.nicks.includes(nick)) {
-      this.snackBar.open('El usuario seleccionado no existe.', 'x', { panelClass: 'alert-warning' });
+      this.alertService.warning('El usuario seleccionado no existe.');
     } else {
       this.adminService.getUser(nick).subscribe(
         data => {
@@ -44,7 +44,7 @@ export class UsersComponent implements OnInit {
           this.rol = this.getUserRol(this.user.user.roles);
           this.proccesing = false;
         },
-        error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' })
+        error => this.alertService.error(error.error.message)
       );
 
     }
@@ -63,7 +63,7 @@ export class UsersComponent implements OnInit {
     this.proccesing = true;
     this.adminService.convertAdmin(nick).subscribe(
       () => this.getUser(nick),
-      error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' })
+      error => this.alertService.error(error.error.message)
     );
   }
 

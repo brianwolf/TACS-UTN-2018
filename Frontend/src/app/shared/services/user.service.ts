@@ -8,15 +8,15 @@ export class UserService {
   API;
 
   constructor(private http: HttpClient, private config: AppConfig) {
-    this.API = config.getConfig('host');
+    this.API = config.getConfig('API');
   }
 
   signup(user) {
     return this.http.post(this.API + 'users', user);
   }
 
-  modify(user) {
-    return this.http.put(this.API + 'users', user);
+  modify(body) {
+    return this.http.put(this.API + 'users', body);
   }
 
   login(user) {

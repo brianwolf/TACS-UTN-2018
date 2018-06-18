@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
+import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class SellComponent implements OnInit {
   saldoUSD;
   coins;
 
-  constructor(private userService: UserService, public snackBar: MatSnackBar) { }
+  constructor(public alertService: AlertService, private userService: UserService) { }
 
   ngOnInit() {
     this.reset();
@@ -23,15 +23,15 @@ export class SellComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.value.amount <= 0) {
-      this.snackBar.open('Debe ingresar un número positivo.', 'x', { panelClass: 'alert-warning' });
+      this.alertService.warning('Debe ingresar un número positivo.');
     } else if (form.value.amount > form.value.coin.amount) {
-      this.snackBar.open('La cantidad ingresada es mayor a la disponible.', 'x', { panelClass: 'alert-warning' });
+      this.alertService.warning('La cantidad ingresada es mayor a la disponible.');
     } else {
       const body = { ticker: form.value.coin.coin.ticker, amount: form.value.amount };
       this.userService.sell(body)
         .subscribe(
-          data => this.snackBar.open(`Se vendió ${body.amount} ${body.ticker}.`, 'x'),
-          error => this.snackBar.open('ERROR: No se pudo realizar la operación.', 'x', { panelClass: 'alert-danger' }),
+          data => this.alertService.success(`Se vendió ${body.amount} ${body.ticker}.`),
+          error => this.alertService.error(error.error.message),
           () => {
             this.reset();
             form.reset();

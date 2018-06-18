@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 
 @Component({
@@ -7,10 +7,8 @@ import { routerTransition } from '../../router.animations';
   styleUrls: ['../error.component.scss'],
   animations: [routerTransition()]
 })
-export class NotFoundComponent implements OnInit {
+export class NotFoundComponent {
 
   constructor() { }
-
-  ngOnInit() { }
 
 }

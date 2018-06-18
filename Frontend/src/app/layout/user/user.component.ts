@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { routerTransition } from '../../router.animations';
+import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -13,9 +13,8 @@ import { UserService } from '../../shared/services/user.service';
 export class UserComponent implements OnInit {
 
   user;
-  loading;
 
-  constructor(private userService: UserService, public snackBar: MatSnackBar) { }
+  constructor(public alertService: AlertService, private userService: UserService) { }
 
   ngOnInit() {
     this.getUser();
@@ -24,32 +23,27 @@ export class UserComponent implements OnInit {
   getUser() {
     this.userService.getUser().subscribe(
       data => this.user = data,
-      error => this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' })
+      error => this.alertService.error(error.error.message)
     );
   }
 
   onSubmit(form: NgForm) {
     if (form.value.newPass !== form.value.confirmedNewPass) {
-      this.snackBar.open('Las contraseñas nuevas no coinciden.', 'x', { panelClass: 'alert-warning' });
+      this.alertService.warning('Las contraseñas nuevas no coinciden.');
     } else {
-      this.loading = true;
       const oldUser = this.user;
       const newUser = this.user;
       oldUser.login.pass = form.value.pass;
       newUser.login.pass = form.value.newPass;
       const body = { oldUser: oldUser, newUser: newUser };
-      this.userService.signup(body).subscribe(
-        data => this.snackBar.open('Usuario Actualizado con exito.', 'x'),
-        error => {
-          this.snackBar.open(error.error.message, 'x', { panelClass: 'alert-danger' });
-          this.loading = false;
-        },
-        () => this.loading = false
+      this.userService.modify(body).subscribe(
+        success => this.alertService.success('Usuario Actualizado con exito.'),
+        error => this.alertService.error(error.error.message)
       );
-      form.controls['pass'].reset();
-      form.controls['newPass'].reset();
-      form.controls['confirmedNewPass'].reset();
     }
+    form.controls['pass'].reset();
+    form.controls['newPass'].reset();
+    form.controls['confirmedNewPass'].reset();
   }
 
 }
