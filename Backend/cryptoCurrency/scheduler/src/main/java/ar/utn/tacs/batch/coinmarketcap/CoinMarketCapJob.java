@@ -1,4 +1,4 @@
-package ar.utn.tacs.batch.CoinMarketCap;
+package ar.utn.tacs.batch.coinmarketcap;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

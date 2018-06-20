@@ -22,19 +22,6 @@
 
 
 	<!-- ======================================================= -->
-	<!-- PROPERTIES -->
-	<!-- ======================================================= -->
-	<bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false">
-		<property name="ignoreResourceNotFound" value="true" />
-		<property name="locations">
-			<list>
-				<value>classpath*:app.properties</value>
-			</list>
-		</property>
-	</bean>
-
-
-	<!-- ======================================================= -->
 	<!-- UTILS -->
 	<!-- ======================================================= -->
 	<bean id="beanUtil" class="ar.utn.tacs.util.BeanUtil" />

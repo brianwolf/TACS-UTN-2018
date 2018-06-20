@@ -121,5 +121,12 @@ public class UserDaoMockImpl implements UserDao{
 	}
 
 
+	@Override
+	public void updateConectedUsersInServer(Integer timeInMinutes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
 

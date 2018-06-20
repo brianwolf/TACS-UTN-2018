@@ -16,6 +16,16 @@
 
 	<context:component-scan base-package="ar.utn.tacs*" />
 	
+	<bean id="schedulerProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreUnresolvablePlaceholders" value="false"/>
+		<property name="locations">
+			<list>
+				<value>classpath*:scheduler.properties</value>
+			</list>
+		</property>
+	</bean>
+	
 	<!-- ========================================================================= -->
 	<!-- COINMARKETCAP -->
 	<!-- ========================================================================= -->
@@ -23,13 +33,35 @@
 		<property name="triggers">
 			<bean id="cronTrigger" 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 				<property name="jobDetail" 		ref="coinMarketCapJob" />
-				<property name="cronExpression" value="*/5 * * * * ?" />
+				<property name="cronExpression" value="${coinMarketCap.updateCoins.cron}" />
 			</bean>
 		</property>
 	</bean>
 	
 	<bean name="coinMarketCapJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="ar.utn.tacs.batch.CoinMarketCap.CoinMarketCapJob" />
+		<property name="jobClass" value="ar.utn.tacs.batch.coinmarketcap.CoinMarketCapJob" />
+	</bean>
+	
+	
+	<!-- ========================================================================= -->
+	<!-- LOGOUT USER -->
+	<!-- ========================================================================= -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<bean id="cronTrigger" 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+				<property name="jobDetail" 		ref="logoutUserJob" />
+				<property name="cronExpression" value="${logoutUserJob.cron}" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean name="logoutUserJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="ar.utn.tacs.batch.user.LogoutUserJob" />
+		<property name="jobDataMap">
+        	<map>
+            	<entry key="minutes" value="${logoutUserJob.minutes}" />
+        	</map>
+    	</property>
 	</bean>
 	
 </beans>

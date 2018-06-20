@@ -44,15 +44,41 @@ public interface UserDao extends GenericDao {
 	 */
 	List<String> getUsersNicksAll();
 	
+	/**
+	 * @param user
+	 */
 	void updateUser(User user);
 
+	/**
+	 * @param login
+	 * @return
+	 * @throws UserNotFoundException
+	 */
 	User getUserByLogin(Login login) throws UserNotFoundException;
 
+	/**
+	 * @param id
+	 */
 	void deleteConnectedUserById(ObjectId id);
 
+	/**
+	 * @param connectedUser
+	 */
 	void insertConnectedUser(ConnectedUser connectedUser);
 
+	/**
+	 * @param user
+	 */
 	void insertUser(User user);
 
+	/**
+	 * @param descripcion
+	 * @return
+	 */
 	Role getRolByDescription(String descripcion);
+	
+	/**
+	 * 
+	 */
+	void updateConectedUsersInServer(Integer timeInMinutes);
 }

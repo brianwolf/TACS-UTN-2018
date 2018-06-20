@@ -9,10 +9,23 @@
    http://www.springframework.org/schema/beans/spring-beans.xsd 
    http://www.springframework.org/schema/context  
    http://www.springframework.org/schema/context/spring-context.xsd 
-    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd">
-
+    http://www.springframework.org/schema/data/mongo 
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.5.xsd">
+    
+    <context:component-scan base-package="ar.utn.tacs*" />
+    
+    <bean id="devProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+		<property name="locations">
+			<list>
+				<value>classpath*:app.properties</value>
+			</list>
+		</property>
+	</bean>
+	
 	<bean id="mongoClient" class="com.mongodb.MongoClient">
-		<constructor-arg name="host" value="${devDB.port}" />
+		<constructor-arg name="host" value="${devDB.host}" />
 		<constructor-arg name="port" value="${devDB.port}" />
 	</bean>
 	

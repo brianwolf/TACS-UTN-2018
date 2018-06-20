@@ -68,10 +68,30 @@ public interface UserService extends GenericService {
 	 */
 	void convertUserToAdmin(String nick) throws UserNotFoundException;
 
+	/**
+	 * @param nick
+	 * @throws UserNotFoundException
+	 */
 	void relogUserByNick(String nick) throws UserNotFoundException;
 
+	/**
+	 * @param token
+	 * @param login
+	 * @throws UtnTacsException
+	 */
 	void changePassword(String token, Login login) throws UtnTacsException;
 
+	/**
+	 * @param token
+	 * @param oldUser
+	 * @param newUser
+	 * @throws UtnTacsException
+	 */
 	void updateUser(String token, User oldUser, User newUser) throws UtnTacsException;
+	
+	/**
+	 * 
+	 */
+	void updateConectedUsersInServer(Integer timeInMinutes);
 	
 }

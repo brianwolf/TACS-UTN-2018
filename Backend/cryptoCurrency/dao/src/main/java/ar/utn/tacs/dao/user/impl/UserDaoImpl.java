@@ -1,10 +1,14 @@
 package ar.utn.tacs.dao.user.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import ar.utn.tacs.dao.impl.GenericAbstractDaoImpl;
 import ar.utn.tacs.dao.user.UserDao;
@@ -93,4 +97,42 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		this.insert(user);
 	}
 
+	@Override
+	public void updateConectedUsersInServer(Integer timeInMinutes) {
+		
+		Calendar minTime = Calendar.getInstance();
+		minTime.setTime(new Date());
+		minTime.add(Calendar.MINUTE, -timeInMinutes);
+		
+		Query q = new Query();
+		q.addCriteria(Criteria.where("timeConnecting").lte(minTime));
+		
+		mongoTemplate.findAllAndRemove(q, ConnectedUser.class);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

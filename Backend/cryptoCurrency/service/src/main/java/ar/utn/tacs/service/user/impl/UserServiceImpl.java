@@ -227,4 +227,9 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public void updateConectedUsersInServer(Integer timeInMinutes) {
+		userDao.updateConectedUsersInServer(timeInMinutes);
+	}
+
 }
