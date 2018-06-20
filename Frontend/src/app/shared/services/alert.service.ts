@@ -5,26 +5,28 @@ import { MatSnackBar } from '@angular/material';
 export class AlertService {
 
   TIME = 3000;
+  ERROR_MESSAGE = 'Ha ocurrido un error.';
 
   constructor(public snackBar: MatSnackBar) { }
 
   success(message, time?) {
-    this.snackBar.open(message, 'x', { panelClass: 'alert-success', duration: this.time(time) });
+    this.snackBar.open(message, 'x', { panelClass: 'success', duration: this.time(time) });
   }
 
   warning(message, time?) {
-    this.snackBar.open(message, 'x', { panelClass: 'alert-warning', duration: this.time(time) });
+    this.snackBar.open(message, 'x', { panelClass: 'warning', duration: this.time(time) });
   }
 
   error(message, time?) {
-    this.snackBar.open(message, 'x', { panelClass: 'alert-danger', duration: this.time(time) });
+    this.snackBar.open(this.errorMessage(message), 'x', { panelClass: 'danger', duration: this.time(time) });
   }
 
   time(value) {
-    if (!value) {
-      value = this.TIME;
-    }
-    return value;
+    return value ? value : this.TIME;
+  }
+
+  errorMessage(message) {
+    return message ? message : this.ERROR_MESSAGE;
   }
 
 }

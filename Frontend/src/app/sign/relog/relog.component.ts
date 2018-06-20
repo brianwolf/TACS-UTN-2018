@@ -9,18 +9,16 @@ import { UserService } from '../../shared/services/user.service';
   templateUrl: './relog.component.html',
   styleUrls: ['../sign.component.scss']
 })
-export class RelogComponent  {
+export class RelogComponent {
 
-  loading = false;
+  loading;
 
   constructor(public alertService: AlertService, private userService: UserService, public router: Router) { }
 
   onSubmit(form: NgForm) {
     this.loading = true;
-    form.controls['nick'].reset();
     this.userService.relog(form.value.nick).subscribe(
       data => {
-        form.reset();
         this.alertService.success('Se envió un mail con su nueva contraseña.');
         this.router.navigate(['login']);
       },

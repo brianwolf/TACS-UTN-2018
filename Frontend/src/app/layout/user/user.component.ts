@@ -12,7 +12,8 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  user;
+  newUser;
+  oldUser;
 
   constructor(public alertService: AlertService, private userService: UserService) { }
 
@@ -22,7 +23,10 @@ export class UserComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(
-      data => this.user = data,
+      data => {
+        this.newUser = data;
+        this.oldUser = JSON.parse(JSON.stringify(data));
+      },
       error => this.alertService.error(error.error.message)
     );
   }
@@ -31,11 +35,9 @@ export class UserComponent implements OnInit {
     if (form.value.newPass !== form.value.confirmedNewPass) {
       this.alertService.warning('Las contraseñas nuevas no coinciden.');
     } else {
-      const oldUser = this.user;
-      const newUser = this.user;
-      oldUser.login.pass = form.value.pass;
-      newUser.login.pass = form.value.newPass;
-      const body = { oldUser: oldUser, newUser: newUser };
+      this.oldUser.login.pass = form.value.pass;
+      this.newUser.login.pass = form.value.newPass;
+      const body = { oldUser: this.oldUser, newUser: this.newUser };
       this.userService.modify(body).subscribe(
         success => this.alertService.success('Usuario Actualizado con exito.'),
         error => this.alertService.error(error.error.message)

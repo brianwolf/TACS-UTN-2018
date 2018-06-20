@@ -3,7 +3,8 @@
 $config-mat-core: mat-typography-config($font-family: inherit);
 @include mat-core($config-mat-core);
 .mat-simple-snackbar {
-  font-size: 18px
+  color: black;
+  font-size: 18px;
 }
 
 .mat-simple-snackbar-action {
@@ -14,4 +15,16 @@ $config-mat-core: mat-typography-config($font-family: inherit);
       weight: 700;
     }
   }
+}
+
+.success {
+  background-color: #9d9;
+}
+
+.warning {
+  background-color: #dd9;
+}
+
+.danger {
+  background-color: #d99;
 }
