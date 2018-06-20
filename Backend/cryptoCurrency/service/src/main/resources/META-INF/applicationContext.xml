@@ -28,17 +28,17 @@
 	<!-- ========================================================================= -->
 
 	<!-- COIN MARKET CAP -->
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<bean id="cronTrigger" 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-				<property name="jobDetail" 		ref="coinMarketCapJob" />
-				<property name="cronExpression" value="*/2 * * * * ?" />
-			</bean>
-		</property>
-	</bean>
+<!-- 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
+<!-- 		<property name="triggers"> -->
+<!-- 			<bean id="cronTrigger" 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 				<property name="jobDetail" 		ref="coinMarketCapJob" /> -->
+<!-- 				<property name="cronExpression" value="*/2 * * * * ?" /> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 	
-	<bean name="coinMarketCapJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="ar.utn.tacs.batch.CoinMarketCapJob" />
-	</bean>
+<!-- 	<bean name="coinMarketCapJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"> -->
+<!-- 		<property name="jobClass" value="ar.utn.tacs.batch.CoinMarketCapJob" /> -->
+<!-- 	</bean> -->
 	
 </beans>

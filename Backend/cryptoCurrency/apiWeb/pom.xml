@@ -24,6 +24,11 @@
 			<groupId>ar.utn.tacs</groupId>
 			<artifactId>rest</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>ar.utn.tacs</groupId>
+			<artifactId>scheduler</artifactId>
+		</dependency>
 
 	</dependencies>
 

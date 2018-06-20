@@ -15,14 +15,21 @@
 		<service.version>1.0.0-SNAPSHOT</service.version>
 		<rest.version>1.0.0-SNAPSHOT</rest.version>
 		<apiWeb.version>1.0.0-SNAPSHOT</apiWeb.version>
+		<scheduler.version>1.0.0-SNAPSHOT</scheduler.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 
-			<!-- *************************************************************************************** 
-				MODULOS DE ESTE PROYECTO *************************************************************************************** -->
+			<!-- ================================================================================ -->
+			<!-- MODULOS DE ESTE PROYECTO -->
+			<!-- ================================================================================ -->
 
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>scheduler</artifactId>
+				<version>${scheduler.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>rest</artifactId>
@@ -46,8 +53,9 @@
 			</dependency>
 
 
-			<!-- *************************************************************************************** 
-				DEPENDENCIAS COMUNES A TODOS LOS MODULOS *************************************************************************************** -->
+			<!-- ================================================================================ -->
+			<!-- DEPENDENCIAS COMUNES A TODOS LOS MODULOS -->
+			<!-- ================================================================================ -->
 
 			<dependency>
 				<groupId>${project.groupId}</groupId>
@@ -84,6 +92,7 @@
 		<module>dao</module>
 		<module>service</module>
 		<module>rest</module>
+		<module>scheduler</module>
 		<module>apiWeb</module>
 	</modules>
 </project>
