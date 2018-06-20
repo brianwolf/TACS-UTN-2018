@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.utn.tacs.dao.GenericDao;
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
 
@@ -17,4 +18,6 @@ public interface WalletDao extends GenericDao {
 	List<Transaction> userTransactionHistory(User user, Coin coin);
 
 	void insertTransaction(Transaction transaction);
+
+	List<Deposit> getDepositsByUser(User user);
 }

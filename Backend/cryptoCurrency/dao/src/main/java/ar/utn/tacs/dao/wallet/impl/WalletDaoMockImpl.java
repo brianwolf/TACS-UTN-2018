@@ -8,10 +8,13 @@ import java.util.stream.Stream;
 
 import org.bson.types.ObjectId;
 
+import ar.utn.tacs.dao.admin.AdminDao;
 import ar.utn.tacs.dao.wallet.WalletDao;
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.user.User;
+import ar.utn.tacs.util.BeanUtil;
 
 public class WalletDaoMockImpl implements WalletDao {
 
@@ -62,6 +65,12 @@ public class WalletDaoMockImpl implements WalletDao {
 			this.history.put(transaction.getUser().getId(), t);
 		}
 		this.history.get(transaction.getUser().getId()).add(transaction);
+	}
+
+	@Override
+	public List<Deposit> getDepositsByUser(User user) {
+		return BeanUtil.getBean(AdminDao.class).getDepositsAll()
+				.stream().filter(d->d.getUser().getId().equals(user.getId())).collect(Collectors.toList());
 	}
 
 }

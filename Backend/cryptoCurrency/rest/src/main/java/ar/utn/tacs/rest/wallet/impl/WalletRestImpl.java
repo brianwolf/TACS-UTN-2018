@@ -20,6 +20,7 @@ import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
 import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
+import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
@@ -107,7 +108,7 @@ public class WalletRestImpl implements WalletRest{
 	}
 
 	@POST
-	@Path(WalletRestImpl.DECLARE_DEPOSIT)
+	@Path(WalletRestImpl.DEPOSITS)
 	@Override
 	public Response declareDeposit(@HeaderParam(value = "token") String token, DepositRest depositRest) {
 		
@@ -122,4 +123,24 @@ public class WalletRestImpl implements WalletRest{
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@GET
+	@Path(WalletRestImpl.DEPOSITS)
+	@Override
+	public Response getDepositsByToken(@HeaderParam(value = "token") String token) {
+		try {
+			List<Deposit> deposits = this.walletService.getDepositsByToken(token);
+			
+			if (deposits.isEmpty()) {
+				return Response.status(Response.Status.NO_CONTENT).build();
+			}
+			
+			return Response.status(Response.Status.OK).entity(deposits).build();
+
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	
 }

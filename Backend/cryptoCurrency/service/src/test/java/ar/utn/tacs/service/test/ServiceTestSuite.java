@@ -10,12 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ar.utn.tacs.commons.UtnTacsException;
-import ar.utn.tacs.model.user.Gender;
 import ar.utn.tacs.model.user.Login;
-import ar.utn.tacs.model.user.Person;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
-import ar.utn.tacs.model.wallet.Wallet;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.service.wallet.WalletService;
 
@@ -57,9 +54,18 @@ public abstract class ServiceTestSuite {
 	
 	protected String getTokenTostado() {
 		Login loginTostado = getLoginTostado();
+		return this.getTokenByLogin(loginTostado);
+	}
+	
+	protected String getTokenLobezzzno() {
+		Login loginLobezzzno = getLoginLobezzzno();
+		return this.getTokenByLogin(loginLobezzzno);
 		
+	}
+	protected String getTokenByLogin(Login login) {
+			
 		try {
-			return userService.getTokenByLogin(loginTostado);
+			return userService.getTokenByLogin(login);
 		} catch (UtnTacsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

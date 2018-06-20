@@ -19,7 +19,7 @@ public interface WalletRest extends GenericRest {
 	public static final String SALE = "/sale";
 	public static final String USER_WALLET = "";
 	public static final String USER_TRANSACTION_HISTORY = "/history/transactions";
-	public static final String DECLARE_DEPOSIT = "/deposit";
+	public static final String DEPOSITS = "/deposits";
 
 	/**
 	 * {@link POST}
@@ -67,4 +67,6 @@ public interface WalletRest extends GenericRest {
 	 * @return {@link Response}
 	 */
 	Response declareDeposit(String token, DepositRest depositRest);
+
+	Response getDepositsByToken(String token);
 }
