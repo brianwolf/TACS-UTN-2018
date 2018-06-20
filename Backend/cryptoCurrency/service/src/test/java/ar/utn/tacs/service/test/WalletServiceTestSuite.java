@@ -10,6 +10,8 @@ import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
 import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
 import ar.utn.tacs.model.commons.InsufficientMoneyException;
+import ar.utn.tacs.model.deposit.Deposit;
+import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.transaction.Transaction;
 import ar.utn.tacs.model.wallet.CoinAmount;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
@@ -158,6 +160,32 @@ public class WalletServiceTestSuite extends ServiceTestSuite{
 		
 		Assert.assertEquals(cantidadBitcoinsAComprar.add(cantidadBitcoinTostado),cantidadNuevaBitcoinTostado);
 		Assert.assertEquals(cantidadBitcoinLobezzzno,cantidadNuevaBitcoinLobezzzno);
+	}
+	
+	@Test
+	public void tostadoYLobezzznoDepositanPeroTostadoSoloVeSuDeposito() throws UtnTacsException{
+		
+		String nickTostado = getLoginTostado().getNick();
+		String tokenTostado = getTokenTostado();
+		String tokenLobezzzno = getTokenLobezzzno();
+		
+		DepositRest depositRestTostado = new DepositRest();
+		depositRestTostado.setNumber("1234");
+		depositRestTostado.setState("WAITING");
+		depositRestTostado.setAmount("1000");
+		DepositRest depositRestLobezzzno = new DepositRest();
+		depositRestLobezzzno.setNumber("5678");
+		depositRestLobezzzno.setState("WAITING");
+		depositRestLobezzzno.setAmount("581");
+		
+		walletService.declareDeposit(tokenTostado, depositRestTostado);
+		walletService.declareDeposit(tokenLobezzzno, depositRestLobezzzno);
+		
+		
+		List<Deposit> depositosTostado = walletService.getDepositsByToken(tokenTostado);
+		
+		Assert.assertEquals(depositosTostado.size(), 1);
+		Assert.assertEquals(depositosTostado.get(0).getUser().getLogin().getNick(), nickTostado);
 	}
 
 }

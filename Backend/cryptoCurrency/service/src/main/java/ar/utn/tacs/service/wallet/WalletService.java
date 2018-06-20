@@ -66,4 +66,6 @@ public interface WalletService extends GenericService{
 	 * @throws ExistingDepositException 
 	 */
 	void declareDeposit(String token, DepositRest depositRest) throws ExistingDepositException;
+
+	List<Deposit> getDepositsByToken(String token) throws UtnTacsException;
 }

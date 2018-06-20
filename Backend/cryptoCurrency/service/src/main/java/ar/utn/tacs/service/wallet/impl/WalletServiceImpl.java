@@ -138,4 +138,12 @@ public class WalletServiceImpl implements WalletService {
 		}
 
 	}
+
+	@Override
+	public List<Deposit> getDepositsByToken(String token) throws UtnTacsException {
+		
+		User user = BeanUtil.getBean(UserService.class).getUserByToken(token);
+		
+		return walletDao.getDepositsByUser(user);
+	}
 }
