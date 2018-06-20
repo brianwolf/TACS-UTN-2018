@@ -31,4 +31,9 @@ public interface ExternalService extends GenericService {
 	 * @return {@link Boolean}
 	 */
 	public Boolean sendMail(Mail mail);
+
+	/**
+	 * 
+	 */
+	void updateCoinMarketCap();
 }

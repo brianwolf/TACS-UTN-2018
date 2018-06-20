@@ -1,5 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans	
@@ -11,14 +12,16 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="ar.utn.tacs*" />
+	<context:component-scan
+		base-package="ar.utn.tacs*" />
 
-<!-- 	<import resource="classpath*:META-INF/configDataSource.xml" /> -->
-	
-		<!-- Instruct Spring to perform declarative transaction management automatically on annotated classes. -->
-<!-- 		<tx:annotation-driven transaction-manager="transactionManager" /> -->
+	<!-- <import resource="classpath*:META-INF/configDataSource.xml" /> -->
 
-	<import resource="classpath:META-INF/configDataSource.xml"/>
+	<!-- Instruct Spring to perform declarative transaction management automatically 
+		on annotated classes. -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+	<import resource="classpath:META-INF/configDataSource.xml" />
 
 	<bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false">
 		<property name="ignoreResourceNotFound" value="true" />
@@ -28,9 +31,24 @@
 			</list>
 		</property>
 	</bean>
-	
+
+
 	<!-- UTILS -->
-	<bean id="beanUtil" 		class="ar.utn.tacs.util.BeanUtil"/>
-	<bean id="tokenMakerUtil" 	class="ar.utn.tacs.util.TokenMakerUtil"/>
-	<bean id="hashUtil" 		class="ar.utn.tacs.util.HashUtil"/>
+	<bean id="beanUtil" class="ar.utn.tacs.util.BeanUtil" />
+	<bean id="tokenMakerUtil" class="ar.utn.tacs.util.TokenMakerUtil" />
+	<bean id="hashUtil" class="ar.utn.tacs.util.HashUtil" />
+	<bean id="requestMaker" class="ar.utn.tacs.util.RequestMaker" />
+
+
+	<!-- BATCH -->
+	<bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+
+	<bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
 </beans>

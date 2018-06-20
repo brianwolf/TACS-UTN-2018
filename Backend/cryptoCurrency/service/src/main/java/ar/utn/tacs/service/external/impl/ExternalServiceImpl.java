@@ -1,8 +1,5 @@
 package ar.utn.tacs.service.external.impl;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -14,25 +11,17 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.InvalidMediaTypeException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 
 import ar.utn.tacs.dao.external.ExternalDao;
 import ar.utn.tacs.model.coin.Coin;
+import ar.utn.tacs.model.coin.UpdatedCoinsPrice;
 import ar.utn.tacs.model.email.Mail;
 import ar.utn.tacs.service.external.ExternalService;
+import ar.utn.tacs.util.RequestMaker;
 
 public class ExternalServiceImpl implements ExternalService {
-
-	protected static String COIN_MARKET_CAP_URL = "https://api.coinmarketcap.com/v1/ticker/";
-
-	private List<Coin> coinList = new ArrayList<Coin>();
 
 	@SuppressWarnings("unused")
 	@Autowired
@@ -42,62 +31,28 @@ public class ExternalServiceImpl implements ExternalService {
 
 	@Override
 	public List<Coin> coinMarketCap() {
-		return this.coinList = getCoinMarketCapPosta();
+		return UpdatedCoinsPrice.getCoinsList();
 	}
 
-	protected String makeRequest(String method, Object objeto, String url) {
-
-		try {
-			URI uri = new URI(url);
-
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Type", "application/json");
-			headers.add("Accept", "application/json");
-
-			HttpEntity<String> getEntity = new HttpEntity<String>(gson.toJson(objeto), headers);
-
-			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<String> response = restTemplate.exchange(uri, getHttpMethod(method), getEntity,
-					String.class);
-
-			System.out.println(
-					"\nSTATUS : " + response.getStatusCode() + " " + response.getStatusCode().getReasonPhrase());
-			System.out.println("Response :" + response.getBody());
-
-			return response.hasBody() ? response.getBody() : null;
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidMediaTypeException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private List<Coin> getCoinMarketCapPosta() {
-		String response = makeRequest("GET", null, COIN_MARKET_CAP_URL);
+	@Override
+	public void updateCoinMarketCap() {
+		String response = RequestMaker.makeRequest(RequestMaker.GET_METHOD, null, UpdatedCoinsPrice.COIN_MARKET_CAP_URL);
 
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> mapResult = gson.fromJson(response, List.class);
 
 		CoinBuilder coinBuilder = new CoinBuilder();
-
-		return coinBuilder.createCoinList(mapResult);
-	}
-
-	private HttpMethod getHttpMethod(String method) {
-
-		return HttpMethod.resolve(method);
+		UpdatedCoinsPrice.setCoinsList(coinBuilder.createCoinList(mapResult));
 	}
 
 	@Override
 	public Coin getCoinByName(String name) {
-		return coinList.stream().filter(coin -> coin.getName().equals(name)).findFirst().get();
+		return UpdatedCoinsPrice.getCoinsList().stream().filter(coin -> coin.getName().equals(name)).findFirst().get();
 	}
 
 	@Override
 	public Coin getCoinByTicker(String ticker) {
-		return coinList.stream().filter(coin -> coin.getTicker().equals(ticker)).findFirst().get();
+		return UpdatedCoinsPrice.getCoinsList().stream().filter(coin -> coin.getTicker().equals(ticker)).findFirst().get();
 	}
 
 	@Override
@@ -105,14 +60,14 @@ public class ExternalServiceImpl implements ExternalService {
 
 		final String username = mail.getSenderUsername();
 		final String password = mail.getSenderPassword();
-		
+
 		Properties props = new Properties();
-		
+
 		props.put("mail.smtp.host", "smtp.gmail.com");
 //		props.setProperty("mail.smtp.host", "smpt.host");
 		props.put("mail.smtp.starttls.enable", "true");
 //		props.setProperty("mail.smtp.starttls.enable", "false");
-		props.setProperty("mail.smtp.port","25");
+		props.setProperty("mail.smtp.port", "25");
 //		props.put("mail.smtp.port", "587");
 		props.setProperty("mail.smtp.user", "alerts");
 //		props.setProperty("mail.smtp.auth", "true");
@@ -126,19 +81,19 @@ public class ExternalServiceImpl implements ExternalService {
 //				return new PasswordAuthentication(username, password);
 //			}
 //		});
-		
+
 		try {
-			
+
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(mail.getFrom()));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail.getTo()));
 			message.setSubject(mail.getSubject());
 			message.setText(mail.getBody());
-			
+
 //			Transport.send(message);
 			Transport t = session.getTransport("smtp");
-			t.connect(username,password);
-			t.sendMessage(message,message.getAllRecipients());
+			t.connect(username, password);
+			t.sendMessage(message, message.getAllRecipients());
 			t.close();
 		} catch (Exception e) {
 			e.printStackTrace();
