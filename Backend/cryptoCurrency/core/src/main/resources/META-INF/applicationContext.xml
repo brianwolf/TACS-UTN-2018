@@ -12,17 +12,18 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan
-		base-package="ar.utn.tacs*" />
+	<context:component-scan base-package="ar.utn.tacs*" />
 
-	<!-- <import resource="classpath*:META-INF/configDataSource.xml" /> -->
+	<!-- ======================================================= -->
+	<!-- DATA SOURCES -->
+	<!-- ======================================================= -->
+	<import resource="classpath:DataSources/devDS.xml" />
+<!-- 	<import resource="classpath:DataSources/cloudDS.xml" /> -->
 
-	<!-- Instruct Spring to perform declarative transaction management automatically 
-		on annotated classes. -->
-	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
 
-	<import resource="classpath:META-INF/configDataSource.xml" />
-
+	<!-- ======================================================= -->
+	<!-- PROPERTIES -->
+	<!-- ======================================================= -->
 	<bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false">
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
@@ -33,14 +34,18 @@
 	</bean>
 
 
+	<!-- ======================================================= -->
 	<!-- UTILS -->
+	<!-- ======================================================= -->
 	<bean id="beanUtil" class="ar.utn.tacs.util.BeanUtil" />
 	<bean id="tokenMakerUtil" class="ar.utn.tacs.util.TokenMakerUtil" />
 	<bean id="hashUtil" class="ar.utn.tacs.util.HashUtil" />
 	<bean id="requestMaker" class="ar.utn.tacs.util.RequestMaker" />
 
 
+	<!-- ======================================================= -->
 	<!-- BATCH -->
+	<!-- ======================================================= -->
 	<bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
 		<property name="jobRepository" ref="jobRepository" />
 	</bean>
