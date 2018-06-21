@@ -14,25 +14,33 @@
 
 	<context:component-scan base-package="ar.utn.tacs*" />
 
-	<!-- ======================================================= -->
-	<!-- DATA SOURCES -->
-	<!-- ======================================================= -->
-	<import resource="classpath:DataSources/devDS.xml" />
-<!-- 	<import resource="classpath:DataSources/cloudDS.xml" /> -->
+	<!-- <import resource="classpath*:META-INF/configDataSource.xml" /> -->
+
+	<!-- Instruct Spring to perform declarative transaction management automatically 
+		on annotated classes. -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+	<import resource="classpath:META-INF/configDataSource.xml" />
+
+	<bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+		<property name="locations">
+			<list>
+				<value>classpath*:app.properties</value>
+			</list>
+		</property>
+	</bean>
 
 
-	<!-- ======================================================= -->
 	<!-- UTILS -->
-	<!-- ======================================================= -->
 	<bean id="beanUtil" class="ar.utn.tacs.util.BeanUtil" />
 	<bean id="tokenMakerUtil" class="ar.utn.tacs.util.TokenMakerUtil" />
 	<bean id="hashUtil" class="ar.utn.tacs.util.HashUtil" />
 	<bean id="requestMaker" class="ar.utn.tacs.util.RequestMaker" />
 
 
-	<!-- ======================================================= -->
 	<!-- BATCH -->
-	<!-- ======================================================= -->
 	<bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
 		<property name="jobRepository" ref="jobRepository" />
 	</bean>

@@ -105,9 +105,9 @@ public class UserDaoImpl extends GenericAbstractDaoImpl implements UserDao {
 		minTime.add(Calendar.MINUTE, -timeInMinutes);
 		
 		Query q = new Query();
-		q.addCriteria(Criteria.where("timeConnecting").lte(minTime));
-		
-		mongoTemplate.findAllAndRemove(q, ConnectedUser.class);
+		q.addCriteria(Criteria.where("timeConnecting").lte(minTime.getTime()));
+
+		mongoTemplate.remove(q, ConnectedUser.class);
 	}
 
 }

@@ -13,7 +13,7 @@ public class LogoutUserJob extends QuartzJobBean{
 	
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		Integer minutes = (Integer) context.get(KEY_MINUTES_PARAM);
+		Integer minutes = (Integer) context.getMergedJobDataMap().getIntValue(KEY_MINUTES_PARAM);
 		BeanUtil.getBean(UserService.class).updateConectedUsersInServer(minutes);
 	}
 
