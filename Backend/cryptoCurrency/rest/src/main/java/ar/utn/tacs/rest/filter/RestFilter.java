@@ -27,20 +27,8 @@ public class RestFilter implements ContainerRequestFilter,ContainerResponseFilte
 	@Override
 	public ContainerRequest filter(ContainerRequest request) {
 		
-//		request.getRequestHeaders().add("Access-Control-Allow-Origin", "*");
-//		request.getRequestHeaders().add("Access-Control-Allow-Headers", "Authorization, token, Origin, X-Requested-With, Content-Type");
-//		request.getRequestHeaders().add("Access-Control-Expose-Headers", "Location, Content-Disposition");
-//		request.getRequestHeaders().add("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE, HEAD, OPTIONS");
-//		//headers.add("Access-Control-Allow-Origin", "http://podcastpedia.org"); //allows CORS requests only coming from podcastpedia.org		
-//		request.getRequestHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");			
-//		request.getRequestHeaders().add("Access-Control-Allow-Headers", "Content-Type, token");
-//		request.getRequestHeaders().add("Access-Control-Expose-Headers", "token");
-		
 		//ESTO DEBERIA IR ABAJO PARA QUE ANTES SE VALIDE EL TOKEN, PERO X ALGUNA RAZON EN EL OPTIONS NO ME LLEGA EL TOKEN
 		if(request.getMethod().equals("OPTIONS")) {
-//			ResponseBuilder builder = null;
-//			builder = Response.status(Response.Status.OK);
-//			throw new WebApplicationException(builder.build());
 			return request;
 		}
 		
@@ -61,32 +49,10 @@ public class RestFilter implements ContainerRequestFilter,ContainerResponseFilte
 		response.getHttpHeaders().add("Access-Control-Expose-Headers", "Location, Content-Disposition");
 		response.getHttpHeaders().add("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE, HEAD, OPTIONS");
 		
-		Throwable throwable = response.getMappedThrowable();
-		
-        if (throwable != null) {
-        	ResponseException responseException = buildErrorMessage(throwable);
-//        	ResponseBuilder builder = null;
-//	        builder = Response.status(Response.Status.INTERNAL_SERVER_ERROR);
-        	response.setEntity(responseException);
-        	response.setStatusType(responseException.getStatus());
-//        	response.setResponse(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(responseException).build());
-        }
 
 		return response;
 	}
 	
-	private ResponseException buildErrorMessage(Throwable e) {
-		//WHY LISAAA WHY THIS NEGRADA!!!
-		if(UtnTacsException.class.isInstance(e)) {
-			return ((UtnTacsException)e).createBasicResponse();
-		}
-		if(WebApplicationException.class.isInstance(e)) {
-			return new ResponseException(new RuntimeException(), "Acceso denegado",Response.Status.UNAUTHORIZED);
-		}
-		
-		return new ResponseException(new RuntimeException(), "Error inesperado");
-	}
-
 	private boolean isValid(ContainerRequest request) {
 		
 		if(this.dontNeedToken(request)) {

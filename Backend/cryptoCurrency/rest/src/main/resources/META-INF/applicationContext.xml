@@ -13,8 +13,9 @@
 
 	<context:component-scan base-package="ar.utn.tacs*" />
 
-	<bean id="adminRest" 		class="ar.utn.tacs.rest.admin.impl.AdminRestImpl" />
-	<bean id="externalRest" 	class="ar.utn.tacs.rest.external.impl.ExternalRestImpl" />
-	<bean id="userRest" 		class="ar.utn.tacs.rest.user.impl.UserRestImpl" />
-	<bean id="walletRest" 		class="ar.utn.tacs.rest.wallet.impl.WalletRestImpl" />
+	<bean id="adminRest" 				class="ar.utn.tacs.rest.admin.impl.AdminRestImpl" />
+	<bean id="externalRest" 			class="ar.utn.tacs.rest.external.impl.ExternalRestImpl" />
+	<bean id="userRest" 				class="ar.utn.tacs.rest.user.impl.UserRestImpl" />
+	<bean id="walletRest" 				class="ar.utn.tacs.rest.wallet.impl.WalletRestImpl" />
+	
 </beans>
