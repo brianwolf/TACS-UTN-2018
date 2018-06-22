@@ -1,5 +1,6 @@
 <nav class="sidebar" [ngClass]="{'push-right': cs.isSidebarToggled()}">
   <div class="list-group">
+    <hr>
     <a [routerLink]="['/dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fas fa-home"></i>{{ 'Dashboard' | translate }}
     </a>
@@ -17,6 +18,9 @@
     </a>
     <a [routerLink]="['/transactions']" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fas fa-fw fa-clipboard-list"></i>{{ 'Transactions' | translate }}
+    </a>
+    <a [routerLink]="['/deposits']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fas fa-fw fa-money-check-alt"></i>{{ 'Deposits' | translate }}
     </a>
     <hr>
     <div *ngIf="cs.role() == 'Admin'">

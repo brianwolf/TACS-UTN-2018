@@ -22,6 +22,7 @@ import { DepositComponent } from './deposit/deposit.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { UserComponent } from './user/user.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { DepositsComponent } from './deposits/deposits.component';
 import { AuthorizeComponent } from './authorize/authorize.component';
 import { UsersComponent } from './users/users.component';
 import { CompareComponent } from './compare/compare.component';
@@ -59,6 +60,7 @@ import { HistoryComponent } from './history/history.component';
     WalletComponent,
     UserComponent,
     TransactionsComponent,
+    DepositsComponent,
     AuthorizeComponent,
     UsersComponent,
     CompareComponent,

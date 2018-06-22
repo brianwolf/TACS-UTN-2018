@@ -1,7 +1,6 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { OVERLAY_PROVIDERS } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +26,6 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

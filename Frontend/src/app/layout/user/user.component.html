@@ -1,7 +1,7 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Profile'" [icon]="'fas fa-id-card'"></app-page-header>
   <div class="row justify-content-center">
-    <div class="col-md-10 col-lg-8 col-xl-6">
+    <div class="col-md-10 col-lg-8 col-xl-7">
       <div class="card">
         <div class="card-header">Panel de Control de Usuario</div>
         <div class="card-body table-responsive">
@@ -30,7 +30,17 @@
             <mat-form-field>
               <input matInput name="confirmedNewPass" type="password" placeholder="Confirmación Nueva Contraseña" ngModel minlength="3">
             </mat-form-field>
-            <button mat-raised-button color="primary" [disabled]="!userForm.valid">Actualizar</button>
+            <div class="row">
+              <div class="col-sm-3">
+                <button mat-raised-button color="primary" [disabled]="!userForm.valid">Actualizar</button>
+              </div>
+              <div class="col-sm-9 text-right">
+                <br>
+                <small>La contraseña debe tener un mínimo de 3 caracteres.</small>
+                <br>
+                <small>Los campos marcados con * son obligatorios.</small>
+              </div>
+            </div>
           </form>
         </div>
       </div>

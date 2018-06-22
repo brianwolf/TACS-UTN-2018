@@ -9,6 +9,7 @@ import { DepositComponent } from './deposit/deposit.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { UserComponent } from './user/user.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { DepositsComponent } from './deposits/deposits.component';
 import { AuthorizeComponent } from './authorize/authorize.component';
 import { UsersComponent } from './users/users.component';
 import { CompareComponent } from './compare/compare.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'deposit', component: DepositComponent },
       { path: 'wallet', component: WalletComponent },
       { path: 'transactions', component: TransactionsComponent },
+      { path: 'deposits', component: DepositsComponent },
       { path: 'user', component: UserComponent },
       { path: 'authorize', component: AuthorizeComponent, canActivate: [RoleGuard] },
       { path: 'users', component: UsersComponent, canActivate: [RoleGuard] },
