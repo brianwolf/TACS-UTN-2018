@@ -42,13 +42,8 @@ public class AdminRestImpl implements AdminRest {
 	public Response compareBalance(@PathParam("nickA") String nickA, @PathParam("nickB") String nickB) {
 		User userResul;
 
-		try {
-			userResul = adminService.compareBalance(nickA, nickB);
-			return Response.status(Response.Status.OK).entity(userResul).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		userResul = adminService.compareBalance(nickA, nickB);
+		return Response.status(Response.Status.OK).entity(userResul).build();
 	}
 
 	@GET
@@ -57,16 +52,11 @@ public class AdminRestImpl implements AdminRest {
 	public Response statesLastWeek() {
 
 		HashMap<String, BigInteger> map = new HashMap<>();
+		
+		BigInteger transaccionsCount = adminService.statesLastWeek();
+		map.put("transactionsCount", transaccionsCount);
 
-		try {
-			BigInteger transaccionsCount = adminService.statesLastWeek();
-			map.put("transactionsCount", transaccionsCount);
-
-			return Response.status(Response.Status.OK).entity(map).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		return Response.status(Response.Status.OK).entity(map).build();
 	}
 
 	@GET
@@ -76,15 +66,10 @@ public class AdminRestImpl implements AdminRest {
 
 		HashMap<String, BigInteger> map = new HashMap<>();
 
-		try {
-			BigInteger transaccionsCount = adminService.statesLastMonth();
-			map.put("transactionsCount", transaccionsCount);
+		BigInteger transaccionsCount = adminService.statesLastMonth();
+		map.put("transactionsCount", transaccionsCount);
 
-			return Response.status(Response.Status.OK).entity(map).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		return Response.status(Response.Status.OK).entity(map).build();
 	}
 
 	@GET
@@ -93,16 +78,11 @@ public class AdminRestImpl implements AdminRest {
 	public Response statesAll() {
 
 		HashMap<String, BigInteger> map = new HashMap<>();
+		
+		BigInteger transaccionsCount = adminService.statesAll();
+		map.put("transactionsCount", transaccionsCount);
 
-		try {
-			BigInteger transaccionsCount = adminService.statesAll();
-			map.put("transactionsCount", transaccionsCount);
-
-			return Response.status(Response.Status.OK).entity(map).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		return Response.status(Response.Status.OK).entity(map).build();
 	}
 
 	@GET
@@ -111,140 +91,88 @@ public class AdminRestImpl implements AdminRest {
 	public Response statesByBeforeDays(@DefaultValue("0") @QueryParam("beforeDays") Integer beforeDays) {
 
 		HashMap<String, BigInteger> map = new HashMap<>();
+	
+		BigInteger transaccionsCount = adminService.statesByBeforeDays(beforeDays);
+		map.put("transactionsCount", transaccionsCount);
 
-		try {
-			BigInteger transaccionsCount = adminService.statesByBeforeDays(beforeDays);
-			map.put("transactionsCount", transaccionsCount);
-
-			return Response.status(Response.Status.OK).entity(map).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		return Response.status(Response.Status.OK).entity(map).build();
 	}
 
 	@GET
 	@Path(AdminRest.USERS_NICKS_ALL)
 	@Override
 	public Response getUsersNickAll() {
-
-		try {
-			List<String> nicks = adminService.getUsersNickAll();
-			return Response.status(Response.Status.OK).entity(nicks).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		
+		List<String> nicks = adminService.getUsersNickAll();
+		return Response.status(Response.Status.OK).entity(nicks).build();
 	}
 
 	@GET
 	@Path(AdminRest.GET_USER)
 	@Override
 	public Response getUser(@DefaultValue("") @QueryParam("nick") String nick) {
-		try {
-			UserTransactionRest userTransactionRest = adminService.getUser(nick);
-
-			if (userTransactionRest == null) {
-				return Response.status(Response.Status.NO_CONTENT).build();
-			}
-
-			return Response.status(Response.Status.OK).entity(userTransactionRest).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		
+		UserTransactionRest userTransactionRest = adminService.getUser(nick);
+	
+		if (userTransactionRest == null) {
+			return Response.status(Response.Status.NO_CONTENT).build();
 		}
+	
+		return Response.status(Response.Status.OK).entity(userTransactionRest).build();
 	}
 
 	@PUT
 	@Path(AdminRest.APPROVE_DEPOSIT)
 	@Override
-	public Response approveDeposit(@PathParam(value="depositNumber") String despositNumber) {
-		try {
-			this.adminService.approveDeposit(despositNumber);
-			return Response.status(Response.Status.OK).build();
-
-		} catch (NotExistDepositException notExistDepositException) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(notExistDepositException.createBasicResponse("No existe el deposito solicitado")).build();
+	public Response approveDeposit(@PathParam(value="depositNumber") String despositNumber) throws ApprovingApprovedDepositException, NotExistDepositException {
 		
-		} catch (ApprovingApprovedDepositException approvingApprovedDepositException) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(approvingApprovedDepositException.createBasicResponse("El deposito ya fue aprobado")).build();
-		}
-		catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		this.adminService.approveDeposit(despositNumber);
+		return Response.status(Response.Status.OK).build();
 	}
 
 	@PUT
 	@Path(AdminRest.REJECT_DEPOSIT)
 	@Override
-	public Response rejectDeposit(@PathParam(value="depositNumber") String despositNumber) {
-		try {
-			this.adminService.rejectDeposit(despositNumber);
-			return Response.status(Response.Status.OK).build();
-
-		} catch (NotExistDepositException notExistDepositException) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(notExistDepositException.createBasicResponse("No existe el deposito solicitado")).build();
+	public Response rejectDeposit(@PathParam(value="depositNumber") String despositNumber) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException {
 		
-		} catch (RejectingApprovedDepositException rejectingApprovedDepositException) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(rejectingApprovedDepositException.createBasicResponse("Imposible rechazar, el deposito ya fue aprobado")).build();
-		
-		} catch (RejectingRejectedDepositException rejectingRejectedDepositException) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(rejectingRejectedDepositException.createBasicResponse("el deposito ya fue rechazado")).build();
-		
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		this.adminService.rejectDeposit(despositNumber);
+		return Response.status(Response.Status.OK).build();
 	}
 
 	@GET
 	@Path(AdminRest.GET_DEPOSITS)
 	@Override
 	public Response getDeposits(@DefaultValue(value="") @QueryParam(value="status") String statusDescription) {
-		try {
-			List<Deposit> deposits = this.adminService.getDeposits(statusDescription);
-			
-			if (deposits.isEmpty()) {
-				return Response.status(Response.Status.NO_CONTENT).build();
-			}
-			
-			return Response.status(Response.Status.OK).entity(deposits).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		
+		List<Deposit> deposits = this.adminService.getDeposits(statusDescription);
+		
+		if (deposits.isEmpty()) {
+			return Response.status(Response.Status.NO_CONTENT).build();
 		}
+		
+		return Response.status(Response.Status.OK).entity(deposits).build();
 	}
 	
 	@GET
 	@Path(AdminRest.GET_DEPOSITS_ALL)
 	@Override
 	public Response getDepositsAll() {
-		try {
-			List<Deposit> deposits = this.adminService.getDepositsAll();
-			
-			if (deposits.isEmpty()) {
-				return Response.status(Response.Status.NO_CONTENT).build();
-			}
-			
-			return Response.status(Response.Status.OK).entity(deposits).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		
+		List<Deposit> deposits = this.adminService.getDepositsAll();
+		
+		if (deposits.isEmpty()) {
+			return Response.status(Response.Status.NO_CONTENT).build();
 		}
+		
+		return Response.status(Response.Status.OK).entity(deposits).build();
 	}
 
 	@PUT
 	@Path(AdminRest.CONVERT_USER_TO_ADMIN)
 	@Override
-	public Response convertUserToAdmin(@DefaultValue(value="") @QueryParam(value="nick") String nick) {
-		try {
-			this.adminService.convertUserToAdmin(nick);
-			return Response.status(Response.Status.OK).build();
-
-		} catch (UserNotFoundException userNotFoundException) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(userNotFoundException.createBasicResponse("No existe el deposito solicitado")).build();
-		}
-		catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+	public Response convertUserToAdmin(@DefaultValue(value="") @QueryParam(value="nick") String nick) throws UserNotFoundException {
+		
+		this.adminService.convertUserToAdmin(nick);
+		return Response.status(Response.Status.OK).build();
 	}
 }

@@ -5,6 +5,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import ar.utn.tacs.model.commons.ApprovingApprovedDepositException;
+import ar.utn.tacs.model.commons.NotExistDepositException;
+import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
+import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.service.GenericService;
 
 public interface AdminRest extends GenericService{
@@ -86,8 +91,10 @@ public interface AdminRest extends GenericService{
 	 * 
 	 * @param token
 	 * @return {@link Response}
+	 * @throws NotExistDepositException 
+	 * @throws ApprovingApprovedDepositException 
 	 */
-	Response approveDeposit(String despositNumber);
+	Response approveDeposit(String despositNumber) throws ApprovingApprovedDepositException, NotExistDepositException;
 
 	/**
 	 * {@link PUT}
@@ -95,8 +102,11 @@ public interface AdminRest extends GenericService{
 	 * @param token
 	 * @param despositNumber
 	 * @return {@link Response}
+	 * @throws NotExistDepositException 
+	 * @throws RejectingApprovedDepositException 
+	 * @throws RejectingRejectedDepositException 
 	 */
-	Response rejectDeposit(String despositNumber);
+	Response rejectDeposit(String despositNumber) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException;
 	
 	/**
 	 * {@link GET}
@@ -119,6 +129,7 @@ public interface AdminRest extends GenericService{
 	 * 
 	 * @param nick {@link QueryParam}
 	 * @return
+	 * @throws UserNotFoundException 
 	 */
-	Response convertUserToAdmin(String nick);
+	Response convertUserToAdmin(String nick) throws UserNotFoundException;
 }

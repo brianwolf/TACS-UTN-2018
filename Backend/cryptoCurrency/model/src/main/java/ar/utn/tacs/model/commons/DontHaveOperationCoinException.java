@@ -5,5 +5,9 @@ import ar.utn.tacs.commons.UtnTacsException;
 public class DontHaveOperationCoinException extends UtnTacsException{
 
 	private static final long serialVersionUID = 6923316372867760366L;
+	
+	public DontHaveOperationCoinException() {
+		this.defaultMessageError="No posee la cripto moneda indicada";
+	}
 
 }

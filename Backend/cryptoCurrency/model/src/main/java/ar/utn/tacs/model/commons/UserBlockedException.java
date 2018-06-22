@@ -8,6 +8,10 @@ public class UserBlockedException extends UtnTacsException{
 	 * 
 	 */
 	private static final long serialVersionUID = 5420167601557876729L;
+	
+	public UserBlockedException() {
+		this.defaultMessageError="Usuario bloqueado por cantidad maxima de intentos";
+	}
 
 
 }	

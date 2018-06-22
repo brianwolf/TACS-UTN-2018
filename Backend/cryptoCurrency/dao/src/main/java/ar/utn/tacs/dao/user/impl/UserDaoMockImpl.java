@@ -3,6 +3,7 @@ package ar.utn.tacs.dao.user.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,7 @@ import org.bson.types.ObjectId;
 import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.role.AdminRole;
+import ar.utn.tacs.model.role.Funcionality;
 import ar.utn.tacs.model.role.Role;
 import ar.utn.tacs.model.role.UserRole;
 import ar.utn.tacs.model.user.ConnectedUser;
@@ -30,8 +32,8 @@ public class UserDaoMockImpl implements UserDao{
 	
 	public UserDaoMockImpl() {
 		
-		this.roles.add(new UserRole());
-		this.roles.add(new AdminRole());
+		this.roles.add(newUserRole());
+		this.roles.add(newAdminRole());
 		
 		this.users.add(new User(new Login("lobezzzno", "1234", true, 0), new Person("brian", "lobo", "lobezzzno@gmail.com", Gender.MALE), roles, new Wallet(newCoinAmounts(), new BigDecimal(10000f))));
 		//TENGO 1 DOLAR MAS QUE LOBO, SOY LA POSSSTINHA
@@ -41,6 +43,25 @@ public class UserDaoMockImpl implements UserDao{
 	}
 	
 	
+	private AdminRole newAdminRole() {
+		AdminRole adminRole = new AdminRole();
+		List<String> endpoints = Arrays.asList(new String[] {"/admin","/users","/services/external","/wallet"});
+		List<Funcionality> functionalities = endpoints.stream().map(e->new Funcionality(e,e)).collect(Collectors.toList());
+		adminRole.setFunctionalities(functionalities);
+		
+		return adminRole;
+	}
+
+
+	private UserRole newUserRole() {
+		UserRole userRole = new UserRole();
+		List<String> endpoints = Arrays.asList(new String[] {"/users","/services/external","/wallet"});
+		List<Funcionality> functionalities = endpoints.stream().map(e->new Funcionality(e,e)).collect(Collectors.toList());
+		userRole.setFunctionalities(functionalities);
+		return userRole;
+	}
+
+
 	private List<CoinAmount> newCoinAmounts() {
 		List<CoinAmount> coinAmounts = new ArrayList<CoinAmount>();
 		coinAmounts.add(new CoinAmount(new Coin(new BigInteger("1"), "bitcoin", "BTC"), new BigDecimal(0.005f)));

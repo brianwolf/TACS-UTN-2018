@@ -7,6 +7,8 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
+import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.commons.ExistingDepositException;
 import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.wallet.CoinAmountRest;
 import ar.utn.tacs.rest.GenericRest;
@@ -27,8 +29,9 @@ public interface WalletRest extends GenericRest {
 	 * @param token
 	 * @param coinAmountRest
 	 * @return {@link JsonValue}
+	 * @throws UtnTacsException 
 	 */
-	Response buy(String token, CoinAmountRest coinAmountRest);
+	Response buy(String token, CoinAmountRest coinAmountRest) throws UtnTacsException;
 
 	/**
 	 * {@link POST}
@@ -36,8 +39,9 @@ public interface WalletRest extends GenericRest {
 	 * @param token
 	 * @param coinAmountRest
 	 * @return {@link JsonValue}
+	 * @throws UtnTacsException 
 	 */
-	Response sale(String token, CoinAmountRest coinAmountRest);
+	Response sale(String token, CoinAmountRest coinAmountRest) throws UtnTacsException;
 	
 	/**
 	 * {@link GET}
@@ -47,8 +51,9 @@ public interface WalletRest extends GenericRest {
 	 * 
 	 * @param ticker
 	 * @return {@link String}
+	 * @throws UtnTacsException 
 	 */
-	Response userTransactionHistory(String token, String ticker);
+	Response userTransactionHistory(String token, String ticker) throws UtnTacsException;
 
 	/**
 	 * {@link GET}
@@ -56,8 +61,9 @@ public interface WalletRest extends GenericRest {
 	 * @param token
 	 * @param ticker
 	 * @return
+	 * @throws UtnTacsException 
 	 */
-	Response userWalletByToken(String token, String ticker);
+	Response userWalletByToken(String token, String ticker) throws UtnTacsException;
 	
 	/**
 	 * {@link POST}
@@ -65,8 +71,9 @@ public interface WalletRest extends GenericRest {
 	 * @param token
 	 * @param depositRest
 	 * @return {@link Response}
+	 * @throws ExistingDepositException 
 	 */
-	Response declareDeposit(String token, DepositRest depositRest);
+	Response declareDeposit(String token, DepositRest depositRest) throws ExistingDepositException;
 
-	Response getDepositsByToken(String token);
+	Response getDepositsByToken(String token) throws UtnTacsException;
 }

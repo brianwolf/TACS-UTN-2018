@@ -7,6 +7,8 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.annotate.JsonValue;
 
+import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.ChangeUserRequest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
@@ -30,8 +32,9 @@ public interface UserRest extends GenericRest{
 	 * 
 	 * @param user
 	 * @return {@link JsonValue}
+	 * @throws UtnTacsException 
 	 */
-	Response newUser(User user);
+	Response newUser(User user) throws UtnTacsException;
 	
 	/**
 	 * {@link POST}
@@ -39,16 +42,18 @@ public interface UserRest extends GenericRest{
 	 * @param nick
 	 * @param pass
 	 * @return {@link JsonValue}
+	 * @throws UtnTacsException 
 	 */
-	Response getTokenByLogin(Login login);
+	Response getTokenByLogin(Login login) throws UtnTacsException;
 	
 	/**
 	 * {@link GET}
 	 * 
 	 * @param token
 	 * @return {@link Response}
+	 * @throws UtnTacsException 
 	 */
-	Response getUserByToken(String token);
+	Response getUserByToken(String token) throws UtnTacsException;
 	
 	/**
 	 * {@link PUT}
@@ -63,8 +68,9 @@ public interface UserRest extends GenericRest{
 	 * 
 	 * @param nick
 	 * @return
+	 * @throws UserNotFoundException 
 	 */
-	Response reLog(String nick);
+	Response reLog(String nick) throws UserNotFoundException;
 	
 	/**
 	 * {@link PUT}
@@ -72,7 +78,8 @@ public interface UserRest extends GenericRest{
 	 * @param token
 	 * @param changeUserRequest
 	 * @return {@link JsonValue}
+	 * @throws UtnTacsException 
 	 */
-	Response updateUser(String token, ChangeUserRequest changeUserRequest);
+	Response updateUser(String token, ChangeUserRequest changeUserRequest) throws UtnTacsException;
 	
 }

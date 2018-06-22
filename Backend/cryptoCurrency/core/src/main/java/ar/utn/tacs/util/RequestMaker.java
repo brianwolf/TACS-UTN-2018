@@ -34,8 +34,8 @@ public class RequestMaker {
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response = restTemplate.exchange(uri, getHttpMethod(method), getEntity, String.class);
 
-			System.out.println("\nSTATUS : " + response.getStatusCode() + " " + response.getStatusCode().getReasonPhrase());
-			System.out.println("Response :" + response.getBody());
+//			System.out.println("\nSTATUS : " + response.getStatusCode() + " " + response.getStatusCode().getReasonPhrase());
+//			System.out.println("Response :" + response.getBody());
 
 			return response.hasBody() ? response.getBody() : null;
 			

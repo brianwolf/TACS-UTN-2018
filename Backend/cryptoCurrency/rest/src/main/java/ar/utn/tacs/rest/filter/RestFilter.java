@@ -9,6 +9,8 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 import com.sun.jersey.spi.container.ContainerResponse;
 import com.sun.jersey.spi.container.ContainerResponseFilter;
 
+import ar.utn.tacs.commons.ResponseException;
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.user.UserRest;
 import ar.utn.tacs.service.user.UserService;
@@ -36,31 +38,55 @@ public class RestFilter implements ContainerRequestFilter,ContainerResponseFilte
 		
 		//ESTO DEBERIA IR ABAJO PARA QUE ANTES SE VALIDE EL TOKEN, PERO X ALGUNA RAZON EN EL OPTIONS NO ME LLEGA EL TOKEN
 		if(request.getMethod().equals("OPTIONS")) {
-			ResponseBuilder builder = null;
-			builder = Response.status(Response.Status.OK);
-			throw new WebApplicationException(builder.build());
+//			ResponseBuilder builder = null;
+//			builder = Response.status(Response.Status.OK);
+//			throw new WebApplicationException(builder.build());
+			return request;
 		}
 		
 		if(!this.isValid(request)){
 	        ResponseBuilder builder = null;
 	        builder = Response.status(Response.Status.UNAUTHORIZED);
 	        throw new WebApplicationException(builder.build());
-
 	    }
-		
 		
 		return request;
 	}
 	
 	@Override
 	public ContainerResponse filter(ContainerRequest request, ContainerResponse response) {
+		
 		response.getHttpHeaders().add("Access-Control-Allow-Origin", "*");
 		response.getHttpHeaders().add("Access-Control-Allow-Headers", "Authorization, token, Origin, X-Requested-With, Content-Type");
 		response.getHttpHeaders().add("Access-Control-Expose-Headers", "Location, Content-Disposition");
 		response.getHttpHeaders().add("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE, HEAD, OPTIONS");
+		
+		Throwable throwable = response.getMappedThrowable();
+		
+        if (throwable != null) {
+        	ResponseException responseException = buildErrorMessage(throwable);
+//        	ResponseBuilder builder = null;
+//	        builder = Response.status(Response.Status.INTERNAL_SERVER_ERROR);
+        	response.setEntity(responseException);
+        	response.setStatusType(responseException.getStatus());
+//        	response.setResponse(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(responseException).build());
+        }
+
 		return response;
 	}
 	
+	private ResponseException buildErrorMessage(Throwable e) {
+		//WHY LISAAA WHY THIS NEGRADA!!!
+		if(UtnTacsException.class.isInstance(e)) {
+			return ((UtnTacsException)e).createBasicResponse();
+		}
+		if(WebApplicationException.class.isInstance(e)) {
+			return new ResponseException(new RuntimeException(), "Acceso denegado",Response.Status.UNAUTHORIZED);
+		}
+		
+		return new ResponseException(new RuntimeException(), "Error inesperado");
+	}
+
 	private boolean isValid(ContainerRequest request) {
 		
 		if(this.dontNeedToken(request)) {

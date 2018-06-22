@@ -16,6 +16,8 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.utn.tacs.commons.UtnTacsException;
+import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.ChangeUserRequest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
@@ -33,32 +35,21 @@ public class UserRestImpl implements UserRest {
 	@POST
 	@Path(UserRest.NEW_USER)
 	@Override
-	public Response newUser(User user) {
+	public Response newUser(User user) throws UtnTacsException {
 
-		try {
-			userService.newUser(user);
-			
-			return Response.status(Response.Status.CREATED).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		userService.newUser(user);
+		return Response.status(Response.Status.CREATED).build();
 	}
 
 	@POST
 	@Path(UserRest.GET_TOKEN_BY_LOGIN)
 	@Override
-	public Response getTokenByLogin(Login login) {
+	public Response getTokenByLogin(Login login) throws UtnTacsException {
 		
-		try {
-			Map<String, Object> tokenMap = new HashMap<String, Object>();
-			tokenMap.put("token", this.userService.getTokenByLogin(login));
-			
-			return Response.status(Response.Status.OK).entity(tokenMap).build();
-			
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		Map<String, Object> tokenMap = new HashMap<String, Object>();
+		tokenMap.put("token", this.userService.getTokenByLogin(login));
+		
+		return Response.status(Response.Status.OK).entity(tokenMap).build();
 	}
 
 	@PUT
@@ -66,52 +57,35 @@ public class UserRestImpl implements UserRest {
 	@Override
 	public Response logOutUserByToken(@HeaderParam(value = "token")String token) {
 		
-		try {
-			userService.logOutUserByToken(token);
-			return Response.status(Response.Status.OK).build();
-			
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		userService.logOutUserByToken(token);
+		return Response.status(Response.Status.OK).build();
 	}
 
 	@GET
 	@Path(UserRest.GET_USER_BY_TOKEN)
 	@Override
-	public Response getUserByToken(@HeaderParam(value = "token")String token) {
+	public Response getUserByToken(@HeaderParam(value = "token")String token) throws UtnTacsException {
 		
-		try {
-			User userResult = userService.getUserByToken(token);
-			return Response.status(Response.Status.OK).entity(userResult).build();
+		User userResult = userService.getUserByToken(token);
+		return Response.status(Response.Status.OK).entity(userResult).build();
 			
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
 	}
 	
 	@POST
 	@Path(UserRest.RELOG)
 	@Override
-	public Response reLog(@PathParam(value="nick") String nick) {
-		try {
-			userService.relogUserByNick(nick);
-			return Response.status(Response.Status.OK).build();
-			
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+	public Response reLog(@PathParam(value="nick") String nick) throws UserNotFoundException {
+		
+		userService.relogUserByNick(nick);
+		return Response.status(Response.Status.OK).build();
 	}
 
 	@PUT
 	@Path(UserRest.CHANGE_USER)
 	@Override
-	public Response updateUser(@HeaderParam(value = "token")String token,ChangeUserRequest changeUserRequest) {
-		try {
-			userService.updateUser(token,changeUserRequest.getOldUser(),changeUserRequest.getNewUser());
-			return Response.status(Response.Status.OK).build();
-			
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+	public Response updateUser(@HeaderParam(value = "token")String token,ChangeUserRequest changeUserRequest) throws UtnTacsException {
+		
+		userService.updateUser(token,changeUserRequest.getOldUser(),changeUserRequest.getNewUser());
+		return Response.status(Response.Status.OK).build();
 	}
 }

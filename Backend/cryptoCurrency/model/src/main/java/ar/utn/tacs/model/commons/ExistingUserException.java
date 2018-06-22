@@ -8,5 +8,9 @@ public class ExistingUserException extends UtnTacsException {
 	 * 
 	 */
 	private static final long serialVersionUID = -2728200288237921480L;
+	
+	public ExistingUserException() {
+		this.defaultMessageError="Usuario ya existente";
+	}
 
 }

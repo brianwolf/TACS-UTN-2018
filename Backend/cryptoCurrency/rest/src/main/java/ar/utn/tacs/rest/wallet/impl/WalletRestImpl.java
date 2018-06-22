@@ -16,10 +16,8 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ar.utn.tacs.model.commons.DontHaveOperationCoinException;
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.commons.ExistingDepositException;
-import ar.utn.tacs.model.commons.InsufficientCryptoCurrencyException;
-import ar.utn.tacs.model.commons.InsufficientMoneyException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.transaction.Transaction;
@@ -38,37 +36,19 @@ public class WalletRestImpl implements WalletRest{
 	@POST
 	@Path(WalletRest.BUY)
 	@Override
-	public Response buy(@HeaderParam(value = "token")String token, CoinAmountRest coinAmountRest) {
-		try {
-			walletService.buy(token, coinAmountRest);
-			return Response.status(Response.Status.CREATED).build();
-
-		} catch (InsufficientMoneyException e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.createBasicResponse("No posee Dolares suficientes")).build();
-			
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+	public Response buy(@HeaderParam(value = "token")String token, CoinAmountRest coinAmountRest) throws UtnTacsException {
+		
+		walletService.buy(token, coinAmountRest);
+		return Response.status(Response.Status.CREATED).build();
 	}
 
 	@POST
 	@Path(WalletRest.SALE)
 	@Override
-	public Response sale(@HeaderParam(value = "token")String token, CoinAmountRest coinAmountRest) {
+	public Response sale(@HeaderParam(value = "token")String token, CoinAmountRest coinAmountRest) throws UtnTacsException {
 		
-		try {
-			walletService.sale(token, coinAmountRest);
-			return Response.status(Response.Status.CREATED).build();
-
-		} catch (DontHaveOperationCoinException e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.createBasicResponse("No posee la cripto moneda indicada")).build();
-			
-		} catch (InsufficientCryptoCurrencyException e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.createBasicResponse("No posee monto suficiente de la cripto moneda indicada")).build();
-			
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		walletService.sale(token, coinAmountRest);
+		return Response.status(Response.Status.CREATED).build();
 	}
 
 	@GET
@@ -77,70 +57,47 @@ public class WalletRestImpl implements WalletRest{
 	public Response userTransactionHistory(
 			@HeaderParam(value = "token") String token, 
 			@DefaultValue("") @QueryParam("ticker")String ticker
-	) {
+	) throws UtnTacsException {
 		
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		
-		try {
-			transactions = walletService.userTransactionHistory(token, ticker);
-			return Response.status(Response.Status.OK).entity(transactions).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		transactions = walletService.userTransactionHistory(token, ticker);
+		return Response.status(Response.Status.OK).entity(transactions).build();
 	}
 
 	@GET
 	@Path(WalletRestImpl.USER_WALLET)
 	@Override
-	public Response userWalletByToken(@HeaderParam(value = "token") String token, @QueryParam("ticker") String ticker) {
+	public Response userWalletByToken(@HeaderParam(value = "token") String token, @QueryParam("ticker") String ticker) throws UtnTacsException {
 		
-		try {
-			Object response = String.valueOf(ticker)!="null"&&!String.valueOf(ticker).isEmpty() ? 
-					walletService.userCoinAmountByToken(token,ticker) : 
-					walletService.userWalletByToken(token);
-			
-			return Response.status(Response.Status.OK).entity(response).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		Object response = String.valueOf(ticker)!="null"&&!String.valueOf(ticker).isEmpty() ? 
+				walletService.userCoinAmountByToken(token,ticker) : 
+				walletService.userWalletByToken(token);
+		
+		return Response.status(Response.Status.OK).entity(response).build();
 	}
 
 	@POST
 	@Path(WalletRestImpl.DEPOSITS)
 	@Override
-	public Response declareDeposit(@HeaderParam(value = "token") String token, DepositRest depositRest) {
+	public Response declareDeposit(@HeaderParam(value = "token") String token, DepositRest depositRest) throws ExistingDepositException {
 		
-		try {
-			this.walletService.declareDeposit(token, depositRest);
-			return Response.status(Response.Status.OK).build();
-			
-		} catch (ExistingDepositException existingDepositException) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(existingDepositException.createBasicResponse("Ya existe un deposito con ese numero")).build();
-		} 
-		catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		this.walletService.declareDeposit(token, depositRest);
+		return Response.status(Response.Status.OK).build();
 	}
 	
 	@GET
 	@Path(WalletRestImpl.DEPOSITS)
 	@Override
-	public Response getDepositsByToken(@HeaderParam(value = "token") String token) {
-		try {
-			List<Deposit> deposits = this.walletService.getDepositsByToken(token);
-			
-			if (deposits.isEmpty()) {
-				return Response.status(Response.Status.NO_CONTENT).build();
-			}
-			
-			return Response.status(Response.Status.OK).entity(deposits).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+	public Response getDepositsByToken(@HeaderParam(value = "token") String token) throws UtnTacsException {
+		
+		List<Deposit> deposits = this.walletService.getDepositsByToken(token);
+		
+		if (deposits.isEmpty()) {
+			return Response.status(Response.Status.NO_CONTENT).build();
 		}
+		
+		return Response.status(Response.Status.OK).entity(deposits).build();
 	}
-	
 	
 }

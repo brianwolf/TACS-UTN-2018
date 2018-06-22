@@ -27,15 +27,10 @@ public class ExternalRestImpl implements ExternalRest{
 	@Path(ExternalRest.COIN_MARKET_CAP)
 	@Override
 	public Response coinMarketCap() {
-		try {
 			
-			List<Coin> mapResult = externalService.coinMarketCap();
-
-			return Response.status(Response.Status.OK).entity(mapResult).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		List<Coin> mapResult = externalService.coinMarketCap();
+	
+		return Response.status(Response.Status.OK).entity(mapResult).build();
 	}
 	
 }
