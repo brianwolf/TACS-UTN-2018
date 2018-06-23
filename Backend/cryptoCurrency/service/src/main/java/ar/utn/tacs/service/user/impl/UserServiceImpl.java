@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService{
 		
 		if (user == null) {
 		User userByNick = this.userDao.getUserByNick(login.getNick());
+		
+		if(!userByNick.getLogin().getActive()) {
+			throw new UserBlockedException();
+		}
+		
 		userByNick.getLogin().incrementTries();
 		
 		if(userByNick.getLogin().hasExcededTries()) {
@@ -69,7 +74,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	private void blockUser(User user) {
-		user.getLogin().setTries(0);
 		user.getLogin().setActive(false);
 		this.userDao.updateUser(user);
 	}
@@ -178,6 +182,8 @@ public class UserServiceImpl implements UserService{
 		Boolean sended = BeanUtil.getBean(ExternalService.class).sendMail(MailBuilder.buildRelogMail(user,newPassword));
 		
 		if(sended) {
+			//ESTO ESTA ACA XQ ESTARIA BUENO QUE CUANDO EL TIPO CAMBIA SU PASS NO SE SIGAN USANDO SUS INTENTOS FALLIDOS
+			user.getLogin().setTries(0);
 			user.getLogin().setActive(true);
 			user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(newPassword));
 			this.userDao.updateUser(user);
@@ -194,6 +200,8 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(login.getPass()));
+		//ESTO ESTA ACA XQ ESTARIA BUENO QUE CUANDO EL TIPO CAMBIA SU PASS NO SE SIGAN USANDO SUS INTENTOS FALLIDOS
+		user.getLogin().setTries(0);
 		this.userDao.updateUser(user);
 	}
 

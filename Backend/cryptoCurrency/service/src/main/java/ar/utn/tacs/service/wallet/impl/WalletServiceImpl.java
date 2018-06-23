@@ -11,6 +11,7 @@ import ar.utn.tacs.dao.user.UserDao;
 import ar.utn.tacs.dao.wallet.WalletDao;
 import ar.utn.tacs.model.coin.Coin;
 import ar.utn.tacs.model.commons.ExistingDepositException;
+import ar.utn.tacs.model.commons.TransactionFailedException;
 import ar.utn.tacs.model.deposit.Deposit;
 import ar.utn.tacs.model.deposit.DepositRest;
 import ar.utn.tacs.model.operation.Buy;
@@ -62,14 +63,23 @@ public class WalletServiceImpl implements WalletService {
 		userTransaction.setId(user.getId());
 
 		transaction.setUser(userTransaction);
-		this.walletDao.insertTransaction(transaction);
 		
-		this.updateUser(user);
+		CoinAmount coinAmountNow = coinAmountRest.toCoinAmount(BeanUtil.getBean(ExternalService.class).coinMarketCap());
+		
+		if(!coinAmountNow.equals(coinAmount)) {
+			throw new TransactionFailedException(TransactionFailedException.getCoinChangeErrorMessage(coinAmountRest.getTicker()));
+		}
+		
+		this.saveTransactionAndUpdateUser(transaction,user);
 	}
 	
+	private void saveTransactionAndUpdateUser(Transaction transaction, User user) {
+		this.walletDao.insertTransaction(transaction);
+		this.updateUser(user);		
+	}
+
 	private void updateUser(User user) {
 		BeanUtil.getBean(UserDao.class).updateUser(user);
-
 	}
 
 	@Override
@@ -87,9 +97,14 @@ public class WalletServiceImpl implements WalletService {
 		userTransaction.setId(user.getId());
 		
 		transaction.setUser(userTransaction);
-		this.walletDao.insertTransaction(transaction);
 		
-		this.updateUser(user);
+		CoinAmount coinAmountNow = coinAmountRest.toCoinAmount(BeanUtil.getBean(ExternalService.class).coinMarketCap());
+		
+		if(!coinAmountNow.equals(coinAmount)) {
+			throw new TransactionFailedException(TransactionFailedException.getCoinChangeErrorMessage(coinAmountRest.getTicker()));
+		}
+		
+		this.saveTransactionAndUpdateUser(transaction,user);
 	}
 
 	@Override

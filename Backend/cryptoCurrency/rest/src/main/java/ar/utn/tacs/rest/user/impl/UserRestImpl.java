@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.utn.tacs.commons.UtnTacsException;
-import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.user.ChangeUserRequest;
 import ar.utn.tacs.model.user.Login;
 import ar.utn.tacs.model.user.User;
