@@ -52,7 +52,7 @@ export class UserService {
   }
 
   deposit(operation) {
-    return this.http.post(this.API + 'wallet/deposit', operation);
+    return this.http.post(this.API + 'wallet/deposits', operation);
   }
 
   deposits() {

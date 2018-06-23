@@ -23,7 +23,9 @@ export class UserComponent implements OnInit {
 
   getUser() {
     this.userService.getUser().subscribe(
-      data => {
+      (data: any) => {
+        delete data.roles;
+        delete data.wallet;
         this.newUser = data;
         this.oldUser = JSON.parse(JSON.stringify(data));
       },
