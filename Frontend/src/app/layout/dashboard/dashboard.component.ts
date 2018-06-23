@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 
 @Component({
@@ -6,7 +6,7 @@ import { routerTransition } from '../../router.animations';
   templateUrl: './dashboard.component.html',
   animations: [routerTransition()]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   public sliders: Array<any> = [];
 
@@ -15,12 +15,12 @@ export class DashboardComponent implements OnInit {
     this.sliders.push(
       {
         imagePath: 'assets/images/1.jpg',
-        label: 'Buscando libertad?',
+        label: 'Buscando Libertad?',
         text: 'Las criptomonedas le permiten realizar transacciones en cualquier parte y horario.'
       },
       {
         imagePath: 'assets/images/2.jpg',
-        label: 'Conozca los beneficios!',
+        label: 'Conozca los Beneficios!',
         text: 'Tamaño de emisión fija, valor creciente, liquidez...'
       },
       {
@@ -30,7 +30,5 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
-  ngOnInit() { }
 
 }

@@ -1,9 +1,9 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Authorize'" [icon]="'fas fa-check'"></app-page-header>
+  <app-page-header [heading]="'Deposits'" [icon]="'fas fa-money-check-alt'"></app-page-header>
   <div class="row justify-content-center">
     <div class="col-xl-10">
       <div class="card">
-        <div class="card-header"> Depositos Pendientes para autorizar </div>
+        <div class="card-header">{{ 'Deposits' | translate }}</div>
         <div class="card-body table-responsive">
 
           <mat-form-field>
@@ -19,12 +19,7 @@
 
             <ng-container matColumnDef="number">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Ticket' | translate }}</th>
-              <td mat-cell *matCellDef="let deposit"> {{deposit.number}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="userNick">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'User' | translate }}</th>
-              <td mat-cell *matCellDef="let deposit"> {{deposit.userNick}} </td>
+              <td mat-cell *matCellDef="let deposit"> {{deposit.number | translate}} </td>
             </ng-container>
 
             <ng-container matColumnDef="amount">
@@ -34,22 +29,8 @@
 
             <ng-container matColumnDef="state">
               <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'State' | translate }}</th>
-              <td class="text-right" mat-cell *matCellDef="let deposit">
-                <span *ngIf="deposit.state==='WAITING' && !proccesing">
-                  <a href="javascript:void(0)" (click)="approve(deposit.number)">
-                    <i class="fas fa-check-circle fa-2x text-success"></i>
-                  </a>
-                  &nbsp;
-                  <a href="javascript:void(0)" (click)="reject(deposit.number)">
-                    <i class="fas fa-times-circle fa-2x text-danger"></i>
-                  </a>
-                </span>
-                <span *ngIf="deposit.state==='APPROVED'">
-                  <b class="text-success">{{ deposit.state | translate }}</b>
-                </span>
-                <span *ngIf="deposit.state==='REJECTED'">
-                  <b class="text-danger">{{ deposit.state | translate }}</b>
-                </span>
+              <td class="text-right" mat-cell *matCellDef="let deposit" [ngClass]="{'text-success': deposit.state === 'APPROVED', 'text-danger': deposit.state === 'REJECTED'}">
+                <b>{{ deposit.state | translate }}</b>
               </td>
             </ng-container>
 
