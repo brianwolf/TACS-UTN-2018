@@ -74,7 +74,7 @@ public class UserRestImpl implements UserRest {
 	@POST
 	@Path(UserRest.RELOG)
 	@Override
-	public Response reLog(@PathParam(value="nick") String nick) throws UserNotFoundException {
+	public Response reLog(@PathParam(value="nick") String nick) throws UtnTacsException {
 		
 		userService.relogUserByNick(nick);
 		return Response.status(Response.Status.OK).build();

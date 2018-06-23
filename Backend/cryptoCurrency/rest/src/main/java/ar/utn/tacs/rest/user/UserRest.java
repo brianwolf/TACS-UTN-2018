@@ -69,8 +69,9 @@ public interface UserRest extends GenericRest{
 	 * @param nick
 	 * @return
 	 * @throws UserNotFoundException 
+	 * @throws UtnTacsException 
 	 */
-	Response reLog(String nick) throws UserNotFoundException;
+	Response reLog(String nick) throws UserNotFoundException, UtnTacsException;
 	
 	/**
 	 * {@link PUT}

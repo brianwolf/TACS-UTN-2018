@@ -7,7 +7,7 @@ public class RejectingRejectedDepositException extends UtnTacsException{
 	private static final long serialVersionUID = 3080269556049823029L;
 	
 	public RejectingRejectedDepositException() {
-		this.defaultMessageError="el deposito ya fue rechazado";
+		this.defaultMessageError="El deposito ya fue rechazado";
 	}
 
 }

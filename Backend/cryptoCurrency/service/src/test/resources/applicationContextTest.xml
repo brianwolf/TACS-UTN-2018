@@ -21,7 +21,7 @@
 	
 	<!--  SERVICE -->
 	<bean id="adminService" 		class="ar.utn.tacs.service.admin.impl.AdminServiceImpl" />
-	<bean id="externalService" 		class="ar.utn.tacs.service.external.impl.ExternalServiceImpl" />
+	<bean id="externalService" 		class="ar.utn.tacs.service.external.impl.ExternalServiceMockImpl" />
 	<bean id="userService" 			class="ar.utn.tacs.service.user.impl.UserServiceImpl" />
 	<bean id="walletService" 		class="ar.utn.tacs.service.wallet.impl.WalletServiceImpl" />
 

@@ -1,5 +1,6 @@
 package ar.utn.tacs.model.email;
 
+import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.user.User;
 
 public class MailBuilder {
@@ -10,10 +11,10 @@ public class MailBuilder {
 	private static String RELOG_BODY="Estimado {nick}, su nuevo password es {nuevo_password}. No sea manco y recuerdelo para la proxima. ";
 	private static String RELOG_SUBJECT="Cambio de password Utn Tacs Crypto";
 
-	public static Mail buildRelogMail(User user,String newPassword) {
+	public static Mail buildRelogMail(User user,String newPassword) throws UtnTacsException {
 		
 		if(user.getPerson().getEmail()==null||user.getPerson().getEmail().isEmpty()) {
-			throw new RuntimeException();
+			throw new UtnTacsException();
 		}
 		
 		Mail mail = new Mail();

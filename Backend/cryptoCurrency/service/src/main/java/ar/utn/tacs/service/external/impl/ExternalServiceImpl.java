@@ -28,7 +28,7 @@ public class ExternalServiceImpl implements ExternalService {
 	private ExternalDao externalDao;
 
 	private Gson gson = new Gson();
-
+	
 	@Override
 	public List<Coin> coinMarketCap() {
 		return UpdatedCoinsPrice.getCoinsList();

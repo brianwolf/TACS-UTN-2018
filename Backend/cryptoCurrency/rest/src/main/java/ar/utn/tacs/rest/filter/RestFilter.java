@@ -9,8 +9,6 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 import com.sun.jersey.spi.container.ContainerResponse;
 import com.sun.jersey.spi.container.ContainerResponseFilter;
 
-import ar.utn.tacs.commons.ResponseException;
-import ar.utn.tacs.commons.UtnTacsException;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.rest.user.UserRest;
 import ar.utn.tacs.service.user.UserService;
@@ -29,7 +27,9 @@ public class RestFilter implements ContainerRequestFilter,ContainerResponseFilte
 		
 		//ESTO DEBERIA IR ABAJO PARA QUE ANTES SE VALIDE EL TOKEN, PERO X ALGUNA RAZON EN EL OPTIONS NO ME LLEGA EL TOKEN
 		if(request.getMethod().equals("OPTIONS")) {
-			return request;
+	      ResponseBuilder builder = null; 
+	      builder = Response.status(Response.Status.OK); 
+	      throw new WebApplicationException(builder.build()); 
 		}
 		
 		if(!this.isValid(request)){

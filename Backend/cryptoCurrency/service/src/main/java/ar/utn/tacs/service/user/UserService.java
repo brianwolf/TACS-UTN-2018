@@ -71,8 +71,9 @@ public interface UserService extends GenericService {
 	/**
 	 * @param nick
 	 * @throws UserNotFoundException
+	 * @throws UtnTacsException 
 	 */
-	void relogUserByNick(String nick) throws UserNotFoundException;
+	void relogUserByNick(String nick) throws UserNotFoundException, UtnTacsException;
 
 	/**
 	 * @param token

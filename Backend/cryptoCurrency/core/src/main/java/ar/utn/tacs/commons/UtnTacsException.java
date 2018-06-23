@@ -3,7 +3,7 @@ package ar.utn.tacs.commons;
 public class UtnTacsException extends Exception {
 
 	private static final long serialVersionUID = 3997449068912721666L;
-	protected String defaultMessageError="";
+	protected String defaultMessageError="Error inesperado";
 
 	public ResponseException createBasicResponse(String userMessageError) {
 		return new ResponseException(this, userMessageError);

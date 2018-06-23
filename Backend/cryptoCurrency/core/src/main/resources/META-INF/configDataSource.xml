@@ -13,50 +13,50 @@
 
 	<!--########################################### CONFIGURACION LOCAL ####################################################-->
 	
-	<bean id="mongoClient" class="com.mongodb.MongoClient">
-		<constructor-arg name="host" value="${db.host}" />
-		<constructor-arg name="port" value="${db.port}" />
-	</bean>
+<!-- 	<bean id="mongoClient" class="com.mongodb.MongoClient"> -->
+<!-- 		<constructor-arg name="host" value="${db.host}" /> -->
+<!-- 		<constructor-arg name="port" value="${db.port}" /> -->
+<!-- 	</bean> -->
 	
-	<bean id="mongoCredentials" class="org.springframework.data.authentication.UserCredentials">
-		<constructor-arg name="username" value="${db.user}" />
-		<constructor-arg name="password" value="${db.pass}" />
-    </bean>
+<!-- 	<bean id="mongoCredentials" class="org.springframework.data.authentication.UserCredentials"> -->
+<!-- 		<constructor-arg name="username" value="${db.user}" /> -->
+<!-- 		<constructor-arg name="password" value="${db.pass}" /> -->
+<!--     </bean> -->
 	
-	<bean id="mongoDbFactory" class="org.springframework.data.mongodb.core.SimpleMongoDbFactory">
-		<constructor-arg name="mongoClient"
-			ref="mongoClient" />
-		<constructor-arg name="databaseName" value="${db.schema}" />
-	</bean>
+<!-- 	<bean id="mongoDbFactory" class="org.springframework.data.mongodb.core.SimpleMongoDbFactory"> -->
+<!-- 		<constructor-arg name="mongoClient" -->
+<!-- 			ref="mongoClient" /> -->
+<!-- 		<constructor-arg name="databaseName" value="${db.schema}" /> -->
+<!-- 	</bean> -->
 
 
-	<bean id="mongoTemplate"
-		class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongoDbFactory"
-			ref="mongoDbFactory" />
-	</bean>
+<!-- 	<bean id="mongoTemplate" -->
+<!-- 		class="org.springframework.data.mongodb.core.MongoTemplate"> -->
+<!-- 		<constructor-arg name="mongoDbFactory" -->
+<!-- 			ref="mongoDbFactory" /> -->
+<!-- 	</bean> -->
 
 
 <!--########################################### CONFIGURACION CLOUD ####################################################-->
 
-<!-- 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> -->
-<!--         <constructor-arg name="mongo" ref="mongo"/> -->
-<!--         <constructor-arg name="databaseName" value="${db.schema}"/> -->
-<!--         <constructor-arg name="userCredentials" ref="mongoCredentials"/> -->
-<!--     </bean> -->
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongo" ref="mongo"/>
+        <constructor-arg name="databaseName" value="${db.schema}"/>
+        <constructor-arg name="userCredentials" ref="mongoCredentials"/>
+    </bean>
 
-<!--     <bean id="mongoCredentials" class="org.springframework.data.authentication.UserCredentials"> -->
-<!--         <constructor-arg name="username" value="${db.user}" /> -->
-<!--         <constructor-arg name="password" value="${db.pass}" /> -->
-<!--     </bean> -->
+    <bean id="mongoCredentials" class="org.springframework.data.authentication.UserCredentials">
+        <constructor-arg name="username" value="${db.user}" />
+        <constructor-arg name="password" value="${db.pass}" />
+    </bean>
 
-<!--     <bean class="com.mongodb.MongoURI" id="mongoURI"> -->
-<!--         <constructor-arg value="mongodb://${db.user}:${db.pass}@${db.host}:${db.port}/${db.schema}"  /> -->
-<!--     </bean> -->
+    <bean class="com.mongodb.MongoURI" id="mongoURI">
+        <constructor-arg value="mongodb://${db.user}:${db.pass}@${db.host}:${db.port}/${db.schema}"  />
+    </bean>
 
-<!--     <bean class="com.mongodb.Mongo" id="mongo"> -->
-<!--         <constructor-arg ref="mongoURI" /> -->
-<!--     </bean> -->
+    <bean class="com.mongodb.Mongo" id="mongo">
+        <constructor-arg ref="mongoURI" />
+    </bean>
 
 </beans>
 

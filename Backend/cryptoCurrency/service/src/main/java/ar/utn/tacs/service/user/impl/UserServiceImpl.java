@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void relogUserByNick(String nick) throws UserNotFoundException {
+	public void relogUserByNick(String nick) throws UtnTacsException {
 		
 		User user = this.userDao.getUserByNick(nick);
 		
@@ -206,25 +206,28 @@ public class UserServiceImpl implements UserService{
 			throw new UserNotFoundException();
 		}
 		
+		HashUtil hashUtil = BeanUtil.getBean(HashUtil.class);
+		String oldHashedPass = hashUtil.getStringHash(oldUser.getLogin().getPass());
+		String userHashedPass = user.getLogin().getPass();
+		
 		//NEGRADA DE LOS DIOSES
-		if(!oldUser.getLogin().getNick().equals(newUser.getLogin().getNick())) {
+		if(!oldUser.getLogin().getNick().equals(newUser.getLogin().getNick())||!oldUser.getLogin().getPass().equals(userHashedPass)&&!oldHashedPass.equals(userHashedPass)) {
 			throw new UtnTacsException();
 		}
 		
-		if(newUser.getLogin().getPass()!=null&&BeanUtil.getBean(HashUtil.class).
-				getStringHash(oldUser.getLogin().getPass()).equals(user.getLogin().getPass())) {
+		String newHashedPass = hashUtil.getStringHash(newUser.getLogin().getPass());
+		
+		if(!oldUser.getLogin().getPass().equals(newHashedPass)) {
 			
-			user.getLogin().setPass(BeanUtil.getBean(HashUtil.class).getStringHash(newUser.getLogin().getPass()));
+			user.getLogin().setPass(newHashedPass);
 		}
 		
-		if(newUser.getPerson().getEmail()!=null&&BeanUtil.getBean(HashUtil.class).
-				getStringHash(oldUser.getPerson().getEmail()).equals(user.getPerson().getEmail())) {
+		if(!oldUser.getPerson().getEmail().equals(newUser.getPerson().getEmail())) {
 			
 			user.getPerson().setEmail(newUser.getPerson().getEmail());
 		}
 		
 		this.userDao.updateUser(user);
-		
 	}
 
 	@Override
