@@ -2,57 +2,65 @@
   <app-page-header [heading]="'Buy'" [icon]="'fab fa-btc'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
-      <div class="card">
-        <div class="card-header">Seleccione la criptomoneda a comprar</div>
-        <div class="card-body table-responsive">
-          <form role="form" #buyForm="ngForm" (ngSubmit)="onSubmit(buyForm)">
-            <div class="form-group input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fab fa-fw fa-btc"></i>
-                </span>
-              </div>
-              <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
-                <option *ngFor="let coin of coins" [ngValue]="coin">{{ coin.ticker }} - {{ coin.name }}</option>
-              </select>
-            </div>
-            <div *ngIf="coinSelected">
-              <label>Cotización actual en u$s</label>
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-fw fa-dollar-sign"></i>
-                  </span>
-                </div>
-                <span class="form-control">{{ coinSelected.valueInDollars | number :'1.2' }}</span>
-              </div>
-            </div>
-            <div>
-              <label>Saldo disponible en u$s</label>
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-fw fa-dollar-sign"></i>
-                  </span>
-                </div>
-                <span class="form-control">{{ saldoUSD | number :'1.2' }}</span>
-              </div>
-            </div>
-            <hr>
-            <div class="form-group input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fab fa-fw fa-quora"></i>
-                </span>
-              </div>
-              <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
-                placeholder="Cantidad a comprar" name="amount" ngModel required>
-            </div>
-            <button mat-raised-button color="primary" [disabled]="!buyForm.valid">{{ 'Buy' | translate }}</button> &nbsp;
-            <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
-          </form>
+      <form role="form" #buyForm="ngForm" (ngSubmit)="onSubmit(buyForm)">
+        <label>
+          <b>Seleccione la criptomoneda</b>
+        </label>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fab fa-fw fa-btc"></i>
+            </span>
+          </div>
+          <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
+            <option *ngFor="let coin of coins" [ngValue]="coin">{{ coin.ticker }} - {{ coin.name }}</option>
+          </select>
         </div>
-      </div>
+        <div *ngIf="coinSelected">
+          <label>Cotización actual en u$s</label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-fw fa-dollar-sign"></i>
+              </span>
+            </div>
+            <span class="form-control text-right">{{ coinSelected.valueInDollars | number :'1.2' }}</span>
+          </div>
+        </div>
+        <app-dollar-balance></app-dollar-balance>
+        <div *ngIf="coinSelected">
+          <hr>
+          <label>Cantidad a comprar</label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fab fa-fw fa-quora"></i>
+              </span>
+            </div>
+            <input class="form-control text-right" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
+              name="amount" ngModel required>
+          </div>
+          <label>
+            <b>Monto a debitar</b>
+          </label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-fw fa-dollar-sign"></i>
+              </span>
+            </div>
+            <span class="form-control text-right">
+              {{ buyForm.value.amount * coinSelected.valueInDollars | number :'1.2' }}
+            </span>
+          </div>
+        </div>
+        <hr>
+        <div class="row justify-content-center">
+          <button mat-raised-button color="primary" [disabled]="!buyForm.valid">{{ 'Buy' | translate }}</button> &nbsp;
+          <button mat-raised-button type="reset" (click)="reset()">{{ 'Refresh' | translate }}</button> &nbsp;
+          <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
