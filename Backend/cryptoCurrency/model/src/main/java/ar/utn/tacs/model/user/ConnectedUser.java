@@ -18,6 +18,19 @@ public class ConnectedUser extends MongoPersistentObject {
 
 	private Date timeConnecting;
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof ConnectedUser)) {
+			return false;
+		}
+
+		ConnectedUser other = (ConnectedUser) obj;
+		return this.token.equals(other.getToken()) && this.idUser.equals(other.getIdUser());
+	}
+
 	public ConnectedUser(String token, ObjectId objectId) {
 		super();
 		this.token = token;

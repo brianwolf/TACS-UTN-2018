@@ -16,8 +16,13 @@
 	<!-- PERSISTANCE -->
 	<bean id="adminDao" 		class="ar.utn.tacs.dao.admin.impl.AdminDaoImpl" />
 	<bean id="externalDao" 		class="ar.utn.tacs.dao.external.impl.ExternalDaoImpl" />
-	<bean id="userDao" 			class="ar.utn.tacs.dao.user.impl.UserDaoImpl" />
+	<bean id="userDaoImpl"		class="ar.utn.tacs.dao.user.impl.UserDaoImpl" />
 	<bean id="walletDao" 		class="ar.utn.tacs.dao.wallet.impl.WalletDaoImpl" />
+	
+	<!-- CACHE -->
+	<bean id="userDao"		class="ar.utn.tacs.dao.user.impl.UserDaoCacheImpl">
+		<constructor-arg name="genericDao" ref="userDaoImpl" type="ar.utn.tacs.dao.GenericDao"/>
+	</bean>
 	
 	<!-- MOCKS -->
 <!-- 	<bean id="userDao" 			class="ar.utn.tacs.dao.user.impl.UserDaoMockImpl" /> -->
