@@ -2,68 +2,74 @@
   <app-page-header [heading]="'Sell'" [icon]="'fas fa-dollar-sign'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
-      <div class="card">
-        <div class="card-header">Seleccione la criptomoneda a vender</div>
-        <div class="card-body table-responsive">
-          <form role="form" #sellForm="ngForm" (ngSubmit)="onSubmit(sellForm)">
-            <div class="form-group input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fab fa-fw fa-btc"></i>
-                </span>
-              </div>
-              <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
-                <option *ngFor="let coin of coins" [ngValue]="coin">{{ coin.coin.ticker }} - {{ coin.coin.name }}</option>
-              </select>
-            </div>
-            <div *ngIf="coinSelected">
-              <label>Cotización actual en u$s</label>
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-fw fa-dollar-sign"></i>
-                  </span>
-                </div>
-                <span class="form-control">{{ coinSelected.coin.valueInDollars | number :'1.2' }}</span>
-              </div>
-            </div>
-            <div *ngIf="coinSelected">
-              <label>Disponible</label>
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fab fa-fw fa-quora"></i>
-                  </span>
-                </div>
-                <span class="form-control">{{ coinSelected.amount }}</span>
-              </div>
-            </div>
-            <div>
-              <label>Saldo en u$s</label>
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-fw fa-dollar-sign"></i>
-                  </span>
-                </div>
-                <span class="form-control">{{ saldoUSD | number :'1.2' }}</span>
-              </div>
-            </div>
-            <hr>
-            <div class="form-group input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fab fa-fw fa-quora"></i>
-                </span>
-              </div>
-              <input class="form-control" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
-                placeholder="Cantidad a vender" name="amount" ngModel required>
-            </div>
-            <button mat-raised-button color="primary" [disabled]="!sellForm.valid">{{ 'Sell' | translate }}</button> &nbsp;
-            <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
-          </form>
+      <form role="form" #sellForm="ngForm" (ngSubmit)="onSubmit(sellForm)">
+        <label>
+          <b>Seleccione la criptomoneda</b>
+        </label>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fab fa-fw fa-btc"></i>
+            </span>
+          </div>
+          <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
+            <option *ngFor="let coin of coins" [ngValue]="coin">{{ coin.coin.ticker }} - {{ coin.coin.name }}</option>
+          </select>
         </div>
-      </div>
+        <div *ngIf="coinSelected">
+          <label>Cotización actual en u$s</label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-fw fa-dollar-sign"></i>
+              </span>
+            </div>
+            <span class="form-control text-right">{{ coinSelected.coin.valueInDollars | number :'1.2' }}</span>
+          </div>
+          <label>Disponible</label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fab fa-fw fa-quora"></i>
+              </span>
+            </div>
+            <span class="form-control text-right">{{ coinSelected.amount }}</span>
+          </div>
+        </div>
+        <app-dollar-balance></app-dollar-balance>
+        <div *ngIf="coinSelected">
+          <hr>
+          <label>Cantidad a vender</label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fab fa-fw fa-quora"></i>
+              </span>
+            </div>
+            <input class="form-control text-right" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
+              name="amount" ngModel required>
+          </div>
+          <label>
+            <b>Monto a acreditar</b>
+          </label>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-fw fa-dollar-sign"></i>
+              </span>
+            </div>
+            <span class="form-control text-right">
+              {{ sellForm.value.amount * coinSelected.coin.valueInDollars | number :'1.2' }}
+            </span>
+          </div>
+        </div>
+        <hr>
+        <div class="row justify-content-center">
+          <button mat-raised-button color="primary" [disabled]="!sellForm.valid">{{ 'Sell' | translate }}</button> &nbsp;
+          <button mat-raised-button type="reset" (click)="reset()">{{ 'Refresh' | translate }}</button> &nbsp;
+          <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

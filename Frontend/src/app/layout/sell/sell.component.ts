@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
+import { DollarBalanceComponent } from '../components/dollar-balance/dollar-balance.component';
 
 @Component({
   selector: 'app-sell',
@@ -11,8 +12,9 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class SellComponent implements OnInit {
 
+  @ViewChild(DollarBalanceComponent)
+  private saldo: DollarBalanceComponent;
   coinSelected;
-  saldoUSD;
   coins;
 
   constructor(public alertService: AlertService, private userService: UserService) { }
@@ -45,7 +47,7 @@ export class SellComponent implements OnInit {
   getWallet() {
     this.userService.getWallet().subscribe((data: any) => {
       this.coins = data.coinAmounts;
-      this.saldoUSD = data.dolarAmount;
+      this.saldo.getWallet();
     });
   }
 

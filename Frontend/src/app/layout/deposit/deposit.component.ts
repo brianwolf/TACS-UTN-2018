@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
@@ -9,19 +9,9 @@ import { UserService } from '../../shared/services/user.service';
   templateUrl: './deposit.component.html',
   animations: [routerTransition()]
 })
-export class DepositComponent implements OnInit {
-
-  saldoUSD;
+export class DepositComponent {
 
   constructor(public alertService: AlertService, private userService: UserService) { }
-
-  ngOnInit() {
-    this.getWallet();
-  }
-
-  getWallet() {
-    this.userService.getWallet().subscribe((data: any) => this.saldoUSD = data.dolarAmount);
-  }
 
   onSubmit(form: NgForm) {
     if (form.value.amount < 100) {
@@ -32,7 +22,7 @@ export class DepositComponent implements OnInit {
         .subscribe(
           success => this.alertService.success('El estado de su depósito se verificará en las próximas 24 horas.'),
           error => this.alertService.error(error.error.message),
-        );
+      );
     }
     form.reset();
   }
