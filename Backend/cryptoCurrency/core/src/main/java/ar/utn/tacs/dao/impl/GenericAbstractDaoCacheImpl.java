@@ -30,4 +30,9 @@ public abstract class GenericAbstractDaoCacheImpl<T extends GenericDao> extends 
 	protected <H> List<H> getListCache(String keyDBName, Class<H> clazz) {
 		return (List<H>) this.mapCache.get(keyDBName);
 	}
+	
+	protected void executeAsynchronously(Runnable runnable) {
+		Thread thread = new Thread(runnable);
+		thread.start();
+	}
 }

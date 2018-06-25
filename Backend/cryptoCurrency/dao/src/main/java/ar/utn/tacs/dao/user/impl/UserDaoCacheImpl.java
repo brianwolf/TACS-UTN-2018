@@ -3,6 +3,7 @@ package ar.utn.tacs.dao.user.impl;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 
@@ -29,10 +30,16 @@ public class UserDaoCacheImpl extends GenericAbstractDaoCacheImpl<UserDao> imple
 
 	private void updateCacheByToken(String token) {
 		ConnectedUser connectedUser = this.getByProperty("token", token, ConnectedUser.class);
+		connectedUser.setTimeConnecting(new Date());
 		this.addDataInCache(CONNECTED_USERS_CACHE, connectedUser);
-
+		
 		User user = genericDao.getUserById(connectedUser.getIdUser());
 		this.addDataInCache(USERS_CACHE, user);
+		
+		this.executeAsynchronously(() -> {
+			genericDao.deleteConnectedUserById(connectedUser.getId());
+			genericDao.insertConnectedUser(connectedUser);
+		});
 	}
 
 	private ConnectedUser getConnectedUserInCacheByToken(String token) {
@@ -59,11 +66,6 @@ public class UserDaoCacheImpl extends GenericAbstractDaoCacheImpl<UserDao> imple
 		return this.getUserInCacheById(connectedUser.getIdUser());
 	}
 
-	private void executeAsynchronously(Runnable runnable) {
-		Thread thread = new Thread(runnable);
-		thread.start();
-	}
-
 	@Override
 	public void deleteConnectedUserByToken(String token) {
 		List<ConnectedUser> connectedUsersCache = this.getListCache(CONNECTED_USERS_CACHE, ConnectedUser.class);
@@ -87,7 +89,7 @@ public class UserDaoCacheImpl extends GenericAbstractDaoCacheImpl<UserDao> imple
 
 		ConnectedUser connectedUserInDB =  this.getById(connectedUser.getId(), ConnectedUser.class);
 		if (connectedUserInDB == null) {
-			return this.getUserInCacheById(connectedUser.getIdUser());	
+			return null;	
 		}
 		
 		Date lastUpdate  = this.getById(connectedUser.getId(), ConnectedUser.class).getTimeConnecting();
@@ -154,13 +156,15 @@ public class UserDaoCacheImpl extends GenericAbstractDaoCacheImpl<UserDao> imple
 		ConnectedUser connectedUserInCache = this.getConnectedUserInCacheByToken(connectedUser.getToken());
 		if (connectedUserInCache == null) {
 			this.addDataInCache(CONNECTED_USERS_CACHE, connectedUser);
-			return;
 		}
 
 		List<ConnectedUser> connectedUsersCache = this.getListCache(CONNECTED_USERS_CACHE, ConnectedUser.class);
 		connectedUsersCache.remove(connectedUserInCache);
 		connectedUsersCache.add(connectedUser);
-
+		
+		this.executeAsynchronously(() -> {
+			genericDao.insertConnectedUser(connectedUser);
+		});
 	}
 
 	@Override
@@ -184,8 +188,12 @@ public class UserDaoCacheImpl extends GenericAbstractDaoCacheImpl<UserDao> imple
 		minTime.add(Calendar.MINUTE, -timeInMinutes);
 
 		List<ConnectedUser> connectedUsersCache = this.getListCache(CONNECTED_USERS_CACHE, ConnectedUser.class);
-		connectedUsersCache.removeIf(cu -> cu.getTimeConnecting().before(minTime.getTime()));
-
+		List<ConnectedUser> connectedUsersToRemove = connectedUsersCache.stream().filter(cu -> cu.getTimeConnecting().before(minTime.getTime())).collect(Collectors.toList());;
+		connectedUsersCache.removeAll(connectedUsersToRemove);
+		
+		List<User> usersCache = this.getListCache(USERS_CACHE, User.class);
+		usersCache.removeIf(u -> connectedUsersToRemove.stream().anyMatch(cu -> cu.getIdUser().equals(u.getId())));
+		
 		this.executeAsynchronously(() -> {
 			genericDao.updateConectedUsersInServer(timeInMinutes);
 		});
