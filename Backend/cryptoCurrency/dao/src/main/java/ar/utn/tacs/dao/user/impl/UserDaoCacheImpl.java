@@ -20,23 +20,12 @@ public class UserDaoCacheImpl extends GenericAbstractDaoCacheImpl<UserDao> imple
 	private static final String USERS_CACHE = "USERS";
 	private static final String CONNECTED_USERS_CACHE = "CONNECTED_USERS";
 
-	public UserDaoCacheImpl(GenericDao genericDao) {
+	private UserDaoCacheImpl(GenericDao genericDao) {
 		super(genericDao);
 
 		super.putDBCache(USERS_CACHE);
 		super.putDBCache(CONNECTED_USERS_CACHE);
 	}
-
-//	private ConnectedUser getLastTimeConnectingFromBD(ConnectedUser connectedUser) {
-//
-//		ConnectedUser connectedUserInDB = this.getById(connectedUser.getId(), ConnectedUser.class);
-//		
-//		Query q = new Query();
-//		q.addCriteria(Criteria.where("_id").is(connectedUser.getId()));
-//		q.fields().exclude("token");
-//
-//		return mongoTemplate.findOne(q, ConnectedUser.class);
-//	}
 
 	private void updateCacheByToken(String token) {
 		ConnectedUser connectedUser = this.getByProperty("token", token, ConnectedUser.class);
