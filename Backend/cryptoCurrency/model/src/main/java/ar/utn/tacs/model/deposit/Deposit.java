@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -82,6 +83,25 @@ public class Deposit extends MongoPersistentObject {
 	@JsonProperty(value = "state")
 	public String getState() {
 		return getActualState().getState();
+	}
+	
+	@JsonIgnore
+	public String getUserState() {
+		String userState="";
+		
+		switch (getActualState().getState()) {
+		case APPROVED:
+			userState = "APROBADO";
+			break;
+		case REJECTED:
+			userState = "RECHAZADO";
+			break;
+		case WAITING:
+			userState = "EN ESPERA";
+			break;
+		}
+		
+		return userState;
 	}
 
 	public void setState(String state) {

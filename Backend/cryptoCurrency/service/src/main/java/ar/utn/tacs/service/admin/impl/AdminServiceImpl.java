@@ -15,9 +15,13 @@ import ar.utn.tacs.model.commons.RejectingApprovedDepositException;
 import ar.utn.tacs.model.commons.RejectingRejectedDepositException;
 import ar.utn.tacs.model.commons.UserNotFoundException;
 import ar.utn.tacs.model.deposit.Deposit;
+import ar.utn.tacs.model.email.Mail;
+import ar.utn.tacs.model.email.MailBuilder;
 import ar.utn.tacs.model.user.User;
 import ar.utn.tacs.model.user.UserTransactionRest;
 import ar.utn.tacs.service.admin.AdminService;
+import ar.utn.tacs.service.external.ExternalService;
+import ar.utn.tacs.service.external.impl.ExternalServiceImpl;
 import ar.utn.tacs.service.user.UserService;
 import ar.utn.tacs.service.wallet.WalletService;
 import ar.utn.tacs.util.BeanUtil;
@@ -115,6 +119,9 @@ public class AdminServiceImpl implements AdminService {
 			
 			BeanUtil.getBean(WalletService.class).doDeposit(deposit);
 			
+			this.sendDepositChangeMail(depositFounded);
+
+			
 		} catch (ApprovingApprovedDepositException approvingApprovedDepositException) {
 			throw approvingApprovedDepositException;
 		
@@ -126,6 +133,11 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 	
+	private void sendDepositChangeMail(Deposit deposit) {
+		Mail mail = MailBuilder.buildDepositMail(deposit);
+		BeanUtil.getBean(ExternalService.class).sendMail(mail);
+	}
+
 	@Override
 	public void rejectDeposit(String depositNumber) throws RejectingRejectedDepositException, RejectingApprovedDepositException, NotExistDepositException {
 		
@@ -142,6 +154,8 @@ public class AdminServiceImpl implements AdminService {
 
 		depositFounded.setState(Deposit.REJECTED);
 		this.adminDao.updateDeposit(depositFounded);
+		
+		this.sendDepositChangeMail(depositFounded);
 	}
 
 	@Override

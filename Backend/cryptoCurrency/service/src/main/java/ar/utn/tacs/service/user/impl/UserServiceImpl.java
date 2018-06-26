@@ -220,19 +220,30 @@ public class UserServiceImpl implements UserService{
 		
 		//NEGRADA DE LOS DIOSES
 		if(!oldUser.getLogin().getNick().equals(newUser.getLogin().getNick())||!oldUser.getLogin().getPass().equals(userHashedPass)&&!oldHashedPass.equals(userHashedPass)) {
-			throw new UtnTacsException();
+			throw new UserNotFoundException();
 		}
 		
 		String newHashedPass = hashUtil.getStringHash(newUser.getLogin().getPass());
 		
-		if(!oldUser.getLogin().getPass().equals(newHashedPass)) {
+		//NEGRADA DE LOS DIOSES
+		if(newUser.getLogin().getPass()!=null) {
 			
-			user.getLogin().setPass(newHashedPass);
+			if(newUser.getLogin().getPass().trim().isEmpty()) {
+				throw new UtnTacsException();
+			}
+			if(!oldUser.getLogin().getPass().equals(newHashedPass)) {
+				
+				user.getLogin().setPass(newHashedPass);
+			}
 		}
 		
-		if(!oldUser.getPerson().getEmail().equals(newUser.getPerson().getEmail())) {
+		//NEGRADA DE LOS DIOSES
+		if(newUser.getPerson().getEmail()!=null) {
 			
-			user.getPerson().setEmail(newUser.getPerson().getEmail());
+			if(!oldUser.getPerson().getEmail().equals(newUser.getPerson().getEmail())) {
+				
+				user.getPerson().setEmail(newUser.getPerson().getEmail());
+			}
 		}
 		
 		this.userDao.updateUser(user);
