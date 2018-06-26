@@ -16,14 +16,14 @@
 
 	<context:component-scan base-package="ar.utn.tacs*" />
 	
-	<bean id="schedulerProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false">
-		<property name="ignoreUnresolvablePlaceholders" value="false"/>
-		<property name="locations">
-			<list>
-				<value>classpath*:scheduler.properties</value>
-			</list>
-		</property>
-	</bean>
+<!-- 	<bean id="schedulerProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="false"> -->
+<!-- 		<property name="ignoreUnresolvablePlaceholders" value="false"/> -->
+<!-- 		<property name="locations"> -->
+<!-- 			<list> -->
+<!-- 				<value>classpath*:scheduler.properties</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 	
 	<!-- ========================================================================= -->
 	<!-- COINMARKETCAP -->
