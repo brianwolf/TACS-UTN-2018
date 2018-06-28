@@ -1,6 +1,6 @@
 # TACS-UTN-2018
 
-Poryecto de criptomoneda realizado para la catedra de Tecnicas Avanzadas de Construccion de Software - Universidad Tecnologica Nacional
+Proyecto de criptomoneda realizado para la catedra de Tecnicas Avanzadas de Construccion de Software - Universidad Tecnologica Nacional
 
 ## Para empezar
 
@@ -8,11 +8,11 @@ Clonar el proyecto de git o descargar en archivo .zip/.tar.gz y descomprimir
 
 ### Prerrequisitos
 
-Tener MAVEN instalado
+Tener MAVEN y NPM instalado
 
 ### Deploy
 
-Para levantar el proyecto solo es necesario ir a la carpeta ../Backend/cryptoCurrency/ y ejecutar el comando:
+Para levantar el proyecto solo es necesario ejecutar runApp.sh o runApp.bat
 
 ```
 mvn clean install tomcat7:run
@@ -20,19 +20,26 @@ mvn clean install tomcat7:run
 
 ## Para probar
 
-Si se usa POSTMAN se puede importar el archivo ../Rest Json/TACS-UTN.postman_collection.json el cual contiene la collection de endpoints
+Si se usa INSOMNIA se puede importar el archivo ../Rest Json/Insomnia-UTN-TACS.json el cual contiene la collection de endpoints
 
 ### Un ejemplo seria:
 
 ```
-http://localhost:8080/apiWeb/users/login/userprueba/1234
+curl --request POST \
+  --url http://localhost:8080/utn/crypto-currency/users/login \
+  --header 'content-type: application/json' \
+  --data '{
+	"nick": "yisas",
+	"pass": "1234"
+}'
 ```
 
 ## Construido con:
 
 * [Jersey](https://jersey.github.io/documentation/latest/index.html) - Web Service
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [Hibernate](http://hibernate.org/orm/documentation/) - Framework ORM
+* [Spring Data](http://projects.spring.io/spring-data/#quick-start) - Framework ORM
+* [Mongo DB](https://docs.mongodb.com/manual/?_ga=2.169420449.1849471009.1530199703-2038166312.1530199703) - Base de Datos
 * [Spring Framework](https://docs.spring.io/spring/docs/5.0.5.RELEASE/javadoc-api/) - Framework Dependency Injection
 
 ## Autores
