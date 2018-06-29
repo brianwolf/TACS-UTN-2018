@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
 import { AdminService } from '../../shared/services/admin.service';
@@ -10,29 +9,20 @@ import { AdminService } from '../../shared/services/admin.service';
   styles: [`
   th { font-weight: bold }
   td { text-align: right }
-  mat-form-field { width: 100% }
   `],
   animations: [routerTransition()]
 })
-export class CompareComponent implements OnInit {
+export class CompareComponent {
 
-  disabled;
   winner;
   loser;
 
+  proccesing;
+
   constructor(public alertService: AlertService, public adminService: AdminService) { }
 
-  ngOnInit() {
-    this.adminService.fillNicksSelector();
-  }
-
-  activateButton() {
-    this.winner = null;
-    this.disabled = false;
-  }
-
   compare(nick1, nick2) {
-    this.disabled = true;
+    this.proccesing = true;
     this.adminService.getUser(nick1).subscribe(
       (user1: any) =>
         this.adminService.getUser(nick2).subscribe(
@@ -44,6 +34,7 @@ export class CompareComponent implements OnInit {
               this.winner = user1.user;
               this.loser = user2.user;
             }
+            this.proccesing = false;
           }
         )
       ,

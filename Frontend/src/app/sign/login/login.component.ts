@@ -17,9 +17,7 @@ export class LoginComponent {
 
   onSubmit(form: NgForm) {
     this.loading = true;
-    const body = { nick: form.value.nick, pass: form.value.pass };
-    form.controls['pass'].reset();
-    this.userService.login(body).subscribe(
+    this.userService.login(form.value).subscribe(
       (data: any) => {
         localStorage.setItem('currentToken', data.token);
         this.checkAdmin();
@@ -29,6 +27,7 @@ export class LoginComponent {
         this.loading = false;
       }
     );
+    form.controls['pass'].reset();
   }
 
   checkAdmin() {

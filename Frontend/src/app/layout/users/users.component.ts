@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { AdminService } from '../../shared/services/admin.service';
 import { AlertService } from '../../shared/services/alert.service';
@@ -7,15 +6,10 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styles: [`
-  td { text-align:center }
-  mat-form-field { width: 100% }
-  `],
+  styles: [` td { text-align:center } `],
   animations: [routerTransition()]
 })
-export class UsersComponent implements OnInit {
-
-  disabled = true;
+export class UsersComponent {
 
   user;
   rol;
@@ -24,30 +18,15 @@ export class UsersComponent implements OnInit {
 
   constructor(public alertService: AlertService, public adminService: AdminService) { }
 
-  ngOnInit() {
-    this.adminService.fillNicksSelector();
-  }
-
-  activateButton() {
-    this.user = null;
-    this.disabled = false;
-  }
-
   getUser(nick) {
-    this.disabled = true;
-    if (!this.adminService.nicks.includes(nick)) {
-      this.alertService.warning('El usuario seleccionado no existe.');
-    } else {
-      this.adminService.getUser(nick).subscribe(
-        data => {
-          this.user = data;
-          this.rol = this.getUserRol(this.user.user.roles);
-          this.proccesing = false;
-        },
-        error => this.alertService.error(error.error.message)
-      );
-
-    }
+    this.adminService.getUser(nick).subscribe(
+      data => {
+        this.user = data;
+        this.rol = this.getUserRol(this.user.user.roles);
+        this.proccesing = false;
+      },
+      error => this.alertService.error(error.error.message)
+    );
   }
 
   getUserRol(roles) {
@@ -62,7 +41,7 @@ export class UsersComponent implements OnInit {
   convertAdmin(nick) {
     this.proccesing = true;
     this.adminService.convertAdmin(nick).subscribe(
-      () => this.getUser(nick),
+      success => this.getUser(nick),
       error => this.alertService.error(error.error.message)
     );
   }

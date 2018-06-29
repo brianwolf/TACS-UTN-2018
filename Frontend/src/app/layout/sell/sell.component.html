@@ -2,7 +2,7 @@
   <app-page-header [heading]="'Sell'" [icon]="'fas fa-dollar-sign'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
-      <form role="form" #sellForm="ngForm" (ngSubmit)="onSubmit(sellForm)">
+      <form [formGroup]="sellForm" (ngSubmit)="onSubmit()">
         <label>
           <b>Seleccione la criptomoneda</b>
         </label>
@@ -12,11 +12,11 @@
               <i class="fab fa-fw fa-btc"></i>
             </span>
           </div>
-          <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
+          <select class="form-control" formControlName="coin" (change)="resetQuantity()" required>
             <option *ngFor="let coin of coins" [ngValue]="coin">{{ coin.coin.ticker }} - {{ coin.coin.name }}</option>
           </select>
         </div>
-        <div *ngIf="coinSelected">
+        <div *ngIf="sellForm.value.coin">
           <label>Cotización actual en u$s</label>
           <div class="form-group input-group">
             <div class="input-group-prepend">
@@ -24,7 +24,7 @@
                 <i class="fas fa-fw fa-dollar-sign"></i>
               </span>
             </div>
-            <span class="form-control text-right">{{ coinSelected.coin.valueInDollars | number :'1.2' }}</span>
+            <span class="form-control text-right">{{ sellForm.value.coin.coin.valueInDollars | number :'1.2' }}</span>
           </div>
           <label>Disponible</label>
           <div class="form-group input-group">
@@ -33,11 +33,8 @@
                 <i class="fab fa-fw fa-quora"></i>
               </span>
             </div>
-            <span class="form-control text-right">{{ coinSelected.amount }}</span>
+            <span class="form-control text-right">{{ sellForm.value.coin.amount }}</span>
           </div>
-        </div>
-        <app-dollar-balance></app-dollar-balance>
-        <div *ngIf="coinSelected">
           <hr>
           <label>Cantidad a vender</label>
           <div class="form-group input-group">
@@ -46,8 +43,12 @@
                 <i class="fab fa-fw fa-quora"></i>
               </span>
             </div>
-            <input class="form-control text-right" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
-              name="amount" ngModel required>
+            <input class="form-control text-right" type="number" formControlName="quantity" min="0.00000001">
+            <a class="input-group-append" (click)="sellForm.patchValue({ quantity: sellForm.value.coin.amount })">
+              <span class="input-group-text">
+                <b>MAX</b>
+              </span>
+            </a>
           </div>
           <label>
             <b>Monto a acreditar</b>
@@ -59,14 +60,15 @@
               </span>
             </div>
             <span class="form-control text-right">
-              {{ sellForm.value.amount * coinSelected.coin.valueInDollars | number :'1.2' }}
+              {{ sellForm.value.quantity * sellForm.value.coin.coin.valueInDollars | number :'1.2' }}
             </span>
           </div>
         </div>
+        <app-dollar-balance></app-dollar-balance>
         <hr>
         <div class="row justify-content-center">
           <button mat-raised-button color="primary" [disabled]="!sellForm.valid">{{ 'Sell' | translate }}</button> &nbsp;
-          <button mat-raised-button type="reset" (click)="reset()">{{ 'Refresh' | translate }}</button> &nbsp;
+          <button mat-raised-button type="reset" [disabled]="sellForm.pristine" (click)="reset()">{{ 'Refresh' | translate }}</button> &nbsp;
           <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
         </div>
       </form>

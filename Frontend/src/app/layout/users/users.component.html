@@ -5,28 +5,14 @@
       <div class="card">
         <div class="card-header">Información de los Usuarios del Sistema</div>
         <div class="card-body table-responsive">
-          <form role="form" #nickForm="ngForm" (ngSubmit)="getUser(nickSelected.value)">
-
-            <mat-form-field>
-              <input autocapitalize="none" autocorrect="off" name="nick" placeholder="Seleccione al usuario" aria-label="Number" matInput
-                [formControl]="adminService.nicksControl" [matAutocomplete]="auto" required #nickSelected>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="activateButton()" (opened)="adminService.nicksControl.setValue('')">
-                <mat-option *ngFor="let nick of adminService.filteredNicks | async" [value]="nick">
-                  {{ nick }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <br>
-            <!-- <div class="form-group">
-            <label>Seleccione al usuario</label>
-            <select class="form-control" (change)="activateButton()" #userSelected>
-              <option *ngFor="let user of users" [value]="user">{{ user }}</option>
-            </select>
-          </div> -->
-            <button mat-raised-button color="primary" [disabled]="!nickForm.valid || disabled">Obtener Información</button> &nbsp;
+          <app-nick-selector #selector></app-nick-selector>
+          <div class="row justify-content-center">
+            <button mat-raised-button color="primary" [disabled]="!selector.nicksControl.valid || !selector.nicksControl.touched" (click)="getUser(selector.nicksControl.value); selector.nicksControl.touched = false;">
+              Obtener Información
+            </button> &nbsp;
             <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
-          </form>
-          <div *ngIf="user" class="card-body table-responsive">
+          </div>
+          <div *ngIf="user">
             <hr>
             <table class="table table-hover table-striped">
               <tbody>
@@ -58,9 +44,9 @@
                 </tr>
               </tbody>
             </table>
-            <div class="row justify-content-center">
-              <button *ngIf="rol === 'Usuario'" mat-raised-button color="primary" [disabled]="proccesing" (click)="convertAdmin(user.user.login.nick)">Hacer Administrador</button>
-            </div>
+          </div>
+          <div class="row justify-content-center">
+            <button *ngIf="rol === 'Usuario'" mat-raised-button color="primary" [disabled]="proccesing" (click)="convertAdmin(user.user.login.nick)">Hacer Administrador</button>
           </div>
         </div>
       </div>

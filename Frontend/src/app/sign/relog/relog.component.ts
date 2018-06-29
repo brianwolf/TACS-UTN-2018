@@ -18,14 +18,12 @@ export class RelogComponent {
   onSubmit(form: NgForm) {
     this.loading = true;
     this.userService.relog(form.value.nick).subscribe(
-      data => {
-        this.alertService.success('Se envió un mail con su nueva contraseña.');
-        this.router.navigate(['login']);
-      },
+      success => this.alertService.success('Se envió un mail con su nueva contraseña.'),
       error => {
         this.alertService.error(error.error.message);
         this.loading = false;
-      }
+      },
+      () => this.router.navigate(['login'])
     );
   }
 

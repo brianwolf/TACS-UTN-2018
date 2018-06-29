@@ -2,7 +2,7 @@
   <app-page-header [heading]="'Buy'" [icon]="'fab fa-btc'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
-      <form role="form" #buyForm="ngForm" (ngSubmit)="onSubmit(buyForm)">
+      <form [formGroup]="buyForm" (ngSubmit)="onSubmit()">
         <label>
           <b>Seleccione la criptomoneda</b>
         </label>
@@ -12,11 +12,11 @@
               <i class="fab fa-fw fa-btc"></i>
             </span>
           </div>
-          <select class="form-control" name="coin" [(ngModel)]="coinSelected" required>
+          <select class="form-control" formControlName="coin" (change)="resetQuantity()" required>
             <option *ngFor="let coin of coins" [ngValue]="coin">{{ coin.ticker }} - {{ coin.name }}</option>
           </select>
         </div>
-        <div *ngIf="coinSelected">
+        <div *ngIf="buyForm.value.coin">
           <label>Cotización actual en u$s</label>
           <div class="form-group input-group">
             <div class="input-group-prepend">
@@ -24,11 +24,8 @@
                 <i class="fas fa-fw fa-dollar-sign"></i>
               </span>
             </div>
-            <span class="form-control text-right">{{ coinSelected.valueInDollars | number :'1.2' }}</span>
+            <span class="form-control text-right">{{ buyForm.value.coin.valueInDollars | number :'1.2' }}</span>
           </div>
-        </div>
-        <app-dollar-balance></app-dollar-balance>
-        <div *ngIf="coinSelected">
           <hr>
           <label>Cantidad a comprar</label>
           <div class="form-group input-group">
@@ -37,8 +34,12 @@
                 <i class="fab fa-fw fa-quora"></i>
               </span>
             </div>
-            <input class="form-control text-right" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="0.00000001"
-              name="amount" ngModel required>
+            <input class="form-control text-right" type="number" formControlName="quantity" min="0.00000001">
+            <a class="input-group-append" (click)="buyForm.patchValue({ quantity: maxQuantity() })">
+              <span class="input-group-text">
+                <b>MAX</b>
+              </span>
+            </a>
           </div>
           <label>
             <b>Monto a debitar</b>
@@ -50,14 +51,15 @@
               </span>
             </div>
             <span class="form-control text-right">
-              {{ buyForm.value.amount * coinSelected.valueInDollars | number :'1.2' }}
+              {{ buyForm.value.quantity * buyForm.value.coin.valueInDollars | number :'1.2' }}
             </span>
           </div>
         </div>
+        <app-dollar-balance></app-dollar-balance>
         <hr>
         <div class="row justify-content-center">
           <button mat-raised-button color="primary" [disabled]="!buyForm.valid">{{ 'Buy' | translate }}</button> &nbsp;
-          <button mat-raised-button type="reset" (click)="reset()">{{ 'Refresh' | translate }}</button> &nbsp;
+          <button mat-raised-button type="reset" [disabled]="buyForm.pristine" (click)="reset()">{{ 'Refresh' | translate }}</button> &nbsp;
           <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
         </div>
       </form>

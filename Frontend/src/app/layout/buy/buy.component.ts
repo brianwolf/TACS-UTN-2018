@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
@@ -14,7 +14,12 @@ export class BuyComponent implements OnInit {
 
   @ViewChild(DollarBalanceComponent)
   private saldo: DollarBalanceComponent;
-  coinSelected;
+
+  buyForm = new FormGroup({
+    coin: new FormControl(),
+    quantity: new FormControl(0, [Validators.required, Validators.min(0.00000001)])
+  });
+
   coins;
 
   constructor(public alertService: AlertService, private userService: UserService) { }
@@ -23,35 +28,40 @@ export class BuyComponent implements OnInit {
     this.reset();
   }
 
-  onSubmit(form: NgForm) {
-    if (form.value.amount <= 0) {
-      this.alertService.warning('Debe ingresar un número positivo.');
-    } else if (form.value.amount * form.value.coin.valueInDollars > this.saldo.saldoUSD) {
+  onSubmit() {
+    if (this.buyForm.value.quantity * this.buyForm.value.coin.valueInDollars > this.saldo.saldoUSD) {
       this.alertService.warning('No tiene saldo suficiente en u$s para realizar la transacción.');
     } else {
-      const body = { ticker: form.value.coin.ticker, amount: form.value.amount };
-      this.userService.buy(body)
-        .subscribe(
-          data => this.alertService.success(`Se compró ${body.amount} ${body.ticker}.`),
-          error => this.alertService.error(error.error.message),
-          () => {
-            this.reset();
-            form.reset();
-            return;
-          }
-        );
+      const body = { ticker: this.buyForm.value.coin.ticker, amount: this.buyForm.value.quantity };
+      this.userService.buy(body).subscribe(
+        success => this.alertService.success(`Se compró ${body.amount} ${body.ticker}.`),
+        error => this.alertService.error(error.error.message),
+        () => {
+          this.reset();
+          return;
+        }
+      );
     }
-    form.controls['amount'].reset();
+    this.resetQuantity();
+  }
+
+  reset() {
+    this.coins = null;
+    this.buyForm.reset();
+    this.fillSelector();
+    this.saldo.getWallet();
   }
 
   fillSelector() {
     this.userService.getAllCoins().subscribe(data => this.coins = data);
   }
 
-  reset() {
-    this.coins = null;
-    this.fillSelector();
-    this.saldo.getWallet();
+  resetQuantity() {
+    this.buyForm.controls['quantity'].reset();
+  }
+
+  maxQuantity() {
+    return Math.floor(this.saldo.saldoUSD / this.buyForm.value.coin.valueInDollars);
   }
 
 }

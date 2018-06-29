@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
@@ -11,20 +11,19 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class DepositComponent {
 
+  depositForm = new FormGroup({
+    number: new FormControl(null, [Validators.required, Validators.min(1)]),
+    amount: new FormControl(null, [Validators.required, Validators.min(100)])
+  });
+
   constructor(public alertService: AlertService, private userService: UserService) { }
 
-  onSubmit(form: NgForm) {
-    if (form.value.amount < 100) {
-      this.alertService.warning('El monto mínimo es de u$s 100.-');
-    } else {
-      const body = { number: form.value.ticket, amount: form.value.amount };
-      this.userService.deposit(body)
-        .subscribe(
-          success => this.alertService.success('El estado de su depósito se verificará en las próximas 24 horas.'),
-          error => this.alertService.error(error.error.message),
-      );
-    }
-    form.reset();
+  onSubmit() {
+    this.userService.deposit(this.depositForm.value).subscribe(
+      success => this.alertService.success('El estado de su depósito se verificará en las próximas 24 horas.'),
+      error => this.alertService.error(error.error.message)
+    );
+    this.depositForm.reset();
   }
 
 }

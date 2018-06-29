@@ -28,6 +28,7 @@ import { UsersComponent } from './users/users.component';
 import { CompareComponent } from './compare/compare.component';
 import { HistoryComponent } from './history/history.component';
 import { DollarBalanceComponent } from './components/dollar-balance/dollar-balance.component';
+import { NickSelectorComponent } from './components/nick-selector/nick-selector.component';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { DollarBalanceComponent } from './components/dollar-balance/dollar-balan
     UsersComponent,
     CompareComponent,
     HistoryComponent,
-    DollarBalanceComponent
+    DollarBalanceComponent,
+    NickSelectorComponent
   ]
 })
 export class LayoutModule { }

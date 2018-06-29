@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { routerTransition } from '../../router.animations';
 import { AlertService } from '../../shared/services/alert.service';
 import { UserService } from '../../shared/services/user.service';
@@ -14,7 +14,12 @@ export class SellComponent implements OnInit {
 
   @ViewChild(DollarBalanceComponent)
   private saldo: DollarBalanceComponent;
-  coinSelected;
+
+  sellForm = new FormGroup({
+    coin: new FormControl(),
+    quantity: new FormControl(0, [Validators.required, Validators.min(0.00000001)])
+  });
+
   coins;
 
   constructor(public alertService: AlertService, private userService: UserService) { }
@@ -23,25 +28,21 @@ export class SellComponent implements OnInit {
     this.reset();
   }
 
-  onSubmit(form: NgForm) {
-    if (form.value.amount <= 0) {
-      this.alertService.warning('Debe ingresar un número positivo.');
-    } else if (form.value.amount > form.value.coin.amount) {
+  onSubmit() {
+    if (this.sellForm.value.quantity > this.sellForm.value.coin.amount) {
       this.alertService.warning('La cantidad ingresada es mayor a la disponible.');
     } else {
-      const body = { ticker: form.value.coin.coin.ticker, amount: form.value.amount };
-      this.userService.sell(body)
-        .subscribe(
-          data => this.alertService.success(`Se vendió ${body.amount} ${body.ticker}.`),
-          error => this.alertService.error(error.error.message),
-          () => {
-            this.reset();
-            form.reset();
-            return;
-          }
-        );
+      const body = { ticker: this.sellForm.value.coin.coin.ticker, amount: this.sellForm.value.quantity };
+      this.userService.sell(body).subscribe(
+        success => this.alertService.success(`Se vendió ${body.amount} ${body.ticker}.`),
+        error => this.alertService.error(error.error.message),
+        () => {
+          this.reset();
+          return;
+        }
+      );
     }
-    form.controls['amount'].reset();
+    this.resetQuantity();
   }
 
   getWallet() {
@@ -53,7 +54,12 @@ export class SellComponent implements OnInit {
 
   reset() {
     this.coins = null;
+    this.sellForm.reset();
     this.getWallet();
+  }
+
+  resetQuantity() {
+    this.sellForm.controls['quantity'].reset();
   }
 
 }

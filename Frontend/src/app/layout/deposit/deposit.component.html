@@ -2,7 +2,7 @@
   <app-page-header [heading]="'Deposit'" [icon]="'fas fa-money-check-alt'"></app-page-header>
   <div class="row">
     <div class="mx-auto">
-      <form role="form" #depositForm="ngForm" (ngSubmit)="onSubmit(depositForm)">
+      <form [formGroup]="depositForm" (ngSubmit)="onSubmit()">
         <app-dollar-balance></app-dollar-balance>
         <hr>
         <label>
@@ -14,8 +14,7 @@
               <i class="fas fa-fw fa-dollar-sign"></i>
             </span>
           </div>
-          <input class="form-control text-right" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="100"
-            placeholder="Monto (mínimo u$s 100.-)" name="amount" ngModel required>
+          <input class="form-control text-right" type="number" formControlName="amount" min="100" placeholder="Monto (mínimo u$s 100.-)">
         </div>
         <div class="form-group input-group">
           <div class="input-group-prepend">
@@ -23,12 +22,11 @@
               <i class="fab fa-fw fa-slack-hash"></i>
             </span>
           </div>
-          <input class="form-control text-right" type="number" onkeypress="return event.charCode >= 46 && event.charCode <= 57" min="1"
-            placeholder="Numero de comprobante" name="ticket" ngModel required>
+          <input class="form-control text-right" type="number" formControlName="number" min="1" placeholder="Numero de comprobante">
         </div>
         <hr>
         <button mat-raised-button color="primary" [disabled]="!depositForm.valid">{{ 'Inform' | translate }}</button> &nbsp;
-        <button mat-raised-button type="reset">{{ 'Clean' | translate }}</button> &nbsp;
+        <button mat-raised-button type="reset" [disabled]="depositForm.pristine">{{ 'Clean' | translate }}</button> &nbsp;
         <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>
       </form>
     </div>
