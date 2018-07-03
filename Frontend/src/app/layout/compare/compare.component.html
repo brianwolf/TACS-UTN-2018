@@ -11,8 +11,8 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <button mat-raised-button color="primary" (click)="compare(first.nicksControl.value, second.nicksControl.value); first.nicksControl.touched = false; second.nicksControl.touched = false;"
-          [disabled]="!first.nicksControl.valid || !second.nicksControl.valid || (!first.nicksControl.touched && !second.nicksControl.touched) || proccesing">
+        <button mat-raised-button color="primary" (click)="compare(first.nick.value, second.nick.value); first.nick.touched = false; second.nick.touched = false;"
+          [disabled]="!first.nick.valid || !second.nick.valid || (!first.nick.touched && !second.nick.touched) || proccesing">
           {{ 'Compare' | translate }}
         </button> &nbsp;
         <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>

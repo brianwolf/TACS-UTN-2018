@@ -31,18 +31,15 @@ export class SellComponent implements OnInit {
   onSubmit() {
     if (this.sellForm.value.quantity > this.sellForm.value.coin.amount) {
       this.alertService.warning('La cantidad ingresada es mayor a la disponible.');
+      this.resetQuantity();
     } else {
       const body = { ticker: this.sellForm.value.coin.coin.ticker, amount: this.sellForm.value.quantity };
       this.userService.sell(body).subscribe(
         success => this.alertService.success(`Se vendió ${body.amount} ${body.ticker}.`),
         error => this.alertService.error(error.error.message),
-        () => {
-          this.reset();
-          return;
-        }
+        () => this.reset()
       );
     }
-    this.resetQuantity();
   }
 
   getWallet() {

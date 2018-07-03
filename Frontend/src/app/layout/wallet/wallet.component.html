@@ -27,7 +27,7 @@
             <ng-container matColumnDef="amount">
               <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Quantity' | translate }}</th>
               <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.amount}} </td>
-              <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet.dolarAmount | currency :'USD':' $ '}} </td>
+              <td class="text-right" mat-footer-cell *matFooterCellDef> {{wallet?.dolarAmount | currency :'USD':' $ '}} </td>
             </ng-container>
 
             <ng-container matColumnDef="valueInDollars">
@@ -39,7 +39,7 @@
             <ng-container matColumnDef="total">
               <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Value in USD' | translate }}</th>
               <td class="text-right" mat-cell *matCellDef="let coin"> {{coin.coin.valueInDollars * coin.amount | currency :'USD':'$ ':'1.2-4'}} </td>
-              <td class="text-right font-weight-bold" mat-footer-cell *matFooterCellDef> {{wallet.dolarFinalBalance | currency :'USD':' $ '}} </td>
+              <td class="text-right font-weight-bold" mat-footer-cell *matFooterCellDef> {{wallet?.dolarFinalBalance | currency :'USD':' $ '}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -48,7 +48,7 @@
 
           </table>
 
-          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
 
         </div>
       </div>

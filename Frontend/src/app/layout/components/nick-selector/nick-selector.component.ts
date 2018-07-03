@@ -8,13 +8,13 @@ import { AlertService } from '../../../shared/services/alert.service';
 @Component({
   selector: 'app-nick-selector',
   templateUrl: './nick-selector.component.html',
-  styles: ['mat-form-field { width: 100% }']
+  styles: [`mat-form-field { width: 100% }`]
 })
 export class NickSelectorComponent implements OnInit {
 
   nicks: string[] = [];
-  nicksControl: FormControl = new FormControl(null, this.validateNick());
   filteredNicks: Observable<string[]>;
+  nick: FormControl = new FormControl(null, this.validateNick());
 
   constructor(public alertService: AlertService, public adminService: AdminService) { }
 
@@ -26,7 +26,7 @@ export class NickSelectorComponent implements OnInit {
     this.adminService.getUsers().subscribe(
       (data: any) => this.nicks = data,
       error => this.alertService.error('No se pudo cargar a los usuarios.'),
-      () => this.filteredNicks = this.nicksControl.valueChanges.pipe(startWith(''), map(val => this.filterUser(val)))
+      () => this.filteredNicks = this.nick.valueChanges.pipe(startWith(''), map(val => this.filterUser(val)))
     );
   }
 
@@ -35,8 +35,8 @@ export class NickSelectorComponent implements OnInit {
   }
 
   validateNick() {
-    return (control: FormControl) => {
-      return this.nicks.includes(control.value) ? null : { 'validateNick': { valid: false } };
+    return (nick: FormControl) => {
+      return this.nicks.includes(nick.value) ? null : { 'validateNick': { valid: false } };
     };
   }
 

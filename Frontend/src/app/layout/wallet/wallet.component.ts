@@ -25,18 +25,16 @@ export class WalletComponent implements OnInit {
   }
 
   getWallet() {
-    this.userService.getWallet().subscribe(data => {
-      this.wallet = data;
-      this.coins.data = this.wallet.coinAmounts;
-      this.initTableFunctions();
-    });
+    this.userService.getWallet().subscribe(data => this.initTable(data));
   }
 
   applyFilter(filterValue: string) {
     this.coins.filter = filterValue;
   }
 
-  initTableFunctions() {
+  initTable(data) {
+    this.wallet = data;
+    this.coins.data = data.coinAmounts;
     /* Filtering */
     this.coins.filterPredicate = (coin, filter: string) => {
       const accumulator = (currentTerm, property) => {

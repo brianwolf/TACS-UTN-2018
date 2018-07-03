@@ -7,7 +7,7 @@
         <div class="card-body table-responsive">
           <app-nick-selector #selector></app-nick-selector>
           <div class="row justify-content-center">
-            <button mat-raised-button color="primary" [disabled]="!selector.nicksControl.valid || !selector.nicksControl.touched" (click)="getUser(selector.nicksControl.value); selector.nicksControl.touched = false;">
+            <button mat-raised-button color="primary" [disabled]="!selector.nick.valid || !selector.nick.touched" (click)="getUser(selector.nick.value); selector.nick.touched = false;">
               Obtener Información
             </button> &nbsp;
             <button mat-raised-button color="warn" routerLink="/dashboard">{{ 'Cancel' | translate }}</button>

@@ -26,20 +26,17 @@ export class AuthorizeComponent implements OnInit {
   }
 
   getDeposits() {
-    this.adminService.getDeposits()
-      .subscribe(
-        (data: any) => {
-          this.deposits.data = data;
-          this.initTableFunctions();
-          this.proccesing = false;
-        }
-      );
+    this.adminService.getDeposits().subscribe(
+      data => this.initTable(data),
+      error => this.alertService.error(error.error.message),
+      () => this.proccesing = false
+    );
   }
 
   approve(number: string) {
     this.proccesing = true;
     this.adminService.approveDeposit(number).subscribe(
-      data => this.alertService.success('Deposito Aprobado.'),
+      success => this.alertService.success('Deposito Aprobado.'),
       error => this.alertService.error(error.error.message),
       () => this.getDeposits()
     );
@@ -48,7 +45,7 @@ export class AuthorizeComponent implements OnInit {
   reject(number: string) {
     this.proccesing = true;
     this.adminService.rejectDeposit(number).subscribe(
-      data => this.alertService.warning('Deposito Rechazado.'),
+      success => this.alertService.warning('Deposito Rechazado.'),
       error => this.alertService.error(error.error.message),
       () => this.getDeposits()
     );
@@ -58,7 +55,8 @@ export class AuthorizeComponent implements OnInit {
     this.deposits.filter = filterValue.trim().toLowerCase();
   }
 
-  initTableFunctions() {
+  initTable(data) {
+    this.deposits.data = data;
     this.deposits.sort = this.sort;
     this.deposits.paginator = this.paginator;
   }

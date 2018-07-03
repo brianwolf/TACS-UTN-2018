@@ -35,21 +35,16 @@
             <ng-container matColumnDef="state">
               <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'State' | translate }}</th>
               <td class="text-right" mat-cell *matCellDef="let deposit">
-                <span *ngIf="deposit.state==='WAITING' && !proccesing">
-                  <a href="javascript:void(0)" (click)="approve(deposit.number)">
+                <span *ngIf="deposit.state === 'WAITING' && !proccesing">
+                  <a (click)="approve(deposit.number)">
                     <i class="fas fa-check-circle fa-2x text-success"></i>
                   </a>
                   &nbsp;
-                  <a href="javascript:void(0)" (click)="reject(deposit.number)">
+                  <a (click)="reject(deposit.number)">
                     <i class="fas fa-times-circle fa-2x text-danger"></i>
                   </a>
                 </span>
-                <span *ngIf="deposit.state==='APPROVED'">
-                  <b class="text-success">{{ deposit.state | translate }}</b>
-                </span>
-                <span *ngIf="deposit.state==='REJECTED'">
-                  <b class="text-danger">{{ deposit.state | translate }}</b>
-                </span>
+                <b *ngIf="deposit.state !== 'WAITING'" [ngClass]="{'text-success': deposit.state === 'APPROVED', 'text-danger': deposit.state === 'REJECTED'}">{{ deposit.state | translate }}</b>
               </td>
             </ng-container>
 
@@ -58,7 +53,7 @@
 
           </table>
 
-          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
 
         </div>
       </div>

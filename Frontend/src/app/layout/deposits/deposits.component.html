@@ -29,8 +29,8 @@
 
             <ng-container matColumnDef="state">
               <th style="direction: rtl" mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'State' | translate }}</th>
-              <td class="text-right" mat-cell *matCellDef="let deposit" [ngClass]="{'text-success': deposit.state === 'APPROVED', 'text-danger': deposit.state === 'REJECTED'}">
-                <b>{{ deposit.state | translate }}</b>
+              <td class="text-right" mat-cell *matCellDef="let deposit">
+                <b [ngClass]="{'text-success': deposit.state === 'APPROVED', 'text-danger': deposit.state === 'REJECTED'}">{{ deposit.state | translate }}</b>
               </td>
             </ng-container>
 
@@ -39,7 +39,7 @@
 
           </table>
 
-          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
 
         </div>
       </div>

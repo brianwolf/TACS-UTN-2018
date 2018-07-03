@@ -24,20 +24,17 @@ export class DepositsComponent implements OnInit {
   }
 
   getDeposits() {
-    this.userService.deposits().subscribe(
-      (data: any) => {
-        this.deposits.data = data;
-        this.initTableFunctions();
-      });
+    this.userService.deposits().subscribe(data => this.initTable(data));
+  }
+
+  initTable(data) {
+    this.deposits.data = data;
+    this.deposits.sort = this.sort;
+    this.deposits.paginator = this.paginator;
   }
 
   applyFilter(filterValue: string) {
-    this.deposits.filter = filterValue;
-  }
-
-  initTableFunctions() {
-    this.deposits.sort = this.sort;
-    this.deposits.paginator = this.paginator;
+    this.deposits.filter = filterValue.trim().toLowerCase();
   }
 
 }

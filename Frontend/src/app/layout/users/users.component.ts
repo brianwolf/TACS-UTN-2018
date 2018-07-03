@@ -23,9 +23,9 @@ export class UsersComponent {
       data => {
         this.user = data;
         this.rol = this.getUserRol(this.user.user.roles);
-        this.proccesing = false;
       },
-      error => this.alertService.error(error.error.message)
+      error => this.alertService.error(error.error.message),
+      () => this.proccesing = false
     );
   }
 

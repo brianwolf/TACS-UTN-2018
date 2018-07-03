@@ -15,23 +15,23 @@
             <tbody>
               <tr>
                 <th>{{ 'Today' | translate }}</th>
-                <td>{{ today.transactionsCount }}</td>
+                <td>{{ today?.transactionsCount }}</td>
               </tr>
               <tr>
                 <th>Ultimos 3 días</th>
-                <td>{{ threeDays.transactionsCount }}</td>
+                <td>{{ threeDays?.transactionsCount }}</td>
               </tr>
               <tr>
                 <th>Ultima semana</th>
-                <td>{{ lastweek.transactionsCount }}</td>
+                <td>{{ lastweek?.transactionsCount }}</td>
               </tr>
               <tr>
                 <th>Ultimo mes</th>
-                <td>{{ lastMonth.transactionsCount }}</td>
+                <td>{{ lastMonth?.transactionsCount }}</td>
               </tr>
               <tr>
                 <th>Inicio de los tiempos</th>
-                <td>{{ startTimes.transactionsCount }}</td>
+                <td>{{ startTimes?.transactionsCount }}</td>
               </tr>
             </tbody>
           </table>

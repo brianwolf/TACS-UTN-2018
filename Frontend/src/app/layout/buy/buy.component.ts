@@ -31,18 +31,15 @@ export class BuyComponent implements OnInit {
   onSubmit() {
     if (this.buyForm.value.quantity * this.buyForm.value.coin.valueInDollars > this.saldo.saldoUSD) {
       this.alertService.warning('No tiene saldo suficiente en u$s para realizar la transacción.');
+      this.resetQuantity();
     } else {
       const body = { ticker: this.buyForm.value.coin.ticker, amount: this.buyForm.value.quantity };
       this.userService.buy(body).subscribe(
         success => this.alertService.success(`Se compró ${body.amount} ${body.ticker}.`),
         error => this.alertService.error(error.error.message),
-        () => {
-          this.reset();
-          return;
-        }
+        () => this.reset()
       );
     }
-    this.resetQuantity();
   }
 
   reset() {

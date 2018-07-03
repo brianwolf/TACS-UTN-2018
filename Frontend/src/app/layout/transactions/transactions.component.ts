@@ -42,19 +42,18 @@ export class TransactionsComponent implements OnInit {
   }
 
   getTransactions() {
-    this.userService.getTransactions()
-      .subscribe(
-        data => {
-          const transactions = data;
-          this.operations.data = Array.from(transactions[0].operations[0]);
-          for (const i in transactions) {
-            for (const j in transactions[i].operations) {
-              this.operations.data.push(transactions[i].operations[j]);
-            }
+    this.userService.getTransactions().subscribe(
+      data => {
+        const transactions = data;
+        this.operations.data = Array.from(transactions[0].operations[0]);
+        for (const i in transactions) {
+          for (const j in transactions[i].operations) {
+            this.operations.data.push(transactions[i].operations[j]);
           }
-          this.initTableFunctions();
         }
-      );
+        this.initTableFunctions();
+      }
+    );
   }
 
   applyFilter(filterValue: string) {
